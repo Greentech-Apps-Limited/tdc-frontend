@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import { fontFamily } from "tailwindcss/defaultTheme"
 
 const config = {
   darkMode: ["class"],
@@ -19,6 +20,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        source_sans_3: ['var(--font-source_sans_3)', ...fontFamily.sans],
+        hidayatullah_demo: ['var(--font-hidayatullah-demo)', ...fontFamily.mono],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

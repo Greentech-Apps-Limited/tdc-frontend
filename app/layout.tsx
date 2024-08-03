@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import { Source_Sans_3 } from 'next/font/google';
+import { hidayatullahFont, source_sans_3 } from '@/lib/fonts';
 import './globals.css';
-
-const inter = Source_Sans_3({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Quran',
@@ -16,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${source_sans_3.variable} ${hidayatullahFont.variable} font-source_sans_3`}>
+        {children}
+      </body>
     </html>
   );
 }
