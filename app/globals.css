@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  background: url('/images/tdc-background-img.png') no-repeat center center fixed;
+  background-size: cover;
+}
