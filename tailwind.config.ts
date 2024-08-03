@@ -39,6 +39,33 @@ const config = {
         "announce-hide": "announce-hide 0.2s ease-out",
       },
       colors: {
+        neutral: {
+          DEFAULT: '#FFFFFF',
+          50: '#FAF6F5',
+          100: '#F9F5F1',
+          200: '#EDE9E5',
+          300: '#E1DCD8',
+          400: '#B2A59A',
+          500: '#85776A',
+          600: '#66574A',
+          700: '#50473E',
+          800: '#393028',
+          900: '#241D18',
+          950: '#000000',
+        },
+        brown: {
+          DEFAULT: '',
+          100: '#FCF8F3',
+          300: '#D1A461',
+          500: '#A27B3F',
+          600: '#6E4302',
+        },
+        green: {
+          500: '#479E64'
+        },
+        red: {
+          500: "#BD544C"
+        }
       },
       dropShadow: {
         DEFAULT: '0px 1px 3px 0px #0000001A',
