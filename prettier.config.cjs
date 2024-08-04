@@ -11,5 +11,5 @@ module.exports = {
   bracketSpacing: true,
   bracketSameLine: false,
   plugins: ['prettier-plugin-tailwindcss'],
-  tailwindPreserveWhitespace: true,
+  tailwindPreserveWhitespace: true
 };

@@ -7,14 +7,14 @@ const nextConfig = {
         {
           loader: '@svgr/webpack',
           options: {
-            icon: true,
-          },
-        },
-      ],
+            icon: true
+          }
+        }
+      ]
     });
 
     return config;
-  },
+  }
 };
 
 export default nextConfig;
