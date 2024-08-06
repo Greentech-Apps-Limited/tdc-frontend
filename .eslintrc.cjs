@@ -4,12 +4,12 @@ module.exports = {
     'next/core-web-vitals',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'prettier'
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   plugins: ['unicorn', '@typescript-eslint'],
   rules: {
@@ -18,8 +18,8 @@ module.exports = {
     'unicorn/filename-case': [
       'error',
       {
-        case: 'kebabCase'
-      }
-    ]
-  }
+        case: 'kebabCase',
+      },
+    ],
+  },
 };

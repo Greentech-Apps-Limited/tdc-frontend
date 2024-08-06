@@ -9,8 +9,8 @@ const generateIconIndex = async () => {
     const svgFiles = await fs.readdir(ICON_DIRECTORY);
     const iconExports = await Promise.all(
       svgFiles
-        .filter((file) => file.endsWith('.svg'))
-        .map(async (file) => {
+        .filter(file => file.endsWith('.svg'))
+        .map(async file => {
           await updateSvgColors(file);
           return createExportStatement(file);
         })
@@ -25,7 +25,7 @@ const generateIconIndex = async () => {
   }
 };
 
-const updateSvgColors = async (fileName) => {
+const updateSvgColors = async fileName => {
   const filePath = path.join(ICON_DIRECTORY, fileName);
   let content = await fs.readFile(filePath, 'utf8');
 
@@ -39,15 +39,14 @@ const updateSvgColors = async (fileName) => {
   await fs.writeFile(filePath, content, 'utf8');
 };
 
-const createExportStatement = (fileName) => {
+const createExportStatement = fileName => {
   const baseName = path.basename(fileName, '.svg');
   const componentName = convertToComponentName(baseName);
   return `export { default as ${componentName} } from './${baseName}.svg';`;
 };
 
-const convertToComponentName = (baseName) =>
-  baseName.split('-').map(capitalizeFirstLetter).join('');
+const convertToComponentName = baseName => baseName.split('-').map(capitalizeFirstLetter).join('');
 
-const capitalizeFirstLetter = (word) => word.charAt(0).toUpperCase() + word.slice(1);
+const capitalizeFirstLetter = word => word.charAt(0).toUpperCase() + word.slice(1);
 
 generateIconIndex();
