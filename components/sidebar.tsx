@@ -5,7 +5,8 @@ import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useCallback, useMemo } from 'react';
-import IconComponent from './icon-component';
+import IconComponent from './ui/icon-component';
+import SidebarBrandLogo from './sidebar-brand-logo';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -37,7 +38,7 @@ const Sidebar = () => {
               className={`flex cursor-pointer gap-2 rounded-full hover:bg-neutral-200 
             ${isActive ? 'bg-neutral-200' : ''} 
             ${isMinimized ? 'p-3' : 'px-4 py-3'} 
-            transition-all duration-300 ease-in-out`}
+            transition-all duration-100 ease-in-out`}
             >
               <div>
                 <IconComponent icon={isActive ? activeIcon : icon} className="text-2xl" />
@@ -62,6 +63,7 @@ const Sidebar = () => {
         flex h-full flex-col border-r border-neutral-200 bg-neutral 
         shadow transition-all duration-300 ease-in-out`}
     >
+      <SidebarBrandLogo isMinimized={isMinimized} />
       <nav className="h-full w-full overflow-y-auto overflow-x-hidden p-4">
         <ul className="flex w-full flex-col gap-4">{navItems}</ul>
       </nav>
