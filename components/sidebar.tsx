@@ -65,7 +65,7 @@ const Sidebar = () => {
     >
       <SidebarBrandLogo isMinimized={isMinimized} />
       <nav className="h-full w-full overflow-y-auto overflow-x-hidden p-4">
-        <ul className="flex w-full flex-col gap-4">{navItems}</ul>
+        <ul className="flex w-full flex-col gap-2">{navItems}</ul>
       </nav>
       <div className="p-4">
         <button
