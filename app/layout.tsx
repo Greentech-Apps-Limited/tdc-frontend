@@ -14,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${source_sans_3.variable} ${hidayatullahFont.variable} font-source_sans_3`}>
+      <body
+        className={`${source_sans_3.variable} ${hidayatullahFont.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
+      >
         {children}
       </body>
     </html>
