@@ -79,6 +79,9 @@ const config = {
         '4xl': '54.5rem',
         '8xl': '82.5rem',
         '9xl': '97.5rem',
+      },
+      borderRadius: {
+        '4xl': '32px',
       }
     },
   },
