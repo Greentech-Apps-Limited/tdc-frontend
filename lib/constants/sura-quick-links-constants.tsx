@@ -4,6 +4,7 @@ type SurahQuickLinks = {
   link: string;
 };
 
+// TODO: Update SURAH_QUICK_LINKS with real links
 export const SURAH_QUICK_LINKS: SurahQuickLinks[] = [
   {
     id: 1,

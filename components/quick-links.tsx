@@ -1,4 +1,5 @@
 import { SURAH_QUICK_LINKS } from '@/lib/constants/sura-quick-links-constants';
+import SmallCard from './ui/small-card';
 
 const QuickLinks = () => {
   return (
@@ -7,12 +8,9 @@ const QuickLinks = () => {
       <div className="flex w-full flex-wrap gap-2">
         {SURAH_QUICK_LINKS.map(surah => {
           return (
-            <div
-              key={surah.id}
-              className="w-max cursor-pointer rounded-xl border border-neutral-200 px-3 py-1 text-sm text-neutral-950 hover:bg-neutral-100"
-            >
-              {surah.title}
-            </div>
+            <SmallCard key={surah.id}>
+              <p>{surah.title}</p>
+            </SmallCard>
           );
         })}
       </div>
