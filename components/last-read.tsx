@@ -3,12 +3,18 @@
 import { formatTimeAgo } from '@/lib/utils';
 import SmallCard from './ui/small-card';
 import { LastReadData } from '@/lib/types/last-read-types';
+import { useEffect, useState } from 'react';
 
 // TODO: Update Functionality with real data and map surah names with surah ID.
 const LastRead = () => {
-  const lastReadData = JSON?.parse(localStorage.getItem('LAST_READ_LOCAL') || '{}') as LastReadData;
+  const [lastReadData, setLastReadData] = useState<LastReadData | null>(null);
 
-  const surahList = Object.values(lastReadData.surah || {}).sort(
+  useEffect(() => {
+    const data = JSON?.parse(localStorage.getItem('LAST_READ_LOCAL') || '{}') as LastReadData;
+    setLastReadData(data);
+  }, []);
+
+  const surahList = Object.values(lastReadData?.surah || {}).sort(
     (a, b) => b.timestamp - a.timestamp
   );
 
