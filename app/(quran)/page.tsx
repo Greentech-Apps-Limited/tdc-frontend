@@ -1,6 +1,7 @@
 import Banner from '@/components/banner';
 import LastRead from '@/components/last-read';
 import QuickLinks from '@/components/quick-links';
+import SurahListView from '@/components/surah-list-view';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
           <LastRead />
         </div>
       </section>
+      <SurahListView />
     </main>
   );
 }
