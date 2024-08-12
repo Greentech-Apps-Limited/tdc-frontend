@@ -1,9 +1,16 @@
+import { promises as fs } from 'fs';
+import path from 'path';
 import Banner from '@/components/banner';
 import LastRead from '@/components/last-read';
 import QuickLinks from '@/components/quick-links';
 import SurahListView from '@/components/surah-list-view';
+import { QuranMeta } from '@/lib/types/quran-meta-types';
 
-export default function Home() {
+export default async function Home() {
+  const filePath = path.resolve('data', 'quran-meta.json');
+  const data = await fs.readFile(filePath, 'utf-8');
+  const quranMeta: QuranMeta = JSON.parse(data);
+
   return (
     <main className="space-y-6">
       <Banner />
@@ -13,7 +20,7 @@ export default function Home() {
           <LastRead />
         </div>
       </section>
-      <SurahListView />
+      <SurahListView quranMeta={quranMeta} />
     </main>
   );
 }
