@@ -1,5 +1,5 @@
 
-type Surah = {
+export type Surah = {
     id: number;
     arabic: string;
     translation: string;
@@ -22,7 +22,10 @@ type ReferenceObject = {
 };
 
 export type QuranMeta = {
-    surahs: Surah[];
+    surahs: {
+        count: number;
+        references: Surah[]
+    };
     sajdas: ReferenceObject;
     rukus: ReferenceObject;
     pages: ReferenceObject;

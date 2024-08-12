@@ -1,7 +1,25 @@
+import { Surah } from '@/lib/types/quran-meta-types';
+import Image from 'next/image';
 import React from 'react';
 
-const SurahRowView = () => {
-  return <div>SurahRowView</div>;
+const SurahRowView = ({ surah }: { surah: Surah }) => {
+  const { id, translation, transliteration } = surah;
+  return (
+    <div className="flex items-center justify-between rounded-full border border-neutral-200 bg-neutral p-2 pr-6">
+      <div className="flex gap-3">
+        <div className="h-[52px] w-[52px] rounded-full bg-neutral-200 p-3 text-center text-xl font-bold">
+          {id}
+        </div>
+        <div>
+          <p className="text-lg font-semibold text-brown-600">{transliteration}</p>
+          <p className="text-sm text-neutral-700">{translation}</p>
+        </div>
+      </div>
+      <div>
+        <Image width={80} height={30} src={`/images/surah/sname_${id}.webp`} alt={`Surah`} />
+      </div>
+    </div>
+  );
 };
 
 export default SurahRowView;

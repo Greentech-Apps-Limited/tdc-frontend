@@ -3,8 +3,8 @@ import path from 'path';
 import Banner from '@/components/banner';
 import LastRead from '@/components/last-read';
 import QuickLinks from '@/components/quick-links';
-import SurahListView from '@/components/surah-list-view';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
+import SurahView from '@/components/surah-view/surah-view';
 
 export default async function Home() {
   const filePath = path.resolve('data', 'quran-meta.json');
@@ -20,7 +20,7 @@ export default async function Home() {
           <LastRead />
         </div>
       </section>
-      <SurahListView quranMeta={quranMeta} />
+      <SurahView quranMeta={quranMeta} />
     </main>
   );
 }
