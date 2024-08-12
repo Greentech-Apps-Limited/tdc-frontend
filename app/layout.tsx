@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { hidayatullahFont, source_sans_3 } from '@/lib/fonts';
+import { hidayatullahFont, lateef, source_sans_3 } from '@/lib/fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${source_sans_3.variable} ${hidayatullahFont.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
+        className={`${source_sans_3.variable} ${hidayatullahFont.variable} ${lateef.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
       >
         {children}
       </body>

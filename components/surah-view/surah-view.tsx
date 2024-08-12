@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
 import SurahRowView from './surah-row-view';
+import GenericView from './generic-view';
 
 type TabsValue = 'surah' | 'page' | 'juz' | 'hizb' | 'ruku';
 
@@ -16,18 +17,12 @@ const SurahView = ({ quranMeta }: SurahViewProps) => {
   const renderTable = () => {
     switch (selectedTab) {
       case 'surah':
-        return (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {quranMeta.surahs.references.map(surah => {
-              return <SurahRowView key={surah.id} surah={surah} />;
-            })}
-          </div>
-        );
+        return <SurahRowView references={quranMeta.surahs.references} />;
       case 'page':
       case 'juz':
       case 'hizb':
       case 'ruku':
-        return <div>Test</div>;
+        return <GenericView quranMeta={quranMeta} type={selectedTab} />;
       default:
         return null;
     }

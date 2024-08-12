@@ -8,10 +8,11 @@ export type Surah = {
     revelation: number;
 };
 
-type Reference = {
+export type Reference = {
+    id: number,
     surah?: number;
     ayah?: number;
-    juz_verse_key?: string;
+    verse_key?: string;
     surah_name?: string;
     starting_line?: string;
 };
