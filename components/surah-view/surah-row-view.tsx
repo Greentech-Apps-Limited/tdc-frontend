@@ -15,8 +15,17 @@ const SurahRowView = ({ surah }: { surah: Surah }) => {
           <p className="text-sm text-neutral-700">{translation}</p>
         </div>
       </div>
-      <div>
-        <Image width={80} height={30} src={`/images/surah/sname_${id}.webp`} alt={`Surah`} />
+      <div className="relative h-[30px] w-[80px]">
+        <Image
+          src={`/images/surah/sname_${id}.webp`}
+          alt={`Surah`}
+          style={{
+            objectFit: 'contain',
+          }}
+          fill
+          priority
+          quality={100}
+        />
       </div>
     </div>
   );
