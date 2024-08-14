@@ -17,7 +17,7 @@ export type Reference = {
     starting_line?: string;
 };
 
-type ReferenceObject = {
+export type ReferenceObject = {
     count: number;
     references: Reference[];
 };

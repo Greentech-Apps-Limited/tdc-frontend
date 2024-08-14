@@ -1,6 +1,6 @@
+import './globals.css';
 import type { Metadata } from 'next';
 import { hidayatullahFont, lateef, source_sans_3 } from '@/lib/fonts';
-import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Quran',
