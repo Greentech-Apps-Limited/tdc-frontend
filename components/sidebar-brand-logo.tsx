@@ -7,14 +7,14 @@ const SidebarBrandLogo = ({ isMinimized }: { isMinimized: boolean }) => {
     >
       <div className="relative h-[56px] w-full">
         <Image
-          src="logos/logo-short.svg"
+          src="/logos/logo-short.svg"
           width={56}
           height={56}
           alt="Brand logo"
           className={`absolute left-0 top-0 transition-opacity ease-in-out ${isMinimized ? 'duration-100' : 'duration-500'}  ${isMinimized ? 'opacity-100' : 'opacity-0'}`}
         />
         <Image
-          src="logos/logo.svg"
+          src="/logos/logo.svg"
           width={102}
           height={56}
           alt="Brand logo"

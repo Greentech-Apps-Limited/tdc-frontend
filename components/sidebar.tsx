@@ -4,13 +4,22 @@ import { SidebarHideIcon, SidebarShowIcon } from '@/icons';
 import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
 
+const shouldSidebarBeMinimized = (pathname: string): boolean => {
+  const pathsToMinimize = ['/surah'];
+  return pathsToMinimize.some(path => pathname.startsWith(path));
+};
+
 const Sidebar = () => {
   const pathname = usePathname();
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(shouldSidebarBeMinimized(pathname));
+
+  useEffect(() => {
+    setIsMinimized(shouldSidebarBeMinimized(pathname));
+  }, [pathname]);
 
   const toggleMinimize = useCallback(() => {
     setIsMinimized(prevState => !prevState);
