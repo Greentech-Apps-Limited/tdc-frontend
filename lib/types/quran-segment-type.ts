@@ -1,0 +1,1 @@
+export type QuranSegment = 'surah' | 'page' | 'juz' | 'hizb' | 'ruku';

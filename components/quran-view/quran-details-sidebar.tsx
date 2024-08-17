@@ -3,6 +3,7 @@
 import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 type QuranDetailsSidebarProps = {
   quranMeta: QuranMeta;
@@ -10,14 +11,8 @@ type QuranDetailsSidebarProps = {
 };
 
 const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) => {
+  const sidebarRef = useRef<HTMLElement | null>(null);
   const params = useParams();
-  const paramKeyMap: Record<typeof listType, string> = {
-    surah: 'surahId',
-    page: 'pageId',
-    juz: 'juzId',
-    hizb: 'hizbId',
-    ruku: 'rukuId',
-  };
 
   const getReferences = (): Reference[] | Surah[] => {
     const referenceMap = {
@@ -34,10 +29,20 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
   const isSurah = (reference: Reference | Surah): reference is Surah => {
     return (reference as Surah).transliteration !== undefined;
   };
+  const isActive = (id: number): boolean => params.segmentId === String(id);
 
-  const isActive = (id: number): boolean => params[paramKeyMap[listType]] === String(id);
+  useEffect(() => {
+    const activeLink = sidebarRef?.current?.querySelector('.active');
+
+    if (activeLink) {
+      activeLink.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    }
+  }, [params.segmentId]);
   return (
-    <section className="h-full w-[196px] overflow-y-scroll border-r border-neutral-200 bg-neutral p-4">
+    <section
+      ref={sidebarRef}
+      className="h-full w-[196px] overflow-y-scroll border-r border-neutral-200 bg-neutral p-4"
+    >
       <div className="space-y-2">
         {references.map(reference => {
           if (listType === 'surah' && isSurah(reference)) {
@@ -48,7 +53,7 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
               >
                 <Link href={`/${listType}/${reference.id}`}>
                   <div
-                    className={`flex cursor-pointer items-center gap-2 p-3 hover:bg-neutral-100 ${isActive(reference.id) ? 'bg-neutral-100 font-semibold' : ''}`}
+                    className={`flex cursor-pointer items-center gap-2 p-3 hover:bg-neutral-100 ${isActive(reference.id) ? 'active bg-neutral-100 font-semibold' : ''}`}
                   >
                     <p className="w-8 text-center text-neutral-600">{reference.id}</p>
                     <p>{reference.transliteration}</p>
