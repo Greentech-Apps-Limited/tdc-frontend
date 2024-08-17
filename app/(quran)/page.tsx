@@ -1,15 +1,12 @@
-import { promises as fs } from 'fs';
-import path from 'path';
 import Banner from '@/components/banner';
 import LastRead from '@/components/last-read';
 import QuickLinks from '@/components/quick-links';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
 import QuranTabView from '@/components/quran-view/quran-tab-view';
+import { readData } from '@/lib/read-file';
 
 export default async function Home() {
-  const filePath = path.resolve('data', 'quran-meta.json');
-  const data = await fs.readFile(filePath, 'utf-8');
-  const quranMeta: QuranMeta = JSON.parse(data);
+  const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
 
   return (
     <main className="space-y-6">
