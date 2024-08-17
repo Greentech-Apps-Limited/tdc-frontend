@@ -1,5 +1,9 @@
 const SurahDetails = () => {
-  return <div>SurahDetails</div>;
+  return (
+    <div>
+      <p>side</p>
+    </div>
+  );
 };
 
 export default SurahDetails;
