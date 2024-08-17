@@ -11,7 +11,7 @@ type SurahViewProps = {
   quranMeta: QuranMeta;
 };
 
-const SurahView = ({ quranMeta }: SurahViewProps) => {
+const QuranTabView = ({ quranMeta }: SurahViewProps) => {
   const [selectedTab, setSelectedTab] = useState<TabsValue>('surah');
 
   const renderTable = () => {
@@ -49,4 +49,4 @@ const SurahView = ({ quranMeta }: SurahViewProps) => {
   );
 };
 
-export default SurahView;
+export default QuranTabView;
