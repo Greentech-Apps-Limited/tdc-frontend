@@ -2,8 +2,8 @@ import Banner from '@/components/banner';
 import LastRead from '@/components/last-read';
 import QuickLinks from '@/components/quick-links';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
-import { readData } from '@/lib/read-file';
 import QuranTabView from '@/components/quran-view/quran-tab-view';
+import { readData } from '@/lib/read-file';
 
 export default async function Home() {
   const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
