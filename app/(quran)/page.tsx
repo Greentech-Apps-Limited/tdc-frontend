@@ -2,8 +2,8 @@ import Banner from '@/components/banner';
 import LastRead from '@/components/last-read';
 import QuickLinks from '@/components/quick-links';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
-import SurahView from '@/components/surah-view/surah-view';
 import { readData } from '@/lib/read-file';
+import QuranTabView from '@/components/quran-view/quran-tab-view';
 
 export default async function Home() {
   const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
@@ -17,7 +17,7 @@ export default async function Home() {
           <LastRead />
         </div>
       </section>
-      <SurahView quranMeta={quranMeta} />
+      <QuranTabView quranMeta={quranMeta} />
     </main>
   );
 }
