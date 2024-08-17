@@ -40,3 +40,10 @@ export function formatTimeAgo(timestamp: number): string {
     return `${years}y ago`;
   }
 }
+
+export const getHizbTitle = (id: number): string => {
+  const hizbNumber = Math.ceil(id / 4);
+  const quarter = (id - 1) % 4;
+  const quarterTitles = ['', '1/4', '1/2', '3/4'];
+  return quarter === 0 ? `Hizb ${hizbNumber}` : `${quarterTitles[quarter]} Hizb ${hizbNumber}`;
+};

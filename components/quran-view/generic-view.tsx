@@ -1,5 +1,6 @@
 import React from 'react';
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
+import { getHizbTitle } from '@/lib/utils';
 
 type ViewType = 'page' | 'juz' | 'hizb' | 'ruku';
 
@@ -29,12 +30,6 @@ const GenericView: React.FC<GenericViewProps> = ({ quranMeta, type }) => {
     return titleMap[type];
   };
 
-  const getHizbTitle = (id: number): string => {
-    const hizbNumber = Math.ceil(id / 4);
-    const quarter = (id - 1) % 4;
-    const quarterTitles = ['', '1/4', '1/2', '3/4'];
-    return quarter === 0 ? `Hizb ${hizbNumber}` : `${quarterTitles[quarter]} Hizb ${hizbNumber}`;
-  };
   const references = getReferences();
 
   return (

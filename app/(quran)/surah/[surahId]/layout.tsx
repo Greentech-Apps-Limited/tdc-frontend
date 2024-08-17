@@ -1,3 +1,6 @@
+import { readData } from '@/lib/read-file';
+import { QuranMeta } from '@/lib/types/quran-meta-types';
+
 const SurahDetailsLayout = ({
   children,
   list,
@@ -11,3 +14,11 @@ const SurahDetailsLayout = ({
 };
 
 export default SurahDetailsLayout;
+
+export async function generateStaticParams() {
+  const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
+
+  return quranMeta.surahs.references.map(surah => ({
+    surahId: surah.id.toString(),
+  }));
+}
