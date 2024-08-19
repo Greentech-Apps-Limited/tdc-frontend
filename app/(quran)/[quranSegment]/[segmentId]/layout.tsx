@@ -4,14 +4,8 @@ import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 const QuranSegmentDetailsLayout = ({
   children,
-  list,
 }: Readonly<{ children: React.ReactNode; list: React.ReactNode }>) => {
-  return (
-    <section className="flex h-full w-full">
-      <aside className="h-full overflow-hidden">{list}</aside>
-      <aside className="h-full w-full flex-1 overflow-y-scroll">{children}</aside>
-    </section>
-  );
+  return <section className="h-full w-full">{children}</section>;
 };
 
 export default QuranSegmentDetailsLayout;
