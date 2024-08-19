@@ -1,6 +1,7 @@
 import React from 'react';
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
 import { getHizbTitle } from '@/lib/utils';
+import Link from 'next/link';
 
 type ViewType = 'page' | 'juz' | 'hizb' | 'ruku';
 
@@ -34,9 +35,13 @@ const GenericView: React.FC<GenericViewProps> = ({ quranMeta, type }) => {
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {references.map((reference: Reference) => (
-        <ReferenceCard key={reference.id} reference={reference} title={getTitle(reference.id)} />
-      ))}
+      {references.map((reference: Reference) => {
+        return (
+          <Link key={reference.id} href={`/${type}/${reference.id}`}>
+            <ReferenceCard reference={reference} title={getTitle(reference.id)} />
+          </Link>
+        );
+      })}
     </div>
   );
 };

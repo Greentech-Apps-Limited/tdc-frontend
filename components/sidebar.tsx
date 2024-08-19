@@ -7,10 +7,11 @@ import { usePathname } from 'next/navigation';
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 const shouldSidebarBeMinimized = (pathname: string): boolean => {
-  const pathsToMinimize = ['/surah'];
-  return pathsToMinimize.some(path => pathname.startsWith(path));
+  const pathsToMinimize: QuranSegment[] = ['surah', 'page', 'juz', 'hizb', 'ruku'];
+  return pathsToMinimize.some(segment => pathname.startsWith(`/${segment}`));
 };
 
 const Sidebar = () => {
