@@ -17,7 +17,7 @@ const QuranTabView = ({ quranMeta }: SurahViewProps) => {
   const renderTable = () => {
     switch (selectedTab) {
       case 'surah':
-        return <SurahRowView references={quranMeta.surahs.references} />;
+        return <SurahRowView references={quranMeta.surahs} />;
       case 'page':
       case 'juz':
       case 'hizb':

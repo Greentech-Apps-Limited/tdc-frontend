@@ -1,4 +1,5 @@
 import { readData } from '@/lib/read-file';
+import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 type QuranSegmentDetails = {
@@ -9,15 +10,10 @@ type QuranSegmentDetails = {
 };
 
 const QuranSegmentDetails = async ({ params }: QuranSegmentDetails) => {
-  const quranMeta = await readData(`data/verses/surah_id_${params.segmentId}.json`);
-  console.log(quranMeta);
-  return (
-    <div>
-      {quranMeta.verses.map(item => {
-        return <div key={item.id}>{item.text_uthmani}</div>;
-      })}
-    </div>
-  );
+  const surahs = await readData<Surah[]>('data/quran-meta/surahs/en.json');
+
+  const surah = surahs.find(surah => surah.id === parseInt(params.segmentId));
+  return <div>{surah?.transliteration}</div>;
 };
 
 export default QuranSegmentDetails;

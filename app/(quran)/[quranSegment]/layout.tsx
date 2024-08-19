@@ -1,6 +1,6 @@
 import QuranDetailsSidebar from '@/components/quran-view/quran-details-sidebar';
 import { readData } from '@/lib/read-file';
-import { QuranMeta } from '@/lib/types/quran-meta-types';
+import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 type QuranSegmentLayoutProps = {
@@ -12,7 +12,15 @@ type QuranSegmentLayoutProps = {
 };
 
 const QuranSegmentLayout = async ({ children, params }: Readonly<QuranSegmentLayoutProps>) => {
-  const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
+  const surahs = await readData<Surah[]>('data/quran-meta/surahs/en.json');
+  const [juzs, pages, hizbs, rukus] = await Promise.all([
+    readData<Reference[]>('data/quran-meta/juzs.json'),
+    readData<Reference[]>('data/quran-meta/pages.json'),
+    readData<Reference[]>('data/quran-meta/hizbs.json'),
+    readData<Reference[]>('data/quran-meta/rukus.json'),
+  ]);
+
+  const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
   return (
     <section className="flex h-full w-full">
       <aside className="h-full overflow-hidden">
