@@ -23,6 +23,7 @@ const config = {
       fontFamily: {
         source_sans_3: ['var(--font-source_sans_3)', ...fontFamily.sans],
         hidayatullah_demo: ['var(--font-hidayatullah-demo)', ...fontFamily.mono],
+        lateef: ['var(--font-lateef)'],
       },
       keyframes: {
         "accordion-down": {
@@ -79,6 +80,9 @@ const config = {
         '4xl': '54.5rem',
         '8xl': '82.5rem',
         '9xl': '97.5rem',
+      },
+      borderRadius: {
+        '4xl': '32px',
       }
     },
   },
