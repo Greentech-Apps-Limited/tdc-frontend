@@ -27,3 +27,7 @@ export type QuranMeta = {
     hizbs: Reference[];
     juzs: Reference[];
 };
+
+export type MappingObjectType = {
+    [key: string]: string[];
+};
