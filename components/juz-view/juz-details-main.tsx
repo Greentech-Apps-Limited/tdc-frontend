@@ -10,7 +10,7 @@ type JuzDetailsMainProps = {
 };
 const JuzDetailsMain = async ({ surahs, juzId }: JuzDetailsMainProps) => {
   const juzVerseMapping = await readData<MappingObjectType>(
-    'data/quran-meta/juz-to-chapter-mappings.json'
+    'data/quran-meta/juz-to-surah-mappings.json'
   );
 
   const surahIDs = juzVerseMapping[juzId] || [];

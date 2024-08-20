@@ -11,7 +11,7 @@ type PageDetailsMainProps = {
 
 const PageDetailsMain = async ({ surahs, pageId }: PageDetailsMainProps) => {
   const pageVerseMapping = await readData<MappingObjectType>(
-    'data/quran-meta/page-to-chapter-mappings.json'
+    'data/quran-meta/page-to-surah-mappings.json'
   );
 
   const surahIDs = pageVerseMapping[pageId] || [];
