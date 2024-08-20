@@ -1,6 +1,7 @@
 import HizbDetailsMain from '@/components/hizb-view/hizb-details-main';
 import JuzDetailsMain from '@/components/juz-view/juz-details-main';
 import PageDetailsMain from '@/components/page-view/page-details-main';
+import RukuDetailsMain from '@/components/ruku-view/ruku-details-main';
 import SurahDetailsMain from '@/components/surah-view/surah-details-main';
 import { readData } from '@/lib/read-file';
 import { Surah } from '@/lib/types/quran-meta-types';
@@ -27,7 +28,7 @@ const QuranSegmentDetails = async ({ params }: QuranSegmentDetailsProps) => {
     case 'hizb':
       return <HizbDetailsMain hizbId={segmentId} surahs={surahs} />;
     case 'ruku':
-      return <div>Ruku Component for ID: {segmentId}</div>;
+      return <RukuDetailsMain rukuId={segmentId} surahs={surahs} />;
     default:
       return <div>Invalid Quran Segment</div>;
   }
