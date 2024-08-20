@@ -4,13 +4,23 @@ import { SidebarHideIcon, SidebarShowIcon } from '@/icons';
 import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
+
+const shouldSidebarBeMinimized = (pathname: string): boolean => {
+  const pathsToMinimize: QuranSegment[] = ['surah', 'page', 'juz', 'hizb', 'ruku'];
+  return pathsToMinimize.some(segment => pathname.startsWith(`/${segment}`));
+};
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(shouldSidebarBeMinimized(pathname));
+
+  useEffect(() => {
+    setIsMinimized(shouldSidebarBeMinimized(pathname));
+  }, [pathname]);
 
   const toggleMinimize = useCallback(() => {
     setIsMinimized(prevState => !prevState);

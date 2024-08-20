@@ -9,7 +9,7 @@ export default async function Home() {
   const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
 
   return (
-    <main className="space-y-6">
+    <main className="mx-auto max-w-8xl space-y-6 p-6">
       <Banner />
       <section className="rounded-4xl border border-neutral-300 bg-neutral p-6">
         <div className="max-w-[504px] space-y-6">

@@ -1,8 +1,8 @@
 'use client';
 
-import { formatTimeAgo } from '@/lib/utils';
 import SmallCard from './ui/small-card';
 import { LastReadData } from '@/lib/types/last-read-types';
+import { formatTimeAgo } from '@/lib/utils/common-utils';
 import { useEffect, useState } from 'react';
 
 // TODO: Update Functionality with real data and map surah names with surah ID.

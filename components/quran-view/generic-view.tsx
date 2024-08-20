@@ -1,5 +1,7 @@
 import React from 'react';
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
+import Link from 'next/link';
+import { getReferences, getTitle } from '@/lib/utils/quran-segement-utils';
 
 type ViewType = 'page' | 'juz' | 'hizb' | 'ruku';
 
@@ -9,39 +11,17 @@ interface GenericViewProps {
 }
 
 const GenericView: React.FC<GenericViewProps> = ({ quranMeta, type }) => {
-  const getReferences = (): Reference[] => {
-    const referenceMap = {
-      page: quranMeta.pages.references,
-      juz: quranMeta.juzs.references,
-      hizb: quranMeta.hizbQuarters.references,
-      ruku: quranMeta.rukus.references,
-    };
-    return referenceMap[type] || [];
-  };
-
-  const getTitle = (id: number): string => {
-    const titleMap = {
-      page: `Page ${id}`,
-      juz: `Juz ${id}`,
-      hizb: getHizbTitle(id),
-      ruku: `Ruku ${id}`,
-    };
-    return titleMap[type];
-  };
-
-  const getHizbTitle = (id: number): string => {
-    const hizbNumber = Math.ceil(id / 4);
-    const quarter = (id - 1) % 4;
-    const quarterTitles = ['', '1/4', '1/2', '3/4'];
-    return quarter === 0 ? `Hizb ${hizbNumber}` : `${quarterTitles[quarter]} Hizb ${hizbNumber}`;
-  };
-  const references = getReferences();
+  const references = getReferences(quranMeta, type);
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {references.map((reference: Reference) => (
-        <ReferenceCard key={reference.id} reference={reference} title={getTitle(reference.id)} />
-      ))}
+      {references.map((reference: Reference) => {
+        return (
+          <Link key={reference.id} href={`/${type}/${reference.id}`}>
+            <ReferenceCard reference={reference} title={getTitle(type, reference.id)} />
+          </Link>
+        );
+      })}
     </div>
   );
 };
