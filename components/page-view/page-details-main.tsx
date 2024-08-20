@@ -1,9 +1,8 @@
 import { readData } from '@/lib/read-file';
 import { MappingObjectType, Surah } from '@/lib/types/quran-meta-types';
 import { Verse, VersesResponse } from '@/lib/types/verses-type';
-import React from 'react';
-import SurahVerseDisplay from '../surah-view/surah-display-card';
 import VerseDisplayCard from '../surah-view/verse-display-card';
+import SurahDisplayCard from '../surah-view/surah-display-card';
 
 type PageDetailsMainProps = {
   surahs: Surah[];
@@ -43,11 +42,11 @@ const PageDetailsMain = async ({ surahs, pageId }: PageDetailsMainProps) => {
     <div>
       {surahInfos.map(surahInfo => {
         return (
-          <SurahVerseDisplay key={surahInfo.id} surah={surahInfo}>
+          <SurahDisplayCard key={surahInfo.id} surah={surahInfo}>
             {versesBySurahMap[surahInfo.id]?.map(verse => {
               return <VerseDisplayCard key={verse.id} verse={verse} />;
             })}
-          </SurahVerseDisplay>
+          </SurahDisplayCard>
         );
       })}
     </div>

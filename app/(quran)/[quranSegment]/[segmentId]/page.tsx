@@ -1,3 +1,4 @@
+import JuzDetailsMain from '@/components/juz-view/juz-details-main';
 import PageDetailsMain from '@/components/page-view/page-details-main';
 import SurahDetailsMain from '@/components/surah-view/surah-details-main';
 import { readData } from '@/lib/read-file';
@@ -21,7 +22,7 @@ const QuranSegmentDetails = async ({ params }: QuranSegmentDetailsProps) => {
     case 'page':
       return <PageDetailsMain pageId={segmentId} surahs={surahs} />;
     case 'juz':
-      return <div>Juz Component for ID: {segmentId}</div>;
+      return <JuzDetailsMain juzId={segmentId} surahs={surahs} />;
     case 'hizb':
       return <div>Hizb Component for ID: {segmentId}</div>;
     case 'ruku':
