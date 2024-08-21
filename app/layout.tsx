@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { hidayatullahFont, lateef, source_sans_3 } from '@/lib/fonts';
+import LoadingProgressBar from '@/components/loading-progress-bar';
 // import Head from 'next/head';
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body
         className={`${source_sans_3.variable} ${hidayatullahFont.variable} ${lateef.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
       >
+        <LoadingProgressBar />
         {children}
       </body>
     </html>
