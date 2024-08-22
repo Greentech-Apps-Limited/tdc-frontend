@@ -8,6 +8,9 @@ import { WbwVersesResponse } from '@/lib/types/wbw-type';
 type SurahDetailsMainProps = {
   surahs: Surah[];
   surahId: string;
+  searchParams?: {
+    wbw_tr?: string;
+  };
 };
 
 const SurahDetailsMain = async ({ surahs, surahId }: SurahDetailsMainProps) => {

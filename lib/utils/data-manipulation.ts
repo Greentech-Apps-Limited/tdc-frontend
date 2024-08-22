@@ -10,7 +10,7 @@ export async function getMergedVersesBySurah(
     mappingPath: string,
     filterKey: keyof Verse,
     surahs: Surah[],
-    languageCode: string
+    languageCode?: string
 ): Promise<Array<{ surahInfo: Surah; mergedVerses: MergedVerse[] }>> {
     const verseMapping: MappingObjectType = await readData(mappingPath);
     const surahIDs = verseMapping[segmentId] || [];
@@ -23,7 +23,7 @@ export async function getMergedVersesBySurah(
                 `data/verses/surah_id_${surah.id}.json`
             );
             const wbwSurahResponse = await readData<WbwVersesResponse>(
-                `data/wbw/${languageCode}/wbw_surah_id_${surah.id}.json`
+                `data/wbw/${languageCode ? languageCode : 'en'}/wbw_surah_id_${surah.id}.json`
             );
 
             const filteredVerses = surahVerses.filter(verse => verse[filterKey] === Number(segmentId));

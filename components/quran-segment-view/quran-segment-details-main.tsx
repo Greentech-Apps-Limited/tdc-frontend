@@ -11,9 +11,16 @@ type QuranSegmentDetailsMainProps = {
     segmentId: string;
   };
   surahs: Surah[];
+  searchParams?: {
+    wbw_tr?: string;
+  };
 };
 
-const QuranSegmentDetailsMain = async ({ surahs, params }: QuranSegmentDetailsMainProps) => {
+const QuranSegmentDetailsMain = async ({
+  surahs,
+  params,
+  searchParams,
+}: QuranSegmentDetailsMainProps) => {
   const { quranSegment, segmentId } = params;
   let segmentData: Array<{ surahInfo: Surah; mergedVerses: MergedVerse[] }> = [];
 
@@ -32,7 +39,7 @@ const QuranSegmentDetailsMain = async ({ surahs, params }: QuranSegmentDetailsMa
       mappingPaths[quranSegment],
       filterKey,
       surahs,
-      'en'
+      searchParams?.wbw_tr
     );
   }
 
