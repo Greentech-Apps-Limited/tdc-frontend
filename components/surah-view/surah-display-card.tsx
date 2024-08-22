@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Surah } from '@/lib/types/quran-meta-types';
 

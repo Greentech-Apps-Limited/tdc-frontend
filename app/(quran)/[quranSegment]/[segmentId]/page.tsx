@@ -22,7 +22,7 @@ const QuranSegmentDetails = async ({ params }: QuranSegmentDetailsProps) => {
     case 'juz':
     case 'hizb':
     case 'ruku':
-      return <QuranSegmentDetailsMain params={params} surahs={surahs} />;
+      return <QuranSegmentDetailsMain params={{ quranSegment, segmentId }} surahs={surahs} />;
     default:
       return <div>Invalid Quran Segment</div>;
   }
