@@ -7,7 +7,7 @@ import { TranslationInfo, type SurahTranslation } from '@/lib/types/surah-transl
 
 type VerseDisplayProps = {
   verse: Verse & { words: WordType[] };
-  combinedTranslations: {
+  combinedTranslations?: {
     info: TranslationInfo;
     translation: SurahTranslation;
   }[];
@@ -25,7 +25,7 @@ const VerseDisplayCard = ({ verse, combinedTranslations }: VerseDisplayProps) =>
         </div>
       </div>
       <div className="mt-2">
-        {combinedTranslations.map(translations => {
+        {combinedTranslations?.map(translations => {
           const verseTranslation = translations.translation[verse.verse_number];
           return (
             <div key={translations.info.id}>

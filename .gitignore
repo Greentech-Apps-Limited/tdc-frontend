@@ -36,6 +36,6 @@ yarn-error.log*
 next-env.d.ts
 
 #data 
-/data/translations
-/data/verses
-/data/wbw
+/data/translations/*
+/data/verses/*
+/data/wbw/*
