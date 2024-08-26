@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { SettingsIcon } from '@/icons';
 
