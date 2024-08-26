@@ -1,69 +1,46 @@
-import { readData } from '@/lib/read-file';
 import { Surah } from '@/lib/types/quran-meta-types';
-import { MergedVerse, VersesResponse } from '@/lib/types/verses-type';
 import VerseDisplayCard from './verse-display-card';
 import SurahDisplayCard from './surah-display-card';
-import { WbwVersesResponse } from '@/lib/types/wbw-type';
-import {
-  SurahTranslation,
-  TranslationInfo,
-  TranslationInfosType,
-} from '@/lib/types/surah-translation-type';
+import { TranslationInfosType } from '@/lib/types/surah-translation-type';
+import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
+import { SearchParamsType } from '@/lib/types/search-params-type';
+import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
   translationInfos: TranslationInfosType;
   surahId: string;
-  searchParams?: {
-    wbw_tr?: string;
-  };
+  searchParams: SearchParamsType;
 };
 
-const SurahDetailsMain = async ({ surahs, surahId, translationInfos }: SurahDetailsMainProps) => {
+const SurahDetailsMain = async ({
+  surahs,
+  surahId,
+  translationInfos,
+  searchParams,
+}: SurahDetailsMainProps) => {
   const surah = surahs.find(surah => surah.id === parseInt(surahId));
-
-  // FIXME: Make translationIds dynamic based on user selections
-  const translationIds = ['20'];
-
-  const { verses } = await readData<VersesResponse>(`data/verses/surah_id_${surahId}.json`);
-  const wbwSurahResponse = await readData<WbwVersesResponse>(
-    `data/wbw/en/wbw_surah_id_${surahId}.json`
-  );
-
-  const filteredTranslationInfos = translationIds
-    .map(id => translationInfos[id])
-    .filter((info): info is TranslationInfo => info !== undefined);
-
-  const combinedTranslations = await Promise.all(
-    filteredTranslationInfos.map(async info => {
-      const translation = await readData<SurahTranslation>(
-        `data/translations/en/${info.id}/surah_id_${surahId}.json`
-      );
-      return { info, translation };
-    })
-  );
 
   if (!surah) {
     return <div>Surah with id {surahId} not found</div>;
   }
+  const verses = await getVersesBySurah(surahId);
+  const wbwVerses = await getWbwVersesBySurah(surahId, searchParams?.wbw_tr);
+  let mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
 
-  const mergedVerses: MergedVerse[] = verses.map(verse => {
-    const wbwVerse = wbwSurahResponse.verses.find(wbw => wbw.verse_number === verse.verse_number);
-    return {
-      ...verse,
-      words: wbwVerse?.words || [],
-    };
-  });
+  const translationIds = parseTranslationIds(searchParams);
+  mergedVerses = await addTranslationsToVerses(
+    mergedVerses,
+    surahId,
+    translationIds,
+    translationInfos
+  );
 
   return (
     <div>
       <SurahDisplayCard surah={surah}>
         {mergedVerses.map(mergedVerse => (
-          <VerseDisplayCard
-            key={mergedVerse.id}
-            verse={mergedVerse}
-            combinedTranslations={combinedTranslations}
-          />
+          <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
         ))}
       </SurahDisplayCard>
     </div>

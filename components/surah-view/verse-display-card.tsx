@@ -3,17 +3,18 @@
 import { Verse } from '@/lib/types/verses-type';
 import type { Word as WordType } from '@/lib/types/wbw-type';
 import Word from './word';
-import { TranslationInfo, type SurahTranslation } from '@/lib/types/surah-translation-type';
+import { TranslationInfo } from '@/lib/types/surah-translation-type';
 
 type VerseDisplayProps = {
-  verse: Verse & { words: WordType[] };
-  combinedTranslations?: {
-    info: TranslationInfo;
-    translation: SurahTranslation;
-  }[];
+  verse: Verse & {
+    words: WordType[];
+    combinedTranslations?: {
+      info: TranslationInfo;
+      text: string;
+    }[];
+  };
 };
-
-const VerseDisplayCard = ({ verse, combinedTranslations }: VerseDisplayProps) => {
+const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
   return (
     <div className="rounded-2xl border border-neutral-200 bg-neutral p-6">
       <p className=" text-lg">{verse.verse_number}</p>
@@ -24,18 +25,13 @@ const VerseDisplayCard = ({ verse, combinedTranslations }: VerseDisplayProps) =>
           )}
         </div>
       </div>
-      <div className="mt-2">
-        {combinedTranslations?.map(translations => {
-          const verseTranslation = translations.translation[verse.verse_number];
-          return (
-            <div key={translations.info.id}>
-              <p className="text-xs text-neutral-500">{translations.info.author_name}</p>
-              {verseTranslation?.text && (
-                <div dangerouslySetInnerHTML={{ __html: verseTranslation?.text }} />
-              )}
-            </div>
-          );
-        })}
+      <div className="mt-2 space-y-5">
+        {verse.combinedTranslations?.map(({ info, text }) => (
+          <div key={info.id}>
+            <p className="text-xs text-neutral-500">{info.author_name}</p>
+            {text && <div dangerouslySetInnerHTML={{ __html: text }} />}
+          </div>
+        ))}
       </div>
     </div>
   );
