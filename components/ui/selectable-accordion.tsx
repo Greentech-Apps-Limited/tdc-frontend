@@ -45,7 +45,7 @@ function SelectableAccordion<T>({
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1">
         <AccordionTrigger>
-          <div className="text-start">
+          <div className="text-start font-normal">
             <p className="text-sm">{title}</p>
             <p className="text-xs text-neutral-600">{getSelectionText()}</p>
           </div>

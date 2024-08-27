@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../u
 import { SettingsIcon } from '@/icons';
 import ResourceSelection from './resource-selection';
 import ContentSettings from './content-settings';
+import FontSettings from './font-settings';
 
 const Settings = () => {
   return (
@@ -18,6 +19,7 @@ const Settings = () => {
         <div className="h-full w-full space-y-6 overflow-y-scroll py-6">
           <ContentSettings />
           <ResourceSelection />
+          <FontSettings />
         </div>
       </SheetContent>
     </Sheet>
