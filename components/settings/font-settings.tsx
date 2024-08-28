@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import SelectableAccordion from '../ui/selectable-accordion';
 import { Slider } from '../ui/slider';
+import { useSettings } from '@/contexts/settings-provider';
 
 type FontType = {
   id: string;
@@ -8,6 +9,13 @@ type FontType = {
 };
 
 const FontSettings = () => {
+  const { arabicFont, arabicFontSize, translationFont, updateSettings } = useSettings(state => ({
+    arabicFont: state.arabicFont,
+    arabicFontSize: state.arabicFontSize,
+    translationFont: state.translationFont,
+    updateSettings: state.updateSettings,
+  }));
+
   const fonts = useMemo<FontType[]>(
     () => [
       { id: 'arabic', name: 'Arabic' },
@@ -17,29 +25,28 @@ const FontSettings = () => {
     []
   );
 
-  const [selectedFont, setSelectedFont] = useState<string>(fonts[0]?.id || '');
-  const [arabicFontSize, setArabicFontSize] = useState<number>(24);
-  const [translationFontSize, setTranslationFontSize] = useState<number>(16);
-
   const minFontSize = 12;
   const maxFontSize = 32;
   const fontSizeStep = 1;
 
-  const handleFontChange = useCallback(
-    (selectedFonts: string[]) => {
-      setSelectedFont(selectedFonts[0] || fonts[0]?.id || '');
-    },
-    [fonts]
-  );
+  const handleFontChange = (selectedFonts: string[]) => {
+    const newArabicFont = selectedFonts[0] || fonts[0]?.id || '';
+    updateSettings({ arabicFont: newArabicFont });
+  };
 
-  const handleFontSizeChange = useCallback(
-    (setter: React.Dispatch<React.SetStateAction<number>>) => (value: number[]) => {
-      if (value[0] !== undefined) {
-        setter(Math.max(minFontSize, value[0]));
-      }
-    },
-    [minFontSize]
-  );
+  const handleArabicFontSizeChange = (value: number[]) => {
+    if (value[0] !== undefined) {
+      const newSize = Math.max(minFontSize, value[0]);
+      updateSettings({ arabicFontSize: newSize });
+    }
+  };
+
+  const handleTranslationFontSizeChange = (value: number[]) => {
+    if (value[0] !== undefined) {
+      const newSize = Math.max(minFontSize, value[0]);
+      updateSettings({ translationFont: newSize });
+    }
+  };
 
   return (
     <section className="space-y-4">
@@ -50,10 +57,11 @@ const FontSettings = () => {
             title="Arabic Font"
             items={fonts}
             isMultiple={false}
-            selectedItems={[selectedFont]}
+            selectedItems={[arabicFont]}
             onSelectionChange={handleFontChange}
             idKey="id"
             labelKey="name"
+            forceSelection={true}
           />
         )}
         <div className="space-y-2">
@@ -63,17 +71,17 @@ const FontSettings = () => {
             min={minFontSize}
             max={maxFontSize}
             step={fontSizeStep}
-            onValueChange={handleFontSizeChange(setArabicFontSize)}
+            onValueChange={handleArabicFontSizeChange}
           />
         </div>
         <div className="space-y-2">
-          <p className="text-sm">Translation/Tafsir Font Size: {translationFontSize}px</p>
+          <p className="text-sm">Translation/Tafsir Font Size: {translationFont}px</p>
           <Slider
-            value={[translationFontSize]}
+            value={[translationFont]}
             min={minFontSize}
             max={maxFontSize}
             step={fontSizeStep}
-            onValueChange={handleFontSizeChange(setTranslationFontSize)}
+            onValueChange={handleTranslationFontSizeChange}
           />
         </div>
       </div>

@@ -10,6 +10,7 @@ interface SelectableAccordionProps<T> {
   onSelectionChange: (selectedIds: string[]) => void;
   idKey: keyof T;
   labelKey: keyof T;
+  forceSelection?: boolean;
 }
 
 function SelectableAccordion<T>({
@@ -20,6 +21,7 @@ function SelectableAccordion<T>({
   onSelectionChange,
   idKey,
   labelKey,
+  forceSelection = false,
 }: SelectableAccordionProps<T>) {
   const handleCheckboxChange = (itemId: string) => {
     if (isMultiple) {
@@ -28,6 +30,9 @@ function SelectableAccordion<T>({
         : [...selectedItems, itemId];
       onSelectionChange(updatedSelection);
     } else {
+      if (forceSelection && selectedItems[0] === itemId) {
+        return;
+      }
       onSelectionChange([itemId]);
     }
   };

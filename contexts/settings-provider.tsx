@@ -1,34 +1,26 @@
 'use client';
 
-import { CounterStore, createCounterStore, initCounterStore } from '@/stores/settings-store';
-import { type ReactNode, createContext, useRef, useContext } from 'react';
-import { useStore } from 'zustand';
+import useSettingsStore, { SettingsActions, SettingsState } from '@/stores/settings-store';
+import { createContext, useContext, useRef } from 'react';
 
-export type CounterStoreApi = ReturnType<typeof createCounterStore>;
+const SettingsStoreContext = createContext<typeof useSettingsStore | null>(null);
 
-export const CounterStoreContext = createContext<CounterStoreApi | undefined>(undefined);
-
-export interface CounterStoreProviderProps {
-  children: ReactNode;
-}
-
-export const CounterStoreProvider = ({ children }: CounterStoreProviderProps) => {
-  const storeRef = useRef<CounterStoreApi>();
-  if (!storeRef.current) {
-    storeRef.current = createCounterStore(initCounterStore());
-  }
+export function SettingsProvider({ children }: { children: React.ReactNode }) {
+  const storeRef = useRef(useSettingsStore);
 
   return (
-    <CounterStoreContext.Provider value={storeRef.current}>{children}</CounterStoreContext.Provider>
+    <SettingsStoreContext.Provider value={storeRef.current}>
+      {children}
+    </SettingsStoreContext.Provider>
   );
-};
+}
 
-export const useCounterStore = <T,>(selector: (store: CounterStore) => T): T => {
-  const counterStoreContext = useContext(CounterStoreContext);
-
-  if (!counterStoreContext) {
-    throw new Error(`useCounterStore must be used within CounterStoreProvider`);
+export function useSettings(): SettingsState & SettingsActions;
+export function useSettings<T>(selector: (state: SettingsState & SettingsActions) => T): T;
+export function useSettings<T>(selector?: (state: SettingsState & SettingsActions) => T) {
+  const store = useContext(SettingsStoreContext);
+  if (!store) {
+    throw new Error('useSettings must be used within SettingsProvider');
   }
-
-  return useStore(counterStoreContext, selector);
-};
+  return selector ? store(selector) : store();
+}

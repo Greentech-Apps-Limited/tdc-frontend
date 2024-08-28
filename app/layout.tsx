@@ -2,8 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { hidayatullahFont, lateef, source_sans_3 } from '@/lib/fonts';
 import LoadingProgressBar from '@/components/loading-progress-bar';
-import { CounterStoreProvider } from '@/contexts/settings-provider';
-// import Head from 'next/head';
+import { SettingsProvider } from '@/contexts/settings-provider';
 
 export const metadata: Metadata = {
   title: 'Quran',
@@ -17,14 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head> */}
       <body
         className={`${source_sans_3.variable} ${hidayatullahFont.variable} ${lateef.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
       >
         <LoadingProgressBar />
-        <CounterStoreProvider> {children}</CounterStoreProvider>
+        <SettingsProvider>{children}</SettingsProvider>
       </body>
     </html>
   );

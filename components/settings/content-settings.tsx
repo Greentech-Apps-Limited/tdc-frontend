@@ -1,65 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Checkbox } from '../ui/checkbox';
+import { useSettings } from '@/contexts/settings-provider';
 
-interface ContentSettings {
-  arabic: boolean;
-  wordbyword: boolean;
-  translation: boolean;
-  tajweed: boolean;
-}
+type ContentOption = 'showByWords' | 'showTajweed' | 'showTranslation' | 'showArabic';
 
-interface ContentSettingsOption {
-  id: keyof ContentSettings;
+interface ContentItem {
+  id: ContentOption;
   label: string;
 }
 
-const contentOptions: ContentSettingsOption[] = [
-  { id: 'arabic', label: 'Arabic' },
-  { id: 'wordbyword', label: 'Word by Word' },
-  { id: 'translation', label: 'Translation' },
-  { id: 'tajweed', label: 'Tajweed' },
+const contentItems: ContentItem[] = [
+  { id: 'showArabic', label: 'Arabic' },
+  { id: 'showByWords', label: 'Word by Word' },
+  { id: 'showTranslation', label: 'Translation' },
+  { id: 'showTajweed', label: 'Tajweed' },
 ];
 
 const ContentSettings = () => {
-  const [settings, setSettings] = useState<ContentSettings>({
-    arabic: false,
-    wordbyword: false,
-    translation: false,
-    tajweed: false,
-  });
+  const settings = useSettings();
+  const { updateSettings } = settings;
 
-  const handleCheckboxChange = (option: keyof ContentSettings) => {
-    setSettings(prev => ({
-      ...prev,
-      [option]: !prev[option],
-    }));
+  const handleCheckboxChange = (option: ContentOption) => {
+    updateSettings({ [option]: !settings[option] });
   };
+
+  const renderCheckbox = ({ id, label }: ContentItem) => (
+    <div
+      key={id}
+      className={`flex items-center space-x-2 rounded-full p-2 hover:bg-neutral-50 ${
+        settings[id] ? 'bg-neutral-50' : ''
+      }`}
+    >
+      <Checkbox
+        id={id}
+        checked={settings[id] as boolean}
+        onCheckedChange={() => handleCheckboxChange(id)}
+      />
+      <label
+        htmlFor={id}
+        className="cursor-pointer text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      >
+        {label}
+      </label>
+    </div>
+  );
 
   return (
     <section className="space-y-2">
       <p className="text-xs font-semibold text-neutral-700">Content</p>
-      <div className="space-y-1">
-        {contentOptions.map(option => (
-          <div
-            key={option.id}
-            className={`flex items-center space-x-2 rounded-full p-2 hover:bg-neutral-50 ${
-              settings[option.id] ? 'bg-neutral-50' : ''
-            }`}
-          >
-            <Checkbox
-              id={option.id}
-              checked={settings[option.id]}
-              onCheckedChange={() => handleCheckboxChange(option.id)}
-            />
-            <label
-              htmlFor={option.id}
-              className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {option.label}
-            </label>
-          </div>
-        ))}
-      </div>
+      <div className="space-y-1">{contentItems.map(renderCheckbox)}</div>
     </section>
   );
 };

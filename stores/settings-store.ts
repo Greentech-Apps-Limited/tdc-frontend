@@ -1,30 +1,81 @@
-import { createStore } from 'zustand/vanilla'
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
-export type CounterState = {
-    count: number
+export interface SettingsState {
+    language: string;
+    locale: string;
+    tafsirLocales: string[];
+    prevLocale: string;
+    showByWords: boolean;
+    showTajweed: boolean;
+    showArabic: boolean;
+    showTranslation: boolean;
+    readingMode: boolean;
+    translationFont: number;
+    selectedTranslation: number[];
+    selectedTafseer: number[];
+    tafseerTab: string;
+    arabicScript: string;
+    arabicFont: string;
+    arabicFontSize: number;
+    wbwTr: string;
+    audioSpeed: string;
+    selectedQari: {
+        id: number;
+        reciter_name: string;
+        style: string | null;
+    };
+    currentPlayingSurahInfo: Record<string, unknown>;
+    audioAutoScroll: boolean;
+    audioWordClick: boolean;
+    isAudioPlaying: boolean;
 }
 
-export type CounterActions = {
-    decrementCount: () => void
-    incrementCount: () => void
+export interface SettingsActions {
+    updateSettings: (newSettings: Partial<SettingsState>) => void;
+    updateWbwTr: (wbwTr: string) => void;
+    updateSelectedTranslation: (selectedTranslation: number[]) => void;
 }
 
-export type CounterStore = CounterState & CounterActions
+const useSettingsStore = create(
+    persist<SettingsState & SettingsActions>(
+        (set) => ({
+            language: 'English',
+            locale: 'en',
+            tafsirLocales: ['bn', 'en', 'ar', 'in', 'ru', 'ur'],
+            prevLocale: '',
+            showByWords: true,
+            showTajweed: false,
+            showArabic: true,
+            showTranslation: true,
+            readingMode: false,
+            translationFont: 16,
+            selectedTranslation: [20],
+            selectedTafseer: [15],
+            tafseerTab: 'en-ibn-kathir',
+            arabicScript: 'uthmani',
+            arabicFont: 'kfgqv2',
+            arabicFontSize: 26,
+            wbwTr: 'en',
+            audioSpeed: '1',
+            selectedQari: {
+                id: 7,
+                reciter_name: "Mishari Rashid al-`Afasy",
+                style: null
+            },
+            currentPlayingSurahInfo: {},
+            audioAutoScroll: false,
+            audioWordClick: false,
+            isAudioPlaying: false,
+            updateSettings: (newSettings) => set((state) => ({ ...state, ...newSettings })),
+            updateWbwTr: (wbwTr) => set({ wbwTr }),
+            updateSelectedTranslation: (selectedTranslation) => set({ selectedTranslation }),
+        }),
+        {
+            name: 'settings-storage',
+            storage: createJSONStorage(() => localStorage),
+        }
+    )
+);
 
-export const initCounterStore = (): CounterState => {
-    return { count: new Date().getFullYear() }
-}
-
-export const defaultInitState: CounterState = {
-    count: 0,
-}
-
-export const createCounterStore = (
-    initState: CounterState = defaultInitState,
-) => {
-    return createStore<CounterStore>()((set) => ({
-        ...initState,
-        decrementCount: () => set((state) => ({ count: state.count - 1 })),
-        incrementCount: () => set((state) => ({ count: state.count + 1 })),
-    }))
-}
+export default useSettingsStore;
