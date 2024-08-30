@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
 import Link from 'next/link';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
+import { useSearchParams } from 'next/navigation';
 
 type ViewType = 'page' | 'juz' | 'hizb' | 'ruku';
 
@@ -12,12 +15,19 @@ interface GenericViewProps {
 
 const GenericView: React.FC<GenericViewProps> = ({ quranMeta, type }) => {
   const references = getReferences(quranMeta, type);
-
+  const searchParams = useSearchParams();
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {references.map((reference: Reference) => {
         return (
-          <Link key={reference.id} href={`/${type}/${reference.id}`}>
+          <Link
+            key={reference.id}
+            href={
+              searchParams?.toString()
+                ? `/${type}/${reference.id}?${searchParams.toString()}`
+                : `/${type}/${reference.id}`
+            }
+          >
             <ReferenceCard reference={reference} title={getTitle(type, reference.id)} />
           </Link>
         );

@@ -4,7 +4,7 @@ import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 type QuranDetailsSidebarProps = {
@@ -16,6 +16,7 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
   const sidebarRef = useRef<HTMLElement | null>(null);
   const params = useParams();
   const references = getReferences(quranMeta, listType);
+  const searchParams = useSearchParams();
 
   const isSurah = (reference: Reference | Surah): reference is Surah => {
     return (reference as Surah).transliteration !== undefined;
@@ -35,7 +36,13 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
       key={reference.id}
       className="w-full overflow-hidden rounded-full border border-neutral-100"
     >
-      <Link href={`/${listType}/${reference.id}`}>
+      <Link
+        href={
+          searchParams?.toString()
+            ? `/${listType}/${reference.id}?${searchParams.toString()}`
+            : `/${listType}/${reference.id}`
+        }
+      >
         <div
           className={`flex cursor-pointer items-center gap-2 p-3 hover:bg-neutral-100 ${
             isActive(reference.id) ? 'active bg-neutral-100 font-semibold' : ''

@@ -11,7 +11,7 @@ export interface SettingsState {
     showArabic: boolean;
     showTranslation: boolean;
     readingMode: boolean;
-    translationFont: number;
+    translationFontSize: number;
     selectedTranslation: number[];
     selectedTafseer: number[];
     tafseerTab: string;
@@ -49,12 +49,12 @@ const useSettingsStore = create(
             showArabic: true,
             showTranslation: true,
             readingMode: false,
-            translationFont: 16,
+            translationFontSize: 16,
             selectedTranslation: [20],
             selectedTafseer: [15],
             tafseerTab: 'en-ibn-kathir',
             arabicScript: 'uthmani',
-            arabicFont: 'kfgqv2',
+            arabicFont: 'lateef',
             arabicFontSize: 26,
             wbwTr: 'en',
             audioSpeed: '1',

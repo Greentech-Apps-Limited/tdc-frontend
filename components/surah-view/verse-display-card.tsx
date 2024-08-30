@@ -4,6 +4,7 @@ import { Verse } from '@/lib/types/verses-type';
 import type { Word as WordType } from '@/lib/types/wbw-type';
 import Word from './word';
 import { TranslationInfo } from '@/lib/types/surah-translation-type';
+import { useSettings } from '@/contexts/settings-provider';
 
 type VerseDisplayProps = {
   verse: Verse & {
@@ -15,24 +16,32 @@ type VerseDisplayProps = {
   };
 };
 const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
+  const { showTranslation, showByWords, translationFontSize } = useSettings();
   return (
     <div className="rounded-2xl border border-neutral-200 bg-neutral p-6">
       <p className=" text-lg">{verse.verse_number}</p>
       <div className="text-right font-lateef" dir="rtl">
-        <div className="inline leading-[100px]">
+        <div className={`inline  ${showByWords ? 'leading-[100px]' : 'leading-[60px]'}`}>
           {verse.words.map(
             word => !(word.position === verse.words.length) && <Word key={word.id} word={word} />
           )}
         </div>
       </div>
-      <div className="mt-2 space-y-5">
-        {verse.combinedTranslations?.map(({ info, text }) => (
-          <div key={info.id}>
-            <p className="text-xs text-neutral-500">{info.author_name}</p>
-            {text && <div dangerouslySetInnerHTML={{ __html: text }} />}
-          </div>
-        ))}
-      </div>
+      {showTranslation && (
+        <div className="mt-2 space-y-5">
+          {verse.combinedTranslations?.map(({ info, text }) => (
+            <div key={info.id}>
+              <p className="text-xs text-neutral-500">{info.name}</p>
+              {text && (
+                <div
+                  dangerouslySetInnerHTML={{ __html: text }}
+                  style={{ fontSize: `${translationFontSize}px`, lineHeight: `1.25em` }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

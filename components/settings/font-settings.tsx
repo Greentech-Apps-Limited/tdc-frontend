@@ -12,21 +12,20 @@ const FontSettings = () => {
   const { arabicFont, arabicFontSize, translationFont, updateSettings } = useSettings(state => ({
     arabicFont: state.arabicFont,
     arabicFontSize: state.arabicFontSize,
-    translationFont: state.translationFont,
+    translationFont: state.translationFontSize,
     updateSettings: state.updateSettings,
   }));
 
   const fonts = useMemo<FontType[]>(
     () => [
-      { id: 'arabic', name: 'Arabic' },
-      { id: 'naskh', name: 'Naskh' },
-      { id: 'indopak', name: 'IndoPak' },
+      { id: 'lateef', name: 'Lateef' },
+      { id: 'source_sans_3', name: 'Source Sans 3' },
     ],
     []
   );
 
-  const minFontSize = 12;
-  const maxFontSize = 32;
+  const minFontSize = 14;
+  const maxFontSize = 60;
   const fontSizeStep = 1;
 
   const handleFontChange = (selectedFonts: string[]) => {
@@ -44,7 +43,7 @@ const FontSettings = () => {
   const handleTranslationFontSizeChange = (value: number[]) => {
     if (value[0] !== undefined) {
       const newSize = Math.max(minFontSize, value[0]);
-      updateSettings({ translationFont: newSize });
+      updateSettings({ translationFontSize: newSize });
     }
   };
 

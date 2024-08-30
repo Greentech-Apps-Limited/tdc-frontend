@@ -24,3 +24,17 @@ export function mergeVersesWithWbw(verses: Verse[], wbwVerses: WbwVersesResponse
 export function filterVersesBySegment(verses: Verse[], segmentId: string, filterKey: keyof Verse): Verse[] {
     return verses.filter(verse => verse[filterKey] === Number(segmentId));
 }
+
+
+export const calculateWbwFontSize = (arabicFontSize: number): number => {
+    const minWbwSize = 12;
+    const maxWbwSize = 20;
+    const minArabicSize = 32;
+    const maxArabicSize = 60;
+
+    const proportion = (arabicFontSize - minArabicSize) / (maxArabicSize - minArabicSize);
+
+    const wbwSize = minWbwSize + proportion * (maxWbwSize - minWbwSize);
+
+    return Math.max(minWbwSize, Math.min(maxWbwSize, Math.round(wbwSize)));
+};

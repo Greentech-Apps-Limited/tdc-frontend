@@ -19,13 +19,11 @@ const ResourceSelection = () => {
   );
   const updateSearchParams = useUpdateSearchParams();
 
+  // FIXME: Hardcoded for now needs to be refactored
   const wbwTranslationItems: WBWTranslationLang[] = [
     { id: 'en', label: 'English' },
-    { id: 'es', label: 'Spanish' },
-    { id: 'fr', label: 'French' },
-    { id: 'de', label: 'German' },
+    { id: 'bn', label: 'Bangla' },
   ];
-
   const translationItems: TranslationInfo[] = [
     {
       id: 19,
@@ -46,17 +44,6 @@ const ResourceSelection = () => {
       language_name: 'english',
       translated_name: {
         name: 'Saheeh International',
-        language_name: 'english',
-      },
-    },
-    {
-      id: 22,
-      name: 'A. Yusuf Ali',
-      author_name: 'Abdullah Yusuf Ali',
-      slug: 'quran.en.yusufali',
-      language_name: 'english',
-      translated_name: {
-        name: 'A. Yusuf Ali',
         language_name: 'english',
       },
     },

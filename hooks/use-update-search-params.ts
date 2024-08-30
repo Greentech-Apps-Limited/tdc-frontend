@@ -6,12 +6,12 @@ export const useUpdateSearchParams = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    const updateSearchParams = useCallback((wbwTr: string, selectedTranslation: number[]) => {
+    const updateSearchParams = useCallback((wbwTr: string, selectedTranslation: number[], newPathname?: string) => {
         const newParams = new URLSearchParams(searchParams.toString());
         newParams.set('wbw_tr', wbwTr);
         newParams.set('translations', selectedTranslation.join('-'));
 
-        router.push(pathname + '?' + newParams.toString());
+        router.replace((newPathname || pathname) + '?' + newParams.toString());
     }, [router, pathname, searchParams]);
 
     return updateSearchParams;

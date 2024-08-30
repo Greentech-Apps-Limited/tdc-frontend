@@ -9,11 +9,12 @@ interface ContentItem {
   label: string;
 }
 
+// FIXME: Update and Add for new settings
 const contentItems: ContentItem[] = [
-  { id: 'showArabic', label: 'Arabic' },
+  // { id: 'showArabic', label: 'Arabic' },
   { id: 'showByWords', label: 'Word by Word' },
   { id: 'showTranslation', label: 'Translation' },
-  { id: 'showTajweed', label: 'Tajweed' },
+  // { id: 'showTajweed', label: 'Tajweed' },
 ];
 
 const ContentSettings = () => {
