@@ -16,7 +16,7 @@ const Settings = () => {
         <SheetHeader>
           <SheetTitle>Settings</SheetTitle>
         </SheetHeader>
-        <div className="h-full w-full space-y-6 overflow-y-scroll py-6">
+        <div className="h-full w-full space-y-6 overflow-y-scroll py-6 pb-16">
           <ContentSettings />
           <ResourceSelection />
           <FontSettings />
