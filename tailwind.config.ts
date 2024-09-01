@@ -70,6 +70,7 @@ const config = {
       },
       dropShadow: {
         DEFAULT: '0px 1px 3px 0px #0000001A',
+        "sm": " 0px 3px 10px 0px rgba(0, 0, 0, 0.06)"
       },
       maxWidth: {
         '4xl': '54.5rem',
