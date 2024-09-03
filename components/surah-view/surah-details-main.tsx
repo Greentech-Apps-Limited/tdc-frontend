@@ -5,6 +5,7 @@ import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
+import VerseDisplayMain from './verse-display-main';
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -38,6 +39,7 @@ const SurahDetailsMain = async ({
 
   return (
     <div>
+      <VerseDisplayMain />
       <SurahDisplayCard surah={surah}>
         {mergedVerses.map(mergedVerse => (
           <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
