@@ -2,7 +2,7 @@
 
 import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
-import { getReferences, getTitle } from '@/lib/utils/quran-segement-utils';
+import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';

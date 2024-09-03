@@ -17,20 +17,17 @@ export type Reference = {
     starting_line?: string;
 };
 
-export type ReferenceObject = {
-    count: number;
-    references: Reference[];
-};
 
 export type QuranMeta = {
-    surahs: {
-        count: number;
-        references: Surah[]
-    };
-    sajdas: ReferenceObject;
-    rukus: ReferenceObject;
-    pages: ReferenceObject;
-    manzils: ReferenceObject;
-    hizbQuarters: ReferenceObject;
-    juzs: ReferenceObject;
+    surahs: Surah[];
+    sajdas?: Reference[];
+    rukus: Reference[];
+    pages: Reference[];
+    manzils?: Reference[];
+    hizbs: Reference[];
+    juzs: Reference[];
+};
+
+export type MappingObjectType = {
+    [key: string]: string[];
 };

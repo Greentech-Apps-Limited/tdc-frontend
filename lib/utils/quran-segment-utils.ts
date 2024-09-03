@@ -25,11 +25,11 @@ export const getTitle = (listType: QuranSegment, id: number): string => {
 
 export const getReferences = (quranMeta: QuranMeta, listType: QuranSegment): Reference[] | Surah[] => {
     const referenceMap: { [key in QuranSegment]: Reference[] | Surah[] } = {
-        page: quranMeta.pages.references,
-        juz: quranMeta.juzs.references,
-        hizb: quranMeta.hizbQuarters.references,
-        ruku: quranMeta.rukus.references,
-        surah: quranMeta.surahs.references,
+        page: quranMeta.pages,
+        juz: quranMeta.juzs,
+        hizb: quranMeta.hizbs,
+        ruku: quranMeta.rukus,
+        surah: quranMeta.surahs,
     };
 
     return referenceMap[listType] || [];

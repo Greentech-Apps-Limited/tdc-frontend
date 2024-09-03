@@ -1,5 +1,5 @@
 import { readData } from '@/lib/read-file';
-import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
+import { Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 const QuranSegmentDetailsLayout = ({
@@ -11,14 +11,20 @@ const QuranSegmentDetailsLayout = ({
 export default QuranSegmentDetailsLayout;
 
 export async function generateStaticParams() {
-  const quranMeta: QuranMeta = await readData<QuranMeta>('data/quran-meta.json');
+  const surahs = await readData<Surah[]>('data/quran-meta/surahs/en.json');
+  const [juzs, pages, hizbs, rukus] = await Promise.all([
+    readData<Reference[]>('data/quran-meta/juzs.json'),
+    readData<Reference[]>('data/quran-meta/pages.json'),
+    readData<Reference[]>('data/quran-meta/hizbs.json'),
+    readData<Reference[]>('data/quran-meta/rukus.json'),
+  ]);
 
-  const segmentMap: Record<QuranSegment, Reference[]> = {
-    surah: quranMeta.surahs.references,
-    page: quranMeta.pages.references,
-    juz: quranMeta.juzs.references,
-    hizb: quranMeta.hizbQuarters.references,
-    ruku: quranMeta.rukus.references,
+  const segmentMap: Record<QuranSegment, Reference[] | Surah[]> = {
+    surah: surahs,
+    page: pages,
+    juz: juzs,
+    hizb: hizbs,
+    ruku: rukus,
   };
 
   const staticParams = Object.entries(segmentMap).flatMap(([quranSegment, references]) => {

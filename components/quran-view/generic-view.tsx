@@ -1,7 +1,7 @@
 import React from 'react';
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
 import Link from 'next/link';
-import { getReferences, getTitle } from '@/lib/utils/quran-segement-utils';
+import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
 
 type ViewType = 'page' | 'juz' | 'hizb' | 'ruku';
 
