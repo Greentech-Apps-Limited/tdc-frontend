@@ -1,5 +1,5 @@
-import { SettingsIcon } from '@/icons';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import Settings from './settings/settings';
 
 const Header = () => {
   return (
@@ -14,9 +14,7 @@ const Header = () => {
             <SelectItem value="bd">Bangla</SelectItem>
           </SelectContent>
         </Select>
-        <section>
-          <SettingsIcon className="text-2xl hover:cursor-pointer" />
-        </section>
+        <Settings />
       </section>
     </header>
   );
