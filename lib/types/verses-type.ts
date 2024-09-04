@@ -1,3 +1,5 @@
+import { Word } from "./wbw-types";
+
 type Verse = {
     id: number;
     verse_number: number;
@@ -25,4 +27,6 @@ type VersesResponse = {
     pagination: Pagination;
 }
 
-export type { Verse, Pagination, VersesResponse };
+type MergedVerse = Verse & { words: Word[] };
+
+export type { Verse, Pagination, VersesResponse, MergedVerse };

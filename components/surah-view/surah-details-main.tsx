@@ -1,8 +1,9 @@
 import { readData } from '@/lib/read-file';
 import { Surah } from '@/lib/types/quran-meta-types';
-import { VersesResponse } from '@/lib/types/verses-type';
+import { MergedVerse, VersesResponse } from '@/lib/types/verses-type';
 import VerseDisplayCard from './verse-display-card';
 import SurahDisplayCard from './surah-display-card';
+import { WbwVersesResponse } from '@/lib/types/wbw-types';
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -11,21 +12,31 @@ type SurahDetailsMainProps = {
     wbw_tr?: string;
   };
 };
-const SurahDetailsMain = async ({ surahs, surahId, searchParams }: SurahDetailsMainProps) => {
+
+const SurahDetailsMain = async ({ surahs, surahId }: SurahDetailsMainProps) => {
   const surah = surahs.find(surah => surah.id === parseInt(surahId));
   const { verses } = await readData<VersesResponse>(`data/verses/surah_id_${surahId}.json`);
+  const wbwSurahResponse = await readData<WbwVersesResponse>(
+    `data/wbw/en/wbw_surah_id_${surahId}.json`
+  );
 
-  //FIXME: Need to improve it
   if (!surah) {
-    return <div>Surah with id ${surahId} not found</div>;
+    return <div>Surah with id {surahId} not found</div>;
   }
 
-  console.log(searchParams);
+  const mergedVerses: MergedVerse[] = verses.map(verse => {
+    const wbwVerse = wbwSurahResponse.verses.find(wbw => wbw.verse_number === verse.verse_number);
+    return {
+      ...verse,
+      words: wbwVerse?.words || [],
+    };
+  });
+
   return (
     <div>
       <SurahDisplayCard surah={surah}>
-        {verses.map(verse => (
-          <VerseDisplayCard key={verse.id} verse={verse} />
+        {mergedVerses.map(mergedVerse => (
+          <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
         ))}
       </SurahDisplayCard>
     </div>
