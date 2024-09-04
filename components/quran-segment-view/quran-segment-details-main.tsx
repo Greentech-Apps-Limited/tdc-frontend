@@ -7,7 +7,7 @@ import { getMergedVersesBySurah } from '@/lib/utils/data-manipulation';
 
 type QuranSegmentDetailsMainProps = {
   params: {
-    quranSegment?: Exclude<QuranSegment, 'surah'>;
+    quranSegment: Exclude<QuranSegment, 'surah'>;
     segmentId: string;
   };
   surahs: Surah[];
