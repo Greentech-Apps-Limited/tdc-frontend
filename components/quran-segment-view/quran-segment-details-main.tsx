@@ -1,19 +1,18 @@
 import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
-import { MergedVerse, Verse } from '@/lib/types/verses-type';
+import { Verse } from '@/lib/types/verses-type';
 import SurahDisplayCard from '../surah-view/surah-display-card';
-import VerseDisplayCard from '../surah-view/verse-display-card';
-import { getMergedVersesBySurah } from '@/lib/utils/data-manipulation';
+import { getVersesBySurah } from '@/lib/utils/data-manipulation';
 
 type QuranSegmentDetailsMainProps = {
   params: {
-    quranSegment: Exclude<QuranSegment, 'surah'>;
+    quranSegment?: QuranSegment;
     segmentId: string;
   };
-  surahs: Surah[];
   searchParams?: {
     wbw_tr?: string;
   };
+  surahs: Surah[];
 };
 
 const QuranSegmentDetailsMain = async ({
@@ -21,37 +20,54 @@ const QuranSegmentDetailsMain = async ({
   params,
   searchParams,
 }: QuranSegmentDetailsMainProps) => {
+  console.log(searchParams);
   const { quranSegment, segmentId } = params;
-  let segmentData: Array<{ surahInfo: Surah; mergedVerses: MergedVerse[] }> = [];
+  let segmentData: Array<{ surahInfo: Surah; verses: Verse[] }> = [];
 
-  const mappingPaths = {
-    page: 'data/quran-meta/page-to-surah-mappings.json',
-    juz: 'data/quran-meta/juz-to-surah-mappings.json',
-    hizb: 'data/quran-meta/rub-el-hizb-to-surah-mappings.json',
-    ruku: 'data/quran-meta/ruku-surah-mapping.json',
-  };
-
-  if (quranSegment && mappingPaths[quranSegment]) {
-    const filterKey =
-      quranSegment === 'hizb' ? 'rub_el_hizb_number' : (`${quranSegment}_number` as keyof Verse);
-    segmentData = await getMergedVersesBySurah(
-      segmentId,
-      mappingPaths[quranSegment],
-      filterKey,
-      surahs,
-      searchParams?.wbw_tr
-    );
+  switch (quranSegment) {
+    case 'page':
+      segmentData = await getVersesBySurah(
+        segmentId,
+        'data/quran-meta/page-to-surah-mappings.json',
+        'page_number',
+        surahs
+      );
+      break;
+    case 'juz':
+      segmentData = await getVersesBySurah(
+        segmentId,
+        'data/quran-meta/juz-to-surah-mappings.json',
+        'juz_number',
+        surahs
+      );
+      break;
+    case 'hizb':
+      segmentData = await getVersesBySurah(
+        segmentId,
+        'data/quran-meta/rub-el-hizb-to-surah-mappings.json',
+        'rub_el_hizb_number',
+        surahs
+      );
+      break;
+    case 'ruku':
+      segmentData = await getVersesBySurah(
+        segmentId,
+        'data/quran-meta/ruku-surah-mapping.json',
+        'ruku_number',
+        surahs
+      );
+      break;
   }
 
   return (
     <div>
-      {segmentData.map(({ surahInfo, mergedVerses }) => (
-        <SurahDisplayCard key={surahInfo.id} surah={surahInfo}>
-          {mergedVerses.map(mergedVerse => (
-            <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
-          ))}
-        </SurahDisplayCard>
-      ))}
+      {segmentData.map(({ surahInfo }) => {
+        return (
+          <SurahDisplayCard key={surahInfo.id} surah={surahInfo}>
+            <div>test</div>
+          </SurahDisplayCard>
+        );
+      })}
     </div>
   );
 };
