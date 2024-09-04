@@ -1,5 +1,5 @@
 import { Surah } from '@/lib/types/quran-meta-types';
-import VerseDisplayCard from './verse-display-card';
+// import VerseDisplayCard from './verse-display-card';
 import SurahDisplayCard from './surah-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 // import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
@@ -39,13 +39,14 @@ const SurahDetailsMain = async ({
   //   translationIds,
   //   translationInfos
   // );
-
+  console.log(mergedVerses);
   return (
     <div>
       <SurahDisplayCard surah={surah}>
-        {mergedVerses.map(mergedVerse => (
+        testing
+        {/* {mergedVerses.map(mergedVerse => (
           <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
-        ))}
+        ))} */}
       </SurahDisplayCard>
     </div>
   );
