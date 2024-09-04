@@ -34,10 +34,15 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "announce-hide": {
+          from: { height: "40px" },
+          to: { height: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "announce-hide": "announce-hide 0.2s ease-out",
       },
       colors: {
         neutral: {
@@ -70,7 +75,6 @@ const config = {
       },
       dropShadow: {
         DEFAULT: '0px 1px 3px 0px #0000001A',
-        "sm": " 0px 3px 10px 0px rgba(0, 0, 0, 0.06)"
       },
       maxWidth: {
         '4xl': '54.5rem',

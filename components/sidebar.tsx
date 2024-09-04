@@ -3,7 +3,7 @@
 import { SidebarHideIcon, SidebarShowIcon } from '@/icons';
 import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
@@ -16,7 +16,6 @@ const shouldSidebarBeMinimized = (pathname: string): boolean => {
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isMinimized, setIsMinimized] = useState(shouldSidebarBeMinimized(pathname));
 
   useEffect(() => {
@@ -43,11 +42,7 @@ const Sidebar = () => {
         const isActive = isPathActive(path);
 
         return (
-          <Link
-            key={path}
-            href={searchParams?.toString() ? `${path}?${searchParams.toString()}` : path}
-            aria-label={title}
-          >
+          <Link key={path} href={path} aria-label={title}>
             <li
               data-test={`nav-item${path.replace(/\//g, '-')}`}
               className={`flex cursor-pointer gap-2 rounded-full hover:bg-neutral-200 
@@ -69,7 +64,7 @@ const Sidebar = () => {
           </Link>
         );
       }),
-    [isMinimized, isPathActive, searchParams]
+    [isMinimized, isPathActive]
   );
 
   return (

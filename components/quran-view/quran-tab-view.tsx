@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { QuranMeta } from '@/lib/types/quran-meta-types';

@@ -7,7 +7,6 @@ export { default as HomeIcon } from './home-icon.svg';
 export { default as PlayCircleIcon } from './play-circle-icon.svg';
 export { default as ProfileIconFill } from './profile-icon-fill.svg';
 export { default as ProfileIcon } from './profile-icon.svg';
-export { default as RightArrowIcon } from './right-arrow-icon.svg';
 export { default as SettingsIconFill } from './settings-icon-fill.svg';
 export { default as SettingsIcon } from './settings-icon.svg';
 export { default as SidebarHideIcon } from './sidebar-hide-icon.svg';
