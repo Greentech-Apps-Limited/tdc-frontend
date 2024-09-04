@@ -24,8 +24,11 @@ const SurahDetailsMain = async ({
   if (!surah) {
     return <div>Surah with id {surahId} not found</div>;
   }
-  const verses = await getVersesBySurah(surahId);
-  const wbwVerses = await getWbwVersesBySurah(surahId, searchParams?.wbw_tr);
+
+  const [verses, wbwVerses] = await Promise.all([
+    getVersesBySurah(surahId),
+    getWbwVersesBySurah(surahId, searchParams?.wbw_tr),
+  ]);
   const mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
 
   // const translationIds = parseTranslationIds(searchParams);
