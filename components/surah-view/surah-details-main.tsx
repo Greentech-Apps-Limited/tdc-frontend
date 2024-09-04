@@ -4,7 +4,8 @@ import SurahDisplayCard from './surah-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 // import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
 import { SearchParamsType } from '@/lib/types/search-params-type';
-import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
+import { getVersesBySurah, getWbwVersesBySurah } from '@/lib/actions';
+import { mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 
 type SurahDetailsMainProps = {
   surahs: Surah[];

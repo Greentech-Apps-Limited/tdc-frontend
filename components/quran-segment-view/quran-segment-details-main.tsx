@@ -6,13 +6,9 @@ import VerseDisplayCard from '../surah-view/verse-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { readData } from '@/lib/read-file';
-import {
-  filterVersesBySegment,
-  getVersesBySurah,
-  getWbwVersesBySurah,
-  mergeVersesWithWbw,
-} from '@/lib/utils/verse-utils';
+import { filterVersesBySegment, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
+import { getVersesBySurah, getWbwVersesBySurah } from '@/lib/actions';
 
 type QuranSegmentDetailsMainProps = {
   params: {
