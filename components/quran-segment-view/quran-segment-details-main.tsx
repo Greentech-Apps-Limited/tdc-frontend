@@ -10,13 +10,20 @@ type QuranSegmentDetailsMainProps = {
     quranSegment?: QuranSegment;
     segmentId: string;
   };
+  searchParams?: {
+    wbw_tr?: string;
+  };
   surahs: Surah[];
 };
 
-const QuranSegmentDetailsMain = async ({ surahs, params }: QuranSegmentDetailsMainProps) => {
+const QuranSegmentDetailsMain = async ({
+  surahs,
+  params,
+  searchParams,
+}: QuranSegmentDetailsMainProps) => {
   const { quranSegment, segmentId } = params;
   let segmentData: Array<{ surahInfo: Surah; verses: Verse[] }> = [];
-
+  console.log(searchParams);
   switch (quranSegment) {
     case 'page':
       segmentData = await getVersesBySurah(

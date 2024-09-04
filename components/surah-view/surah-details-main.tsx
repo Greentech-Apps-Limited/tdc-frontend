@@ -7,8 +7,11 @@ import SurahDisplayCard from './surah-display-card';
 type SurahDetailsMainProps = {
   surahs: Surah[];
   surahId: string;
+  searchParams?: {
+    wbw_tr?: string;
+  };
 };
-const SurahDetailsMain = async ({ surahs, surahId }: SurahDetailsMainProps) => {
+const SurahDetailsMain = async ({ surahs, surahId, searchParams }: SurahDetailsMainProps) => {
   const surah = surahs.find(surah => surah.id === parseInt(surahId));
   const { verses } = await readData<VersesResponse>(`data/verses/surah_id_${surahId}.json`);
 
@@ -17,6 +20,7 @@ const SurahDetailsMain = async ({ surahs, surahId }: SurahDetailsMainProps) => {
     return <div>Surah with id ${surahId} not found</div>;
   }
 
+  console.log(searchParams);
   return (
     <div>
       <SurahDisplayCard surah={surah}>
