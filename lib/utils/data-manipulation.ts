@@ -2,14 +2,16 @@
 
 import { readData } from "../read-file";
 import { MappingObjectType, Surah } from "../types/quran-meta-types";
-import { Verse } from "../types/verses-type";
+import { MergedVerse, Verse } from "../types/verses-type";
+import { WbwVersesResponse } from "../types/wbw-types";
 
-export async function getVersesBySurah(
+export async function getMergedVersesBySurah(
     segmentId: string,
     mappingPath: string,
     filterKey: keyof Verse,
-    surahs: Surah[]
-): Promise<Array<{ surahInfo: Surah; verses: Verse[] }>> {
+    surahs: Surah[],
+    languageCode?: string
+): Promise<Array<{ surahInfo: Surah; mergedVerses: MergedVerse[] }>> {
     const verseMapping: MappingObjectType = await readData(mappingPath);
     const surahIDs = verseMapping[segmentId] || [];
 
@@ -20,13 +22,26 @@ export async function getVersesBySurah(
             const { verses: surahVerses }: { verses: Verse[] } = await readData(
                 `data/verses/surah_id_${surah.id}.json`
             );
+            const wbwSurahResponse = await readData<WbwVersesResponse>(
+                `data/wbw/${languageCode ? languageCode : 'en'}/wbw_surah_id_${surah.id}.json`
+            );
+
             const filteredVerses = surahVerses.filter(verse => verse[filterKey] === Number(segmentId));
-            return { surahId: surah.id, verses: filteredVerses };
+
+            const mergedVerses: MergedVerse[] = filteredVerses.map(verse => {
+                const wbwVerse = wbwSurahResponse.verses.find(wbw => wbw.verse_number === verse.verse_number);
+                return {
+                    ...verse,
+                    words: wbwVerse?.words || [],
+                };
+            });
+
+            return { surahId: surah.id, mergedVerses };
         })
     );
 
     return surahInfos.map(surahInfo => ({
         surahInfo,
-        verses: versesBySurah.find(vs => vs.surahId === surahInfo.id)?.verses || [],
+        mergedVerses: versesBySurah.find(vs => vs.surahId === surahInfo.id)?.mergedVerses || [],
     }));
 }
