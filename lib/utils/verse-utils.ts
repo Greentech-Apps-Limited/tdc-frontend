@@ -1,5 +1,15 @@
-import { MergedVerse, Verse } from "../types/verses-type";
+import { readData } from "../read-file";
+import { MergedVerse, Verse, VersesResponse } from "../types/verses-type";
 import { WbwVersesResponse } from "../types/wbw-type";
+
+export async function getVersesBySurah(surahId: string): Promise<Verse[]> {
+    const { verses } = await readData<VersesResponse>(`data/verses/surah_id_${surahId}.json`);
+    return verses;
+}
+
+export async function getWbwVersesBySurah(surahId: string, languageCode: string = 'en'): Promise<WbwVersesResponse> {
+    return await readData<WbwVersesResponse>(`data/wbw/${languageCode}/wbw_surah_id_${surahId}.json`);
+}
 
 export function mergeVersesWithWbw(verses: Verse[], wbwVerses: WbwVersesResponse): MergedVerse[] {
     return verses.map(verse => {

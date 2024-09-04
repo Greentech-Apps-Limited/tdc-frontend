@@ -1,4 +1,5 @@
-// import SurahDetailsMain from '@/components/surah-view/surah-details-main';
+// import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
+import SurahDetailsMain from '@/components/surah-view/surah-details-main';
 import { readData } from '@/lib/read-file';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
@@ -19,10 +20,17 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
   const translationInfos = await readData<TranslationInfosType>(
     `data/quran-meta/translationsInfo.json`
   );
-  console.log(quranSegment, segmentId, translationInfos, surahs, searchParams);
+
   switch (quranSegment) {
     case 'surah':
-      return <div>Test</div>;
+      return (
+        <SurahDetailsMain
+          surahId={segmentId}
+          surahs={surahs}
+          searchParams={searchParams}
+          translationInfos={translationInfos}
+        />
+      );
     case 'page':
     case 'juz':
     case 'hizb':
