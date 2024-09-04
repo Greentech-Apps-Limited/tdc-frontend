@@ -2,7 +2,7 @@ import { Surah } from '@/lib/types/quran-meta-types';
 import VerseDisplayCard from './verse-display-card';
 import SurahDisplayCard from './surah-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
-import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
+// import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 
@@ -16,7 +16,7 @@ type SurahDetailsMainProps = {
 const SurahDetailsMain = async ({
   surahs,
   surahId,
-  translationInfos,
+  // translationInfos,
   searchParams,
 }: SurahDetailsMainProps) => {
   const surah = surahs.find(surah => surah.id === parseInt(surahId));
@@ -26,15 +26,15 @@ const SurahDetailsMain = async ({
   }
   const verses = await getVersesBySurah(surahId);
   const wbwVerses = await getWbwVersesBySurah(surahId, searchParams?.wbw_tr);
-  let mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
+  const mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
 
-  const translationIds = parseTranslationIds(searchParams);
-  mergedVerses = await addTranslationsToVerses(
-    mergedVerses,
-    surahId,
-    translationIds,
-    translationInfos
-  );
+  // const translationIds = parseTranslationIds(searchParams);
+  // mergedVerses = await addTranslationsToVerses(
+  //   mergedVerses,
+  //   surahId,
+  //   translationIds,
+  //   translationInfos
+  // );
 
   return (
     <div>
