@@ -1,5 +1,3 @@
-'use client';
-
 import { Verse } from '@/lib/types/verses-type';
 import type { Word as WordType } from '@/lib/types/wbw-type';
 import Word from './word';
