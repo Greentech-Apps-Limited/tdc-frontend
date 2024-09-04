@@ -1,14 +1,21 @@
-import { readData } from "../read-file";
 import { MergedVerse, Verse, VersesResponse } from "../types/verses-type";
 import { WbwVersesResponse } from "../types/wbw-type";
 
-export async function getVersesBySurah(surahId: string): Promise<Verse[]> {
-    const { verses } = await readData<VersesResponse>(`data/verses/surah_id_${surahId}.json`);
+export const fetcher = async <T>(url: string): Promise<T> => {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${url}`);
+    }
+    return response.json() as Promise<T>;
+};
+
+export async function getVersesBySurah(surahId: string, totalVerses: number): Promise<Verse[]> {
+    const { verses } = await fetcher<VersesResponse>(`https://api.quran.com/api/v4/verses/by_chapter/${surahId}?fields=text_uthmani&page=1&per_page=${totalVerses}`);
     return verses;
 }
 
-export async function getWbwVersesBySurah(surahId: string, languageCode: string = 'en'): Promise<WbwVersesResponse> {
-    return await readData<WbwVersesResponse>(`data/wbw/${languageCode}/wbw_surah_id_${surahId}.json`);
+export async function getWbwVersesBySurah(surahId: string, totalVerses: number, languageCode: string = 'en'): Promise<WbwVersesResponse> {
+    return await fetcher<WbwVersesResponse>(`https://api.quran.com/api/v4/verses/by_chapter/${surahId}?language=${languageCode}&page=1&per_page=${totalVerses}&word_fields=text_uthmani,location&words=true`);
 }
 
 export function mergeVersesWithWbw(verses: Verse[], wbwVerses: WbwVersesResponse): MergedVerse[] {

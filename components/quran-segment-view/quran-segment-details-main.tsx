@@ -49,8 +49,13 @@ const QuranSegmentDetailsMain = async ({
 
     segmentData = await Promise.all(
       surahInfos.map(async surahInfo => {
-        const verses = await getVersesBySurah(surahInfo.id.toString());
-        const wbwVerses = await getWbwVersesBySurah(surahInfo.id.toString(), searchParams?.wbw_tr);
+        const verses = await getVersesBySurah(surahInfo.id.toString(), surahInfo.verses);
+        const wbwVerses = await getWbwVersesBySurah(
+          surahInfo.id.toString(),
+          surahInfo.verses,
+          searchParams?.wbw_tr
+        );
+
         const filteredVerses = filterVersesBySegment(verses, segmentId, filterKey);
         let mergedVerses = mergeVersesWithWbw(filteredVerses, wbwVerses);
 

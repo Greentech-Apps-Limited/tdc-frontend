@@ -1,12 +1,24 @@
-type Translation = {
+import { Verse } from "./verses-type";
+export type VerseTranslation = {
     id: number;
     resource_id: number;
     text: string;
-};
+}
 
-export type SurahTranslation = {
-    [verse_number: string]: Translation;
-};
+export interface VerseWithTranslations extends Verse {
+    translations: VerseTranslation[];
+}
+
+export type SurahTranslationResponse = {
+    verses: VerseWithTranslations[];
+    pagination: {
+        per_page: number;
+        current_page: number;
+        next_page: number | null;
+        total_pages: number;
+        total_records: number;
+    };
+}
 
 
 export type TranslationInfo = {
