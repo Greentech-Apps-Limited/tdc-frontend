@@ -25,17 +25,19 @@ const SurahDetailsMain = async ({
     return <div>Surah with id {surahId} not found</div>;
   }
   const verses = await getVersesBySurah(surahId, surah.verses);
-  const wbwVerses = await getWbwVersesBySurah(surahId, surah.verses, searchParams?.wbw_tr);
+  console.log('test---2');
+  const wbwVerses = await getWbwVersesBySurah(surahId, surah.verses, 'en');
+  console.log('test---3');
   let mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
 
-  const translationIds = parseTranslationIds(searchParams);
+  const translationIds = parseTranslationIds('20');
   mergedVerses = await addTranslationsToVerses(
     mergedVerses,
     surahId,
     translationIds,
     translationInfos
   );
-
+  console.log('searchParams', searchParams);
   return (
     <div>
       <SurahDisplayCard surah={surah}>

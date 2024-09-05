@@ -59,7 +59,7 @@ const QuranSegmentDetailsMain = async ({
         const filteredVerses = filterVersesBySegment(verses, segmentId, filterKey);
         let mergedVerses = mergeVersesWithWbw(filteredVerses, wbwVerses);
 
-        const translationIds = parseTranslationIds(searchParams);
+        const translationIds = parseTranslationIds(searchParams.translations);
         mergedVerses = await addTranslationsToVerses(
           mergedVerses,
           surahInfo.id.toString(),

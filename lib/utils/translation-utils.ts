@@ -5,8 +5,8 @@ import { MergedVerse } from "../types/verses-type";
 
 const API_BASE_URL = "https://api.quran.com/api/v4";
 
-export const parseTranslationIds = (searchParams: { translations?: string }): string[] =>
-    searchParams.translations?.split('-') || ['20']; // Default to '20' if not specified
+export const parseTranslationIds = (translations?: string): string[] =>
+    translations?.split('-') || ['20']; // Default to '20' if not specified
 
 const buildApiUrl = (surahId: string, translationIds: string[]): string => {
     const translationIdString = translationIds.join(',');
