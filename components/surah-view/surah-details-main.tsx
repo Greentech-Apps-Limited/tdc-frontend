@@ -1,12 +1,18 @@
 import { Surah } from '@/lib/types/quran-meta-types';
-import VerseDisplayCard from './verse-display-card';
-import SurahDisplayCard from './surah-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
+import dynamic from 'next/dynamic';
 
-export const dynamic = 'force-dynamic';
+const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
+  ssr: false,
+  loading: () => <div>Loading...SurahName</div>,
+});
+const VerseDisplayCard = dynamic(() => import('./verse-display-card'), {
+  ssr: false,
+  loading: () => <div>Loading...Verses</div>,
+});
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -19,7 +25,7 @@ const SurahDetailsMain = async ({
   surahs,
   surahId,
   translationInfos,
-  // searchParams,
+  searchParams,
 }: SurahDetailsMainProps) => {
   const surah = surahs.find(surah => surah.id === parseInt(surahId));
 
@@ -27,12 +33,11 @@ const SurahDetailsMain = async ({
     return <div>Surah with id {surahId} not found</div>;
   }
   const verses = await getVersesBySurah(surahId, surah.verses);
-  console.log('test---2');
-  const wbwVerses = await getWbwVersesBySurah(surahId, surah.verses, 'en');
-  console.log('test---3');
+  const wbwVerses = await getWbwVersesBySurah(surahId, surah.verses, searchParams.wbw_tr);
+
   let mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
 
-  const translationIds = parseTranslationIds('20');
+  const translationIds = parseTranslationIds(searchParams?.translations);
   mergedVerses = await addTranslationsToVerses(
     mergedVerses,
     surahId,

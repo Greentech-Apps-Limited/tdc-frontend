@@ -1,4 +1,4 @@
-// import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
+import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
 import SurahDetailsMain from '@/components/surah-view/surah-details-main';
 import { readData } from '@/lib/read-file';
 import { Surah } from '@/lib/types/quran-meta-types';
@@ -36,13 +36,12 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
     case 'hizb':
     case 'ruku':
       return (
-        <div>In Progress</div>
-        // <QuranSegmentDetailsMain
-        //   params={{ quranSegment, segmentId }}
-        //   surahs={surahs}
-        //   searchParams={searchParams}
-        //   translationInfos={translationInfos}
-        // />
+        <QuranSegmentDetailsMain
+          params={{ quranSegment, segmentId }}
+          surahs={surahs}
+          searchParams={searchParams}
+          translationInfos={translationInfos}
+        />
       );
     default:
       return <div>Invalid Quran Segment</div>;
