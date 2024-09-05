@@ -6,6 +6,7 @@ import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 
+export const dynamic = 'force-dynamic';
 type QuranSegmentDetailsProps = {
   params: {
     quranSegment: QuranSegment;
