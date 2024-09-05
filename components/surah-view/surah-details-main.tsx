@@ -6,6 +6,8 @@ import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/transl
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 
+export const dynamic = 'force-dynamic';
+
 type SurahDetailsMainProps = {
   surahs: Surah[];
   translationInfos: TranslationInfosType;
@@ -20,6 +22,8 @@ const SurahDetailsMain = async ({
   searchParams,
 }: SurahDetailsMainProps) => {
   const surah = surahs.find(surah => surah.id === parseInt(surahId));
+
+  const isSearchParamsEmpty = Object.keys(searchParams).length === 0;
 
   if (!surah) {
     return <div>Surah with id {surahId} not found</div>;
@@ -37,7 +41,7 @@ const SurahDetailsMain = async ({
     translationIds,
     translationInfos
   );
-  console.log('searchParams', searchParams);
+  console.log('searchParams', isSearchParamsEmpty);
   return (
     <div>
       <SurahDisplayCard surah={surah}>
