@@ -36,7 +36,7 @@ export const fetchTranslationsForSurah = async (
     translationInfos: TranslationInfosType
 ): Promise<{ info: TranslationInfo; translation: Record<string, VerseTranslation> }[]> => {
     const filteredTranslationInfos = translationIds
-        .map(id => translationInfos[id])
+        .map(id => translationInfos[Number(id)])
         .filter((info): info is TranslationInfo => info !== undefined);
 
     const apiUrl = buildApiUrl(surahId, translationIds);
