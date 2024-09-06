@@ -1,12 +1,10 @@
 import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
 import SurahDetailsMain from '@/components/surah-view/surah-details-main';
-import { readData } from '@/lib/read-file';
-import { Surah } from '@/lib/types/quran-meta-types';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
+import { TRANSLATIONS_INFO } from '@/data/quran-meta/translations-info';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
-import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 
-export const dynamic = 'force-dynamic';
 type QuranSegmentDetailsProps = {
   params: {
     quranSegment: QuranSegment;
@@ -17,10 +15,8 @@ type QuranSegmentDetailsProps = {
 
 const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetailsProps) => {
   const { quranSegment, segmentId } = params;
-  const surahs = await readData<Surah[]>('data/quran-meta/surahs/en.json');
-  const translationInfos = await readData<TranslationInfosType>(
-    `data/quran-meta/translationsInfo.json`
-  );
+  const surahs = SURAH_EN;
+  const translationInfos = TRANSLATIONS_INFO;
 
   switch (quranSegment) {
     case 'surah':

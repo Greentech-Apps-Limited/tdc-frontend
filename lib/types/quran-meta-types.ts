@@ -29,5 +29,5 @@ export type QuranMeta = {
 };
 
 export type MappingObjectType = {
-    [key: string]: string[];
+    [key: number]: string[];
 };

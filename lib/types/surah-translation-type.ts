@@ -25,7 +25,7 @@ export type TranslationInfo = {
     id: number;
     name: string;
     author_name: string;
-    slug: string;
+    slug: string | null;
     language_name: string;
     translated_name: {
         name: string;
@@ -34,5 +34,5 @@ export type TranslationInfo = {
 };
 
 export type TranslationInfosType = {
-    [id: string]: TranslationInfo;
+    [id: number]: TranslationInfo;
 };
