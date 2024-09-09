@@ -4,14 +4,14 @@ import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/transl
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 import dynamic from 'next/dynamic';
+import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
 
 const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
   ssr: false,
-  loading: () => <div>Loading...SurahName</div>,
+  loading: () => <QuranDetailsSkeleton />,
 });
 const VerseDisplayCard = dynamic(() => import('./verse-display-card'), {
   ssr: false,
-  loading: () => <div>Loading...Verses</div>,
 });
 
 type SurahDetailsMainProps = {
