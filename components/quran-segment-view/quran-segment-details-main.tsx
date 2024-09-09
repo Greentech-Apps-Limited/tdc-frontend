@@ -1,8 +1,6 @@
 import { MappingObjectType, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { MergedVerse, Verse } from '@/lib/types/verses-type';
-import SurahDisplayCard from '../surah-view/surah-display-card';
-import VerseDisplayCard from '../surah-view/verse-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import {
@@ -16,6 +14,16 @@ import { RUB_EL_HIZB_TO_SURAH_MAPPINGS } from '@/data/quran-meta/rub-el-hizb-to-
 import { PAGE_TO_SURAH_MAPPINGS } from '@/data/quran-meta/page-to-surah-mappings';
 import { JUZ_TO_SURAH_MAPPINGS } from '@/data/quran-meta/juz-to-surah-mappings';
 import { HIZB_TO_SURAH_MAPPINGS } from '@/data/quran-meta/hizb-to-surah-mappings';
+import dynamic from 'next/dynamic';
+import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
+
+const SurahDisplayCard = dynamic(() => import('../surah-view/surah-display-card'), {
+  ssr: false,
+  loading: () => <QuranDetailsSkeleton />,
+});
+const VerseDisplayCard = dynamic(() => import('../surah-view/verse-display-card'), {
+  ssr: false,
+});
 
 type QuranSegmentDetailsMainProps = {
   params: {

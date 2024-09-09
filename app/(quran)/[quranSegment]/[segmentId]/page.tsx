@@ -37,12 +37,14 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
     case 'hizb':
     case 'ruku':
       return (
-        <QuranSegmentDetailsMain
-          params={{ quranSegment, segmentId }}
-          surahs={surahs}
-          searchParams={searchParams}
-          translationInfos={translationInfos}
-        />
+        <Suspense fallback={<QuranDetailsSkeleton />}>
+          <QuranSegmentDetailsMain
+            params={{ quranSegment, segmentId }}
+            surahs={surahs}
+            searchParams={searchParams}
+            translationInfos={translationInfos}
+          />
+        </Suspense>
       );
     default:
       return <div>Invalid Quran Segment</div>;
