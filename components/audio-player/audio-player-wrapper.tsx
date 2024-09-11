@@ -5,7 +5,8 @@ import React, { useEffect } from 'react';
 import AudioPlayer from './audio-player';
 import { useParams } from 'next/navigation';
 
-const AudioPlayerWrapper: React.FC = () => {
+const AudioPlayerWrapper = () => {
+  const params = useParams();
   const {
     showAudioPlayer,
     setShowAudioPlayer,
@@ -40,10 +41,7 @@ const AudioPlayerWrapper: React.FC = () => {
     setAudioId(null);
   };
 
-  const params = useParams();
-  //   console.log(params);
   useEffect(() => {
-    console.log('verse scroll effect---');
     if (parseInt(params?.segmentId as string) === audioId) {
       const highlightedElement = document.querySelector(
         `[data-verse="${highlightedVerse}"]`
@@ -51,7 +49,8 @@ const AudioPlayerWrapper: React.FC = () => {
       if (!highlightedElement) return;
       highlightedElement.scrollIntoView({
         behavior: 'smooth',
-        block: 'nearest',
+        block: 'start',
+        inline: 'nearest',
       });
     }
   }, [highlightedVerse, params?.segmentId, audioId]);

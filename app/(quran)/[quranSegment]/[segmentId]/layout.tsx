@@ -11,7 +11,7 @@ type Reference = { id: number | string };
 const QuranSegmentDetailsLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode; list: React.ReactNode }>) => {
-  return <section className="h-full w-full">{children}</section>;
+  return <section>{children}</section>;
 };
 
 export default QuranSegmentDetailsLayout;

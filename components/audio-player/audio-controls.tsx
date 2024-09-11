@@ -9,7 +9,7 @@ import {
 import { memo } from 'react';
 import { Button } from '../ui/button';
 
-interface AudioControlsProps {
+type AudioControlsProps = {
   isPlaying: boolean;
   isLoading: boolean;
   onTogglePlayPause: () => void;
@@ -18,9 +18,9 @@ interface AudioControlsProps {
   onStop: () => void;
   currentTime: number;
   duration: number;
-}
+};
 
-const AudioControls: React.FC<AudioControlsProps> = ({
+const AudioControls = ({
   isPlaying,
   isLoading,
   onTogglePlayPause,
@@ -29,7 +29,7 @@ const AudioControls: React.FC<AudioControlsProps> = ({
   onStop,
   currentTime,
   duration,
-}) => {
+}: AudioControlsProps) => {
   const formatTime = (time: number): string => {
     if (isNaN(time) || !isFinite(time)) return '00:00';
     const minutes = Math.floor(time / 60);

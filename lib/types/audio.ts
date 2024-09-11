@@ -1,12 +1,12 @@
 type AudioSegment = [number, number?, number?];
-interface Timestamp {
+type Timestamp = {
     verse_key: string;
     timestamp_from: number;
     timestamp_to: number;
     duration: number;
     segments: AudioSegment[];
 }
-export interface AudioFile {
+export type AudioFile = {
     id: number;
     chapter_id: number;
     file_size: number;
@@ -14,6 +14,6 @@ export interface AudioFile {
     audio_url: string;
     timestamps: Timestamp[];
 }
-export interface AudioResponse {
+export type AudioResponse = {
     audio_file: AudioFile;
 }

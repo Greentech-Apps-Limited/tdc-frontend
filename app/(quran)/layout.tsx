@@ -12,7 +12,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <Sidebar />
           <div className="flex h-full w-full flex-col">
             <Header />
-            <div className="relative h-full w-full flex-1 overflow-y-scroll">
+            <div className="relative h-full w-full flex-1 overflow-hidden">
               {children}
               <div className="fixed bottom-0 right-0 z-10 m-6">
                 <AudioPlayerWrapper />

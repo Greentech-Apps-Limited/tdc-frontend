@@ -7,11 +7,11 @@ import AudioProgress from './audio-progress';
 import AudioControls from './audio-controls';
 import useQuranReader from '@/stores/quran-reader-state';
 
-interface AudioPlayerProps {
+type AudioPlayerProps = {
   onClose: () => void;
-}
+};
 
-const AudioPlayer: React.FC<AudioPlayerProps> = ({ onClose }) => {
+const AudioPlayer = ({ onClose }: AudioPlayerProps) => {
   const { audioUrl } = useQuranReader();
   const {
     isPlaying,

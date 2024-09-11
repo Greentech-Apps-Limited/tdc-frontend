@@ -1,18 +1,13 @@
 import { useState, useRef, useEffect, useCallback, memo } from 'react';
 
-interface AudioProgressProps {
+type AudioProgressProps = {
   currentTime: number;
   duration: number;
   buffered: { start: number; end: number }[];
   onSeek: (value: number) => void;
-}
+};
 
-const AudioProgress: React.FC<AudioProgressProps> = ({
-  currentTime,
-  duration,
-  buffered,
-  onSeek,
-}) => {
+const AudioProgress = ({ currentTime, duration, buffered, onSeek }: AudioProgressProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [localProgress, setLocalProgress] = useState(0);
   const progressRef = useRef<HTMLDivElement>(null);
