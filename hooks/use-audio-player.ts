@@ -8,6 +8,7 @@ export const useAudioPlayer = () => {
     const [buffered, setBuffered] = useState<Array<{ start: number; end: number }>>([]);
     const [isLoading, setIsLoading] = useState(true);
     const audioRef = useRef<HTMLAudioElement>(null);
+    const timestampMap = useRef<Map<string, number>>(new Map());
 
     const {
         audioUrl,
@@ -16,6 +17,7 @@ export const useAudioPlayer = () => {
         audioData,
         setHighlightedWord,
         setHighlightedVerse,
+        currentVerse,
     } = useQuranReader();
 
     const play = useCallback(() => {
@@ -74,6 +76,34 @@ export const useAudioPlayer = () => {
         },
         [duration]
     );
+
+    const setTimeByVerse = useCallback((verseKey: string) => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const timestamp = timestampMap.current.get(verseKey);
+        if (timestamp !== undefined) {
+            audio.currentTime = timestamp;
+            setCurrentTime(timestamp);
+            if (!isPlaying) {
+                play();
+            }
+        }
+    }, [isPlaying, play]);
+
+    useEffect(() => {
+        if (audioData && audioData.timestamps) {
+            timestampMap.current = new Map(
+                audioData.timestamps.map(t => [t.verse_key, t.timestamp_from / 1000])
+            );
+        }
+    }, [audioData]);
+
+    useEffect(() => {
+        if (currentVerse) {
+            setTimeByVerse(currentVerse);
+        }
+    }, [currentVerse, setTimeByVerse]);
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -161,5 +191,6 @@ export const useAudioPlayer = () => {
         handleSeek,
         skipTime,
         stopAudio,
+        setTimeByVerse,
     };
 };

@@ -5,15 +5,19 @@ import { PlayCircleIcon } from '@/icons';
 
 interface VerseAudioPlayButtonProps {
   surahId?: string;
+  verseKey?: string;
 }
 
-const VerseAudioPlayButton = ({ surahId }: VerseAudioPlayButtonProps) => {
-  const { setAudioId } = useQuranReader();
+const VerseAudioPlayButton = ({ surahId, verseKey }: VerseAudioPlayButtonProps) => {
+  const { setAudioId, setCurrentVerse } = useQuranReader();
 
   const handleClick = () => {
     if (surahId) {
       const numericSurahId = parseInt(surahId, 10);
       setAudioId(numericSurahId);
+    }
+    if (verseKey) {
+      setCurrentVerse(verseKey);
     }
   };
 

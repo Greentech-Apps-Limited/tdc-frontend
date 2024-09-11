@@ -30,7 +30,7 @@ const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
     >
       <div className="flex items-center justify-between">
         <p className=" text-lg">{verse.verse_number}</p>
-        <VerseDisplayOptions surahId={segmentId as string} />
+        <VerseDisplayOptions surahId={segmentId as string} verseKey={verse.verse_key} />
       </div>
 
       <div className="text-right font-lateef" dir="rtl">

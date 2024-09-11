@@ -9,10 +9,10 @@ import {
 import { Button } from '../ui/button';
 import VerseAudioPlayButton from './verse-audio-play-button';
 
-const VerseDisplayOptions = ({ surahId }: { surahId?: string }) => {
+const VerseDisplayOptions = ({ surahId, verseKey }: { surahId?: string; verseKey?: string }) => {
   return (
     <div className="flex items-center space-x-4 text-2xl text-neutral-600">
-      <VerseAudioPlayButton surahId={surahId} />
+      <VerseAudioPlayButton surahId={surahId} verseKey={verseKey} />
       <GraduationHatIcon className="hover:cursor-pointer" />
       <VerseDisplayMoreOptions />
     </div>

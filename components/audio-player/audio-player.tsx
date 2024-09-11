@@ -12,7 +12,7 @@ type AudioPlayerProps = {
 };
 
 const AudioPlayer = ({ onClose }: AudioPlayerProps) => {
-  const { audioUrl } = useQuranReader();
+  const { audioUrl, audioData } = useQuranReader();
   const {
     isPlaying,
     currentTime,
@@ -33,7 +33,7 @@ const AudioPlayer = ({ onClose }: AudioPlayerProps) => {
           <h1 id="audio-title" className="font-semibold">
             Audio Player
           </h1>
-          <p className="text-xs  text-neutral-600">Now Playing: </p>
+          <p className="text-xs text-neutral-600">Now Playing: {audioData?.id}</p>
         </div>
         <Button variant="ghost" className="h-max w-max p-0" onClick={onClose}>
           <CrossIcon className="text-2xl" />

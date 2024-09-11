@@ -8,6 +8,7 @@ import {
 } from '@/icons';
 import { memo } from 'react';
 import { Button } from '../ui/button';
+import useQuranReader from '@/stores/quran-reader-state';
 
 type AudioControlsProps = {
   isPlaying: boolean;
@@ -30,6 +31,11 @@ const AudioControls = ({
   currentTime,
   duration,
 }: AudioControlsProps) => {
+  const { autoScroll, setAutoScroll } = useQuranReader();
+  const toggleAutoScroll = () => {
+    setAutoScroll(autoScroll === 'off' ? 'verse' : 'off');
+  };
+
   const formatTime = (time: number): string => {
     if (isNaN(time) || !isFinite(time)) return '00:00';
     const minutes = Math.floor(time / 60);
@@ -41,8 +47,13 @@ const AudioControls = ({
     <div className="flex items-center justify-between">
       <div className="min-w-12 text-xs text-neutral-500">{formatTime(currentTime)}</div>
       <div className="flex items-center gap-4">
-        <Button variant="ghost" className="h-max w-max rounded-lg p-0.5" aria-label="auto scroll">
-          <DoubleDownChevron className="text-2xl text-teal-700" />
+        <Button
+          onClick={toggleAutoScroll}
+          variant="ghost"
+          className={`h-max w-max rounded-lg p-0.5 ${autoScroll === 'verse' ? 'bg-neutral-100 text-teal-700' : ''}`}
+          aria-label="auto scroll"
+        >
+          <DoubleDownChevron className="text-2xl" />
         </Button>
         <Button
           variant="ghost"
