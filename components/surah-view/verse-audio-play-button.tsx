@@ -1,7 +1,7 @@
 import useQuranReader from '@/stores/quran-reader-state';
 import React from 'react';
 import { Button } from '../ui/button';
-import { PlayCircleIcon } from 'lucide-react';
+import { PlayCircleIcon } from '@/icons';
 
 interface VerseAudioPlayButtonProps {
   surahId?: string;
@@ -24,7 +24,7 @@ const VerseAudioPlayButton = ({ surahId }: VerseAudioPlayButtonProps) => {
       className="h-max w-max rounded-lg p-0.5"
       aria-label="verse audio play"
     >
-      <PlayCircleIcon className="hover:cursor-pointer" />
+      <PlayCircleIcon className="text-2xl hover:cursor-pointer" />
     </Button>
   );
 };

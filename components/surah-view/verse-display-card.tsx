@@ -7,6 +7,7 @@ import { TranslationInfo } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import VerseDisplayOptions from './verse-display-options';
 import { useParams } from 'next/navigation';
+import useQuranReader from '@/stores/quran-reader-state';
 
 type VerseDisplayProps = {
   verse: Verse & {
@@ -20,10 +21,11 @@ type VerseDisplayProps = {
 const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
   const { segmentId } = useParams();
   const { showTranslation, showByWords, translationFontSize } = useSettings();
+  const { highlightedVerse, showAudioPlayer } = useQuranReader();
 
   return (
     <div
-      className="rounded-2xl border border-neutral-200 bg-neutral p-6"
+      className={`rounded-2xl border border-neutral-200 p-6 ${highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'}`}
       data-verse={verse.verse_key}
     >
       <div className="flex items-center justify-between">

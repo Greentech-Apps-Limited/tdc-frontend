@@ -14,9 +14,7 @@ const AudioPlayerWrapper = () => {
     audioId,
     setAudioData,
     setAudioUrl,
-    autoScroll,
     highlightedVerse,
-    highlightedWord,
   } = useQuranReader();
 
   useEffect(() => {
@@ -39,6 +37,7 @@ const AudioPlayerWrapper = () => {
   const handleClose = () => {
     setShowAudioPlayer(false);
     setAudioId(null);
+    setAudioUrl('');
   };
 
   useEffect(() => {
@@ -54,18 +53,6 @@ const AudioPlayerWrapper = () => {
       });
     }
   }, [highlightedVerse, params?.segmentId, audioId]);
-
-  useEffect(() => {
-    if (parseInt(params?.chapterId as string) !== audioId || autoScroll !== 'word') return;
-    const highlightedElement = document.querySelector(
-      `[data-word="${highlightedWord}"]`
-    ) as HTMLElement;
-    if (!highlightedElement) return;
-    highlightedElement.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  }, [highlightedWord, params?.chapterId, audioId, autoScroll]);
 
   if (!showAudioPlayer) {
     return null;
