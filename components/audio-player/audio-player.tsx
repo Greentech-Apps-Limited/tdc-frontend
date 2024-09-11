@@ -24,7 +24,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ onClose }) => {
     handleSeek,
     skipTime,
     stopAudio,
-  } = useAudioPlayer(audioUrl);
+  } = useAudioPlayer();
 
   return (
     <div className="w-96 space-y-6 rounded-xl border border-neutral-300 bg-neutral p-4 shadow">

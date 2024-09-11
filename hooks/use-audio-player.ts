@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import useQuranReader from '@/stores/quran-reader-state';
 
-export const useAudioPlayer = (audioUrl: string) => {
+export const useAudioPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -10,6 +10,7 @@ export const useAudioPlayer = (audioUrl: string) => {
     const audioRef = useRef<HTMLAudioElement>(null);
 
     const {
+        audioUrl,
         audioId,
         showAudioPlayer,
         audioData,
@@ -142,10 +143,10 @@ export const useAudioPlayer = (audioUrl: string) => {
     }, [audioUrl, audioData, setHighlightedWord, setHighlightedVerse]);
 
     useEffect(() => {
-        if (audioId && showAudioPlayer) {
+        if (audioId && showAudioPlayer && audioUrl) {
             play();
         }
-    }, [audioId, play, showAudioPlayer, audioData]);
+    }, [audioId, play, showAudioPlayer, audioUrl]);
 
     return {
         isPlaying,
