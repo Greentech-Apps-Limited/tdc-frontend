@@ -1,16 +1,49 @@
-'use client';
-
 import { useState, useRef, useEffect, useCallback } from 'react';
+import useQuranReader from '@/stores/quran-reader-state';
 
 export const useAudioPlayer = (audioUrl: string) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [volume, setVolume] = useState(1);
-    const [playbackRate, setPlaybackRate] = useState(1);
     const [buffered, setBuffered] = useState<Array<{ start: number; end: number }>>([]);
     const [isLoading, setIsLoading] = useState(true);
     const audioRef = useRef<HTMLAudioElement>(null);
+
+    const {
+        audioId,
+        showAudioPlayer,
+        audioData,
+        setHighlightedWord,
+        setHighlightedVerse,
+    } = useQuranReader();
+
+    const play = useCallback(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        audio.play().then(() => {
+            setIsPlaying(true);
+        }).catch((error) => {
+            console.error('Playback failed', error);
+            setIsPlaying(false);
+        });
+    }, []);
+
+    const pause = useCallback(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        audio.pause();
+        setIsPlaying(false);
+    }, []);
+
+    const togglePlayPause = useCallback(() => {
+        if (isPlaying) {
+            pause();
+        } else {
+            play();
+        }
+    }, [isPlaying, pause, play]);
 
     const stopAudio = useCallback(() => {
         const audio = audioRef.current;
@@ -22,46 +55,12 @@ export const useAudioPlayer = (audioUrl: string) => {
         setCurrentTime(0);
     }, []);
 
-    const togglePlayPause = useCallback(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        if (isPlaying) {
-            audio.pause();
-        } else {
-            audio.play().catch((error) => {
-                console.error('Playback failed', error);
-                setIsPlaying(false);
-            });
-        }
-        setIsPlaying(!isPlaying);
-    }, [isPlaying]);
-
     const handleSeek = useCallback((newTime: number) => {
         const audio = audioRef.current;
         if (!audio) return;
 
         audio.currentTime = newTime;
         setCurrentTime(newTime);
-    }, []);
-
-    const handleVolumeChange = useCallback((newVolume: number[]) => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        const volumeValue = newVolume[0] ?? 1;
-        if (typeof volumeValue === 'number' && isFinite(volumeValue)) {
-            audio.volume = Math.max(0, Math.min(1, volumeValue));
-            setVolume(volumeValue);
-        }
-    }, []);
-
-    const handlePlaybackRateChange = useCallback((rate: number) => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        audio.playbackRate = rate;
-        setPlaybackRate(rate);
     }, []);
 
     const skipTime = useCallback(
@@ -90,7 +89,30 @@ export const useAudioPlayer = (audioUrl: string) => {
             setBuffered(bufferedRanges);
         };
 
-        const onTimeUpdate = () => setCurrentTime(audio.currentTime);
+        const onTimeUpdate = () => {
+            setCurrentTime(audio.currentTime);
+            if (audioData && audioData.timestamps) {
+                const activeVerse = audioData.timestamps.find(
+                    (verse) => audio.currentTime < verse.timestamp_to / 1000
+                );
+                if (activeVerse) {
+                    activeVerse.segments.forEach((segment) => {
+                        const [word, startTime, endTime] = segment;
+                        if (startTime !== undefined && endTime !== undefined) {
+                            const segmentStartTime = startTime / 1000;
+                            const segmentEndTime = endTime / 1000;
+                            if (audio.currentTime >= segmentStartTime && audio.currentTime < segmentEndTime) {
+                                setHighlightedWord(`${activeVerse.verse_key}:${word}`);
+                            }
+                        }
+                    });
+                    setHighlightedVerse(activeVerse.verse_key);
+                } else {
+                    setHighlightedVerse(null);
+                }
+            }
+        };
+
         const onLoadedMetadata = () => {
             setDuration(audio.duration);
             setIsLoading(false);
@@ -117,29 +139,25 @@ export const useAudioPlayer = (audioUrl: string) => {
             audio.removeEventListener('waiting', onWaiting);
             audio.removeEventListener('canplay', onCanPlay);
         };
-    }, [audioUrl]);
+    }, [audioUrl, audioData, setHighlightedWord, setHighlightedVerse]);
 
     useEffect(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-
-        audio.volume = volume;
-        audio.playbackRate = playbackRate;
-    }, [volume, playbackRate]);
+        if (audioId && showAudioPlayer) {
+            play();
+        }
+    }, [audioId, play, showAudioPlayer, audioData]);
 
     return {
         isPlaying,
         currentTime,
         duration,
-        volume,
-        playbackRate,
         buffered,
         isLoading,
         audioRef,
+        play,
+        pause,
         togglePlayPause,
         handleSeek,
-        handleVolumeChange,
-        handlePlaybackRateChange,
         skipTime,
         stopAudio,
     };

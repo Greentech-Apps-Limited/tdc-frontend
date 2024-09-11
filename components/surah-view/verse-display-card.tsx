@@ -6,6 +6,7 @@ import Word from './word';
 import { TranslationInfo } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import VerseDisplayOptions from './verse-display-options';
+import { useParams } from 'next/navigation';
 
 type VerseDisplayProps = {
   verse: Verse & {
@@ -17,7 +18,9 @@ type VerseDisplayProps = {
   };
 };
 const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
+  const { segmentId } = useParams();
   const { showTranslation, showByWords, translationFontSize } = useSettings();
+
   return (
     <div
       className="rounded-2xl border border-neutral-200 bg-neutral p-6"
@@ -25,7 +28,7 @@ const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
     >
       <div className="flex items-center justify-between">
         <p className=" text-lg">{verse.verse_number}</p>
-        <VerseDisplayOptions />
+        <VerseDisplayOptions surahId={segmentId as string} />
       </div>
 
       <div className="text-right font-lateef" dir="rtl">

@@ -1,4 +1,4 @@
-import AudioPlayer from '@/components/audio-player/audio-player';
+import AudioPlayerWrapper from '@/components/audio-player/audio-player-wrapper';
 import Header from '@/components/header';
 import { SettingsChecker } from '@/components/settings/settings-checker';
 import Sidebar from '@/components/sidebar';
@@ -15,7 +15,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
             <div className="relative h-full w-full flex-1 overflow-y-scroll">
               {children}
               <div className="fixed bottom-0 right-0 z-10 m-6">
-                <AudioPlayer audioUrl="https://download.quranicaudio.com/qdc/abdurrahmaan_as_sudais/murattal/49.mp3" />
+                <AudioPlayerWrapper />
               </div>
             </div>
           </div>

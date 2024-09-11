@@ -1,4 +1,4 @@
-import { DetailsHorizontalIcon, GraduationHatIcon, PlayCircleIcon } from '@/icons';
+import { DetailsHorizontalIcon, GraduationHatIcon } from '@/icons';
 import React from 'react';
 import {
   DropdownMenu,
@@ -7,11 +7,12 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
+import VerseAudioPlayButton from './verse-audio-play-button';
 
-const VerseDisplayOptions = () => {
+const VerseDisplayOptions = ({ surahId }: { surahId?: string }) => {
   return (
     <div className="flex items-center space-x-4 text-2xl text-neutral-600">
-      <PlayCircleIcon className="hover:cursor-pointer" />
+      <VerseAudioPlayButton surahId={surahId} />
       <GraduationHatIcon className="hover:cursor-pointer" />
       <VerseDisplayMoreOptions />
     </div>
