@@ -2,9 +2,10 @@
 
 import useQuranReader from '@/stores/quran-reader-state';
 import React, { useEffect } from 'react';
-import AudioPlayer from './audio-player';
 import { useParams } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
+const AudioPlayer = dynamic(() => import('./audio-player'), { ssr: false });
 const AudioPlayerWrapper = () => {
   const params = useParams();
   const {

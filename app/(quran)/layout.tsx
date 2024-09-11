@@ -1,8 +1,12 @@
-import AudioPlayerWrapper from '@/components/audio-player/audio-player-wrapper';
 import Header from '@/components/header';
 import { SettingsChecker } from '@/components/settings/settings-checker';
 import Sidebar from '@/components/sidebar';
+import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+
+const AudioPlayerWrapper = dynamic(() => import('@/components/audio-player/audio-player-wrapper'), {
+  ssr: false,
+});
 
 const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
