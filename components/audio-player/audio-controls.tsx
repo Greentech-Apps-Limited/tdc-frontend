@@ -9,6 +9,7 @@ import {
 import { memo } from 'react';
 import { Button } from '../ui/button';
 import useQuranReader from '@/stores/quran-reader-state';
+import { formatTime } from '@/lib/utils/audio-utils';
 
 type AudioControlsProps = {
   isPlaying: boolean;
@@ -34,13 +35,6 @@ const AudioControls = ({
   const { autoScroll, setAutoScroll } = useQuranReader();
   const toggleAutoScroll = () => {
     setAutoScroll(autoScroll === 'off' ? 'verse' : 'off');
-  };
-
-  const formatTime = (time: number): string => {
-    if (isNaN(time) || !isFinite(time)) return '00:00';
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
   return (

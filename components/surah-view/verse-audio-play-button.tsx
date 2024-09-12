@@ -2,6 +2,7 @@ import useQuranReader from '@/stores/quran-reader-state';
 import React from 'react';
 import { Button } from '../ui/button';
 import { PlayCircleIcon } from '@/icons';
+import { useAudioPlayer } from '@/hooks/use-audio-player';
 
 interface VerseAudioPlayButtonProps {
   surahId?: string;
@@ -10,6 +11,7 @@ interface VerseAudioPlayButtonProps {
 
 const VerseAudioPlayButton = ({ surahId, verseKey }: VerseAudioPlayButtonProps) => {
   const { setAudioId, setCurrentVerse } = useQuranReader();
+  const { play, isPlaying } = useAudioPlayer();
 
   const handleClick = () => {
     if (surahId) {
@@ -18,6 +20,9 @@ const VerseAudioPlayButton = ({ surahId, verseKey }: VerseAudioPlayButtonProps) 
     }
     if (verseKey) {
       setCurrentVerse(verseKey);
+    }
+    if (!isPlaying) {
+      play();
     }
   };
 

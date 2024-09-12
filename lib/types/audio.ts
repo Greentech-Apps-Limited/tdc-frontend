@@ -1,5 +1,5 @@
-type AudioSegment = [number, number?, number?];
-type Timestamp = {
+export type AudioSegment = [number, number?, number?];
+export type Timestamp = {
     verse_key: string;
     timestamp_from: number;
     timestamp_to: number;
@@ -17,3 +17,6 @@ export type AudioFile = {
 export type AudioResponse = {
     audio_file: AudioFile;
 }
+
+export type BufferedRange = { start: number; end: number };
+

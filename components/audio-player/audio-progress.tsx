@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, memo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, memo } from 'react';
 
 type AudioProgressProps = {
   currentTime: number;
@@ -7,12 +7,17 @@ type AudioProgressProps = {
   onSeek: (value: number) => void;
 };
 
-const AudioProgress = ({ currentTime, duration, buffered, onSeek }: AudioProgressProps) => {
+const AudioProgress: React.FC<AudioProgressProps> = ({
+  currentTime,
+  duration,
+  buffered,
+  onSeek,
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [localProgress, setLocalProgress] = useState(0);
   const progressRef = useRef<HTMLDivElement>(null);
 
-  const calculateProgress = useCallback((clientX: number) => {
+  const calculateProgress = useCallback((clientX: number): number => {
     if (progressRef.current) {
       const rect = progressRef.current.getBoundingClientRect();
       const position = (clientX - rect.left) / rect.width;
@@ -21,10 +26,13 @@ const AudioProgress = ({ currentTime, duration, buffered, onSeek }: AudioProgres
     return 0;
   }, []);
 
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    setLocalProgress(calculateProgress(e.clientX));
-  };
+  const handleDragStart = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      setIsDragging(true);
+      setLocalProgress(calculateProgress(e.clientX));
+    },
+    [calculateProgress]
+  );
 
   const handleDrag = useCallback(
     (e: MouseEvent) => {
@@ -62,6 +70,21 @@ const AudioProgress = ({ currentTime, duration, buffered, onSeek }: AudioProgres
 
   const progressPercentage = isDragging ? localProgress : (currentTime / duration) * 100;
 
+  const renderBufferedRanges = useCallback(
+    () =>
+      buffered.map((range, index) => (
+        <div
+          key={index}
+          className="absolute h-full rounded-full bg-neutral-300"
+          style={{
+            left: `${(range.start / duration) * 100}%`,
+            width: `${((range.end - range.start) / duration) * 100}%`,
+          }}
+        />
+      )),
+    [buffered, duration]
+  );
+
   return (
     <div
       className="relative h-2 w-full cursor-pointer"
@@ -73,16 +96,7 @@ const AudioProgress = ({ currentTime, duration, buffered, onSeek }: AudioProgres
       aria-label="Audio progress"
     >
       <div className="absolute left-0 top-1/2 h-2 w-full -translate-y-1/2 transform rounded-full bg-neutral-100">
-        {buffered.map((range, index) => (
-          <div
-            key={index}
-            className="absolute h-full rounded-full bg-neutral-300"
-            style={{
-              left: `${(range.start / duration) * 100}%`,
-              width: `${((range.end - range.start) / duration) * 100}%`,
-            }}
-          />
-        ))}
+        {renderBufferedRanges()}
         <div
           className="absolute left-0 top-0 h-full rounded-full bg-teal-500"
           style={{ width: `${progressPercentage}%` }}

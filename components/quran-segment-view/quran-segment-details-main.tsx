@@ -86,7 +86,11 @@ const QuranSegmentDetailsMain = async ({
       {segmentData.map(({ surahInfo, mergedVerses }) => (
         <SurahDisplayCard key={surahInfo.id} surah={surahInfo}>
           {mergedVerses.map(mergedVerse => (
-            <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
+            <VerseDisplayCard
+              key={mergedVerse.id}
+              verse={mergedVerse}
+              surahId={surahInfo.id.toString()}
+            />
           ))}
         </SurahDisplayCard>
       ))}

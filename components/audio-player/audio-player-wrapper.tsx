@@ -1,13 +1,17 @@
 'use client';
 
 import useQuranReader from '@/stores/quran-reader-state';
-import React, { useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import AudioPlayerSkeleton from '../skeleton-loaders/audio-player-skeleton';
 
-const AudioPlayer = dynamic(() => import('./audio-player'), { ssr: false });
+const AudioPlayer = dynamic(() => import('./audio-player'), {
+  ssr: false,
+  loading: () => <AudioPlayerSkeleton />,
+});
+
 const AudioPlayerWrapper = () => {
-  const params = useParams();
+  const [isLoading, setLoading] = useState(true);
   const {
     showAudioPlayer,
     setShowAudioPlayer,
@@ -17,25 +21,37 @@ const AudioPlayerWrapper = () => {
     setAudioUrl,
     highlightedVerse,
     autoScroll,
-    setHighlightedWord,
     setHighlightedVerse,
   } = useQuranReader();
 
   useEffect(() => {
-    if (audioId) {
-      fetch(`https://api.quran.com/api/v4/chapter_recitations/7/${audioId}?segments=true`)
-        .then(res => res.json())
-        .then(data => {
-          setAudioData(data.audio_file);
-          setAudioUrl(data.audio_file.audio_url);
-        })
-        .catch(error => {
-          console.error('Error fetching audio data:', error);
-          setAudioData(null);
-        });
-    } else {
-      setAudioData(null);
-    }
+    const fetchAudioData = async () => {
+      if (!audioId) {
+        setAudioData(null);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://api.quran.com/api/v4/chapter_recitations/7/${audioId}?segments=true`
+        );
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setAudioData(data.audio_file);
+        setAudioUrl(data.audio_file.audio_url);
+      } catch (error) {
+        console.error('Error fetching audio data:', error);
+        setAudioData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAudioData();
   }, [audioId, setAudioUrl, setAudioData]);
 
   const handleClose = () => {
@@ -43,29 +59,29 @@ const AudioPlayerWrapper = () => {
     setAudioId(null);
     setAudioUrl('');
     setAudioData(null);
-    setHighlightedWord(null);
     setHighlightedVerse(null);
   };
 
   useEffect(() => {
-    if (parseInt(params?.segmentId as string) === audioId) {
+    if (highlightedVerse && showAudioPlayer && autoScroll === 'verse') {
       const highlightedElement = document.querySelector(
         `[data-verse="${highlightedVerse}"]`
       ) as HTMLElement;
-      if (!highlightedElement || autoScroll === 'off') return;
-      highlightedElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
+      if (highlightedElement) {
+        highlightedElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest',
+        });
+      }
     }
-  }, [highlightedVerse, params?.segmentId, audioId, autoScroll]);
+  }, [highlightedVerse, showAudioPlayer, autoScroll]);
 
   if (!showAudioPlayer) {
     return null;
   }
 
-  return <AudioPlayer onClose={handleClose} />;
+  return <>{isLoading ? <AudioPlayerSkeleton /> : <AudioPlayer onClose={handleClose} />}</>;
 };
 
 export default AudioPlayerWrapper;

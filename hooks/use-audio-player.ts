@@ -1,14 +1,39 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import useQuranReader from '@/stores/quran-reader-state';
+import { BufferedRange } from '@/lib/types/audio';
+import { createTimestampMap, findActiveVerse, updateBufferedRanges } from '@/lib/utils/audio-utils';
 
-export const useAudioPlayer = () => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-    const [buffered, setBuffered] = useState<Array<{ start: number; end: number }>>([]);
-    const [isLoading, setIsLoading] = useState(true);
+type AudioPlayerState = {
+    isPlaying: boolean;
+    currentTime: number;
+    duration: number;
+    buffered: BufferedRange[];
+    isLoading: boolean;
+}
+
+type AudioPlayerActions = {
+    play: () => void;
+    pause: () => void;
+    togglePlayPause: () => void;
+    handleSeek: (newTime: number) => void;
+    skipTime: (seconds: number) => void;
+    stopAudio: () => void;
+    setTimeByVerse: (verseKey: string) => void;
+}
+
+
+export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audioRef: React.RefObject<HTMLAudioElement> } => {
+    const [state, setState] = useState<AudioPlayerState>({
+        isPlaying: false,
+        currentTime: 0,
+        duration: 0,
+        buffered: [],
+        isLoading: true,
+    });
+
     const audioRef = useRef<HTMLAudioElement>(null);
     const timestampMap = useRef<Map<string, number>>(new Map());
+    const isUserPaused = useRef<boolean>(false);
 
     const {
         audioUrl,
@@ -18,6 +43,7 @@ export const useAudioPlayer = () => {
         setHighlightedWord,
         setHighlightedVerse,
         currentVerse,
+        setCurrentVerse,
     } = useQuranReader();
 
     const play = useCallback(() => {
@@ -25,10 +51,11 @@ export const useAudioPlayer = () => {
         if (!audio) return;
 
         audio.play().then(() => {
-            setIsPlaying(true);
+            setState(prev => ({ ...prev, isPlaying: true }));
+            isUserPaused.current = false;
         }).catch((error) => {
             console.error('Playback failed', error);
-            setIsPlaying(false);
+            setState(prev => ({ ...prev, isPlaying: false }));
         });
     }, []);
 
@@ -37,16 +64,17 @@ export const useAudioPlayer = () => {
         if (!audio) return;
 
         audio.pause();
-        setIsPlaying(false);
+        setState(prev => ({ ...prev, isPlaying: false }));
+        isUserPaused.current = true;
     }, []);
 
     const togglePlayPause = useCallback(() => {
-        if (isPlaying) {
+        if (state.isPlaying) {
             pause();
         } else {
             play();
         }
-    }, [isPlaying, pause, play]);
+    }, [state.isPlaying, pause, play]);
 
     const stopAudio = useCallback(() => {
         const audio = audioRef.current;
@@ -54,28 +82,26 @@ export const useAudioPlayer = () => {
 
         audio.pause();
         audio.currentTime = 0;
-        setIsPlaying(false);
-        setCurrentTime(0);
-    }, []);
+        setState(prev => ({ ...prev, isPlaying: false, currentTime: 0 }));
+        isUserPaused.current = true;
+        setCurrentVerse(null);
+    }, [setCurrentVerse]);
 
     const handleSeek = useCallback((newTime: number) => {
         const audio = audioRef.current;
         if (!audio) return;
 
         audio.currentTime = newTime;
-        setCurrentTime(newTime);
+        setState(prev => ({ ...prev, currentTime: newTime }));
     }, []);
 
-    const skipTime = useCallback(
-        (seconds: number) => {
-            const audio = audioRef.current;
-            if (!audio) return;
+    const skipTime = useCallback((seconds: number) => {
+        const audio = audioRef.current;
+        if (!audio) return;
 
-            const newTime = Math.max(0, Math.min(audio.currentTime + seconds, duration));
-            audio.currentTime = newTime;
-        },
-        [duration]
-    );
+        const newTime = Math.max(0, Math.min(audio.currentTime + seconds, state.duration));
+        audio.currentTime = newTime;
+    }, [state.duration]);
 
     const setTimeByVerse = useCallback((verseKey: string) => {
         const audio = audioRef.current;
@@ -84,18 +110,13 @@ export const useAudioPlayer = () => {
         const timestamp = timestampMap.current.get(verseKey);
         if (timestamp !== undefined) {
             audio.currentTime = timestamp;
-            setCurrentTime(timestamp);
-            if (!isPlaying) {
-                play();
-            }
+            setState(prev => ({ ...prev, currentTime: timestamp }));
         }
-    }, [isPlaying, play]);
+    }, []);
 
     useEffect(() => {
-        if (audioData && audioData.timestamps) {
-            timestampMap.current = new Map(
-                audioData.timestamps.map(t => [t.verse_key, t.timestamp_from / 1000])
-            );
+        if (audioData?.timestamps) {
+            timestampMap.current = createTimestampMap(audioData.timestamps);
         }
     }, [audioData]);
 
@@ -109,26 +130,12 @@ export const useAudioPlayer = () => {
         const audio = audioRef.current;
         if (!audio) return;
 
-        const updateBuffered = () => {
-            const bufferedRanges: Array<{ start: number; end: number }> = [];
-            for (let i = 0; i < audio.buffered.length; i++) {
-                bufferedRanges.push({
-                    start: audio.buffered.start(i),
-                    end: audio.buffered.end(i),
-                });
-            }
-            setBuffered(bufferedRanges);
-        };
-
         const onTimeUpdate = () => {
-            setCurrentTime(audio.currentTime);
-            if (audioData && audioData.timestamps) {
-                const activeVerse = audioData.timestamps.find(
-                    (verse) => audio.currentTime < verse.timestamp_to / 1000
-                );
+            setState(prev => ({ ...prev, currentTime: audio.currentTime }));
+            if (audioData?.timestamps) {
+                const activeVerse = findActiveVerse(audio.currentTime, audioData.timestamps);
                 if (activeVerse) {
-                    activeVerse.segments.forEach((segment) => {
-                        const [word, startTime, endTime] = segment;
+                    activeVerse.segments.forEach(([word, startTime, endTime]) => {
                         if (startTime !== undefined && endTime !== undefined) {
                             const segmentStartTime = startTime / 1000;
                             const segmentEndTime = endTime / 1000;
@@ -145,13 +152,20 @@ export const useAudioPlayer = () => {
         };
 
         const onLoadedMetadata = () => {
-            setDuration(audio.duration);
-            setIsLoading(false);
+            setState(prev => ({ ...prev, duration: audio.duration, isLoading: false }));
         };
-        const onProgress = updateBuffered;
-        const onEnded = () => setIsPlaying(false);
-        const onWaiting = () => setIsLoading(true);
-        const onCanPlay = () => setIsLoading(false);
+
+        const onProgress = () => {
+            setState(prev => ({ ...prev, buffered: updateBufferedRanges(audio) }));
+        };
+
+        const onEnded = () => {
+            setState(prev => ({ ...prev, isPlaying: false }));
+            setCurrentVerse(null);
+        };
+
+        const onWaiting = () => setState(prev => ({ ...prev, isLoading: true }));
+        const onCanPlay = () => setState(prev => ({ ...prev, isLoading: false }));
 
         audio.addEventListener('timeupdate', onTimeUpdate);
         audio.addEventListener('loadedmetadata', onLoadedMetadata);
@@ -170,20 +184,19 @@ export const useAudioPlayer = () => {
             audio.removeEventListener('waiting', onWaiting);
             audio.removeEventListener('canplay', onCanPlay);
         };
-    }, [audioUrl, audioData, setHighlightedWord, setHighlightedVerse]);
+    }, [audioUrl, audioData, setHighlightedWord, setHighlightedVerse, setCurrentVerse]);
 
     useEffect(() => {
         if (audioId && showAudioPlayer && audioUrl) {
-            play();
+            const audio = audioRef.current;
+            if (audio && !state.isLoading) {
+                play();
+            }
         }
-    }, [audioId, play, showAudioPlayer, audioUrl]);
+    }, [audioId, play, showAudioPlayer, audioUrl, state.isLoading]);
 
     return {
-        isPlaying,
-        currentTime,
-        duration,
-        buffered,
-        isLoading,
+        ...state,
         audioRef,
         play,
         pause,
