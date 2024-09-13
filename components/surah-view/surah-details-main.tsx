@@ -46,13 +46,11 @@ const SurahDetailsMain = async ({
   );
 
   return (
-    <div>
-      <SurahDisplayCard surah={surah}>
-        {mergedVerses.map(mergedVerse => (
-          <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} surahId={surahId} />
-        ))}
-      </SurahDisplayCard>
-    </div>
+    <SurahDisplayCard surah={surah}>
+      {mergedVerses.map(mergedVerse => (
+        <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} surahId={surahId} />
+      ))}
+    </SurahDisplayCard>
   );
 };
 

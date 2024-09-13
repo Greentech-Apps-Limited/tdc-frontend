@@ -28,7 +28,9 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
       <aside className="h-full overflow-hidden">
         <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
       </aside>
-      <aside className="h-full w-full flex-1 overflow-y-scroll">{children}</aside>
+      <aside id="scroll-container" className="h-full w-full flex-1 overflow-y-scroll ">
+        {children}
+      </aside>
     </section>
   );
 };

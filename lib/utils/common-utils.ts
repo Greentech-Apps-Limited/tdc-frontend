@@ -40,3 +40,28 @@ export function formatTimeAgo(timestamp: number): string {
     return `${years}y ago`;
   }
 }
+
+interface ScrollToElementOptions {
+  container: HTMLElement;
+  element: HTMLElement;
+  offset?: number; // Percentage of container height for positioning
+}
+
+export function scrollToElement({ container, element, offset = 0.1 }: ScrollToElementOptions): void {
+  const containerRect = container.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+
+  const elementTop = elementRect.top - containerRect.top + container.scrollTop;
+  const containerHeight = containerRect.height;
+  const targetPosition = containerHeight * offset;
+
+  let newScrollTop = elementTop - targetPosition;
+
+  const maxScroll = container.scrollHeight - containerHeight;
+  newScrollTop = Math.max(0, Math.min(newScrollTop, maxScroll));
+
+  container.scrollTo({
+    top: newScrollTop,
+    behavior: 'smooth',
+  });
+}

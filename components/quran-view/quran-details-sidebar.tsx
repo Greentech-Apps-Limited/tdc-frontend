@@ -1,7 +1,7 @@
 'use client';
-
 import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { scrollToElement } from '@/lib/utils/common-utils';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
@@ -25,9 +25,15 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
   const isActive = (id: number): boolean => params.segmentId === String(id);
 
   useEffect(() => {
-    const activeLink = sidebarRef?.current?.querySelector('.active');
-    if (activeLink) {
-      activeLink.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    if (sidebarRef.current) {
+      const activeLink = sidebarRef.current.querySelector('.active');
+      if (activeLink instanceof HTMLElement) {
+        scrollToElement({
+          container: sidebarRef.current,
+          element: activeLink,
+          offset: 0.01,
+        });
+      }
     }
   }, [params.segmentId]);
 
