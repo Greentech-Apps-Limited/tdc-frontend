@@ -1,3 +1,4 @@
+import QuranDetailsSkeleton from '@/components/skeleton-loaders/quran-details-skeleton';
 import { HIZBS } from '@/data/quran-meta/hizbs';
 import { JUZS } from '@/data/quran-meta/juzs';
 import { PAGES } from '@/data/quran-meta/pages';
@@ -5,13 +6,18 @@ import { RUKUS } from '@/data/quran-meta/rukus';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { Suspense } from 'react';
 
 type Reference = { id: number | string };
 
 const QuranSegmentDetailsLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode; list: React.ReactNode }>) => {
-  return <section className="h-full w-full">{children}</section>;
+  return (
+    <section>
+      <Suspense fallback={<QuranDetailsSkeleton />}>{children}</Suspense>
+    </section>
+  );
 };
 
 export default QuranSegmentDetailsLayout;

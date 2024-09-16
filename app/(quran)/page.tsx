@@ -19,7 +19,7 @@ export default async function Home() {
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
 
   return (
-    <main className="mx-auto max-w-8xl space-y-6 p-6">
+    <main className="mx-auto h-full max-w-8xl space-y-6 overflow-y-scroll p-6">
       <Banner />
       <section className="rounded-4xl border border-neutral-300 bg-neutral p-6">
         <div className="max-w-[504px] space-y-6">

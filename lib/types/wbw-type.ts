@@ -1,11 +1,11 @@
 import { Pagination } from "./verses-type";
 
-type Translation = {
+type WbwTranslation = {
     text: string;
     language_name: string;
 };
 
-type Transliteration = {
+type WbwTransliteration = {
     text: string | null;
     language_name: string;
 };
@@ -19,8 +19,8 @@ type Word = {
     page_number: number;
     line_number: number;
     text: string;
-    translation: Translation;
-    transliteration: Transliteration;
+    translation: WbwTranslation;
+    transliteration: WbwTransliteration;
 };
 
 type WbwVerse = {
@@ -43,4 +43,4 @@ type WbwVersesResponse = {
 }
 
 
-export type { WbwVersesResponse, WbwVerse, Translation, Transliteration, Word };
+export type { WbwVersesResponse, WbwVerse, WbwTranslation, WbwTransliteration, Word };

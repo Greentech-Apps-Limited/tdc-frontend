@@ -1,4 +1,3 @@
-import React from 'react';
 import SurahDisplayCardSkeleton from './surah-display-card-skeleton';
 import VerseDisplayCardSkeleton from './verse-display-card-skeleton';
 

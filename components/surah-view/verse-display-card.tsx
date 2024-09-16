@@ -6,8 +6,10 @@ import Word from './word';
 import { TranslationInfo } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import VerseDisplayOptions from './verse-display-options';
+import useQuranReader from '@/stores/quran-reader-state';
 
 type VerseDisplayProps = {
+  surahId: string;
   verse: Verse & {
     words: WordType[];
     combinedTranslations?: {
@@ -16,16 +18,18 @@ type VerseDisplayProps = {
     }[];
   };
 };
-const VerseDisplayCard = ({ verse }: VerseDisplayProps) => {
+const VerseDisplayCard = ({ verse, surahId }: VerseDisplayProps) => {
   const { showTranslation, showByWords, translationFontSize } = useSettings();
+  const { highlightedVerse, showAudioPlayer } = useQuranReader();
+
   return (
     <div
-      className="rounded-2xl border border-neutral-200 bg-neutral p-6"
+      className={`rounded-2xl border border-neutral-200 p-6 ${highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'}`}
       data-verse={verse.verse_key}
     >
       <div className="flex items-center justify-between">
         <p className=" text-lg">{verse.verse_number}</p>
-        <VerseDisplayOptions />
+        <VerseDisplayOptions surahId={surahId} verseKey={verse.verse_key} />
       </div>
 
       <div className="text-right font-lateef" dir="rtl">

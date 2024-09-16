@@ -1,11 +1,9 @@
 import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
-import QuranDetailsSkeleton from '@/components/skeleton-loaders/quran-details-skeleton';
 import SurahDetailsMain from '@/components/surah-view/surah-details-main';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { TRANSLATIONS_INFO } from '@/data/quran-meta/translations-info';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
-import { Suspense } from 'react';
 
 type QuranSegmentDetailsProps = {
   params: {
@@ -23,28 +21,24 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
   switch (quranSegment) {
     case 'surah':
       return (
-        <Suspense fallback={<QuranDetailsSkeleton />}>
-          <SurahDetailsMain
-            surahId={segmentId}
-            surahs={surahs}
-            searchParams={searchParams}
-            translationInfos={translationInfos}
-          />
-        </Suspense>
+        <SurahDetailsMain
+          surahId={segmentId}
+          surahs={surahs}
+          searchParams={searchParams}
+          translationInfos={translationInfos}
+        />
       );
     case 'page':
     case 'juz':
     case 'hizb':
     case 'ruku':
       return (
-        <Suspense fallback={<QuranDetailsSkeleton />}>
-          <QuranSegmentDetailsMain
-            params={{ quranSegment, segmentId }}
-            surahs={surahs}
-            searchParams={searchParams}
-            translationInfos={translationInfos}
-          />
-        </Suspense>
+        <QuranSegmentDetailsMain
+          params={{ quranSegment, segmentId }}
+          surahs={surahs}
+          searchParams={searchParams}
+          translationInfos={translationInfos}
+        />
       );
     default:
       return <div>Invalid Quran Segment</div>;
