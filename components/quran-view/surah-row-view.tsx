@@ -35,7 +35,6 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
                   src={`/images/surah/sname_${id}.webp`}
                   alt={`Surah ${id}`}
                   fill
-                  quality={100}
                   sizes="60px"
                   style={{
                     objectFit: 'contain',
