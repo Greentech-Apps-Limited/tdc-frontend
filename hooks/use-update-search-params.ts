@@ -6,7 +6,6 @@ export const useUpdateSearchParams = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    console.log('pathname', pathname, 'searchParams', searchParams);
     const updateSearchParams = useCallback((wbwTr: string, selectedTranslation: number[], newPathname?: string) => {
         const newParams = new URLSearchParams(searchParams.toString());
         newParams.set('wbw_tr', wbwTr);
