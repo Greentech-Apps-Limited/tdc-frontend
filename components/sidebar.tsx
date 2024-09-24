@@ -41,11 +41,13 @@ const Sidebar = () => {
       SIDE_NAV_ITEMS.map(item => {
         const { icon, path, title, activeIcon } = item;
         const isActive = isPathActive(path);
-
+        console.log(path);
         return (
           <Link
             key={path}
-            href={searchParams?.toString() ? `${path}?${searchParams.toString()}` : path}
+            href={
+              searchParams?.toString() && path === '/' ? `${path}?${searchParams.toString()}` : path
+            }
             aria-label={title}
           >
             <li
