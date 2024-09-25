@@ -1,31 +1,32 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 const StartQuizButton = () => (
-  <Button className="w-full bg-brown-600 text-white hover:bg-brown-500 rounded-full">Play Now</Button>
+  <Button className="w-full rounded-full bg-brown-600 text-white hover:bg-brown-500">
+    Play Now
+  </Button>
 );
 
 const ViewLeaderBoardButton = () => (
   <Button className="w-full rounded-full" variant="outline">
-    View LeaderBoard
+    View Leader Board
   </Button>
 );
 
 const QuizIntroCard = () => {
   return (
-    <Card className="bg-white shadow-md">
-      <CardHeader>
-        <CardTitle className="font-hidayatullah_demo text-3xl font-bold">Quranic Quiz</CardTitle>
-        <CardDescription className="text-base">
+    <section className="flex h-full flex-col justify-between rounded-4xl border border-neutral-300 bg-neutral p-6 shadow">
+      <div className="space-y-4">
+        <h1 className="font-hidayatullah_demo text-3xl font-bold">Quranic Quiz</h1>
+        <p className="text-base">
           Embark on a journey of Quranic discovery! Test your knowledge with our quiz and deepen
           your understanding of the divine verbs found in the Quran.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex max-w-96  space-x-4">
+        </p>
+      </div>
+      <div className="mt-auto flex max-w-96 gap-4 pt-4">
         <StartQuizButton />
         <ViewLeaderBoardButton />
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 };
 
