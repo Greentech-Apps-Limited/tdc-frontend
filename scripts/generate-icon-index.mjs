@@ -28,9 +28,8 @@ const generateIconIndex = async () => {
 const updateSvgColors = async fileName => {
   const filePath = path.join(ICON_DIRECTORY, fileName);
   let content = await fs.readFile(filePath, 'utf8');
-
-  content = content.replace(/(stroke|fill)="(?!none)([^"]+)"/gi, (match, attr, value) => {
-    if (value.toLowerCase() !== 'none') {
+  content = content.replace(/(stroke|fill)="(?!none|white)([^"]+)"/gi, (match, attr, value) => {
+    if (value.toLowerCase() !== 'none' && value.toLowerCase() !== 'white') {
       return `${attr}="currentColor"`;
     }
     return match;
