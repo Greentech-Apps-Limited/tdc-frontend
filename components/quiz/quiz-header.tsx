@@ -1,21 +1,25 @@
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ExitIcon, HeartReactIconFill, TimerIcon } from '@/icons';
-import useQuizStore from '@/stores/quiz-store';
+import { formatTime } from '@/lib/utils/audio-utils';
 
 type QuizHeaderProps = {
+  life: number;
+  timeRemaining: number;
+  isTimerCritical: boolean;
   onExit: () => void;
 };
 
-const QuizHeader = ({ onExit }: QuizHeaderProps) => {
-  const { life, timeRemaining } = useQuizStore();
-
+const QuizHeader = ({ life, timeRemaining, isTimerCritical, onExit }: QuizHeaderProps) => {
   return (
-    <div className="flex items-center justify-between border-b  border-neutral-200 bg-neutral px-6 py-4">
+    <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral px-6 py-4">
       <Button size="sm" variant="outline" className="gap-2 rounded-full" onClick={onExit}>
         <ExitIcon />
         <span>Exit</span>
       </Button>
-      <div className="flex items-center gap-1 rounded-full bg-neutral-100 px-2 py-1">
+      <div
+        className={`flex items-center gap-1 rounded-full bg-neutral-100 px-2 py-1 ${isTimerCritical ? 'animate-pulse text-red-500' : ''}`}
+      >
         <TimerIcon className="text-2xl" />
         <span className="text-lg font-semibold">{formatTime(timeRemaining)}</span>
       </div>
@@ -25,12 +29,6 @@ const QuizHeader = ({ onExit }: QuizHeaderProps) => {
       </div>
     </div>
   );
-};
-
-const formatTime = (seconds: number): string => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-  return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
 export default QuizHeader;

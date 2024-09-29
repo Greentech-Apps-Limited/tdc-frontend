@@ -4,12 +4,28 @@ import { SkipNextIconFill, TimerIconFill } from '@/icons';
 import useQuizStore from '@/stores/quiz-store';
 
 const NavigationControls = () => {
-  const { pauseQuiz, skipQuestion, reduceOptions } = useQuizStore();
+  const { pauseQuiz, skipQuestion, reduceOptions, pauseUsed, skipsRemaining, fiftyFiftyUsed } =
+    useQuizStore();
 
   const controls = [
-    { onClick: pauseQuiz, icon: <TimerIconFill className="text-2xl text-neutral-500" /> },
-    { onClick: skipQuestion, icon: <SkipNextIconFill className="text-2xl text-neutral-500" /> },
-    { onClick: reduceOptions, icon: <span className="font-bold text-neutral-500">50/50</span> },
+    {
+      onClick: () => !pauseUsed && pauseQuiz(),
+      icon: <TimerIconFill className="text-2xl text-neutral-500" />,
+      disabled: pauseUsed,
+      tooltip: 'Pause',
+    },
+    {
+      onClick: skipQuestion,
+      icon: <SkipNextIconFill className="text-2xl text-neutral-500" />,
+      disabled: skipsRemaining === 0,
+      tooltip: 'Skip',
+    },
+    {
+      onClick: reduceOptions,
+      icon: <span className="font-bold text-neutral-500">50/50</span>,
+      disabled: fiftyFiftyUsed,
+      tooltip: '50/50',
+    },
   ];
 
   return (
@@ -20,6 +36,8 @@ const NavigationControls = () => {
           variant="outline"
           className="h-[56px] w-[56px] rounded-full p-0"
           onClick={control.onClick}
+          disabled={control.disabled}
+          title={control.tooltip}
         >
           {control.icon}
         </Button>

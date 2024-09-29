@@ -1,30 +1,56 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import useQuizStore from '@/stores/quiz-store';
 import { Button } from '../ui/button';
 
-const AnswerOptions: React.FC = () => {
-  const { currentQuestion, answerQuestion } = useQuizStore();
+const AnswerOptions = () => {
+  const {
+    currentQuestion,
+    answerQuestion,
+    selectedAnswer,
+    nextQuestion,
+    currentOptions,
+    setCurrentOptions,
+    isReducedOptions,
+  } = useQuizStore();
 
-  const options = useMemo(() => {
-    if (!currentQuestion) return [];
-    return [
-      currentQuestion.right_answer,
-      currentQuestion.option_2,
-      currentQuestion.option_3,
-      currentQuestion.option_4,
-    ].sort(() => Math.random() - 0.5);
-  }, [currentQuestion]);
+  useEffect(() => {
+    if (currentQuestion && !isReducedOptions) {
+      const options = [
+        currentQuestion.right_answer,
+        currentQuestion.option_2,
+        currentQuestion.option_3,
+        currentQuestion.option_4,
+      ].filter((option): option is string => typeof option === 'string');
+
+      const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
+      setCurrentOptions(shuffledOptions);
+    }
+  }, [currentQuestion, isReducedOptions, setCurrentOptions]);
+
+  const handleAnswer = (answer: string) => {
+    answerQuestion(answer);
+    setTimeout(nextQuestion, 1000);
+  };
+
+  const getButtonClass = (option: string) => {
+    if (!selectedAnswer) return '';
+    if (option === currentQuestion?.right_answer) return 'bg-green-500 text-white';
+    if (option === selectedAnswer && option !== currentQuestion?.right_answer)
+      return 'bg-red-500 text-white';
+    return '';
+  };
 
   if (!currentQuestion) return null;
 
   return (
     <div className="space-y-2">
-      {options.map((option, index) => (
+      {currentOptions.map((option, index) => (
         <Button
           key={`${currentQuestion.id}-${index}`}
-          className="w-full justify-start text-left"
+          className={`w-full justify-start text-left ${getButtonClass(option)}`}
           variant="outline"
-          onClick={() => answerQuestion(option)}
+          onClick={() => handleAnswer(option)}
+          disabled={selectedAnswer !== null}
         >
           {option}
         </Button>
