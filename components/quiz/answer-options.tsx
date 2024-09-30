@@ -21,7 +21,6 @@ const AnswerOptions = () => {
         currentQuestion.option_3,
         currentQuestion.option_4,
       ].filter((option): option is string => typeof option === 'string');
-
       const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
       setCurrentOptions(shuffledOptions);
     }
@@ -43,18 +42,22 @@ const AnswerOptions = () => {
   if (!currentQuestion) return null;
 
   return (
-    <div className="space-y-2">
-      {currentOptions.map((option, index) => (
-        <Button
-          key={`${currentQuestion.id}-${index}`}
-          className={`w-full justify-start text-left ${getButtonClass(option)}`}
-          variant="outline"
-          onClick={() => handleAnswer(option)}
-          disabled={selectedAnswer !== null}
-        >
-          {option}
-        </Button>
-      ))}
+    <div className="relative">
+      <div className="space-y-2">
+        {currentOptions.map((option, index) => (
+          <Button
+            key={`${currentQuestion.id}-${index}`}
+            className={`w-full justify-start text-left ${getButtonClass(option)}`}
+            variant="outline"
+            onClick={() => handleAnswer(option)}
+          >
+            {option}
+          </Button>
+        ))}
+      </div>
+      {selectedAnswer !== null && (
+        <div className="absolute inset-0 cursor-not-allowed bg-transparent" />
+      )}
     </div>
   );
 };
