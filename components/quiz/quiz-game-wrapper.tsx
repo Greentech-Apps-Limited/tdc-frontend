@@ -100,6 +100,7 @@ const QuizGameWrapper = () => {
     }
   }, [startQuiz, isPlaying, showResults]);
 
+  //TODO: handleRestartQuiz If needed
   // const handleRestartQuiz = () => {
   //   setIsLoading(true);
   //   endQuiz();

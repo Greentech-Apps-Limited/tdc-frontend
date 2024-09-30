@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useQuizStore from '@/stores/quiz-store';
 import { Button } from '../ui/button';
 
@@ -12,6 +12,8 @@ const AnswerOptions = () => {
     setCurrentOptions,
     isReducedOptions,
   } = useQuizStore();
+
+  const [shake, setShake] = useState(false);
 
   useEffect(() => {
     if (currentQuestion && !isReducedOptions) {
@@ -28,6 +30,10 @@ const AnswerOptions = () => {
 
   const handleAnswer = (answer: string) => {
     answerQuestion(answer);
+    if (answer !== currentQuestion?.right_answer) {
+      setShake(true);
+      setTimeout(() => setShake(false), 300);
+    }
     setTimeout(nextQuestion, 1000);
   };
 
@@ -42,7 +48,7 @@ const AnswerOptions = () => {
   if (!currentQuestion) return null;
 
   return (
-    <div className="relative">
+    <div className={`relative ${shake ? 'animate-shake' : ''}`}>
       <div className="space-y-2">
         {currentOptions.map((option, index) => (
           <Button
