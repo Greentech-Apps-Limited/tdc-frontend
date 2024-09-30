@@ -22,6 +22,7 @@ interface QuizState {
     currentOptions: string[];
     isReducedOptions: boolean;
     fiftyFiftyUsed: boolean;
+    selectedLevel: number
 }
 
 interface QuizActions {
@@ -40,6 +41,7 @@ interface QuizActions {
     setCurrentOptions: (options: string[]) => void;
     reduceOptions: () => void;
     resetOptionsForNewQuestion: () => void;
+    setSelectedLevel: (level: number) => void
 }
 
 const INITIAL_STATE: QuizState = {
@@ -63,6 +65,7 @@ const INITIAL_STATE: QuizState = {
     currentOptions: [],
     isReducedOptions: false,
     fiftyFiftyUsed: false,
+    selectedLevel: 1,
 };
 
 const useQuizStore = create<QuizState & QuizActions>((set, get) => ({
@@ -87,6 +90,8 @@ const useQuizStore = create<QuizState & QuizActions>((set, get) => ({
     }),
 
     setCurrentOptions: (options) => set({ currentOptions: options }),
+
+    setSelectedLevel: (level) => set({ selectedLevel: level }),
 
     reduceOptions: () => set((state) => {
         if (state.fiftyFiftyUsed || state.isReducedOptions) return {};

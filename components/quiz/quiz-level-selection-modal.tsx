@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import {
   Dialog,
@@ -9,6 +8,7 @@ import {
   DialogTitle,
 } from '../ui/dialog';
 import { LevelStartIcon1, LevelStartIcon2, LevelStartIcon3 } from '@/icons';
+import useQuizStore from '@/stores/quiz-store';
 
 type LevelData = {
   id: number;
@@ -68,7 +68,7 @@ interface QuizLevelSelectionModalProps {
 }
 
 const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModalProps) => {
-  const [selectedLevel, setSelectedLevel] = useState<number>(0);
+  const { selectedLevel, setSelectedLevel } = useQuizStore();
 
   return (
     <Dialog open={true} onOpenChange={onCancel}>
