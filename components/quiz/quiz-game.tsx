@@ -6,6 +6,7 @@ import AnswerOptions from './answer-options';
 import NavigationControls from './navigation-controls';
 import ExitConfirmationModal from './exit-confirmation-modal';
 import QuizContainer from './quiz-container';
+import { useRouter } from 'next/navigation';
 
 const QuizGame = () => {
   const {
@@ -21,6 +22,7 @@ const QuizGame = () => {
   } = useQuizStore();
 
   const [showExitModal, setShowExitModal] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -57,8 +59,8 @@ const QuizGame = () => {
       {showExitModal && (
         <ExitConfirmationModal
           onConfirm={() => {
-            // Handle exit confirmation
-            setShowExitModal(false);
+            // TODO: Handle exit confirmation
+            router.push('/quiz');
           }}
           onCancel={() => setShowExitModal(false)}
         />

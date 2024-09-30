@@ -70,6 +70,9 @@ const config = {
         teal: {
           500: "#1B8885",
           700: '#026E68'
+        },
+        purple: {
+          500: "#736CCD"
         }
       },
       dropShadow: {
