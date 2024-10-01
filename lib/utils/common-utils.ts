@@ -65,3 +65,15 @@ export function scrollToElement({ container, element, offset = 0.1 }: ScrollToEl
     behavior: 'smooth',
   });
 }
+
+export function convertToTitleCase(input: string): string {
+  return input.replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/[_\W]+/g, ' ')
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export const formatRank = (rank: number): string => {
+  return rank.toString().padStart(3, '0');
+};
