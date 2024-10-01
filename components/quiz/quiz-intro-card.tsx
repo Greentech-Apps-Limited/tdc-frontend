@@ -1,16 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-const StartQuizButton = () => {
-  const router = useRouter();
 
-  const handleStartQuiz = () => {
-    router.push('/quiz/play-mode');
-  };
-
+const StartQuizButton = ({ onClick }: { onClick: () => void }) => {
   return (
     <Button
       className="w-full rounded-full bg-brown-600 text-white hover:bg-brown-500"
-      onClick={handleStartQuiz}
+      onClick={onClick}
     >
       Play Now
     </Button>
@@ -23,7 +17,7 @@ const ViewLeaderBoardButton = () => (
   </Button>
 );
 
-const QuizIntroCard = () => {
+const QuizIntroCard = ({ setShowLevelModal }: { setShowLevelModal: (value: boolean) => void }) => {
   return (
     <section className="flex h-full flex-col justify-between rounded-4xl border border-neutral-300 bg-neutral p-6 shadow">
       <div className="space-y-4">
@@ -34,7 +28,7 @@ const QuizIntroCard = () => {
         </p>
       </div>
       <div className="mt-auto flex max-w-96 gap-4 pt-4">
-        <StartQuizButton />
+        <StartQuizButton onClick={() => setShowLevelModal(true)} />
         <ViewLeaderBoardButton />
       </div>
     </section>

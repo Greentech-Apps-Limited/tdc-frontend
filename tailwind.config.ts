@@ -34,10 +34,21 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%': { transform: 'translateX(-2px)' },
+          '15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95%': { transform: 'translateX(2px)' },
+        },
+        heartFall: {
+          '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+          '100%': { transform: 'translateY(35vh) scale(0.5)', opacity: '0' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        shake: 'shake 0.3s cubic-bezier(.36,.07,.19,.97) both',
+        'heart-fall': 'heartFall 1s ease-in forwards',
       },
       colors: {
         neutral: {
@@ -70,6 +81,9 @@ const config = {
         teal: {
           500: "#1B8885",
           700: '#026E68'
+        },
+        purple: {
+          500: "#736CCD"
         }
       },
       dropShadow: {
