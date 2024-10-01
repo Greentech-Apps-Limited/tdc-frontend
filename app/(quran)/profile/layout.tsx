@@ -1,4 +1,4 @@
-const QuranicQuizLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const UserProfileLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <section className="h-full w-full overflow-y-scroll">
       <div className="m-6 max-w-8xl">{children}</div>
@@ -6,4 +6,4 @@ const QuranicQuizLayout = ({ children }: Readonly<{ children: React.ReactNode }>
   );
 };
 
-export default QuranicQuizLayout;
+export default UserProfileLayout;
