@@ -1,30 +1,34 @@
-import { readData } from '@/lib/read-file';
-import { Reference, Surah } from '@/lib/types/quran-meta-types';
+import QuranDetailsSkeleton from '@/components/skeleton-loaders/quran-details-skeleton';
+import { HIZBS } from '@/data/quran-meta/hizbs';
+import { JUZS } from '@/data/quran-meta/juzs';
+import { PAGES } from '@/data/quran-meta/pages';
+import { RUKUS } from '@/data/quran-meta/rukus';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
+import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { Suspense } from 'react';
+
+type Reference = { id: number | string };
 
 const QuranSegmentDetailsLayout = ({
   children,
 }: Readonly<{ children: React.ReactNode; list: React.ReactNode }>) => {
-  return <section className="h-full w-full">{children}</section>;
+  return (
+    <section>
+      <Suspense fallback={<QuranDetailsSkeleton />}>{children}</Suspense>
+    </section>
+  );
 };
 
 export default QuranSegmentDetailsLayout;
 
 export async function generateStaticParams() {
-  const surahs = await readData<Surah[]>('data/quran-meta/surahs/en.json');
-  const [juzs, pages, hizbs, rukus] = await Promise.all([
-    readData<Reference[]>('data/quran-meta/juzs.json'),
-    readData<Reference[]>('data/quran-meta/pages.json'),
-    readData<Reference[]>('data/quran-meta/hizbs.json'),
-    readData<Reference[]>('data/quran-meta/rukus.json'),
-  ]);
-
-  const segmentMap: Record<QuranSegment, Reference[] | Surah[]> = {
-    surah: surahs,
-    page: pages,
-    juz: juzs,
-    hizb: hizbs,
-    ruku: rukus,
+  const segmentMap: Record<Exclude<QuranSegment, 'surah'>, Reference[]> & { surah: Surah[] } = {
+    surah: SURAH_EN,
+    page: PAGES,
+    juz: JUZS,
+    hizb: HIZBS,
+    ruku: RUKUS,
   };
 
   const staticParams = Object.entries(segmentMap).flatMap(([quranSegment, references]) => {

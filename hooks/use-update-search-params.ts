@@ -10,8 +10,10 @@ export const useUpdateSearchParams = () => {
         const newParams = new URLSearchParams(searchParams.toString());
         newParams.set('wbw_tr', wbwTr);
         newParams.set('translations', selectedTranslation.join('-'));
+        if (pathname === '/') {
+            router.replace((newPathname || pathname) + '?' + newParams.toString());
+        }
 
-        router.replace((newPathname || pathname) + '?' + newParams.toString());
     }, [router, pathname, searchParams]);
 
     return updateSearchParams;

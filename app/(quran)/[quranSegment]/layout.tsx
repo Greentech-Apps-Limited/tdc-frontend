@@ -1,6 +1,10 @@
 import QuranDetailsSidebar from '@/components/quran-view/quran-details-sidebar';
-import { readData } from '@/lib/read-file';
-import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
+import { HIZBS } from '@/data/quran-meta/hizbs';
+import { JUZS } from '@/data/quran-meta/juzs';
+import { PAGES } from '@/data/quran-meta/pages';
+import { RUKUS } from '@/data/quran-meta/rukus';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
+import { QuranMeta } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 type QuranSegmentLayoutProps = {
@@ -11,14 +15,12 @@ type QuranSegmentLayoutProps = {
   };
 };
 
-const QuranSegmentLayout = async ({ children, params }: Readonly<QuranSegmentLayoutProps>) => {
-  const surahs = await readData<Surah[]>('data/quran-meta/surahs/en.json');
-  const [juzs, pages, hizbs, rukus] = await Promise.all([
-    readData<Reference[]>('data/quran-meta/juzs.json'),
-    readData<Reference[]>('data/quran-meta/pages.json'),
-    readData<Reference[]>('data/quran-meta/hizbs.json'),
-    readData<Reference[]>('data/quran-meta/rukus.json'),
-  ]);
+const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutProps>) => {
+  const surahs = SURAH_EN;
+  const pages = PAGES;
+  const juzs = JUZS;
+  const hizbs = HIZBS;
+  const rukus = RUKUS;
 
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
   return (
@@ -26,7 +28,9 @@ const QuranSegmentLayout = async ({ children, params }: Readonly<QuranSegmentLay
       <aside className="h-full overflow-hidden">
         <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
       </aside>
-      <aside className="h-full w-full flex-1 overflow-y-scroll">{children}</aside>
+      <aside id="scroll-container" className="h-full w-full flex-1 overflow-y-scroll ">
+        {children}
+      </aside>
     </section>
   );
 };

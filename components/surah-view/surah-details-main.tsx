@@ -1,11 +1,18 @@
 import { Surah } from '@/lib/types/quran-meta-types';
-import VerseDisplayCard from './verse-display-card';
-import SurahDisplayCard from './surah-display-card';
 import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
-import VerseDisplayMain from './verse-display-main';
+import dynamic from 'next/dynamic';
+import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
+
+const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
+  ssr: false,
+  loading: () => <QuranDetailsSkeleton />,
+});
+const VerseDisplayCard = dynamic(() => import('./verse-display-card'), {
+  ssr: false,
+});
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -25,11 +32,12 @@ const SurahDetailsMain = async ({
   if (!surah) {
     return <div>Surah with id {surahId} not found</div>;
   }
-  const verses = await getVersesBySurah(surahId);
-  const wbwVerses = await getWbwVersesBySurah(surahId, searchParams?.wbw_tr);
+  const verses = await getVersesBySurah(surahId, surah.verses);
+  const wbwVerses = await getWbwVersesBySurah(surahId, surah.verses, searchParams.wbw_tr);
+
   let mergedVerses = mergeVersesWithWbw(verses, wbwVerses);
 
-  const translationIds = parseTranslationIds(searchParams);
+  const translationIds = parseTranslationIds(searchParams?.translations);
   mergedVerses = await addTranslationsToVerses(
     mergedVerses,
     surahId,
@@ -38,14 +46,11 @@ const SurahDetailsMain = async ({
   );
 
   return (
-    <div>
-      <VerseDisplayMain />
-      <SurahDisplayCard surah={surah}>
-        {mergedVerses.map(mergedVerse => (
-          <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} />
-        ))}
-      </SurahDisplayCard>
-    </div>
+    <SurahDisplayCard surah={surah}>
+      {mergedVerses.map(mergedVerse => (
+        <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} surahId={surahId} />
+      ))}
+    </SurahDisplayCard>
   );
 };
 

@@ -11,6 +11,7 @@ const SidebarBrandLogo = ({ isMinimized }: { isMinimized: boolean }) => {
           width={56}
           height={56}
           alt="Brand logo"
+          priority
           className={`absolute left-0 top-0 transition-opacity ease-in-out ${isMinimized ? 'duration-100' : 'duration-500'}  ${isMinimized ? 'opacity-100' : 'opacity-0'}`}
         />
         <Image
@@ -18,6 +19,7 @@ const SidebarBrandLogo = ({ isMinimized }: { isMinimized: boolean }) => {
           width={102}
           height={56}
           alt="Brand logo"
+          priority
           className={`absolute left-0 top-0 transition-opacity ${isMinimized ? 'duration-100' : 'duration-500'} ease-in-out ${isMinimized ? 'opacity-0' : 'opacity-100'}`}
         />
       </div>
