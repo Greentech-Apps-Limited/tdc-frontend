@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const StartQuizButton = ({ onClick }: { onClick: () => void }) => {
   return (
@@ -12,9 +13,11 @@ const StartQuizButton = ({ onClick }: { onClick: () => void }) => {
 };
 
 const ViewLeaderBoardButton = () => (
-  <Button className="w-full rounded-full" variant="outline">
-    View Leader Board
-  </Button>
+  <Link href="/quiz/leaderboard">
+    <Button className="w-full rounded-full" variant="outline">
+      View Leader Board
+    </Button>
+  </Link>
 );
 
 const QuizIntroCard = ({ setShowLevelModal }: { setShowLevelModal: (value: boolean) => void }) => {
