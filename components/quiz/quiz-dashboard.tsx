@@ -1,3 +1,5 @@
+'use client';
+
 import QuizIntroCard from './quiz-intro-card';
 import { Scoreboard } from './score-board';
 

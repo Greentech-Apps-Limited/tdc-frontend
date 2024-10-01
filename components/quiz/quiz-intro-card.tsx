@@ -1,10 +1,21 @@
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+const StartQuizButton = () => {
+  const router = useRouter();
 
-const StartQuizButton = () => (
-  <Button className="w-full rounded-full bg-brown-600 text-white hover:bg-brown-500">
-    Play Now
-  </Button>
-);
+  const handleStartQuiz = () => {
+    router.push('/quiz/play-mode');
+  };
+
+  return (
+    <Button
+      className="w-full rounded-full bg-brown-600 text-white hover:bg-brown-500"
+      onClick={handleStartQuiz}
+    >
+      Play Now
+    </Button>
+  );
+};
 
 const ViewLeaderBoardButton = () => (
   <Button className="w-full rounded-full" variant="outline">
