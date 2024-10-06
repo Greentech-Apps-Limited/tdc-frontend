@@ -26,6 +26,7 @@ const VerseDisplayCard = ({ verse, surahId }: VerseDisplayProps) => {
     <div
       className={`rounded-2xl border border-neutral-200 p-6 ${highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'}`}
       data-verse={verse.verse_key}
+      data-words={verse.words.length - 1}
     >
       <div className="flex items-center justify-between">
         <p className=" text-lg">{verse.verse_number}</p>
