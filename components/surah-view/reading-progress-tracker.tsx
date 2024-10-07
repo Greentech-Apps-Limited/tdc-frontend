@@ -24,12 +24,9 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
   const params = useParams<{ quranSegment: string; segmentId: string }>();
   const { updateLastRead } = useLastReadStore();
   const { updateProgress } = useReadingProgressStore();
-  const [readCount, setReadCount] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(0);
-  const [averageVisibleTime, setAverageVisibleTime] = useState(0);
   const [currentlyReadingVerse, setCurrentlyReadingVerse] = useState<string | null>(null);
-  const [averageReadingSpeed, setAverageReadingSpeed] = useState(700); // ms per word
-  const { timeSpent, isReading } = useReadingTime();
+  const [averageReadingSpeed, setAverageReadingSpeed] = useState(500);
+  const { isReading } = useReadingTime();
   const readVerses = useRef<Set<string>>(new Set());
   const visibleVerses = useRef<Set<string>>(new Set());
   const verseVisibilityTimes = useRef<Map<string, VerseVisibilityInfo>>(new Map());
@@ -51,13 +48,16 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
         visibilityInfo.readPercentage = newReadPercentage;
         if (newReadPercentage >= 90 && !readVerses.current.has(verseKey)) {
           readVerses.current.add(verseKey);
-          setReadCount(prevCount => prevCount + 1);
+
+          const today = new Date().toISOString().split('T')[0];
+          updateProgress({ date: today, versesRead: 1 });
+
           return true;
         }
       }
       return false;
     },
-    [averageReadingSpeed]
+    [averageReadingSpeed, updateProgress]
   );
 
   useEffect(() => {
@@ -107,18 +107,6 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
           });
 
           visibleVerses.current = newVisibleVerses;
-          setVisibleCount(newVisibleVerses.size);
-
-          let totalTime = 0;
-          let count = 0;
-          verseVisibilityTimes.current.forEach(info => {
-            totalTime += info.totalVisibleTime;
-            if (info.lastVisibleTimestamp !== null) {
-              totalTime += now - info.lastVisibleTimestamp;
-            }
-            count++;
-          });
-          setAverageVisibleTime(count > 0 ? totalTime / count : 0);
         },
         { threshold: 0.85 }
       );
@@ -149,28 +137,16 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
 
     const intervalId = setInterval(() => {
       if (visibleVerses.current.size > 0 && isReading) {
-        let currentVerseKey = currentlyReadingVerse;
-        if (!currentVerseKey || !visibleVerses.current.has(currentVerseKey)) {
-          currentVerseKey = Array.from(visibleVerses.current)[0] || '';
-          setCurrentlyReadingVerse(currentVerseKey);
+        let newCurrentVerseKey = currentlyReadingVerse;
+        if (!newCurrentVerseKey || !visibleVerses.current.has(newCurrentVerseKey)) {
+          newCurrentVerseKey = Array.from(visibleVerses.current)[0] || '';
+          setCurrentlyReadingVerse(newCurrentVerseKey);
         }
 
-        const visibilityInfo = verseVisibilityTimes.current.get(currentVerseKey);
+        const visibilityInfo = verseVisibilityTimes.current.get(newCurrentVerseKey);
         if (visibilityInfo) {
-          const isRead = updateReadingProgress(currentVerseKey, visibilityInfo, Date.now());
+          const isRead = updateReadingProgress(newCurrentVerseKey, visibilityInfo, Date.now());
           if (isRead) {
-            const [surahId, ayahId] = currentVerseKey.split(':').map(Number);
-
-            updateLastRead({
-              surah_id: surahId as number,
-              ayah_id: ayahId as number,
-              timestamp: Date.now(),
-              type: params.quranSegment as 'surah' | 'juz' | 'page' | 'hizb' | 'ruku',
-            });
-
-            const today = new Date().toISOString().split('T')[0];
-            updateProgress({ date: today, versesRead: 1 });
-
             const nextUnreadVerse = Array.from(visibleVerses.current).find(
               key => !readVerses.current.has(key)
             );
@@ -189,38 +165,22 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
       clearInterval(intervalId);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [
-    verses,
-    isReading,
-    updateReadingProgress,
-    currentlyReadingVerse,
-    params.quranSegment,
-    updateLastRead,
-    updateProgress,
-  ]);
+  }, [verses, isReading, updateReadingProgress, currentlyReadingVerse]);
 
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
+  useEffect(() => {
+    if (currentlyReadingVerse) {
+      const [surahId, ayahId] = currentlyReadingVerse.split(':').map(Number);
+      updateLastRead({
+        surah_id: surahId as number,
+        ayah_id: ayahId as number,
+        timestamp: Date.now(),
+        type: params.quranSegment as 'surah' | 'juz' | 'page' | 'hizb' | 'ruku',
+        segment_id: Number(params.segmentId),
+      });
+    }
+  }, [currentlyReadingVerse, updateLastRead, params.quranSegment, params.segmentId]);
 
-  return (
-    <>
-      <div className="fixed right-0 top-12 m-4 rounded bg-white bg-opacity-80 p-2 text-right font-semibold shadow">
-        <div>
-          Ayahs Read: {readCount} / {verses.length}
-        </div>
-        <div>Currently Visible: {visibleCount}</div>
-        <div>Average Visible Time: {formatTime(Math.floor(averageVisibleTime / 1000))}</div>
-        <div>Currently Reading: {currentlyReadingVerse || 'None'}</div>
-        <div>Avg Reading Speed: {Math.round(averageReadingSpeed)} ms/word</div>
-        <div>Total Reading Time: {formatTime(timeSpent)}</div>
-        <div>Reading Status: {isReading ? 'Active' : 'Paused'}</div>
-      </div>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default ReadingProgressTracker;

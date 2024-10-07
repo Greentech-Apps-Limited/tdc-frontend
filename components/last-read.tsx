@@ -5,20 +5,27 @@ import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
 import Link from 'next/link';
 
 const LastRead = () => {
-  const { entries } = useLastReadStore();
+  const lastReadStore = useLastReadStore();
+  const segmentTypes = ['surah', 'juz', 'page', 'hizb', 'ruku'] as const;
+
+  const getAllEntries = () => {
+    return segmentTypes
+      .flatMap(segmentType => Object.values(lastReadStore[segmentType]))
+      .sort((a, b) => b.timestamp - a.timestamp);
+  };
 
   const getReadingLink = (item: LastReadEntry) => {
     switch (item.type) {
       case 'surah':
-        return `/surah/${item.surah_id}/${item.ayah_id}`;
+        return `/surah/${item.surah_id}`;
       case 'juz':
-        return `/juz/${item.surah_id}/${item.ayah_id}`;
+        return `/juz/${item.segment_id}`;
       case 'page':
-        return `/page/${item.surah_id}`;
+        return `/page/${item.segment_id}`;
       case 'hizb':
-        return `/hizb/${item.surah_id}/${item.ayah_id}`;
+        return `/hizb/${item.segment_id}`;
       case 'ruku':
-        return `/ruku/${item.surah_id}/${item.ayah_id}`;
+        return `/ruku/${item.segment_id}}`;
       default:
         return '/quran';
     }
@@ -32,24 +39,29 @@ const LastRead = () => {
       case 'surah':
         return `${surahName}: ${String(item.ayah_id).padStart(2, '0')}`;
       case 'juz':
-        return `Juz ${item.surah_id}: Ayah ${item.ayah_id}`;
+        return `Juz ${item.segment_id}: ${surahName}, Ayah ${item.ayah_id}`;
       case 'page':
-        return `Page ${item.surah_id}`;
+        return `Page ${item.segment_id}`;
       case 'hizb':
-        return `Hizb ${item.surah_id}: Ayah ${item.ayah_id}`;
+        return `Hizb ${item.segment_id}: ${surahName}, Ayah ${item.ayah_id}`;
       case 'ruku':
-        return `Ruku ${item.surah_id}: Ayah ${item.ayah_id}`;
+        return `Ruku ${item.segment_id}: ${surahName}, Ayah ${item.ayah_id}`;
       default:
         return 'Unknown';
     }
   };
+
+  const entries = getAllEntries().slice(0, lastReadStore.maxEntriesPerSegment);
 
   return (
     <section className="space-y-2">
       <p className="text-xs font-semibold text-neutral-700">Last Read</p>
       <div className="flex w-full flex-wrap gap-2">
         {entries.map((item, index) => (
-          <Link key={index} href={getReadingLink(item)}>
+          <Link
+            key={`${item.type}-${item.surah_id}-${item.ayah_id}-${index}`}
+            href={getReadingLink(item)}
+          >
             <SmallCard>
               <div className="flex">
                 <p>{getDisplayText(item)}</p>

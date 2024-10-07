@@ -6,44 +6,67 @@ export type LastReadEntry = {
     ayah_id: number;
     timestamp: number;
     type: 'surah' | 'juz' | 'page' | 'hizb' | 'ruku';
+    segment_id?: number; // For page, juz, hizb, ruku
     surah_name?: string;
     total_verses?: number;
 };
 
+type LastReadSegmentEntries = {
+    [key: string]: LastReadEntry;
+};
+
+type QuranSegmentType = 'surah' | 'juz' | 'page' | 'hizb' | 'ruku';
+
 type LastReadState = {
-    entries: LastReadEntry[];
-    maxEntries: number;
+    surah: LastReadSegmentEntries;
+    juz: LastReadSegmentEntries;
+    page: LastReadSegmentEntries;
+    hizb: LastReadSegmentEntries;
+    ruku: LastReadSegmentEntries;
+    maxEntriesPerSegment: number;
     updateLastRead: (entry: LastReadEntry) => void;
-    setMaxEntries: (count: number) => void;
+    setMaxEntriesPerSegment: (count: number) => void;
     clearAllEntries: () => void;
+    getLastReadForSegment: (segmentType: QuranSegmentType, segmentId: string) => LastReadEntry | undefined;
 };
 
 const useLastReadStore = create(
     persist<LastReadState>(
-        (set) => ({
-            entries: [],
-            maxEntries: 5,
+        (set, get) => ({
+            surah: {},
+            juz: {},
+            page: {},
+            hizb: {},
+            ruku: {},
+            maxEntriesPerSegment: 5,
             updateLastRead: (entry) =>
                 set((state) => {
-                    const existingIndex = state.entries.findIndex(
-                        (e) => e.type === entry.type && e.surah_id === entry.surah_id && e.ayah_id === entry.ayah_id
-                    );
+                    const { type } = entry;
+                    const segmentId = entry.type === 'surah' ? entry.surah_id.toString() : entry.segment_id?.toString();
 
-                    let newEntries = existingIndex !== -1
-                        ? [
-                            entry,
-                            ...state.entries.slice(0, existingIndex),
-                            ...state.entries.slice(existingIndex + 1)
-                        ]
-                        : [entry, ...state.entries];
+                    if (!segmentId) {
+                        console.error('Invalid segment ID');
+                        return state;
+                    }
 
-                    // Limit to maxEntries
-                    newEntries = newEntries.slice(0, state.maxEntries);
+                    const newState = { ...state };
+                    newState[type] = { ...newState[type], [segmentId]: entry };
 
-                    return { entries: newEntries };
+                    // Limit entries per segment type
+                    const entries = Object.entries(newState[type]);
+                    if (entries.length > state.maxEntriesPerSegment) {
+                        const sortedEntries = entries.sort((a, b) => b[1].timestamp - a[1].timestamp);
+                        newState[type] = Object.fromEntries(sortedEntries.slice(0, state.maxEntriesPerSegment));
+                    }
+
+                    return newState;
                 }),
-            setMaxEntries: (count) => set({ maxEntries: count }),
-            clearAllEntries: () => set({ entries: [] }),
+            setMaxEntriesPerSegment: (count) => set({ maxEntriesPerSegment: count }),
+            clearAllEntries: () => set({ surah: {}, juz: {}, page: {}, hizb: {}, ruku: {} }),
+            getLastReadForSegment: (segmentType, segmentId) => {
+                const state = get();
+                return state[segmentType][segmentId];
+            },
         }),
         {
             name: 'last-read-storage',
