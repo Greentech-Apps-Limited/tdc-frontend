@@ -2,6 +2,9 @@
 
 import useReadingTime from '@/hooks/use-reading-time';
 import { MergedVerse } from '@/lib/types/verses-type';
+import useLastReadStore from '@/stores/last-read-store';
+import useReadingProgressStore from '@/stores/reading-progress-store';
+import { useParams } from 'next/navigation';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 interface ReadingProgressTrackerProps {
@@ -18,6 +21,9 @@ interface VerseVisibilityInfo {
 }
 
 const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses, children }) => {
+  const params = useParams<{ quranSegment: string; segmentId: string }>();
+  const { updateLastRead } = useLastReadStore();
+  const { updateProgress } = useReadingProgressStore();
   const [readCount, setReadCount] = useState(0);
   const [visibleCount, setVisibleCount] = useState(0);
   const [averageVisibleTime, setAverageVisibleTime] = useState(0);
@@ -153,6 +159,18 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
         if (visibilityInfo) {
           const isRead = updateReadingProgress(currentVerseKey, visibilityInfo, Date.now());
           if (isRead) {
+            const [surahId, ayahId] = currentVerseKey.split(':').map(Number);
+
+            updateLastRead({
+              surah_id: surahId as number,
+              ayah_id: ayahId as number,
+              timestamp: Date.now(),
+              type: params.quranSegment as 'surah' | 'juz' | 'page' | 'hizb' | 'ruku',
+            });
+
+            const today = new Date().toISOString().split('T')[0];
+            updateProgress({ date: today, versesRead: 1 });
+
             const nextUnreadVerse = Array.from(visibleVerses.current).find(
               key => !readVerses.current.has(key)
             );
@@ -171,7 +189,15 @@ const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses,
       clearInterval(intervalId);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [verses, isReading, updateReadingProgress, currentlyReadingVerse]);
+  }, [
+    verses,
+    isReading,
+    updateReadingProgress,
+    currentlyReadingVerse,
+    params.quranSegment,
+    updateLastRead,
+    updateProgress,
+  ]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);

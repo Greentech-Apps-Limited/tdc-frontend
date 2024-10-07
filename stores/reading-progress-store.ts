@@ -1,10 +1,44 @@
-import { ReadingProgress, updateWeeklyProgress } from '@/lib/utils/progress-tracking-utils';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
+type ReadingProgress = {
+    date: string;
+    timeSpent: number;
+    versesRead: number;
+};
+
 type ReadingProgressState = {
     weeklyProgress: ReadingProgress[];
-    updateProgress: (newProgress: ReadingProgress) => void;
+    updateProgress: (newProgress: Partial<ReadingProgress>) => void;
+};
+
+const updateWeeklyProgress = (
+    currentProgress: ReadingProgress[],
+    newProgress: Partial<ReadingProgress>
+): ReadingProgress[] => {
+    const today = new Date().toISOString().split('T')[0] || '';
+    const existingEntry = currentProgress.find((entry) => entry.date === today);
+
+    if (existingEntry) {
+        return currentProgress.map((entry) =>
+            entry.date === today
+                ? {
+                    ...entry,
+                    timeSpent: (entry.timeSpent || 0) + (newProgress.timeSpent || 0),
+                    versesRead: (entry.versesRead || 0) + (newProgress.versesRead || 0),
+                }
+                : entry
+        );
+    } else {
+        return [
+            ...currentProgress,
+            {
+                date: today,
+                timeSpent: newProgress.timeSpent || 0,
+                versesRead: newProgress.versesRead || 0,
+            },
+        ];
+    }
 };
 
 const useReadingProgressStore = create(

@@ -16,6 +16,7 @@ import { JUZ_TO_SURAH_MAPPINGS } from '@/data/quran-meta/juz-to-surah-mappings';
 import { HIZB_TO_SURAH_MAPPINGS } from '@/data/quran-meta/hizb-to-surah-mappings';
 import dynamic from 'next/dynamic';
 import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
+import ReadingProgressTracker from '../surah-view/reading-progress-tracker';
 
 const SurahDisplayCard = dynamic(() => import('../surah-view/surah-display-card'), {
   ssr: false,
@@ -80,20 +81,23 @@ const QuranSegmentDetailsMain = async ({
       })
     );
   }
+  const allVerses = segmentData.flatMap(segment => segment.mergedVerses);
 
   return (
     <div>
-      {segmentData.map(({ surahInfo, mergedVerses }) => (
-        <SurahDisplayCard key={surahInfo.id} surah={surahInfo}>
-          {mergedVerses.map(mergedVerse => (
-            <VerseDisplayCard
-              key={mergedVerse.id}
-              verse={mergedVerse}
-              surahId={surahInfo.id.toString()}
-            />
-          ))}
-        </SurahDisplayCard>
-      ))}
+      <ReadingProgressTracker verses={allVerses}>
+        {segmentData.map(({ surahInfo, mergedVerses }) => (
+          <SurahDisplayCard key={surahInfo.id} surah={surahInfo}>
+            {mergedVerses.map(mergedVerse => (
+              <VerseDisplayCard
+                key={mergedVerse.id}
+                verse={mergedVerse}
+                surahId={surahInfo.id.toString()}
+              />
+            ))}
+          </SurahDisplayCard>
+        ))}
+      </ReadingProgressTracker>
     </div>
   );
 };

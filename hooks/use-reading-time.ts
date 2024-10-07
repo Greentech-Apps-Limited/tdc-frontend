@@ -11,41 +11,43 @@ const useReadingTime = (): UseReadingTimeResult => {
     const [isReading, setIsReading] = useState<boolean>(true);
     const intervalRef = useRef<number | null>(null);
     const startTimeRef = useRef<number>(Date.now());
-    const accumulatedTimeRef = useRef<number>(0);
+    const lastUpdateTimeRef = useRef<number>(Date.now());
     const { updateProgress } = useReadingProgressStore();
 
-    const updateStore = useCallback((time: number) => {
+    const updateStore = useCallback((incrementalTime: number) => {
         const today = new Date().toISOString().split('T')[0];
-        updateProgress({ date: today, timeSpent: time });
+        console.log("incrementalTime", incrementalTime)
+        updateProgress({ date: today, timeSpent: incrementalTime });
     }, [updateProgress]);
 
     const calculateElapsedTime = useCallback(() => {
         const now = Date.now();
-        const elapsedTime = Math.floor((now - startTimeRef.current) / 1000);
-        updateStore(elapsedTime);
-        accumulatedTimeRef.current += elapsedTime;
-        startTimeRef.current = now;
-        return accumulatedTimeRef.current;
-    }, [updateStore]);
+        const incrementalTime = Math.floor((now - lastUpdateTimeRef.current) / 1000);
+        lastUpdateTimeRef.current = now;
+        return incrementalTime;
+    }, []);
 
     const stopTimer = useCallback(() => {
         if (intervalRef.current !== null) {
             clearInterval(intervalRef.current);
             intervalRef.current = null;
-            const finalTime = calculateElapsedTime();
-            setTimeSpent(finalTime);
+            const incrementalTime = calculateElapsedTime();
+            setTimeSpent(prevTime => prevTime + incrementalTime);
+            updateStore(incrementalTime);
         }
-    }, [calculateElapsedTime]);
+    }, [calculateElapsedTime, updateStore]);
 
     const startTimer = useCallback(() => {
         if (intervalRef.current === null) {
             startTimeRef.current = Date.now();
+            lastUpdateTimeRef.current = Date.now();
             intervalRef.current = window.setInterval(() => {
-                const currentTime = calculateElapsedTime();
-                setTimeSpent(currentTime);
+                const incrementalTime = calculateElapsedTime();
+                setTimeSpent(prevTime => prevTime + incrementalTime);
+                updateStore(incrementalTime);
             }, 1000);
         }
-    }, [calculateElapsedTime]);
+    }, [calculateElapsedTime, updateStore]);
 
     useEffect(() => {
         const handleVisibilityChange = () => {
@@ -59,7 +61,6 @@ const useReadingTime = (): UseReadingTimeResult => {
         };
 
         document.addEventListener('visibilitychange', handleVisibilityChange);
-
         if (!document.hidden) {
             startTimer();
         }
