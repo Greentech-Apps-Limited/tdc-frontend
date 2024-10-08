@@ -1,6 +1,7 @@
 'use client';
 import SmallCard from './ui/small-card';
 import { formatTimeAgo } from '@/lib/utils/common-utils';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
 import Link from 'next/link';
 
@@ -25,30 +26,19 @@ const LastRead = () => {
       case 'hizb':
         return `/hizb/${item.segment_id}`;
       case 'ruku':
-        return `/ruku/${item.segment_id}}`;
+        return `/ruku/${item.segment_id}`;
       default:
         return '/quran';
     }
   };
 
   const getDisplayText = (item: LastReadEntry) => {
-    const surahName = item.surah_name
-      ? `${item.surah_name} (${item.surah_id})`
+    const surah = SURAH_EN.find(s => s.id === item.surah_id);
+    const surahName = surah
+      ? `${surah.transliteration} : ${String(item.surah_id).padStart(2, '0')}`
       : `Surah ${item.surah_id}`;
-    switch (item.type) {
-      case 'surah':
-        return `${surahName}: ${String(item.ayah_id).padStart(2, '0')}`;
-      case 'juz':
-        return `Juz ${item.segment_id}: ${surahName}, Ayah ${item.ayah_id}`;
-      case 'page':
-        return `Page ${item.segment_id}`;
-      case 'hizb':
-        return `Hizb ${item.segment_id}: ${surahName}, Ayah ${item.ayah_id}`;
-      case 'ruku':
-        return `Ruku ${item.segment_id}: ${surahName}, Ayah ${item.ayah_id}`;
-      default:
-        return 'Unknown';
-    }
+
+    return surahName;
   };
 
   const entries = getAllEntries().slice(0, lastReadStore.maxEntriesPerSegment);
