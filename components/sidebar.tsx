@@ -36,33 +36,40 @@ const Sidebar = () => {
     },
     [pathname]
   );
+
+  const getFilteredSearchParams = useCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.delete('verse');
+    return params.toString();
+  }, [searchParams]);
+
   const navItems = useMemo(
     () =>
       SIDE_NAV_ITEMS.map(item => {
         const { icon, path, title, activeIcon } = item;
         const isActive = isPathActive(path);
+        const filteredParams = getFilteredSearchParams();
+
         return (
           <Link
             key={path}
-            href={
-              searchParams?.toString() && path === '/' ? `${path}?${searchParams.toString()}` : path
-            }
+            href={filteredParams && path === '/' ? `${path}?${filteredParams}` : path}
             aria-label={title}
           >
             <li
               data-test={`nav-item${path.replace(/\//g, '-')}`}
-              className={`flex cursor-pointer gap-2 rounded-full hover:bg-neutral-200 
-            ${isActive ? 'bg-neutral-200' : ''} 
-            ${isMinimized ? 'p-3' : 'px-4 py-3'} 
-            transition-all duration-100 ease-in-out`}
+              className={`flex cursor-pointer gap-2 rounded-full hover:bg-neutral-200
+                ${isActive ? 'bg-neutral-200' : ''}
+                ${isMinimized ? 'p-3' : 'px-4 py-3'}
+                transition-all duration-100 ease-in-out`}
             >
               <div>
                 <IconComponent icon={isActive ? activeIcon : icon} className="text-2xl" />
               </div>
               <p
-                className={`${isMinimized ? 'scale-0' : 'scale-100'} 
-              ${isActive ? 'font-semibold' : ''} 
-              transform transition-all duration-150 ease-in-out`}
+                className={`${isMinimized ? 'scale-0' : 'scale-100'}
+                  ${isActive ? 'font-semibold' : ''}
+                  transform transition-all duration-150 ease-in-out`}
               >
                 {title}
               </p>
@@ -70,7 +77,7 @@ const Sidebar = () => {
           </Link>
         );
       }),
-    [isMinimized, isPathActive, searchParams]
+    [isMinimized, isPathActive, getFilteredSearchParams]
   );
 
   return (

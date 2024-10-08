@@ -16,7 +16,6 @@ const useReadingTime = (): UseReadingTimeResult => {
 
     const updateStore = useCallback((incrementalTime: number) => {
         const today = new Date().toISOString().split('T')[0];
-        console.log("incrementalTime", incrementalTime)
         updateProgress({ date: today, timeSpent: incrementalTime });
     }, [updateProgress]);
 

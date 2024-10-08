@@ -1,6 +1,6 @@
 import { HomeIconFill } from '@/icons';
 import React from 'react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 const ReadingGoal = () => {
   return (

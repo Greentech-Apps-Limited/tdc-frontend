@@ -20,7 +20,7 @@ interface VerseVisibilityInfo {
   readPercentage: number;
 }
 
-const ReadingProgressTracker: React.FC<ReadingProgressTrackerProps> = ({ verses, children }) => {
+const ReadingProgressTracker = ({ verses, children }: ReadingProgressTrackerProps) => {
   const params = useParams<{ quranSegment: string; segmentId: string }>();
   const { updateLastRead } = useLastReadStore();
   const { updateProgress } = useReadingProgressStore();

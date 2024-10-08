@@ -4,9 +4,11 @@ import { formatTimeAgo } from '@/lib/utils/common-utils';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const LastRead = () => {
   const lastReadStore = useLastReadStore();
+  const searchParams = useSearchParams();
   const segmentTypes = ['surah', 'juz', 'page', 'hizb', 'ruku'] as const;
 
   const getAllEntries = () => {
@@ -16,28 +18,21 @@ const LastRead = () => {
   };
 
   const getReadingLink = (item: LastReadEntry) => {
-    switch (item.type) {
-      case 'surah':
-        return `/surah/${item.surah_id}`;
-      case 'juz':
-        return `/juz/${item.segment_id}`;
-      case 'page':
-        return `/page/${item.segment_id}`;
-      case 'hizb':
-        return `/hizb/${item.segment_id}`;
-      case 'ruku':
-        return `/ruku/${item.segment_id}`;
-      default:
-        return '/quran';
-    }
+    const baseLink = `/${item.type}/${item.segment_id}`;
+    const newParams = new URLSearchParams(searchParams);
+
+    // Always set the verse parameter to the item's surah_id and ayah_id
+    newParams.set('verse', `${item.surah_id}-${item.ayah_id}`);
+
+    const paramString = newParams.toString();
+    return paramString ? `${baseLink}?${paramString}` : baseLink;
   };
 
   const getDisplayText = (item: LastReadEntry) => {
     const surah = SURAH_EN.find(s => s.id === item.surah_id);
     const surahName = surah
-      ? `${surah.transliteration} : ${String(item.surah_id).padStart(2, '0')}`
+      ? `${surah.transliteration} : ${String(item.ayah_id).padStart(2, '0')}`
       : `Surah ${item.surah_id}`;
-
     return surahName;
   };
 
