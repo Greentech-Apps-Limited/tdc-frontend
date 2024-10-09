@@ -21,7 +21,7 @@ export default async function Home() {
   return (
     <main className="mx-auto h-full max-w-8xl space-y-6 overflow-y-scroll p-6">
       <Banner />
-      <section className="flex justify-between rounded-4xl border border-neutral-300 bg-neutral p-6">
+      <section className="animate-slideInStaggered flex justify-between rounded-4xl border border-neutral-300 bg-neutral p-6">
         <div className="max-w-[504px] space-y-6">
           <QuickLinks />
           <LastRead />

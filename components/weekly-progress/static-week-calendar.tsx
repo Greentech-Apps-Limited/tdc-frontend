@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
 
-export default function StaticWeekCalendar() {
+type StaticWeekCalendarProps = {
+  visitedDays: number[];
+};
+
+const StaticWeekCalendar = ({ visitedDays }: StaticWeekCalendarProps) => {
   const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  const visitedDays: number[] = [0, 1, 2, 4];
-
   const BUTTON_SIZE = 24; // 1.5rem = 24px
   const GAP_SIZE = 8; // 0.5rem = 8px
   const TOTAL_ITEM_WIDTH = BUTTON_SIZE + GAP_SIZE;
@@ -39,7 +40,7 @@ export default function StaticWeekCalendar() {
             key={`group-${groupIndex}`}
             className="absolute rounded-full bg-brown-500"
             style={{
-              left: `${group[0] || 0 * TOTAL_ITEM_WIDTH - 2}px`,
+              left: `${(group[0] || 0) * TOTAL_ITEM_WIDTH - 2}px`,
               width: `${group.length * TOTAL_ITEM_WIDTH - GAP_SIZE + 4}px`,
               top: '-2px',
               height: `${BUTTON_SIZE + 4}px`,
@@ -68,4 +69,6 @@ export default function StaticWeekCalendar() {
       </div>
     </div>
   );
-}
+};
+
+export default StaticWeekCalendar;

@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import SmallCard from './ui/small-card';
 import { formatTimeAgo } from '@/lib/utils/common-utils';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
@@ -10,6 +11,11 @@ const LastRead = () => {
   const lastReadStore = useLastReadStore();
   const searchParams = useSearchParams();
   const segmentTypes = ['surah', 'juz', 'page', 'hizb', 'ruku'] as const;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const getAllEntries = () => {
     return segmentTypes
@@ -20,10 +26,7 @@ const LastRead = () => {
   const getReadingLink = (item: LastReadEntry) => {
     const baseLink = `/${item.type}/${item.segment_id}`;
     const newParams = new URLSearchParams(searchParams);
-
-    // Always set the verse parameter to the item's surah_id and ayah_id
     newParams.set('verse', `${item.surah_id}-${item.ayah_id}`);
-
     const paramString = newParams.toString();
     return paramString ? `${baseLink}?${paramString}` : baseLink;
   };
@@ -41,23 +44,43 @@ const LastRead = () => {
   return (
     <section className="space-y-2">
       <p className="text-xs font-semibold text-neutral-700">Last Read</p>
-      <div className="flex w-full flex-wrap gap-2">
-        {entries.map((item, index) => (
-          <Link
-            key={`${item.type}-${item.surah_id}-${item.ayah_id}-${index}`}
-            href={getReadingLink(item)}
-          >
-            <SmallCard>
-              <div className="flex">
-                <p>{getDisplayText(item)}</p>
-              </div>
-              <p className="text-xs font-normal text-neutral-500">
-                {formatTimeAgo(item.timestamp)}
-              </p>
-            </SmallCard>
-          </Link>
-        ))}
-      </div>
+      {entries.length > 0 ? (
+        <div className="flex w-full flex-wrap gap-2">
+          {entries.map((item, index) => (
+            <Link
+              key={`${item.type}-${item.surah_id}-${item.ayah_id}-${index}`}
+              href={getReadingLink(item)}
+            >
+              <SmallCard
+                className={`transition-all duration-500 ${
+                  mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <div className="flex">
+                  <p>{getDisplayText(item)}</p>
+                </div>
+                <p className="text-xs font-normal text-neutral-500">
+                  {formatTimeAgo(item.timestamp)}
+                </p>
+              </SmallCard>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div
+          className={`transition-all duration-500 ${
+            mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+          }`}
+        >
+          <SmallCard>
+            <p className="text-sm text-neutral-500">No recent readings</p>
+            <p className="text-xs font-normal text-neutral-400">
+              Your last read verses will appear here
+            </p>
+          </SmallCard>
+        </div>
+      )}
     </section>
   );
 };
