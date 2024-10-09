@@ -5,8 +5,6 @@ import {
   HomeIconFill,
   ProfileIcon,
   ProfileIconFill,
-  SettingsIcon,
-  SettingsIconFill,
 } from '@/icons';
 
 export type SideNavItem = {
@@ -27,12 +25,6 @@ export const SIDE_NAV_ITEMS: SideNavItem[] = [
     path: '/quiz',
     icon: <ChoiceIcon />,
     activeIcon: <ChoiceIconFill />,
-  },
-  {
-    title: 'Setting',
-    path: '/settings',
-    icon: <SettingsIcon />,
-    activeIcon: <SettingsIconFill />,
   },
   {
     title: 'Profile',

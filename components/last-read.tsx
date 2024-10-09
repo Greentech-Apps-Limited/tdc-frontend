@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+
 import SmallCard from './ui/small-card';
 import { formatTimeAgo } from '@/lib/utils/common-utils';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
@@ -11,11 +11,6 @@ const LastRead = () => {
   const lastReadStore = useLastReadStore();
   const searchParams = useSearchParams();
   const segmentTypes = ['surah', 'juz', 'page', 'hizb', 'ruku'] as const;
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const getAllEntries = () => {
     return segmentTypes
@@ -52,10 +47,8 @@ const LastRead = () => {
               href={getReadingLink(item)}
             >
               <SmallCard
-                className={`transition-all duration-500 ${
-                  mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className={`animate-slideInStaggered opacity-0`}
+                style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'forwards' }}
               >
                 <div className="flex">
                   <p>{getDisplayText(item)}</p>
@@ -69,9 +62,8 @@ const LastRead = () => {
         </div>
       ) : (
         <div
-          className={`transition-all duration-500 ${
-            mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-          }`}
+          className="animate-slideInStaggered opacity-0"
+          style={{ animationFillMode: 'forwards' }}
         >
           <SmallCard>
             <p className="text-sm text-neutral-500">No recent readings</p>

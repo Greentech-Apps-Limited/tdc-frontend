@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ReadingGoal from './reading-goal';
 import StaticWeekCalendar from './static-week-calendar';
 import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
@@ -8,7 +8,6 @@ import useReadingProgressStore from '@/stores/reading-progress-store';
 const WeeklyProgress = () => {
   const { weeklyProgress, updateProgress } = useReadingProgressStore();
   const lastReadStore = useLastReadStore();
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const cleanupOldData = () => {
@@ -24,7 +23,6 @@ const WeeklyProgress = () => {
       });
     };
     cleanupOldData();
-    setMounted(true);
   }, [weeklyProgress, updateProgress]);
 
   const getLatestLastRead = (): LastReadEntry | undefined => {
@@ -43,24 +41,19 @@ const WeeklyProgress = () => {
 
   return (
     <div
-      className={`w-full max-w-lg rounded-2xl border border-neutral-200 p-4 transition-all duration-500 lg:min-w-[500px] ${
-        mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-      }`}
+      className="animate-slideInStaggered w-full max-w-lg rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
+      style={{ animationFillMode: 'forwards' }}
     >
       <div className="flex h-full flex-col gap-6">
         <div
-          className={`transition-all duration-500 ${
-            mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-          }`}
-          style={{ transitionDelay: '100ms' }}
+          className="animate-slideInStaggered opacity-0"
+          style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}
         >
           <StaticWeekCalendar visitedDays={visitedDays} />
         </div>
         <div
-          className={`transition-all duration-500 ${
-            mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-          }`}
-          style={{ transitionDelay: '200ms' }}
+          className="animate-slideInStaggered opacity-0"
+          style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
         >
           <ReadingGoal timeSpentSeconds={totalTimeSpentSeconds} latestLastRead={latestLastRead} />
         </div>

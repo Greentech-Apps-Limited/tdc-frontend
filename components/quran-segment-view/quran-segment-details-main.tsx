@@ -24,6 +24,7 @@ const SurahDisplayCard = dynamic(() => import('../surah-view/surah-display-card'
 });
 const VerseDisplayCard = dynamic(() => import('../surah-view/verse-display-card'), {
   ssr: false,
+  loading: () => <QuranDetailsSkeleton />,
 });
 
 type QuranSegmentDetailsMainProps = {

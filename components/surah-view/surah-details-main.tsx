@@ -13,6 +13,7 @@ const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
 });
 const VerseDisplayCard = dynamic(() => import('./verse-display-card'), {
   ssr: false,
+  loading: () => <QuranDetailsSkeleton />,
 });
 
 type SurahDetailsMainProps = {
