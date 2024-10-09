@@ -1,7 +1,8 @@
 'use client';
+
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { scrollToElement } from '@/lib/utils/common-utils';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type QuranDetailsWrapperProps = {
   children: React.ReactNode;
@@ -10,13 +11,19 @@ type QuranDetailsWrapperProps = {
 
 const QuranDetailsWrapper = ({ children, searchParams }: QuranDetailsWrapperProps) => {
   const observerRef = useRef<MutationObserver | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (searchParams.verse) {
-      const [start, end] = searchParams.verse.split('-');
-      const formattedVerse = end ? `${start}:${end}` : `${start}:${start}`;
+    setIsLoaded(true);
+  }, []);
 
-      const scrollToVerse = () => {
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    const scrollToVerse = () => {
+      if (searchParams.verse) {
+        const [start, end] = searchParams.verse.split('-');
+        const formattedVerse = end ? `${start}:${end}` : `${start}:${start}`;
         const scrollContainer = document.getElementById('scroll-container');
         const highlightedElement = document.querySelector(
           `[data-verse="${formattedVerse}"]`
@@ -28,10 +35,8 @@ const QuranDetailsWrapper = ({ children, searchParams }: QuranDetailsWrapperProp
             element: highlightedElement,
             offset: 0.01,
           });
-
           highlightedElement.style.transition = 'background-color 0.5s ease-in-out';
           highlightedElement.style.backgroundColor = '#F9F5F1';
-
           setTimeout(() => {
             highlightedElement.style.backgroundColor = '';
           }, 2000);
@@ -41,41 +46,43 @@ const QuranDetailsWrapper = ({ children, searchParams }: QuranDetailsWrapperProp
             observerRef.current.disconnect();
           }
         }
-      };
+      }
+    };
 
-      // Set up the mutation observer
-      observerRef.current = new MutationObserver(mutations => {
-        for (const mutation of mutations) {
-          if (mutation.type === 'childList') {
-            const addedNodes = Array.from(mutation.addedNodes);
-            if (
-              addedNodes.some(
-                node =>
-                  node instanceof Element && node.querySelector(`[data-verse="${formattedVerse}"]`)
-              )
-            ) {
-              scrollToVerse();
-              break;
-            }
+    observerRef.current = new MutationObserver(mutations => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'childList') {
+          const addedNodes = Array.from(mutation.addedNodes);
+          if (
+            addedNodes.some(
+              node =>
+                node instanceof Element &&
+                node.querySelector(`[data-verse="${searchParams.verse}"]`)
+            )
+          ) {
+            scrollToVerse();
+            break;
           }
         }
-      });
+      }
+    });
 
-      // Start observing the document body for changes
-      observerRef.current.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
+    observerRef.current.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
-      scrollToVerse();
-    }
+    scrollToVerse();
+
+    const retryTimeout = setTimeout(scrollToVerse, 500);
 
     return () => {
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
+      clearTimeout(retryTimeout);
     };
-  }, [searchParams.verse]);
+  }, [searchParams.verse, isLoaded]);
 
   return <>{children}</>;
 };
