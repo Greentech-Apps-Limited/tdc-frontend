@@ -1,0 +1,14 @@
+{
+  "surah": {
+    "1": { "surah_id": 1, "ayah_id": 7, "timestamp": 1726066081106, "type": "surah" },
+    "2": { "surah_id": 2, "ayah_id": 1, "timestamp": 1725892882034, "type": "surah" },
+    "3": { "surah_id": 3, "ayah_id": 1, "timestamp": 1724939114212, "type": "surah" },
+    "6": { "surah_id": 6, "ayah_id": 1, "timestamp": 1726025978612, "type": "surah" },
+    "7": { "surah_id": 7, "ayah_id": 2, "timestamp": 1728147415484, "type": "surah" }
+  },
+  "juz": {},
+  "page": {
+    "2": { "surah_id": 2, "ayah_id": 5, "page_id": 2, "timestamp": 1724316244743, "type": "page" },
+    "3": { "surah_id": 2, "ayah_id": 6, "page_id": 3, "timestamp": 1728147725878, "type": "page" }
+  }
+}

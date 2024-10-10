@@ -7,12 +7,7 @@ type AudioProgressProps = {
   onSeek: (value: number) => void;
 };
 
-const AudioProgress: React.FC<AudioProgressProps> = ({
-  currentTime,
-  duration,
-  buffered,
-  onSeek,
-}) => {
+const AudioProgress = ({ currentTime, duration, buffered, onSeek }: AudioProgressProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [localProgress, setLocalProgress] = useState(0);
   const progressRef = useRef<HTMLDivElement>(null);

@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
 import Link from 'next/link';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
@@ -8,23 +7,31 @@ import { useSearchParams } from 'next/navigation';
 
 type ViewType = 'page' | 'juz' | 'hizb' | 'ruku';
 
-interface GenericViewProps {
+type GenericViewProps = {
   quranMeta: QuranMeta;
   type: ViewType;
-}
+};
 
-const GenericView: React.FC<GenericViewProps> = ({ quranMeta, type }) => {
+const GenericView = ({ quranMeta, type }: GenericViewProps) => {
   const references = getReferences(quranMeta, type);
   const searchParams = useSearchParams();
+
+  const getFilteredSearchParams = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete('verse');
+    return params.toString();
+  };
+
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {references.map((reference: Reference) => {
+        const filteredParams = getFilteredSearchParams();
         return (
           <Link
             key={reference.id}
             href={
-              searchParams?.toString()
-                ? `/${type}/${reference.id}?${searchParams.toString()}`
+              filteredParams
+                ? `/${type}/${reference.id}?${filteredParams}`
                 : `/${type}/${reference.id}`
             }
           >
@@ -36,12 +43,12 @@ const GenericView: React.FC<GenericViewProps> = ({ quranMeta, type }) => {
   );
 };
 
-interface ReferenceCardProps {
+type ReferenceCardProps = {
   reference: Reference;
   title: string;
-}
+};
 
-const ReferenceCard: React.FC<ReferenceCardProps> = ({ reference, title }) => (
+const ReferenceCard = ({ reference, title }: ReferenceCardProps) => (
   <div className="flex cursor-pointer items-center justify-between rounded-full border border-neutral-200 bg-neutral p-2 pr-6 hover:shadow">
     <div className="flex gap-3">
       <div className="h-[52px] w-[52px] rounded-full bg-neutral-200 p-3 text-center text-xl font-bold">

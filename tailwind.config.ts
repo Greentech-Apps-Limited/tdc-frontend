@@ -43,12 +43,22 @@ const config = {
           '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
           '100%': { transform: 'translateY(35vh) scale(0.5)', opacity: '0' },
         },
+        slideInStaggered: {
+          '0%': { transform: 'translateY(1rem)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         shake: 'shake 0.3s cubic-bezier(.36,.07,.19,.97) both',
         'heart-fall': 'heartFall 1s ease-in forwards',
+        slideInStaggered: 'slideInStaggered 0.5s ease-out forwards',
+        fadeIn: 'fadeIn 1s ease-in-out',
       },
       colors: {
         neutral: {

@@ -8,6 +8,7 @@ import { PAGES } from '@/data/quran-meta/pages';
 import { JUZS } from '@/data/quran-meta/juzs';
 import { HIZBS } from '@/data/quran-meta/hizbs';
 import { RUKUS } from '@/data/quran-meta/rukus';
+import WeeklyProgress from '@/components/weekly-progress/weekly-progress';
 
 export default async function Home() {
   const surahs = SURAH_EN;
@@ -15,17 +16,17 @@ export default async function Home() {
   const juzs = JUZS;
   const hizbs = HIZBS;
   const rukus = RUKUS;
-
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
 
   return (
     <main className="mx-auto h-full max-w-8xl space-y-6 overflow-y-scroll p-6">
       <Banner />
-      <section className="rounded-4xl border border-neutral-300 bg-neutral p-6">
+      <section className="animate-slideInStaggered flex justify-between rounded-4xl border border-neutral-300 bg-neutral p-6">
         <div className="max-w-[504px] space-y-6">
           <QuickLinks />
           <LastRead />
         </div>
+        <WeeklyProgress />
       </section>
       <QuranTabView quranMeta={quranMeta} />
     </main>

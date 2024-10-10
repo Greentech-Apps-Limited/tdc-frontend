@@ -4,36 +4,35 @@ type SurahQuickLinks = {
   link: string;
 };
 
-// TODO: Update SURAH_QUICK_LINKS with real links
 export const SURAH_QUICK_LINKS: SurahQuickLinks[] = [
   {
     id: 1,
     title: 'Ya-Sin',
-    link: '',
+    link: '/surah/36',
   },
   {
     id: 2,
     title: 'Al-Kahf',
-    link: '',
+    link: '/surah/18',
   },
   {
     id: 3,
     title: 'Al-Mulk',
-    link: '',
+    link: '/surah/67',
   },
   {
     id: 4,
     title: 'Ayatul Kursi',
-    link: '',
+    link: '/surah/2?verse=2-255',
   },
   {
     id: 5,
-    title: 'Al-A’raf',
-    link: '',
+    title: 'Al-Ahqaf',
+    link: 'surah/46',
   },
   {
     id: 6,
     title: 'Al-Fatihah',
-    link: '',
+    link: '/surah/1',
   },
 ];

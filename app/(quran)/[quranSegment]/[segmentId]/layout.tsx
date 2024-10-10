@@ -10,9 +10,7 @@ import { Suspense } from 'react';
 
 type Reference = { id: number | string };
 
-const QuranSegmentDetailsLayout = ({
-  children,
-}: Readonly<{ children: React.ReactNode; list: React.ReactNode }>) => {
+const QuranSegmentDetailsLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <section>
       <Suspense fallback={<QuranDetailsSkeleton />}>{children}</Suspense>

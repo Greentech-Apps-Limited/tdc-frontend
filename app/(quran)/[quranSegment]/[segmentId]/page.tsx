@@ -1,4 +1,5 @@
 import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
+import QuranDetailsWrapper from '@/components/quran-view/quran-details-wrapper';
 import SurahDetailsMain from '@/components/surah-view/surah-details-main';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { TRANSLATIONS_INFO } from '@/data/quran-meta/translations-info';
@@ -21,24 +22,28 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
   switch (quranSegment) {
     case 'surah':
       return (
-        <SurahDetailsMain
-          surahId={segmentId}
-          surahs={surahs}
-          searchParams={searchParams}
-          translationInfos={translationInfos}
-        />
+        <QuranDetailsWrapper searchParams={searchParams}>
+          <SurahDetailsMain
+            surahId={segmentId}
+            surahs={surahs}
+            searchParams={searchParams}
+            translationInfos={translationInfos}
+          />
+        </QuranDetailsWrapper>
       );
     case 'page':
     case 'juz':
     case 'hizb':
     case 'ruku':
       return (
-        <QuranSegmentDetailsMain
-          params={{ quranSegment, segmentId }}
-          surahs={surahs}
-          searchParams={searchParams}
-          translationInfos={translationInfos}
-        />
+        <QuranDetailsWrapper searchParams={searchParams}>
+          <QuranSegmentDetailsMain
+            params={{ quranSegment, segmentId }}
+            surahs={surahs}
+            searchParams={searchParams}
+            translationInfos={translationInfos}
+          />
+        </QuranDetailsWrapper>
       );
     default:
       return <div>Invalid Quran Segment</div>;

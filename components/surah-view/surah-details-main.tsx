@@ -5,6 +5,7 @@ import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 import dynamic from 'next/dynamic';
 import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
+import ReadingProgressTracker from './reading-progress-tracker';
 
 const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
   ssr: false,
@@ -12,6 +13,7 @@ const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
 });
 const VerseDisplayCard = dynamic(() => import('./verse-display-card'), {
   ssr: false,
+  loading: () => <QuranDetailsSkeleton />,
 });
 
 type SurahDetailsMainProps = {
@@ -46,11 +48,13 @@ const SurahDetailsMain = async ({
   );
 
   return (
-    <SurahDisplayCard surah={surah}>
-      {mergedVerses.map(mergedVerse => (
-        <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} surahId={surahId} />
-      ))}
-    </SurahDisplayCard>
+    <ReadingProgressTracker verses={mergedVerses}>
+      <SurahDisplayCard surah={surah}>
+        {mergedVerses.map(mergedVerse => (
+          <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} surahId={surahId} />
+        ))}
+      </SurahDisplayCard>
+    </ReadingProgressTracker>
   );
 };
 
