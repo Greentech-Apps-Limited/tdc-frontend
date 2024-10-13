@@ -6,9 +6,11 @@ import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useNumberTranslation } from '@/hooks/use-number-translation';
 
 const LastRead = () => {
   const t = useTranslations('LastRead');
+  const translateNumber = useNumberTranslation();
   const lastReadStore = useLastReadStore();
   const searchParams = useSearchParams();
   const segmentTypes = ['surah', 'juz', 'page', 'hizb', 'ruku'] as const;
@@ -30,8 +32,8 @@ const LastRead = () => {
   const getDisplayText = (item: LastReadEntry) => {
     const surah = SURAH_EN.find(s => s.id === item.surah_id);
     const surahName = surah
-      ? `${surah.transliteration} : ${String(item.ayah_id).padStart(2, '0')}`
-      : `Surah ${item.surah_id}`;
+      ? `${surah.transliteration} : ${translateNumber(String(item.ayah_id).padStart(2, '0'))}`
+      : `Surah ${translateNumber(item.surah_id)}`;
     return surahName;
   };
 
@@ -40,7 +42,7 @@ const LastRead = () => {
     if (isYesterday) {
       return t('timeAgo.yesterday');
     }
-    return t(`timeAgo.${unit}`, { count: value });
+    return t(`timeAgo.${unit}`, { count: translateNumber(value) });
   };
 
   const entries = getAllEntries().slice(0, lastReadStore.maxEntriesPerSegment);

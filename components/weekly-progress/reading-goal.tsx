@@ -4,6 +4,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import { LastReadEntry } from '@/stores/last-read-store';
 import { useSearchParams } from 'next/navigation';
+import { useNumberTranslation } from '@/hooks/use-number-translation';
 
 type ReadingGoalProps = {
   timeSpentSeconds: number;
@@ -12,6 +13,7 @@ type ReadingGoalProps = {
 
 const ReadingGoal = ({ timeSpentSeconds, latestLastRead }: ReadingGoalProps) => {
   const t = useTranslations('WeeklyProgress');
+  const translateNumber = useNumberTranslation();
   const goalTimeMinutes = 30;
   const searchParams = useSearchParams();
 
@@ -20,9 +22,12 @@ const ReadingGoal = ({ timeSpentSeconds, latestLastRead }: ReadingGoalProps) => 
     const minutes = Math.floor((seconds % 3600) / 60);
 
     if (hours > 0) {
-      return t('timeFormat.hoursAndMinutes', { hours, minutes });
+      return t('timeFormat.hoursAndMinutes', {
+        hours: translateNumber(hours),
+        minutes: translateNumber(minutes),
+      });
     } else {
-      return t('timeFormat.minutes', { minutes });
+      return t('timeFormat.minutes', { minutes: translateNumber(minutes) });
     }
   };
 
@@ -40,7 +45,9 @@ const ReadingGoal = ({ timeSpentSeconds, latestLastRead }: ReadingGoalProps) => 
       <div className="flex items-start justify-between">
         <div>
           <h2 className="text-3xl font-bold">{formatTime(timeSpentSeconds)}</h2>
-          <p className="text-xs text-neutral-700">{t('readingGoal', { goal: goalTimeMinutes })}</p>
+          <p className="text-xs text-neutral-700">
+            {t('readingGoal', { goal: translateNumber(goalTimeMinutes) })}
+          </p>
         </div>
         <HomeIconFill className="h-6 w-6 text-neutral-300" />
       </div>
