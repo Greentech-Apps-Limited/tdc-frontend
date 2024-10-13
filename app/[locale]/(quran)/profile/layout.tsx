@@ -1,10 +1,4 @@
-import { unstable_setRequestLocale } from 'next-intl/server';
-
-const UserProfileLayout = ({
-  children,
-  params: { locale },
-}: Readonly<{ children: React.ReactNode; params: { locale: string } }>) => {
-  unstable_setRequestLocale(locale);
+const UserProfileLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <section className="h-full w-full overflow-y-scroll">
       <div className="m-6 max-w-8xl">{children}</div>

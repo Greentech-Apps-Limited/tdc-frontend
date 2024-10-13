@@ -9,7 +9,9 @@ import { JUZS } from '@/data/quran-meta/juzs';
 import { HIZBS } from '@/data/quran-meta/hizbs';
 import { RUKUS } from '@/data/quran-meta/rukus';
 import WeeklyProgress from '@/components/weekly-progress/weekly-progress';
-export default async function Home() {
+import { unstable_setRequestLocale } from 'next-intl/server';
+export default async function Home({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   const surahs = SURAH_EN;
   const pages = PAGES;
   const juzs = JUZS;

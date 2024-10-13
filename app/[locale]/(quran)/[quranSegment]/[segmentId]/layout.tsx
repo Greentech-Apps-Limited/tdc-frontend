@@ -6,16 +6,11 @@ import { RUKUS } from '@/data/quran-meta/rukus';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
 type Reference = { id: number | string };
 
-const QuranSegmentDetailsLayout = ({
-  children,
-  params: { locale },
-}: Readonly<{ children: React.ReactNode; params: { locale: string } }>) => {
-  unstable_setRequestLocale(locale);
+const QuranSegmentDetailsLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <section>
       <Suspense fallback={<QuranDetailsSkeleton />}>{children}</Suspense>

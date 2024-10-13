@@ -5,16 +5,19 @@ import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { TRANSLATIONS_INFO } from '@/data/quran-meta/translations-info';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 type QuranSegmentDetailsProps = {
   params: {
     quranSegment: QuranSegment;
     segmentId: string;
+    locale: string;
   };
   searchParams: SearchParamsType;
 };
 
 const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetailsProps) => {
+  unstable_setRequestLocale(params.locale);
   const { quranSegment, segmentId } = params;
   const surahs = SURAH_EN;
   const translationInfos = TRANSLATIONS_INFO;
