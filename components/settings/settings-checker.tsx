@@ -1,21 +1,23 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useCheckSettingsDiff } from '@/hooks/use-check-settings-diff';
 import { useUpdateSearchParams } from '@/hooks/use-update-search-params';
-import { useSettings } from '@/contexts/settings-provider';
+import useSettingsStore from '@/stores/settings-store';
 
 export function SettingsChecker({ children }: { children: React.ReactNode }) {
-  const { wbwTr, selectedTranslation } = useSettings();
+  const { wbwTr, selectedTranslation } = useSettingsStore();
   const checkSettingsDiff = useCheckSettingsDiff();
   const updateSearchParams = useUpdateSearchParams();
 
+  const memoizedCheckSettingsDiff = useCallback(() => checkSettingsDiff(), [checkSettingsDiff]);
+
   useEffect(() => {
-    const { wbwDiff, translationsDiff } = checkSettingsDiff();
+    const { wbwDiff, translationsDiff } = memoizedCheckSettingsDiff();
     if (wbwDiff || translationsDiff) {
       updateSearchParams(wbwTr || 'en', selectedTranslation || [20]);
     }
-  }, [wbwTr, selectedTranslation, checkSettingsDiff, updateSearchParams]);
+  }, [wbwTr, selectedTranslation, memoizedCheckSettingsDiff, updateSearchParams]);
 
   return <>{children}</>;
 }
