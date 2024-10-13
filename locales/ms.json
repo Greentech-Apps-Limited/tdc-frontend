@@ -1,5 +1,51 @@
 {
   "HomePage": {
-    "title": "Dhur vai"
+    "title": "Selamat datang!"
+  },
+  "sidebar": {
+    "Homepage": "Laman Utama",
+    "Quiz": "Kuiz",
+    "Profile": "Profil",
+    "Minimize": "Minimize"
+  },
+  "Settings": {
+    "title": "Tetapan",
+    "content": "Kandungan",
+    "wordByWord": "Perkataan demi Perkataan",
+    "translation": "Terjemahan",
+    "translations": "Terjemahan",
+    "selected": "Dipilih",
+    "wordByWordLang": "Perkataan demi Perkataan",
+    "font": "Fon",
+    "arabicFont": "Fon Arab",
+    "arabicFontSize": "Saiz Fon Arab: {size}px",
+    "translationTafsirFontSize": "Saiz Fon Terjemahan/Tafsir: {size}px"
+  },
+  "QuickLinks": {
+    "title": "Pautan Pantas"
+  },
+  "LastRead": {
+    "title": "Terakhir Dibaca",
+    "noRecentReadings": "Tiada bacaan terkini",
+    "noRecentReadingsDescription": "Ayat terakhir yang anda baca akan muncul di sini",
+    "timeAgo": {
+      "second": "{count} saat yang lalu",
+      "minute": "{count} minit yang lalu",
+      "hour": "{count} jam yang lalu",
+      "yesterday": "semalam",
+      "day": "{count} hari yang lalu",
+      "week": "{count} minggu yang lalu",
+      "month": "{count} bulan yang lalu",
+      "year": "{count} tahun yang lalu"
+    }
+  },
+  "WeeklyProgress": {
+    "thisWeek": "Minggu Ini",
+    "readingGoal": "daripada {goal}m matlamat bacaan",
+    "continue": "Teruskan",
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}j {minutes}m"
+    }
   }
 }

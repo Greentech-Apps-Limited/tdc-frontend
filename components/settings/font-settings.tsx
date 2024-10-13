@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import SelectableAccordion from '../ui/selectable-accordion';
 import { Slider } from '../ui/slider';
 import { useSettings } from '@/contexts/settings-provider';
@@ -9,6 +10,7 @@ type FontType = {
 };
 
 const FontSettings = () => {
+  const t = useTranslations('Settings');
   const { arabicFont, arabicFontSize, translationFont, updateSettings } = useSettings(state => ({
     arabicFont: state.arabicFont,
     arabicFontSize: state.arabicFontSize,
@@ -49,11 +51,11 @@ const FontSettings = () => {
 
   return (
     <section className="space-y-4">
-      <p className="text-xs font-semibold text-neutral-700">Font</p>
+      <p className="text-xs font-semibold text-neutral-700">{t('font')}</p>
       <div className="space-y-4">
         {fonts.length > 0 && (
           <SelectableAccordion
-            title="Arabic Font"
+            title={t('arabicFont')}
             items={fonts}
             isMultiple={false}
             selectedItems={[arabicFont]}
@@ -64,7 +66,7 @@ const FontSettings = () => {
           />
         )}
         <div className="space-y-2">
-          <p className="text-sm">Arabic Font Size: {arabicFontSize}px</p>
+          <p className="text-sm">{t('arabicFontSize', { size: arabicFontSize })}</p>
           <Slider
             value={[arabicFontSize]}
             min={minFontSize}
@@ -74,7 +76,7 @@ const FontSettings = () => {
           />
         </div>
         <div className="space-y-2">
-          <p className="text-sm">Translation/Tafsir Font Size: {translationFont}px</p>
+          <p className="text-sm">{t('translationTafsirFontSize', { size: translationFont })}</p>
           <Slider
             value={[translationFont]}
             min={minFontSize}

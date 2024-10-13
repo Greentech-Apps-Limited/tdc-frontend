@@ -8,6 +8,7 @@ import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { useTranslations } from 'next-intl';
 
 const shouldSidebarBeMinimized = (pathname: string): boolean => {
   const pathsToMinimize: QuranSegment[] = ['surah', 'page', 'juz', 'hizb', 'ruku'];
@@ -15,6 +16,7 @@ const shouldSidebarBeMinimized = (pathname: string): boolean => {
 };
 
 const Sidebar = () => {
+  const t = useTranslations('sidebar');
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isMinimized, setIsMinimized] = useState(shouldSidebarBeMinimized(pathname));
@@ -77,13 +79,13 @@ const Sidebar = () => {
                   ${isActive ? 'font-semibold' : ''}
                   transform transition-all duration-150 ease-in-out`}
               >
-                {title}
+                {t(title)}
               </p>
             </li>
           </Link>
         );
       }),
-    [isMinimized, isPathActive, getFilteredSearchParams, pathname]
+    [isMinimized, isPathActive, getFilteredSearchParams, pathname, t]
   );
 
   return (
@@ -115,7 +117,7 @@ const Sidebar = () => {
             className={`${isMinimized ? 'scale-0' : 'scale-100'} 
               transform transition-all duration-150 ease-in-out`}
           >
-            Minimize
+            {t('Minimize')}
           </p>
         </button>
       </div>

@@ -1,5 +1,51 @@
 {
   "HomePage": {
-    "title": "Hello world!"
+    "title": "Selamat datang!"
+  },
+  "sidebar": {
+    "Homepage": "Homepage",
+    "Quiz": "Quiz",
+    "Profile": "Profile",
+    "Minimize": "Minimize"
+  },
+  "Settings": {
+    "title": "Settings",
+    "content": "Content",
+    "wordByWord": "Word by Word",
+    "translation": "Translation",
+    "translations": "Translations",
+    "selected": "Selected",
+    "wordByWordLang": "Word By Word",
+    "font": "Font",
+    "arabicFont": "Arabic Font",
+    "arabicFontSize": "Arabic Font Size: {size}px",
+    "translationTafsirFontSize": "Translation/Tafsir Font Size: {size}px"
+  },
+  "QuickLinks": {
+    "title": "Quick Links"
+  },
+  "LastRead": {
+    "title": "Last Read",
+    "noRecentReadings": "No recent readings",
+    "noRecentReadingsDescription": "Your last read verses will appear here",
+    "timeAgo": {
+      "second": "{count}s ago",
+      "minute": "{count}m ago",
+      "hour": "{count}h ago",
+      "yesterday": "yesterday",
+      "day": "{count}d ago",
+      "week": "{count}w ago",
+      "month": "{count}mo ago",
+      "year": "{count}y ago"
+    }
+  },
+  "WeeklyProgress": {
+    "thisWeek": "This Week",
+    "readingGoal": "out of {goal}m reading goal",
+    "continue": "Continue",
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}h {minutes}m"
+    }
   }
 }

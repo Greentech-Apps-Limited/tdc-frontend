@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { SettingsIcon } from '@/icons';
 import ResourceSelection from './resource-selection';
@@ -7,6 +8,8 @@ import ContentSettings from './content-settings';
 import FontSettings from './font-settings';
 
 const Settings = () => {
+  const t = useTranslations('Settings');
+
   return (
     <Sheet>
       <SheetTrigger>
@@ -14,7 +17,7 @@ const Settings = () => {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Settings</SheetTitle>
+          <SheetTitle>{t('title')}</SheetTitle>
         </SheetHeader>
         <div className="h-full w-full space-y-6 overflow-y-scroll py-6 pb-16">
           <ContentSettings />
