@@ -11,7 +11,7 @@ import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 const shouldSidebarBeMinimized = (pathname: string): boolean => {
   const pathsToMinimize: QuranSegment[] = ['surah', 'page', 'juz', 'hizb', 'ruku'];
-  return pathsToMinimize.some(segment => pathname.startsWith(`/${segment}`));
+  return pathsToMinimize.some(segment => pathname.includes(`/${segment}`));
 };
 
 const Sidebar = () => {
@@ -29,10 +29,14 @@ const Sidebar = () => {
 
   const isPathActive = useCallback(
     (path: string) => {
-      const pathSegments = path.split('/').filter(Boolean);
-      const pathnameSegments = pathname.split('/').filter(Boolean);
+      const pathSegments = pathname.split('/').filter(Boolean);
+      const itemPathSegments = path.split('/').filter(Boolean);
 
-      return pathname === path || pathnameSegments[0] === pathSegments[0];
+      // Ignore the language prefix (first segment) when comparing
+      return (
+        pathSegments.slice(1).join('/') === itemPathSegments.join('/') ||
+        pathSegments[1] === itemPathSegments[0]
+      );
     },
     [pathname]
   );
@@ -49,13 +53,15 @@ const Sidebar = () => {
         const { icon, path, title, activeIcon } = item;
         const isActive = isPathActive(path);
         const filteredParams = getFilteredSearchParams();
+        const langPrefix = pathname.split('/')[1]; // Get the language prefix
+
+        const href =
+          filteredParams && path === '/'
+            ? `/${langPrefix}${path}?${filteredParams}`
+            : `/${langPrefix}${path}`;
 
         return (
-          <Link
-            key={path}
-            href={filteredParams && path === '/' ? `${path}?${filteredParams}` : path}
-            aria-label={title}
-          >
+          <Link key={path} href={href} aria-label={title}>
             <li
               data-test={`nav-item${path.replace(/\//g, '-')}`}
               className={`flex cursor-pointer gap-2 rounded-full hover:bg-neutral-200
@@ -77,7 +83,7 @@ const Sidebar = () => {
           </Link>
         );
       }),
-    [isMinimized, isPathActive, getFilteredSearchParams]
+    [isMinimized, isPathActive, getFilteredSearchParams, pathname]
   );
 
   return (
