@@ -40,18 +40,14 @@ const ReadingProgressTracker = ({ verses, children }: ReadingProgressTrackerProp
         ? visibilityInfo.totalVisibleTime +
           (currentTime - (visibilityInfo.lastVisibleTimestamp || currentTime))
         : visibilityInfo.totalVisibleTime;
-
       const expectedReadTime = visibilityInfo.wordCount * averageReadingSpeed;
       const newReadPercentage = Math.min(100, (elapsedTime / expectedReadTime) * 100);
-
       if (newReadPercentage > visibilityInfo.readPercentage) {
         visibilityInfo.readPercentage = newReadPercentage;
         if (newReadPercentage >= 90 && !readVerses.current.has(verseKey)) {
           readVerses.current.add(verseKey);
-
           const today = new Date().toISOString().split('T')[0];
           updateProgress({ date: today, versesRead: 1 });
-
           return true;
         }
       }

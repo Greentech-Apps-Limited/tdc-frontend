@@ -6,12 +6,14 @@ import { RUKUS } from '@/data/quran-meta/rukus';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { unstable_setRequestLocale } from 'next-intl/server';
 
 type QuranSegmentLayoutProps = {
   children: React.ReactNode;
   params: {
     quranSegment: QuranSegment;
     segmentId: string;
+    locale: string;
   };
 };
 
@@ -23,6 +25,7 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
   const rukus = RUKUS;
 
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
+  unstable_setRequestLocale(params.locale);
   return (
     <section className="flex h-full w-full">
       <aside className="h-full overflow-hidden">
