@@ -6,6 +6,8 @@ import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
+import { useNumberTranslation } from '@/hooks/use-number-translation';
 
 type QuranDetailsSidebarProps = {
   quranMeta: QuranMeta;
@@ -17,6 +19,8 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
   const params = useParams();
   const references = getReferences(quranMeta, listType);
   const searchParams = useSearchParams();
+  const t = useTranslations('Views');
+  const translateNumber = useNumberTranslation();
 
   const isSurah = (reference: Reference | Surah): reference is Surah => {
     return (reference as Surah).transliteration !== undefined;
@@ -54,8 +58,12 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
             isActive(reference.id) ? 'active bg-neutral-100 font-semibold' : ''
           }`}
         >
-          <p className="w-8 text-center text-neutral-600">{reference.id}</p>
-          <p>{isSurah(reference) ? reference.transliteration : getTitle(listType, reference.id)}</p>
+          <p className="w-8 text-center text-neutral-600">{translateNumber(reference.id)}</p>
+          <p>
+            {isSurah(reference)
+              ? reference.transliteration
+              : getTitle(listType, reference.id, t, translateNumber)}
+          </p>
         </div>
       </Link>
     </div>

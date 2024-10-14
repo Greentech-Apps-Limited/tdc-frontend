@@ -75,9 +75,9 @@ const Sidebar = () => {
                 <IconComponent icon={isActive ? activeIcon : icon} className="text-2xl" />
               </div>
               <p
-                className={`${isMinimized ? 'scale-0' : 'scale-100'}
-                  ${isActive ? 'font-semibold' : ''}
-                  transform transition-all duration-150 ease-in-out`}
+                className={`${isMinimized ? 'w-0 opacity-0' : 'w-auto opacity-100'}
+                ${isActive ? 'font-semibold' : ''}
+                overflow-hidden whitespace-nowrap transition-all duration-150 ease-in-out`}
               >
                 {t(title)}
               </p>
