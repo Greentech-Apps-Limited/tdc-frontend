@@ -184,5 +184,35 @@
     "sura_112": "Sincerity",
     "sura_113": "The Dawn",
     "sura_114": "Mankind"
+  },
+  "QuizIntroCard": {
+    "title": "Quranic Quiz",
+    "description": "Embark on a journey of Quranic discovery! Test your knowledge with our quiz and deepen your understanding of the divine verbs found in the Quran.",
+    "playNow": "Play Now",
+    "viewLeaderBoard": "View Leader Board"
+  },
+  "Scoreboard": {
+    "title": "Scoreboard",
+    "quizzesAttempted": "Quizzes Attempted",
+    "scoreOnQuizzes": "Score on quizzes",
+    "onLeaderboard": "on Leaderboard",
+    "leaderboardSuffix": "rd"
+  },
+  "QuizLevelSelectionModal": {
+    "title": "Start Quiz",
+    "description": "Select a difficulty level and let's see how many questions you can conquer! Choose 'Hard' to add a higher score.",
+    "levels": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "cancel": "Cancel",
+    "startQuiz": "Start Quiz"
+  },
+  "ExitConfirmationModal": {
+    "title": "Exit Quiz",
+    "description": "Are you sure you want to exit the game? Progress so far will be updated to your profile and leaderboard.",
+    "cancel": "Cancel",
+    "exit": "Exit"
   }
 }

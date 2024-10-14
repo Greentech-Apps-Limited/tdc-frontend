@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import {
   Dialog,
   DialogContent,
@@ -14,22 +15,21 @@ type ExitConfirmationModalProps = {
 };
 
 const ExitConfirmationModal = ({ onConfirm, onCancel }: ExitConfirmationModalProps) => {
+  const t = useTranslations('ExitConfirmationModal');
+
   return (
     <Dialog open={true} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader className="space-y-6">
-          <DialogTitle>Exit Quiz</DialogTitle>
-          <DialogDescription>
-            Are you sure you want to exit the game? Progress so far will be updated to your profile
-            and leaderboard.
-          </DialogDescription>
+          <DialogTitle>{t('title')}</DialogTitle>
+          <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="outline" className="rounded-full" onClick={onCancel}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button variant="destructive" className="min-w-48 rounded-full" onClick={onConfirm}>
-            Exit
+            {t('exit')}
           </Button>
         </DialogFooter>
       </DialogContent>

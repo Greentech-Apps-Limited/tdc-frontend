@@ -184,5 +184,35 @@
     "sura_112": "Pemurnian Keesaan Allah",
     "sura_113": "Waktu Shubuh",
     "sura_114": "Manusia"
+  },
+  "QuizIntroCard": {
+    "title": "Kuiz Al-Quran",
+    "description": "Mulakan perjalanan penemuan Al-Quran! Uji pengetahuan anda dengan kuiz kami dan dalami pemahaman anda tentang kata kerja ilahi yang terdapat dalam Al-Quran.",
+    "playNow": "Main Sekarang",
+    "viewLeaderBoard": "Lihat Papan Pendahulu"
+  },
+  "Scoreboard": {
+    "title": "Papan Skor",
+    "quizzesAttempted": "Kuiz Dicuba",
+    "scoreOnQuizzes": "Skor pada kuiz",
+    "onLeaderboard": "pada Papan Pendahulu",
+    "leaderboardSuffix": "ke"
+  },
+  "QuizLevelSelectionModal": {
+    "title": "Mulakan Kuiz",
+    "description": "Pilih tahap kesukaran dan mari lihat berapa banyak soalan yang anda boleh takluki! Pilih 'Sukar' untuk menambah skor yang lebih tinggi.",
+    "levels": {
+      "easy": "Mudah",
+      "medium": "Sederhana",
+      "hard": "Sukar"
+    },
+    "cancel": "Batal",
+    "startQuiz": "Mulakan Kuiz"
+  },
+  "ExitConfirmationModal": {
+    "title": "Keluar Kuiz",
+    "description": "Adakah anda pasti mahu keluar dari permainan? Kemajuan setakat ini akan dikemas kini ke profil dan papan pendahulu anda.",
+    "cancel": "Batal",
+    "exit": "Keluar"
   }
 }
