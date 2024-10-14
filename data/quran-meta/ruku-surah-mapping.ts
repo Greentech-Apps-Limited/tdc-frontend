@@ -1,6 +1,6 @@
 import { MappingObjectType } from "@/lib/types/quran-meta-types";
 
-const RUKU_SURAH_MAPPING: MappingObjectType = {
+export const RUKU_SURAH_MAPPING: MappingObjectType = {
   1: [
     "1"
   ],
@@ -1670,5 +1670,3 @@ const RUKU_SURAH_MAPPING: MappingObjectType = {
     "114"
   ]
 };
-
-module.exports = RUKU_SURAH_MAPPING;
