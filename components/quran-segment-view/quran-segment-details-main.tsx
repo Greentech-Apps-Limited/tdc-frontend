@@ -13,10 +13,10 @@ import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/transl
 import { RUB_EL_HIZB_TO_SURAH_MAPPINGS } from '@/data/quran-meta/rub-el-hizb-to-surah-mappings';
 import { PAGE_TO_SURAH_MAPPINGS } from '@/data/quran-meta/page-to-surah-mappings';
 import { JUZ_TO_SURAH_MAPPINGS } from '@/data/quran-meta/juz-to-surah-mappings';
-import { HIZB_TO_SURAH_MAPPINGS } from '@/data/quran-meta/hizb-to-surah-mappings';
 import dynamic from 'next/dynamic';
 import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
 import ReadingProgressTracker from '../surah-view/reading-progress-tracker';
+import { RUKU_SURAH_MAPPING } from '@/data/quran-meta/ruku-surah-mapping';
 
 const SurahDisplayCard = dynamic(() => import('../surah-view/surah-display-card'), {
   ssr: false,
@@ -49,8 +49,8 @@ const QuranSegmentDetailsMain = async ({
   const mappings: Record<Exclude<QuranSegment, 'surah'>, MappingObjectType> = {
     page: PAGE_TO_SURAH_MAPPINGS,
     juz: JUZ_TO_SURAH_MAPPINGS,
-    hizb: HIZB_TO_SURAH_MAPPINGS,
-    ruku: RUB_EL_HIZB_TO_SURAH_MAPPINGS,
+    hizb: RUB_EL_HIZB_TO_SURAH_MAPPINGS,
+    ruku: RUKU_SURAH_MAPPING,
   };
 
   if (quranSegment && quranSegment in mappings) {

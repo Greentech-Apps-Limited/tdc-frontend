@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { ExitIcon, HeartReactIconFill, TimerIcon } from '@/icons';
 import { formatTime } from '@/lib/utils/audio-utils';
@@ -11,6 +12,7 @@ type QuizHeaderProps = {
 };
 
 const QuizHeader = ({ life, timeRemaining, isTimerCritical, onExit }: QuizHeaderProps) => {
+  const t = useTranslations('ExitConfirmationModal');
   const [showFallingHeart, setShowFallingHeart] = useState(false);
   const [prevLife, setPrevLife] = useState(life);
   const [shake, setShake] = useState(false);
@@ -29,7 +31,7 @@ const QuizHeader = ({ life, timeRemaining, isTimerCritical, onExit }: QuizHeader
     <div className="flex items-center justify-between border-b border-neutral-200 bg-neutral px-6 py-4">
       <Button size="sm" variant="outline" className="gap-2 rounded-full" onClick={onExit}>
         <ExitIcon />
-        <span>Exit</span>
+        <span>{t('exit')}</span>
       </Button>
       <div
         className={`flex items-center gap-1 rounded-full bg-neutral-100 px-2 py-1 ${
@@ -42,13 +44,13 @@ const QuizHeader = ({ life, timeRemaining, isTimerCritical, onExit }: QuizHeader
       <div
         className={`flex items-center gap-1 rounded-full bg-neutral-100 py-1 pl-3 pr-2
           ${shake ? 'animate-shake' : ''}
-          `}
+        `}
       >
         <span className="text-lg font-semibold">{life}</span>
         <div className="relative">
           <HeartReactIconFill className="text-2xl text-red-500" />
           {showFallingHeart && (
-            <HeartReactIconFill className="animate-heart-fall absolute top-0 text-2xl text-red-500" />
+            <HeartReactIconFill className="absolute top-0 animate-heart-fall text-2xl text-red-500" />
           )}
         </div>
       </div>

@@ -9,8 +9,9 @@ import { JUZS } from '@/data/quran-meta/juzs';
 import { HIZBS } from '@/data/quran-meta/hizbs';
 import { RUKUS } from '@/data/quran-meta/rukus';
 import WeeklyProgress from '@/components/weekly-progress/weekly-progress';
-
-export default async function Home() {
+import { unstable_setRequestLocale } from 'next-intl/server';
+export default async function Home({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
   const surahs = SURAH_EN;
   const pages = PAGES;
   const juzs = JUZS;
@@ -21,7 +22,7 @@ export default async function Home() {
   return (
     <main className="mx-auto h-full max-w-8xl space-y-6 overflow-y-scroll p-6">
       <Banner />
-      <section className="animate-slideInStaggered flex justify-between rounded-4xl border border-neutral-300 bg-neutral p-6">
+      <section className="flex animate-slideInStaggered justify-between rounded-4xl border border-neutral-300 bg-neutral p-6">
         <div className="max-w-[504px] space-y-6">
           <QuickLinks />
           <LastRead />

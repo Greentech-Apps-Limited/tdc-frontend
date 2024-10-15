@@ -16,11 +16,14 @@ const WeeklyProgress = () => {
       lastSunday.setDate(today.getDate() - today.getDay());
       lastSunday.setHours(0, 0, 0, 0);
       const lastSundayStr = lastSunday.toISOString().split('T')[0] || '';
-      weeklyProgress.forEach(entry => {
-        if (entry.date < lastSundayStr) {
-          updateProgress({ date: entry.date, timeSpent: 0, versesRead: 0 });
-        }
-      });
+      const oldDataExists = weeklyProgress.some(entry => entry.date < lastSundayStr);
+      if (oldDataExists) {
+        weeklyProgress.forEach(entry => {
+          if (entry.date < lastSundayStr) {
+            updateProgress({ date: entry.date, timeSpent: 0, versesRead: 0 });
+          }
+        });
+      }
     };
     cleanupOldData();
   }, [weeklyProgress, updateProgress]);
@@ -41,7 +44,7 @@ const WeeklyProgress = () => {
 
   return (
     <div
-      className="animate-slideInStaggered w-full max-w-lg rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
+      className="w-full max-w-lg animate-slideInStaggered rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
       style={{ animationFillMode: 'forwards' }}
     >
       <div className="flex h-full flex-col gap-6">

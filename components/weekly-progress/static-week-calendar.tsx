@@ -1,10 +1,12 @@
 'use client';
+import { useTranslations } from 'next-intl';
 
 type StaticWeekCalendarProps = {
   visitedDays: number[];
 };
 
 const StaticWeekCalendar = ({ visitedDays }: StaticWeekCalendarProps) => {
+  const t = useTranslations('WeeklyProgress');
   const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
   const BUTTON_SIZE = 24; // 1.5rem = 24px
   const GAP_SIZE = 8; // 0.5rem = 8px
@@ -33,7 +35,7 @@ const StaticWeekCalendar = ({ visitedDays }: StaticWeekCalendarProps) => {
 
   return (
     <div className="space-y-2">
-      <h2 className="font-semibold">This Week</h2>
+      <h2 className="font-semibold">{t('thisWeek')}</h2>
       <div className="relative flex gap-2">
         {consecutiveGroups.map((group, groupIndex) => (
           <div

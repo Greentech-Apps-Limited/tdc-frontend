@@ -1,6 +1,7 @@
 import Header from '@/components/header';
 import { SettingsChecker } from '@/components/settings/settings-checker';
 import Sidebar from '@/components/sidebar';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
@@ -8,7 +9,11 @@ const AudioPlayerWrapper = dynamic(() => import('@/components/audio-player/audio
   ssr: false,
 });
 
-const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const HomeLayout = ({
+  children,
+  params: { locale },
+}: Readonly<{ children: React.ReactNode; params: { locale: string } }>) => {
+  unstable_setRequestLocale(locale);
   return (
     <Suspense>
       <SettingsChecker>
