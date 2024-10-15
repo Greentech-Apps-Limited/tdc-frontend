@@ -7,6 +7,7 @@ import { TranslationInfo } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import VerseDisplayOptions from './verse-display-options';
 import useQuranReader from '@/stores/quran-reader-state';
+import { useNumberTranslation } from '@/hooks/use-number-translation';
 
 type VerseDisplayProps = {
   surahId: string;
@@ -21,7 +22,7 @@ type VerseDisplayProps = {
 const VerseDisplayCard = ({ verse, surahId }: VerseDisplayProps) => {
   const { showTranslation, showByWords, translationFontSize } = useSettings();
   const { highlightedVerse, showAudioPlayer } = useQuranReader();
-
+  const translateNumber = useNumberTranslation();
   return (
     <div
       className={`rounded-2xl border border-neutral-200 p-6 ${highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'}`}
@@ -29,7 +30,7 @@ const VerseDisplayCard = ({ verse, surahId }: VerseDisplayProps) => {
       data-words={verse.words.length - 1}
     >
       <div className="flex items-center justify-between">
-        <p className=" text-lg">{verse.verse_number}</p>
+        <p className=" text-lg">{translateNumber(verse.verse_number)}</p>
         <VerseDisplayOptions surahId={surahId} verseKey={verse.verse_key} />
       </div>
 

@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
 import SurahRowView from './surah-row-view';
 import GenericView from './generic-view';
+import { useTranslations } from 'next-intl';
 
 type TabsValue = 'surah' | 'page' | 'juz' | 'hizb' | 'ruku';
 
@@ -13,6 +14,7 @@ type SurahViewProps = {
 };
 
 const QuranTabView = ({ quranMeta }: SurahViewProps) => {
+  const t = useTranslations('Views');
   const [selectedTab, setSelectedTab] = useState<TabsValue>('surah');
 
   const renderTable = () => {
@@ -38,11 +40,11 @@ const QuranTabView = ({ quranMeta }: SurahViewProps) => {
         }}
       >
         <TabsList>
-          <TabsTrigger value="surah">Surah</TabsTrigger>
-          <TabsTrigger value="page">Page</TabsTrigger>
-          <TabsTrigger value="juz">Juz</TabsTrigger>
-          <TabsTrigger value="hizb">Hizb</TabsTrigger>
-          <TabsTrigger value="ruku">Ruku</TabsTrigger>
+          <TabsTrigger value="surah">{t('surah')}</TabsTrigger>
+          <TabsTrigger value="page">{t('page')}</TabsTrigger>
+          <TabsTrigger value="juz">{t('juz')}</TabsTrigger>
+          <TabsTrigger value="hizb">{t('hizb')}</TabsTrigger>
+          <TabsTrigger value="ruku">{t('ruku')}</TabsTrigger>
         </TabsList>
       </Tabs>
       <div>{renderTable()}</div>

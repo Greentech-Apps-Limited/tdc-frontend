@@ -17,11 +17,11 @@ const updateWeeklyProgress = (
     newProgress: Partial<ReadingProgress>
 ): ReadingProgress[] => {
     const today = new Date().toISOString().split('T')[0] || '';
-    const existingEntry = currentProgress.find((entry) => entry.date === today);
+    const existingEntryIndex = currentProgress.findIndex((entry) => entry.date === today);
 
-    if (existingEntry) {
-        return currentProgress.map((entry) =>
-            entry.date === today
+    if (existingEntryIndex !== -1) {
+        return currentProgress.map((entry, index) =>
+            index === existingEntryIndex
                 ? {
                     ...entry,
                     timeSpent: (entry.timeSpent || 0) + (newProgress.timeSpent || 0),
@@ -46,9 +46,13 @@ const useReadingProgressStore = create(
         (set) => ({
             weeklyProgress: [],
             updateProgress: (newProgress) =>
-                set((state) => ({
-                    weeklyProgress: updateWeeklyProgress(state.weeklyProgress, newProgress),
-                })),
+                set((state) => {
+                    const updatedProgress = updateWeeklyProgress(state.weeklyProgress, newProgress);
+                    if (JSON.stringify(state.weeklyProgress) !== JSON.stringify(updatedProgress)) {
+                        return { weeklyProgress: updatedProgress };
+                    }
+                    return state;
+                }),
         }),
         {
             name: 'reading-progress-storage',

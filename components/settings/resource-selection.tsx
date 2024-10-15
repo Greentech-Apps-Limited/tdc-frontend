@@ -2,6 +2,7 @@ import SelectableAccordion from '../ui/selectable-accordion';
 import { TranslationInfo } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import { useUpdateSearchParams } from '@/hooks/use-update-search-params';
+import { useTranslations } from 'next-intl';
 
 interface WBWTranslationLang {
   id: string;
@@ -9,6 +10,7 @@ interface WBWTranslationLang {
 }
 
 const ResourceSelection = () => {
+  const t = useTranslations('Settings');
   const { selectedTranslation, wbwTr, updateWbwTr, updateSelectedTranslation } = useSettings(
     state => ({
       selectedTranslation: state.selectedTranslation,
@@ -68,7 +70,7 @@ const ResourceSelection = () => {
   return (
     <div className="space-y-2">
       <SelectableAccordion
-        title="Translations"
+        title={t('translations')}
         items={translationItems}
         isMultiple={true}
         selectedItems={selectedTranslation.map(String)}
@@ -78,7 +80,7 @@ const ResourceSelection = () => {
         forceSelection={true}
       />
       <SelectableAccordion
-        title="Word By Word"
+        title={t('wordByWord')}
         items={wbwTranslationItems}
         isMultiple={false}
         selectedItems={[wbwTr]}

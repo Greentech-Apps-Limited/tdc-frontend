@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Checkbox } from '../ui/checkbox';
 import { useSettings } from '@/contexts/settings-provider';
 
@@ -9,17 +10,15 @@ interface ContentItem {
   label: string;
 }
 
-// FIXME: Update and Add for new settings
-const contentItems: ContentItem[] = [
-  // { id: 'showArabic', label: 'Arabic' },
-  { id: 'showByWords', label: 'Word by Word' },
-  { id: 'showTranslation', label: 'Translation' },
-  // { id: 'showTajweed', label: 'Tajweed' },
-];
-
 const ContentSettings = () => {
+  const t = useTranslations('Settings');
   const settings = useSettings();
   const { updateSettings } = settings;
+
+  const contentItems: ContentItem[] = [
+    { id: 'showByWords', label: t('wordByWord') },
+    { id: 'showTranslation', label: t('translation') },
+  ];
 
   const handleCheckboxChange = (option: ContentOption) => {
     updateSettings({ [option]: !settings[option] });
@@ -48,7 +47,7 @@ const ContentSettings = () => {
 
   return (
     <section className="space-y-2">
-      <p className="text-xs font-semibold text-neutral-700">Content</p>
+      <p className="text-xs font-semibold text-neutral-700">{t('content')}</p>
       <div className="space-y-1">{contentItems.map(renderCheckbox)}</div>
     </section>
   );

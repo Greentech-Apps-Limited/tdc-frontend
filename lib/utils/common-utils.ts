@@ -5,10 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatTimeAgo(timestamp: number): string {
+
+export function formatTimeAgo(timestamp: number): {
+  value: number;
+  unit: 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year';
+  isYesterday: boolean;
+} {
   const now = Date.now();
   const differenceInSeconds = Math.floor((now - timestamp) / 1000);
-
   const secondsInMinute = 60;
   const secondsInHour = 3600;
   const secondsInDay = 86400;
@@ -17,29 +21,24 @@ export function formatTimeAgo(timestamp: number): string {
   const secondsInYear = 31536000; // Approximate (365 days)
 
   if (differenceInSeconds < secondsInMinute) {
-    return `${differenceInSeconds}s ago`;
+    return { value: differenceInSeconds, unit: 'second', isYesterday: false };
   } else if (differenceInSeconds < secondsInHour) {
-    const minutes = Math.floor(differenceInSeconds / secondsInMinute);
-    return `${minutes}m ago`;
+    return { value: Math.floor(differenceInSeconds / secondsInMinute), unit: 'minute', isYesterday: false };
   } else if (differenceInSeconds < secondsInDay) {
-    const hours = Math.floor(differenceInSeconds / secondsInHour);
-    return `${hours}h ago`;
+    return { value: Math.floor(differenceInSeconds / secondsInHour), unit: 'hour', isYesterday: false };
   } else if (differenceInSeconds < 2 * secondsInDay) {
-    return `yesterday`;
+    return { value: 1, unit: 'day', isYesterday: true };
   } else if (differenceInSeconds < secondsInWeek) {
-    const days = Math.floor(differenceInSeconds / secondsInDay);
-    return `${days}d ago`;
+    return { value: Math.floor(differenceInSeconds / secondsInDay), unit: 'day', isYesterday: false };
   } else if (differenceInSeconds < secondsInMonth) {
-    const weeks = Math.floor(differenceInSeconds / secondsInWeek);
-    return `${weeks}w ago`;
+    return { value: Math.floor(differenceInSeconds / secondsInWeek), unit: 'week', isYesterday: false };
   } else if (differenceInSeconds < secondsInYear) {
-    const months = Math.floor(differenceInSeconds / secondsInMonth);
-    return `${months}mo ago`;
+    return { value: Math.floor(differenceInSeconds / secondsInMonth), unit: 'month', isYesterday: false };
   } else {
-    const years = Math.floor(differenceInSeconds / secondsInYear);
-    return `${years}y ago`;
+    return { value: Math.floor(differenceInSeconds / secondsInYear), unit: 'year', isYesterday: false };
   }
 }
+
 
 interface ScrollToElementOptions {
   container: HTMLElement;
