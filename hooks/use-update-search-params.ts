@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/routing';
 
 export const useUpdateSearchParams = () => {
     const router = useRouter();

@@ -1,8 +1,8 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useCallback, useEffect, useState } from 'react';
+import { usePathname, useRouter } from '@/i18n/routing';
 
 const LanguageSelector = () => {
   const router = useRouter();

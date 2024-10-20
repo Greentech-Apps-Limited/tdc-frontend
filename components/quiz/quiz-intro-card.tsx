@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 const StartQuizButton = ({ onClick }: { onClick: () => void }) => {
   const t = useTranslations('QuizIntroCard');

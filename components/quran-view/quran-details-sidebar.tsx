@@ -3,7 +3,7 @@ import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { scrollToElement } from '@/lib/utils/common-utils';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';

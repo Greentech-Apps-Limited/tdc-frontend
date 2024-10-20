@@ -4,9 +4,10 @@ import SmallCard from './ui/small-card';
 import { formatTimeAgo } from '@/lib/utils/common-utils';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
-import Link from 'next/link';
+
 import { useSearchParams } from 'next/navigation';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
+import { Link } from '@/i18n/routing';
 
 const LastRead = () => {
   const t = useTranslations('LastRead');

@@ -1,7 +1,7 @@
 'use client';
 
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';

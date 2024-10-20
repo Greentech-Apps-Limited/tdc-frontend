@@ -2,8 +2,8 @@
 
 import { SidebarHideIcon, SidebarShowIcon } from '@/icons';
 import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/routing';
+import { useSearchParams } from 'next/navigation';
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import QuizIntroCard from './quiz-intro-card';
 import { Scoreboard } from './score-board';
 import QuizLevelSelectionModal from './quiz-level-selection-modal';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 
 const userScoreboard = {
   quizzesAttempted: 4,
