@@ -47,7 +47,7 @@ const LanguageSelector = () => {
       <SelectContent>
         <SelectItem value="en">English</SelectItem>
         <SelectItem value="ms">Malays</SelectItem>
-        <SelectItem value="id">Indonesian</SelectItem>
+        <SelectItem value="id">Indonesia</SelectItem>
       </SelectContent>
     </Select>
   );
