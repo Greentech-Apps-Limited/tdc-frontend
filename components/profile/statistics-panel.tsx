@@ -1,4 +1,5 @@
 import { ChoiceIcon, PdfNoteIcon, TextRightIcon, TimeClockIcon } from '@/icons';
+import { useTranslations } from 'next-intl';
 
 type StatCardProps = {
   title: string;
@@ -21,30 +22,32 @@ function StatCard({ title, value, description, icon }: StatCardProps) {
 }
 
 export default function StatisticsPanel() {
+  const t = useTranslations('Statistics');
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       <StatCard
-        title="Total ayah read"
+        title={t('totalAyahRead.title')}
         value={4421}
-        description="Egestas morbi donec tempor volutpat"
+        description={t('totalAyahRead.description')}
         icon={<TextRightIcon className="h-6 w-6" />}
       />
       <StatCard
-        title="Minutes spent"
+        title={t('timeSpent.title')}
         value="2h 34m"
-        description="Arcu pretium ac ut lobortis"
+        description={t('timeSpent.description')}
         icon={<TimeClockIcon className="h-6 w-6" />}
       />
       <StatCard
-        title="Quiz score"
+        title={t('quizScore.title')}
         value={83.4}
-        description="Sed sit nullam sem aliquam"
+        description={t('quizScore.description')}
         icon={<ChoiceIcon className="h-6 w-6" />}
       />
       <StatCard
-        title="Leaderboard"
-        value="53rd"
-        description="Amet aliquam pharetra euismod gravida"
+        title={t('leaderboard.title')}
+        value={`53rd`}
+        description={t('leaderboard.description')}
         icon={<PdfNoteIcon className="h-6 w-6" />}
       />
     </div>

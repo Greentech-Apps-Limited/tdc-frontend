@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { SURAH_QUICK_LINKS } from '@/lib/constants/sura-quick-links-constants';
 import SmallCard from './ui/small-card';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 const QuickLinks = () => {
   const t = useTranslations('QuickLinks');

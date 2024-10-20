@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import AudioPlayerSkeleton from '../skeleton-loaders/audio-player-skeleton';
 import { scrollToElement } from '@/lib/utils/common-utils';
+import useReciterStore from '@/stores/reciter-store';
 
 const AudioPlayer = dynamic(() => import('./audio-player'), {
   ssr: false,
@@ -12,6 +13,7 @@ const AudioPlayer = dynamic(() => import('./audio-player'), {
 });
 
 const AudioPlayerWrapper = () => {
+  const { reciterId } = useReciterStore();
   const [isLoading, setLoading] = useState(true);
   const {
     showAudioPlayer,
@@ -36,7 +38,7 @@ const AudioPlayerWrapper = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://api.quran.com/api/v4/chapter_recitations/7/${audioId}?segments=true`
+          `https://api.quran.com/api/v4/chapter_recitations/${reciterId}/${audioId}?segments=true`
         );
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -53,7 +55,7 @@ const AudioPlayerWrapper = () => {
     };
 
     fetchAudioData();
-  }, [audioId, setAudioUrl, setAudioData]);
+  }, [audioId, setAudioUrl, setAudioData, reciterId]);
 
   const handleClose = () => {
     setShowAudioPlayer(false);
@@ -84,7 +86,11 @@ const AudioPlayerWrapper = () => {
     return null;
   }
 
-  return <>{isLoading ? <AudioPlayerSkeleton /> : <AudioPlayer onClose={handleClose} />}</>;
+  return (
+    <div className="m-6">
+      {isLoading ? <AudioPlayerSkeleton /> : <AudioPlayer onClose={handleClose} />}
+    </div>
+  );
 };
 
 export default AudioPlayerWrapper;

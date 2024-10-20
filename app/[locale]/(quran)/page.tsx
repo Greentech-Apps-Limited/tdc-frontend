@@ -29,7 +29,9 @@ export default async function Home({ params: { locale } }: { params: { locale: s
         </div>
         <WeeklyProgress />
       </section>
-      <QuranTabView quranMeta={quranMeta} />
+      <div className="pb-48">
+        <QuranTabView quranMeta={quranMeta} />
+      </div>
     </main>
   );
 }
