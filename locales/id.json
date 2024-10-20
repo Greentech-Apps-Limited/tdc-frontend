@@ -3,36 +3,36 @@
     "title": "Selamat datang!"
   },
   "sidebar": {
-    "Homepage": "Laman Utama",
-    "Quiz": "Kuiz",
+    "Homepage": "Beranda",
+    "Quiz": "Kuis",
     "Profile": "Profil",
-    "Minimize": "Minimize"
+    "Minimize": "Minimalkan"
   },
   "Settings": {
-    "title": "Tetapan",
-    "content": "Kandungan",
-    "wordByWord": "Perkataan demi Perkataan",
+    "title": "Pengaturan",
+    "content": "Konten",
+    "wordByWord": "Kata per Kata",
     "translation": "Terjemahan",
     "translations": "Terjemahan",
-    "selected": "Dipilih",
-    "wordByWordLang": "Perkataan demi Perkataan",
-    "font": "Fon",
-    "arabicFont": "Fon Arab",
-    "arabicFontSize": "Saiz Fon Arab: {size}px",
-    "translationTafsirFontSize": "Saiz Fon Terjemahan/Tafsir: {size}px"
+    "selected": "Terpilih",
+    "wordByWordLang": "Kata per Kata",
+    "font": "Font",
+    "arabicFont": "Font Arab",
+    "arabicFontSize": "Ukuran Font Arab: {size}px",
+    "translationTafsirFontSize": "Ukuran Font Terjemahan/Tafsir: {size}px"
   },
   "QuickLinks": {
-    "title": "Pautan Pantas"
+    "title": "Tautan Cepat"
   },
   "LastRead": {
     "title": "Terakhir Dibaca",
-    "noRecentReadings": "Tiada bacaan terkini",
-    "noRecentReadingsDescription": "Ayat terakhir yang anda baca akan muncul di sini",
+    "noRecentReadings": "Tidak ada bacaan terbaru",
+    "noRecentReadingsDescription": "Ayat terakhir yang Anda baca akan muncul di sini",
     "timeAgo": {
-      "second": "{count}s yang lalu",
+      "second": "{count}d yang lalu",
       "minute": "{count}m yang lalu",
-      "hour": "{count}jam yang lalu",
-      "yesterday": "semalam",
+      "hour": "{count}j yang lalu",
+      "yesterday": "kemarin",
       "day": "{count} hari yang lalu",
       "week": "{count} minggu yang lalu",
       "month": "{count} bulan yang lalu",
@@ -41,8 +41,8 @@
   },
   "WeeklyProgress": {
     "thisWeek": "Minggu Ini",
-    "readingGoal": "daripada {goal}m matlamat bacaan",
-    "continue": "Teruskan",
+    "readingGoal": "dari {goal}m target bacaan",
+    "continue": "Lanjutkan",
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}j {minutes}m"
@@ -64,8 +64,8 @@
   },
   "Views": {
     "surah": "Surah",
-    "page": "Muka Surat",
-    "juz": "Juzuk",
+    "page": "Halaman",
+    "juz": "Juz",
     "hizb": "Hizb",
     "ruku": "Ruku"
   },
@@ -100,7 +100,7 @@
     "sura_28": "Kisah-kisah",
     "sura_29": "Laba-laba",
     "sura_30": "Bangsa Rum",
-    "sura_31": "Sujud",
+    "sura_31": "Luqman",
     "sura_32": "Sujud",
     "sura_33": "Golongan Yang Bersekutu",
     "sura_34": "Negeri Saba",
@@ -186,51 +186,51 @@
     "sura_114": "Manusia"
   },
   "QuizIntroCard": {
-    "title": "Kuiz Al-Quran",
-    "description": "Mulakan perjalanan penemuan Al-Quran! Uji pengetahuan anda dengan kuiz kami dan dalami pemahaman anda tentang kata kerja ilahi yang terdapat dalam Al-Quran.",
+    "title": "Kuis Al-Quran",
+    "description": "Mulailah perjalanan penemuan Al-Quran! Uji pengetahuan Anda dengan kuis kami dan perkaya pemahaman Anda tentang kata kerja ilahi yang terdapat dalam Al-Quran.",
     "playNow": "Main Sekarang",
-    "viewLeaderBoard": "Lihat Papan Pendahulu"
+    "viewLeaderBoard": "Lihat Papan Peringkat"
   },
   "Scoreboard": {
     "title": "Papan Skor",
-    "quizzesAttempted": "Kuiz Dicuba",
-    "scoreOnQuizzes": "Skor pada kuiz",
-    "onLeaderboard": "pada Papan Pendahulu",
+    "quizzesAttempted": "Kuis Dicoba",
+    "scoreOnQuizzes": "Skor pada kuis",
+    "onLeaderboard": "pada Papan Peringkat",
     "leaderboardSuffix": "ke"
   },
   "QuizLevelSelectionModal": {
-    "title": "Mulakan Kuiz",
-    "description": "Pilih tahap kesukaran dan mari lihat berapa banyak soalan yang anda boleh takluki! Pilih 'Sukar' untuk menambah skor yang lebih tinggi.",
+    "title": "Mulai Kuis",
+    "description": "Pilih tingkat kesulitan dan mari lihat berapa banyak pertanyaan yang bisa Anda taklukkan! Pilih 'Sulit' untuk menambah skor yang lebih tinggi.",
     "levels": {
       "easy": "Mudah",
-      "medium": "Sederhana",
-      "hard": "Sukar"
+      "medium": "Sedang",
+      "hard": "Sulit"
     },
     "cancel": "Batal",
-    "startQuiz": "Mulakan Kuiz"
+    "startQuiz": "Mulai Kuis"
   },
   "ExitConfirmationModal": {
-    "title": "Keluar Kuiz",
-    "description": "Adakah anda pasti mahu keluar dari permainan? Kemajuan setakat ini akan dikemas kini ke profil dan papan pendahulu anda.",
+    "title": "Keluar Kuis",
+    "description": "Apakah Anda yakin ingin keluar dari permainan? Kemajuan sejauh ini akan diperbarui ke profil dan papan peringkat Anda.",
     "cancel": "Batal",
     "exit": "Keluar"
   },
   "Statistics": {
     "totalAyahRead": {
-      "title": "Jumlah ayat dibaca",
-      "description": "Kemajuan melalui Al-Quran"
+      "title": "Total ayat dibaca",
+      "description": "Kemajuan dalam Al-Quran"
     },
     "timeSpent": {
-      "title": "Masa digunakan",
-      "description": "Masa didedikasikan hari ini"
+      "title": "Waktu terpakai",
+      "description": "Waktu yang dihabiskan hari ini"
     },
     "quizScore": {
-      "title": "Skor kuiz",
-      "description": "Kadar pemahaman purata"
+      "title": "Skor kuis",
+      "description": "Rata-rata tingkat pemahaman"
     },
     "leaderboard": {
-      "title": "Papan pendahulu",
-      "description": "Kedudukan mingguan semasa"
+      "title": "Papan peringkat",
+      "description": "Peringkat mingguan saat ini"
     }
   },
   "Profile": {

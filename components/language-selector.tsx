@@ -2,7 +2,7 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useCallback, useEffect, useState } from 'react';
-import { usePathname, useRouter } from '@/i18n/routing';
+import { usePathname, useRouter } from 'next/navigation';
 
 const LanguageSelector = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const LanguageSelector = () => {
     const pathSegments = pathname.split('/');
     if (pathSegments.length > 1) {
       const lang = pathSegments[1];
-      if (lang === 'en' || lang === 'ms') {
+      if (lang === 'en' || lang === 'ms' || lang === 'id') {
         setCurrentLang(lang);
       }
     }
@@ -46,7 +46,8 @@ const LanguageSelector = () => {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en">English</SelectItem>
-        <SelectItem value="ms">Malaysian</SelectItem>
+        <SelectItem value="ms">Malays</SelectItem>
+        <SelectItem value="id">Indonesian</SelectItem>
       </SelectContent>
     </Select>
   );
