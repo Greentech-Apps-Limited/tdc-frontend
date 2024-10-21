@@ -10,6 +10,7 @@ import {
 } from '../ui/dialog';
 import { LevelStartIcon1, LevelStartIcon2, LevelStartIcon3 } from '@/icons';
 import useQuizStore from '@/stores/quiz-store';
+import { useEffect } from 'react';
 
 type LevelData = {
   id: number;
@@ -46,7 +47,7 @@ const LevelSelection = ({
   selectedLevel,
   onLevelSelect,
 }: {
-  selectedLevel: number;
+  selectedLevel: number | null;
   onLevelSelect: (level: number) => void;
 }) => {
   const t = useTranslations('QuizLevelSelectionModal');
@@ -79,6 +80,18 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
   const t = useTranslations('QuizLevelSelectionModal');
   const { selectedLevel, setSelectedLevel } = useQuizStore();
 
+  const handleConfirm = () => {
+    const level = selectedLevel ?? 1;
+    setSelectedLevel(level);
+    onConfirm(level);
+  };
+
+  useEffect(() => {
+    if (selectedLevel === null) {
+      setSelectedLevel(1);
+    }
+  }, []);
+
   return (
     <Dialog open={true} onOpenChange={onCancel}>
       <DialogContent>
@@ -93,7 +106,11 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
           <Button variant="outline" className="rounded-full" onClick={onCancel}>
             {t('cancel')}
           </Button>
-          <Button className="min-w-48 rounded-full" onClick={() => onConfirm(selectedLevel)}>
+          <Button
+            className="min-w-48 rounded-full"
+            onClick={handleConfirm}
+            disabled={selectedLevel === null}
+          >
             {t('startQuiz')}
           </Button>
         </DialogFooter>

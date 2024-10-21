@@ -1,12 +1,16 @@
 import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
 import QuranDetailsWrapper from '@/components/quran-view/quran-details-wrapper';
-import SurahDetailsMain from '@/components/surah-view/surah-details-main';
+import QuranDetailsSkeleton from '@/components/skeleton-loaders/quran-details-skeleton';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { TRANSLATIONS_INFO } from '@/data/quran-meta/translations-info';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import dynamic from 'next/dynamic';
 
+const SurahDetailsMain = dynamic(() => import('@/components/surah-view/surah-details-main'), {
+  loading: () => <QuranDetailsSkeleton />,
+});
 type QuranSegmentDetailsProps = {
   params: {
     quranSegment: QuranSegment;

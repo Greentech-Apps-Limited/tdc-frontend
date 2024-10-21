@@ -3,7 +3,7 @@ import { useNumberTranslation } from '@/hooks/use-number-translation';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 
