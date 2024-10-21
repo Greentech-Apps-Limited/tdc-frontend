@@ -80,12 +80,17 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
   const t = useTranslations('QuizLevelSelectionModal');
   const { selectedLevel, setSelectedLevel } = useQuizStore();
 
+  const handleConfirm = () => {
+    const level = selectedLevel ?? 1;
+    setSelectedLevel(level);
+    onConfirm(level);
+  };
+
   useEffect(() => {
-    // Set default level to medium (1) when modal opens
     if (selectedLevel === null) {
       setSelectedLevel(1);
     }
-  }, [selectedLevel, setSelectedLevel]);
+  }, []);
 
   return (
     <Dialog open={true} onOpenChange={onCancel}>
@@ -103,7 +108,7 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
           </Button>
           <Button
             className="min-w-48 rounded-full"
-            onClick={() => onConfirm(selectedLevel ?? 1)}
+            onClick={handleConfirm}
             disabled={selectedLevel === null}
           >
             {t('startQuiz')}

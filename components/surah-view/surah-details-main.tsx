@@ -5,7 +5,10 @@ import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 import dynamic from 'next/dynamic';
 import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
-import ReadingProgressTracker from './reading-progress-tracker';
+
+const ReadingProgressTracker = dynamic(() => import('./reading-progress-tracker'), {
+  ssr: false,
+});
 
 const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
   ssr: false,

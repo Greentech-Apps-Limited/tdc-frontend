@@ -15,8 +15,11 @@ import { PAGE_TO_SURAH_MAPPINGS } from '@/data/quran-meta/page-to-surah-mappings
 import { JUZ_TO_SURAH_MAPPINGS } from '@/data/quran-meta/juz-to-surah-mappings';
 import dynamic from 'next/dynamic';
 import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
-import ReadingProgressTracker from '../surah-view/reading-progress-tracker';
 import { RUKU_SURAH_MAPPING } from '@/data/quran-meta/ruku-surah-mapping';
+
+const ReadingProgressTracker = dynamic(() => import('../surah-view/reading-progress-tracker'), {
+  ssr: false,
+});
 
 const SurahDisplayCard = dynamic(() => import('../surah-view/surah-display-card'), {
   ssr: false,
