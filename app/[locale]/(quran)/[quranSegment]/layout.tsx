@@ -7,6 +7,7 @@ import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
 type QuranSegmentLayoutProps = {
   children: React.ReactNode;
@@ -29,7 +30,9 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
   return (
     <section className="flex h-full w-full">
       <aside className="h-full overflow-hidden">
-        <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
+        </Suspense>
       </aside>
       <aside id="scroll-container" className="h-full w-full flex-1 overflow-y-scroll ">
         {children}

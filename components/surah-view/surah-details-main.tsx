@@ -3,18 +3,9 @@ import { TranslationInfosType } from '@/lib/types/surah-translation-type';
 import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/translation-utils';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
-import dynamic from 'next/dynamic';
-import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
+import SurahDisplayCard from './surah-display-card';
+import VerseDisplayCard from './verse-display-card';
 import ReadingProgressTracker from './reading-progress-tracker';
-
-const SurahDisplayCard = dynamic(() => import('./surah-display-card'), {
-  ssr: false,
-  loading: () => <QuranDetailsSkeleton />,
-});
-const VerseDisplayCard = dynamic(() => import('./verse-display-card'), {
-  ssr: false,
-  loading: () => <QuranDetailsSkeleton />,
-});
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
