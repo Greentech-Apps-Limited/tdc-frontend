@@ -30,6 +30,6 @@ const SurahRowSkeleton = () => {
   );
 };
 
-const QuickAccessSectionSkeleton = () => <Skeleton className="w-ful h-72 rounded-4xl" />;
+const QuickAccessSectionSkeleton = () => <div className="w-ful h-72 bg-transparent" />;
 
 export { BannerSkeleton, SurahRowSkeleton, QuickAccessSectionSkeleton };
