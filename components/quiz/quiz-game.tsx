@@ -1,70 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import useQuizStore from '@/stores/quiz-store';
+import { useRouter } from '@/i18n/routing';
 import QuizHeader from './quiz-header';
 import QuestionCard from './question-card';
 import AnswerOptions from './answer-options';
 import NavigationControls from './navigation-controls';
-import ExitConfirmationModal from './exit-confirmation-modal';
 import QuizContainer from './quiz-container';
-import { useRouter } from '@/i18n/routing';
+import GameEndAlert from './game-end-alert';
+import GameResultModal from './game-result-modal';
+import ExitConfirmationModal from './exit-confirmation-modal';
+import useQuizGame from '@/hooks/use-guiz-game';
+import { resetAllStores } from '@/stores/quiz-store';
 
 const QuizGame = () => {
-  const {
-    isPlaying,
-    showResults,
-    timeRemaining,
-    life,
-    isTimerCritical,
-    updateTimeRemaining,
-    nextQuestion,
-    showExitConfirmation,
-    isPaused,
-  } = useQuizStore();
-
-  const [showExitModal, setShowExitModal] = useState(false);
   const router = useRouter();
+  const {
+    showEndAlert,
+    showResultModal,
+    showExitModal,
+    handleExit,
+    handleShowResults,
+    handleExitModalClose,
+  } = useQuizGame();
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isPlaying && !showResults && !isPaused && timeRemaining > 0) {
-      timer = setInterval(() => {
-        updateTimeRemaining(timeRemaining - 1);
-      }, 1000);
-    } else if (timeRemaining === 0) {
-      nextQuestion();
-    }
-    return () => clearInterval(timer);
-  }, [isPlaying, showResults, isPaused, timeRemaining, updateTimeRemaining, nextQuestion]);
-
-  const handleExit = () => {
-    if (showExitConfirmation()) {
-      setShowExitModal(true);
-    }
+  const handleFinishGame = () => {
+    resetAllStores();
+    router.push('/quiz');
   };
-
   return (
     <div>
-      <QuizHeader
-        life={life}
-        timeRemaining={timeRemaining}
-        isTimerCritical={isTimerCritical}
-        onExit={handleExit}
-      />
+      <QuizHeader onExit={handleExit} />
       <QuizContainer>
         <QuestionCard>
           <AnswerOptions />
         </QuestionCard>
         <NavigationControls />
       </QuizContainer>
-      {showExitModal && (
-        <ExitConfirmationModal
-          onConfirm={() => {
-            // TODO: Handle exit confirmation
-            router.push('/quiz');
-          }}
-          onCancel={() => setShowExitModal(false)}
-        />
-      )}
+
+      <GameEndAlert
+        isOpen={showEndAlert}
+        onClose={handleFinishGame}
+        onShowResults={handleShowResults}
+      />
+
+      <GameResultModal isOpen={showResultModal} onClose={handleFinishGame} />
+
+      <ExitConfirmationModal
+        onConfirm={handleFinishGame}
+        onCancel={handleExitModalClose}
+        isOpen={showExitModal}
+      />
     </div>
   );
 };

@@ -12,13 +12,14 @@ import { Button } from '@/components/ui/button';
 type ExitConfirmationModalProps = {
   onConfirm: () => void;
   onCancel: () => void;
+  isOpen: boolean;
 };
 
-const ExitConfirmationModal = ({ onConfirm, onCancel }: ExitConfirmationModalProps) => {
+const ExitConfirmationModal = ({ onConfirm, onCancel, isOpen }: ExitConfirmationModalProps) => {
   const t = useTranslations('ExitConfirmationModal');
 
   return (
-    <Dialog open={true} onOpenChange={onCancel}>
+    <Dialog open={isOpen} onOpenChange={onCancel}>
       <DialogContent>
         <DialogHeader className="space-y-6">
           <DialogTitle>{t('title')}</DialogTitle>
