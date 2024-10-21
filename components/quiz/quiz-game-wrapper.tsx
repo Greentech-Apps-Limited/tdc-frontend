@@ -1,15 +1,23 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import useQuizStore from '@/stores/quiz-store';
 import QuizGame from './quiz-game';
 import { Question } from '@/lib/types/quiz-types';
+import { useRouter } from '@/i18n/routing';
+import QuizGameSkeleton from '../skeleton-loaders/quiz-gam-skeleton';
 
 const QuizGameWrapper = () => {
-  const { startQuiz, isPlaying, showResults } = useQuizStore();
+  const { startQuiz, isPlaying, showResults, selectedLevel } = useQuizStore();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    if (selectedLevel === null) {
+      router.replace('/quiz');
+      return;
+    }
     const fetchQuestionsAndStartQuiz = async () => {
       try {
         // Simulating API call with the provided data
@@ -98,24 +106,14 @@ const QuizGameWrapper = () => {
     } else {
       setIsLoading(false);
     }
-  }, [startQuiz, isPlaying, showResults]);
-
-  //TODO: handleRestartQuiz If needed
-  // const handleRestartQuiz = () => {
-  //   setIsLoading(true);
-  //   endQuiz();
-  // };
+  }, [startQuiz, isPlaying, showResults, selectedLevel, router]);
 
   if (isLoading) {
-    return <div>Loading quiz...</div>;
+    return <QuizGameSkeleton />;
   }
 
   if (error) {
     return <div>{error}</div>;
-  }
-
-  if (!isPlaying && !showResults) {
-    return <div>No active quiz. Please start a new quiz.</div>;
   }
 
   return <QuizGame />;

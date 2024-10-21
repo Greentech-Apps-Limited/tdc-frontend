@@ -37,7 +37,7 @@ interface QuizState {
     currentOptions: string[];
     isReducedOptions: boolean;
     fiftyFiftyUsed: boolean;
-    selectedLevel: number;
+    selectedLevel: number | null;
     selectedAnswers: string[];
     totalTimeSpent: number;
 }
@@ -78,7 +78,7 @@ const INITIAL_STATE: QuizState = {
     currentOptions: [],
     isReducedOptions: false,
     fiftyFiftyUsed: false,
-    selectedLevel: 1,
+    selectedLevel: null,
     selectedAnswers: [],
     totalTimeSpent: 0,
 };
