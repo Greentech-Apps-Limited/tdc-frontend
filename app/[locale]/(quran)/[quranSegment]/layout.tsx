@@ -1,4 +1,5 @@
 import QuranDetailsSidebar from '@/components/quran-view/quran-details-sidebar';
+import { QuranDetailsSidebarSkeleton } from '@/components/skeleton-loaders/sidebar-skeleton';
 import { HIZBS } from '@/data/quran-meta/hizbs';
 import { JUZS } from '@/data/quran-meta/juzs';
 import { PAGES } from '@/data/quran-meta/pages';
@@ -30,7 +31,7 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
   return (
     <section className="flex h-full w-full">
       <aside className="h-full overflow-hidden">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<QuranDetailsSidebarSkeleton />}>
           <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
         </Suspense>
       </aside>

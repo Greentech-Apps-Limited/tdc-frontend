@@ -3,7 +3,7 @@ import Header from '@/components/header';
 import { SettingsChecker } from '@/components/settings/settings-checker';
 import Sidebar from '@/components/sidebar';
 import HeaderSkeleton from '@/components/skeleton-loaders/header-skeleton';
-import SidebarSkeleton from '@/components/skeleton-loaders/sidebar-skeleton';
+import { SidebarSkeleton } from '@/components/skeleton-loaders/sidebar-skeleton';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 

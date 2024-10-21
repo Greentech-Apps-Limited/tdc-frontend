@@ -19,4 +19,24 @@ const SidebarSkeleton = () => {
   );
 };
 
-export default SidebarSkeleton;
+const QuranDetailsSidebarSkeleton = () => {
+  return (
+    <section className="h-full w-[206px] overflow-y-scroll border-r border-neutral-200 bg-neutral p-4">
+      <div className="space-y-2">
+        {[...Array(20)].map((_, index) => (
+          <div
+            key={index}
+            className="w-full overflow-hidden rounded-full border border-neutral-100"
+          >
+            <div className="flex items-center gap-2 p-3">
+              <Skeleton className="h-6 w-8" />
+              <Skeleton className="h-6 flex-1" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export { QuranDetailsSidebarSkeleton, SidebarSkeleton };
