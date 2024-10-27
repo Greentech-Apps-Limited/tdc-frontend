@@ -8,6 +8,7 @@ import VirtualizedSurahView from './virtualized-surah-view';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { TranslationItem } from '@/lib/types/surah-translation-type';
+import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -35,7 +36,7 @@ const SurahDetailsMain = ({
   }
 
   if (isLoading || !data) {
-    return <div className="p-4 text-center">Loading surah data...</div>;
+    return <QuranDetailsSkeleton />;
   }
 
   const { versesData, translationsData } = data;

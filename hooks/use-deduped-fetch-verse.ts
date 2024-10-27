@@ -1,6 +1,7 @@
 import { TranslationItem } from "@/lib/types/surah-translation-type";
 import { MergedVerse, QuranVerse, QuranVerseDetail } from "@/lib/types/verses-type";
 import { API_BASE_URL } from "@/services/api";
+// import { useEffect } from "react";
 import useSWRImmutable from 'swr/immutable';
 
 interface UseDedupedFetchVerseProps {
@@ -8,6 +9,7 @@ interface UseDedupedFetchVerseProps {
     chapterId: string;
     translationIds: string[];
     languageCode: string;
+    // setApiPageToVersesMap: (data: Record<number, MergedVerse[]>) => void;
     translationInfos: TranslationItem[];
     initialVerses: MergedVerse[];
     versesPerPage: number;
@@ -22,6 +24,7 @@ const useDedupedFetchVerse = ({
     chapterId,
     translationIds,
     languageCode,
+    // setApiPageToVersesMap,
     translationInfos,
     initialVerses,
     versesPerPage = 20,
@@ -85,6 +88,19 @@ const useDedupedFetchVerse = ({
 
     const verses = shouldUseInitialData ? initialVerses : fetchedData;
 
+
+    // useEffect(() => {
+    //     if (verses) {
+    //         // @ts-expect-error: TypeScript doesn't recognize this safe operation, but it ensures `setApiPageToVersesMap` merges correctly
+    //         setApiPageToVersesMap((prev) => {
+    //             if (prev[pageNumber]) return prev;
+    //             return {
+    //                 ...prev,
+    //                 [pageNumber]: verses,
+    //             };
+    //         });
+    //     }
+    // }, [verses, pageNumber, setApiPageToVersesMap]);
 
     const verse = verses?.[idxInPage];
 
