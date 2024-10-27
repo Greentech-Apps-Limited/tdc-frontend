@@ -2,7 +2,7 @@ import { VersesTranslationResponse } from "@/lib/types/surah-translation-type";
 import { QuranChapterVerses } from "@/lib/types/verses-type";
 
 // services/api.ts
-const API_BASE_URL = "https://tdc-backend.greentechapps.com/api";
+export const API_BASE_URL = "https://tdc-backend.greentechapps.com/api";
 
 export const fetcher = async <T>(url: string): Promise<T> => {
     const response = await fetch(url, {
@@ -58,4 +58,32 @@ export const fetchSurahData = async (
         console.error('Error fetching surah data:', error);
         throw new Error('Failed to fetch surah data');
     }
+};
+
+
+export const getTranslationViewRequestKey = ({
+    chapterId,
+    pageNumber,
+    translationIds,
+    languageCode,
+    limit = 20,
+}: {
+    chapterId: string;
+    pageNumber: number;
+    translationIds: string[];
+    languageCode: string;
+    limit?: number;
+}) => {
+    const offset = (pageNumber - 1) * limit;
+
+    return {
+        versesKey: `verses-${chapterId}-${offset}-${languageCode}`,
+        translationsKeys: translationIds.map(id =>
+            `translation-${id}-${chapterId}-${offset}`
+        ),
+        params: {
+            offset,
+            limit,
+        }
+    };
 };

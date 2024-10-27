@@ -59,7 +59,14 @@ const SurahDetailsMain = ({
 
   return (
     <ReadingProgressTracker verses={versesWithTranslations}>
-      <VirtualizedSurahView verses={versesWithTranslations} surahId={surahId} surah={surah} />
+      <VirtualizedSurahView
+        initialVerses={versesWithTranslations}
+        surahId={surahId}
+        surah={surah}
+        totalVerseCount={versesData.count}
+        translationIds={translationIds}
+        translationInfos={translationInfos}
+      />
     </ReadingProgressTracker>
   );
 };

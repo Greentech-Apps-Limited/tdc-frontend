@@ -1,9 +1,10 @@
 'use client';
 import { MergedVerse } from '@/lib/types/verses-type';
 import { Components, Virtuoso } from 'react-virtuoso';
-import VerseDisplayCard from './verse-display-card';
 import { forwardRef } from 'react';
 import { Surah } from '@/lib/types/quran-meta-types';
+import TranslationView from './translation-view';
+import { TranslationItem } from '@/lib/types/surah-translation-type';
 
 const List: Components['List'] = forwardRef(({ style, children }, ref) => {
   return (
@@ -20,45 +21,41 @@ const List: Components['List'] = forwardRef(({ style, children }, ref) => {
 List.displayName = 'List';
 
 type VirtualizedSurahViewProps = {
-  verses: MergedVerse[];
+  initialVerses: MergedVerse[];
   surahId: string;
   surah: Surah;
+  totalVerseCount: number;
+  translationIds: string[];
+  translationInfos: TranslationItem[];
 };
-const VirtualizedSurahView = ({ verses, surahId, surah }: VirtualizedSurahViewProps) => {
-  const versesCount = verses.length;
-  const itemContentRenderer = (verseIdx: number) => {
-    const verse = verses[verseIdx];
-    if (!verse) {
-      return null;
-    }
-    return (
-      <div>
-        {verseIdx === 0 ? (
-          <div>
-            <h1 className="mt-6 font-hidayatullah_demo text-3xl font-bold">
-              {surah.transliteration}
-            </h1>
-            <VerseDisplayCard verse={verse} surahId={surahId} />
-          </div>
-        ) : (
-          <VerseDisplayCard
-            verse={verse}
-            surahId={surahId}
-            isLastVerse={verses.length - 1 === verseIdx}
-          />
-        )}
-      </div>
-    );
-  };
-
+const VirtualizedSurahView = ({
+  initialVerses,
+  surahId,
+  surah,
+  totalVerseCount,
+  translationIds,
+  translationInfos,
+}: VirtualizedSurahViewProps) => {
   return (
     <div>
       <Virtuoso
         useWindowScroll
-        totalCount={versesCount}
+        totalCount={totalVerseCount}
         increaseViewportBy={1000}
         initialItemCount={1} // needed for SSR.
-        itemContent={itemContentRenderer}
+        itemContent={index => {
+          return (
+            <TranslationView
+              verseIdx={index}
+              totalVerseCount={totalVerseCount}
+              surah={surah}
+              surahId={surahId}
+              initialVerses={initialVerses}
+              translationIds={translationIds}
+              translationInfos={translationInfos}
+            />
+          );
+        }}
         components={{
           List,
         }}
