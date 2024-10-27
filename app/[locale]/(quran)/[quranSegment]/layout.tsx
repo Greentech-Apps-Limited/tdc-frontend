@@ -29,13 +29,13 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
   unstable_setRequestLocale(params.locale);
   return (
-    <section className="flex h-full w-full">
-      <aside className="h-full overflow-hidden">
+    <section>
+      <aside className="fixed right-auto top-16 z-10 overflow-y-auto">
         <Suspense fallback={<QuranDetailsSidebarSkeleton />}>
           <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
         </Suspense>
       </aside>
-      <aside id="scroll-container" className="h-full w-full flex-1 overflow-y-scroll ">
+      <aside id="scroll-container" className="pl-[206px]">
         {children}
       </aside>
     </section>

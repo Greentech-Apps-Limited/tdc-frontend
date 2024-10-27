@@ -25,7 +25,7 @@ const VerseDisplayCard = ({ verse, surahId }: VerseDisplayProps) => {
   const translateNumber = useNumberTranslation();
   return (
     <div
-      className={`rounded-2xl border border-neutral-200 p-6 ${highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'}`}
+      className={`mt-6 rounded-2xl border border-neutral-200 p-6 ${highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'}`}
       data-verse={verse.verse_key}
       data-words={verse.words.length - 1}
     >

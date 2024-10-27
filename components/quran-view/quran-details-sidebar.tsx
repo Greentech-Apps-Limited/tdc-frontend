@@ -72,7 +72,7 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
   return (
     <section
       ref={sidebarRef}
-      className="h-full w-[206px] overflow-y-scroll border-r border-neutral-200 bg-neutral p-4"
+      className="h-[calc(100vh-4rem)] w-[206px] overflow-y-auto border-r border-neutral-200 bg-neutral p-4"
     >
       <div className="space-y-2">{references.map(renderReference)}</div>
     </section>

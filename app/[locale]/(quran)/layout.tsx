@@ -17,18 +17,22 @@ const HomeLayout = ({
       <Suspense>
         <SettingsChecker />
       </Suspense>
-      <section className="flex h-full w-full">
+      <section className="relative flex h-full w-full flex-row">
         <Suspense fallback={<SidebarSkeleton />}>
           <Sidebar />
         </Suspense>
-        <div className="flex h-full w-full flex-col">
-          <Suspense fallback={<HeaderSkeleton />}>
-            <Header />
-          </Suspense>
-          <div className="relative h-full w-full flex-1 overflow-hidden">
-            {children}
-            <div className="fixed bottom-0 right-0 z-10">
-              <AudioPlayerWrapper />
+        <div className=" min-h-full flex-1">
+          <div className="flex h-svh flex-col">
+            <div className="z-0 mx-auto flex w-full flex-1 flex-col overflow-auto sm:overflow-visible">
+              <div className="sticky top-0 z-20 flex shrink-0 flex-col">
+                <Suspense fallback={<HeaderSkeleton />}>
+                  <Header />
+                </Suspense>
+              </div>
+              {children}
+              <div className="fixed bottom-0 right-0 z-10">
+                <AudioPlayerWrapper />
+              </div>
             </div>
           </div>
         </div>

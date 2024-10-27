@@ -13,7 +13,7 @@ const SurahDisplayCard = <TSurah extends Surah>({
   children,
 }: SurahDisplayCardProps<TSurah>) => {
   return (
-    <div className="m-6 mb-48 space-y-6 rounded-4xl border border-neutral-300 bg-neutral p-6 shadow">
+    <div className="m-6  space-y-6 rounded-4xl border border-neutral-300 bg-neutral p-6 shadow">
       <h1 className="font-hidayatullah_demo text-3xl font-bold">{surah.transliteration}</h1>
       {children}
     </div>

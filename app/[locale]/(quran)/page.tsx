@@ -26,7 +26,7 @@ export default async function Home({ params: { locale } }: { params: { locale: s
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
 
   return (
-    <main className="mx-auto h-full max-w-8xl space-y-6 overflow-y-scroll p-6">
+    <main className="mx-auto h-full w-full max-w-8xl space-y-6 overflow-y-scroll p-6">
       <Suspense fallback={<BannerSkeleton />}>
         <Banner />
       </Suspense>

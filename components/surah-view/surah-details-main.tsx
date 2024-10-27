@@ -4,8 +4,8 @@ import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/transl
 import { SearchParamsType } from '@/lib/types/search-params-type';
 import { getVersesBySurah, getWbwVersesBySurah, mergeVersesWithWbw } from '@/lib/utils/verse-utils';
 import SurahDisplayCard from './surah-display-card';
-import VerseDisplayCard from './verse-display-card';
 import ReadingProgressTracker from './reading-progress-tracker';
+import VirtualizedSurahView from './virtualized-surah-view';
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -41,9 +41,7 @@ const SurahDetailsMain = async ({
   return (
     <ReadingProgressTracker verses={mergedVerses}>
       <SurahDisplayCard surah={surah}>
-        {mergedVerses.map(mergedVerse => (
-          <VerseDisplayCard key={mergedVerse.id} verse={mergedVerse} surahId={surahId} />
-        ))}
+        <VirtualizedSurahView verses={mergedVerses} surahId={surahId} />
       </SurahDisplayCard>
     </ReadingProgressTracker>
   );
