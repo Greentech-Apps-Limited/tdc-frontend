@@ -35,6 +35,7 @@ export interface SettingsActions {
     updateSettings: (newSettings: Partial<SettingsState>) => void;
     updateWbwTr: (wbwTr: string) => void;
     updateSelectedTranslation: (selectedTranslation: number[]) => void;
+    updateSelectedTafseer: (selectedTranslation: number[]) => void;
 }
 
 const useSettingsStore = create(
@@ -50,8 +51,8 @@ const useSettingsStore = create(
             showTranslation: true,
             readingMode: false,
             translationFontSize: 16,
-            selectedTranslation: [20],
-            selectedTafseer: [15],
+            selectedTranslation: [3],
+            selectedTafseer: [4],
             tafseerTab: 'en-ibn-kathir',
             arabicScript: 'uthmani',
             arabicFont: 'lateef',
@@ -70,6 +71,7 @@ const useSettingsStore = create(
             updateSettings: (newSettings) => set((state) => ({ ...state, ...newSettings })),
             updateWbwTr: (wbwTr) => set({ wbwTr }),
             updateSelectedTranslation: (selectedTranslation) => set({ selectedTranslation }),
+            updateSelectedTafseer: (selectedTafseer) => set({ selectedTafseer }),
         }),
         {
             name: 'settings-storage',

@@ -1,38 +1,25 @@
-import { Verse } from "./verses-type";
-export type VerseTranslation = {
-    id: number;
-    resource_id: number;
-    text: string;
-}
+import { QuranVerseDetail } from "./verses-type";
 
-export interface VerseWithTranslations extends Verse {
-    translations: VerseTranslation[];
-}
-
-export type SurahTranslationResponse = {
-    verses: VerseWithTranslations[];
-    pagination: {
-        per_page: number;
-        current_page: number;
-        next_page: number | null;
-        total_pages: number;
-        total_records: number;
-    };
-}
+export type VersesTranslationResponse = {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: QuranVerseDetail[];
+};
 
 
-export type TranslationInfo = {
+
+export interface TranslationItem {
     id: number;
     name: string;
     author_name: string;
-    slug: string | null;
-    language_name: string;
-    translated_name: {
-        name: string;
-        language_name: string;
-    };
-};
-
-export type TranslationInfosType = {
-    [id: number]: TranslationInfo;
-};
+    language: string;
+    short_info: string;
+    has_tafseer: boolean;
+}
+export interface TranslationResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: TranslationItem[];
+}

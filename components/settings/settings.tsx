@@ -6,8 +6,9 @@ import { SettingsIcon } from '@/icons';
 import ResourceSelection from './resource-selection';
 import ContentSettings from './content-settings';
 import FontSettings from './font-settings';
+import { TranslationItem } from '@/lib/types/surah-translation-type';
 
-const Settings = () => {
+const Settings = ({ translationsInfo }: { translationsInfo: TranslationItem[] }) => {
   const t = useTranslations('Settings');
 
   return (
@@ -21,7 +22,7 @@ const Settings = () => {
         </SheetHeader>
         <div className="h-full w-full space-y-6 overflow-y-scroll py-6 pb-16">
           <ContentSettings />
-          <ResourceSelection />
+          <ResourceSelection translationsInfo={translationsInfo} />
           <FontSettings />
         </div>
       </SheetContent>

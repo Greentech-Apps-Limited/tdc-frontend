@@ -1,31 +1,51 @@
-import { Word } from "./wbw-type";
+import { TranslationItem } from "./surah-translation-type";
 
-type Verse = {
+
+type QuranWord = {
     id: number;
+    no: number;
+    text_uthmani: string;
+    text_indopak: string;
+    translation?: string | null;
+    transliteration?: string | null;
+};
+
+type QuranVerse = {
+    id: number;
+    no: number;
+    chapter: number;
+    verse_key: string;
+    juz_number: number;
+    hizb_number: number;
+    rub_number: number;
+    ruku_number: number;
+    sajdah_number?: number | null;
+    page_number: number;
+    text_uthmani: string;
+    text_indopak: string;
+    words: QuranWord[];
+};
+
+type QuranChapterVerses = {
+    count: number;
+    next?: string | null;
+    previous?: string | null;
+    results: QuranVerse[];
+};
+
+type QuranVerseDetail = {
     verse_number: number;
     verse_key: string;
-    hizb_number: number;
-    rub_el_hizb_number: number;
-    ruku_number: number;
-    manzil_number: number;
-    sajdah_number: number | null;
-    text_uthmani: string;
-    page_number: number;
-    juz_number: number;
-}
+    text: string;
+    footnote: string;
+};
 
-type Pagination = {
-    per_page: number;
-    current_page: number;
-    next_page: number | null;
-    total_pages: number;
-    total_records: number;
-}
 
-type VersesResponse = {
-    verses: Verse[];
-    pagination: Pagination;
-}
-type MergedVerse = Verse & { words: Word[] };
+type MergedVerse = QuranVerse & {
+    combinedTranslations?: {
+        info?: TranslationItem;
+        text: string;
+    }[];
+};
 
-export type { Verse, Pagination, VersesResponse, MergedVerse };
+export type { MergedVerse, QuranChapterVerses, QuranVerse, QuranWord, QuranVerseDetail };

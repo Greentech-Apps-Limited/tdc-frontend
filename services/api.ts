@@ -1,0 +1,61 @@
+import { VersesTranslationResponse } from "@/lib/types/surah-translation-type";
+import { QuranChapterVerses } from "@/lib/types/verses-type";
+
+// services/api.ts
+const API_BASE_URL = "https://tdc-backend.greentechapps.com/api";
+
+export const fetcher = async <T>(url: string): Promise<T> => {
+    const response = await fetch(url, {
+        headers: {
+            'x-api-token': 'KHY3His3lV89Rky6',
+            'Content-Type': 'application/json',
+        },
+        next: { revalidate: 24 * 60 * 60 },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${url}`);
+    }
+
+    return response.json();
+};
+
+export const getQuranVerses = async (
+    chapterId: string,
+    languageCode: string = 'en'
+) => {
+    return fetcher<QuranChapterVerses>(
+        `${API_BASE_URL}/quran/verses/?chapter_id=${chapterId}&language_code=${languageCode}`
+    );
+};
+
+export const getVerseTranslations = async (
+    chapterId: string,
+    translationId: string
+) => {
+    return fetcher<VersesTranslationResponse>(
+        `${API_BASE_URL}/quran/translations/${translationId}/?chapter=${chapterId}`
+    );
+};
+
+export const fetchSurahData = async (
+    surahId: string,
+    translationIds: string[],
+    languageCode: string = 'en'
+) => {
+    try {
+        // Fetch verses and all translations in parallel
+        const [versesData, ...translationsData] = await Promise.all([
+            getQuranVerses(surahId, languageCode),
+            ...translationIds.map(id => getVerseTranslations(surahId, id))
+        ]);
+
+        return {
+            versesData,
+            translationsData
+        };
+    } catch (error) {
+        console.error('Error fetching surah data:', error);
+        throw new Error('Failed to fetch surah data');
+    }
+};
