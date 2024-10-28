@@ -1,6 +1,6 @@
-import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
+// import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
 import QuranDetailsWrapper from '@/components/quran-view/quran-details-wrapper';
-import SurahDetailsMain from '@/components/surah-view/surah-details-main';
+import SurahContentProvider from '@/components/surah-view/surah-content-provider';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { SearchParamsType } from '@/lib/types/search-params-type';
@@ -34,10 +34,9 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
     case 'surah':
       return (
         <QuranDetailsWrapper searchParams={searchParams}>
-          <SurahDetailsMain
+          <SurahContentProvider
             surahId={segmentId}
             surahs={surahs}
-            searchParams={searchParams}
             translationInfos={translationInfos}
           />
         </QuranDetailsWrapper>
@@ -47,14 +46,15 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
     case 'hizb':
     case 'ruku':
       return (
-        <QuranDetailsWrapper searchParams={searchParams}>
-          <QuranSegmentDetailsMain
-            params={{ quranSegment, segmentId }}
-            surahs={surahs}
-            searchParams={searchParams}
-            translationInfos={translationInfos}
-          />
-        </QuranDetailsWrapper>
+        // <QuranDetailsWrapper searchParams={searchParams}>
+        //   <QuranSegmentDetailsMain
+        //     params={{ quranSegment, segmentId }}
+        //     surahs={surahs}
+        //     searchParams={searchParams}
+        //     translationInfos={translationInfos}
+        //   />
+        // </QuranDetailsWrapper>
+        <div>Coming soon..</div>
       );
     default:
       return <div>Invalid Quran Segment</div>;

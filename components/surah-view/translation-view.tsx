@@ -13,6 +13,7 @@ type TranslationViewProps = {
   initialVerses: MergedVerse[];
   translationIds: string[];
   translationInfos: TranslationItem[];
+  setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
 const TranslationView = ({
   totalVerseCount,
@@ -22,6 +23,7 @@ const TranslationView = ({
   initialVerses,
   translationIds,
   translationInfos,
+  setApiPageToVersesMap,
 }: TranslationViewProps) => {
   const { verse, isLoading } = useDedupedFetchVerse({
     verseIdx,
@@ -30,7 +32,8 @@ const TranslationView = ({
     languageCode: 'en',
     translationInfos,
     initialVerses,
-    versesPerPage: 5,
+    versesPerPage: 20,
+    setApiPageToVersesMap,
   });
 
   if (isLoading || !verse) {

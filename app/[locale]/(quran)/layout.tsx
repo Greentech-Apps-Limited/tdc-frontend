@@ -1,6 +1,5 @@
 import AudioPlayerWrapper from '@/components/audio-player/audio-player-wrapper';
 import Header from '@/components/header';
-import { SettingsChecker } from '@/components/settings/settings-checker';
 import Sidebar from '@/components/sidebar';
 import HeaderSkeleton from '@/components/skeleton-loaders/header-skeleton';
 import { SidebarSkeleton } from '@/components/skeleton-loaders/sidebar-skeleton';
@@ -14,9 +13,6 @@ const HomeLayout = ({
   unstable_setRequestLocale(locale);
   return (
     <>
-      <Suspense>
-        <SettingsChecker />
-      </Suspense>
       <section className="relative flex h-full w-full flex-row">
         <Suspense fallback={<SidebarSkeleton />}>
           <Sidebar />
