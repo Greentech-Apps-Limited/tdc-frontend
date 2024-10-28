@@ -41,18 +41,24 @@ export const getVerseTranslations = async (
 export const fetchSurahData = async (
     surahId: string,
     translationIds: string[],
+    tafseerIds: string[],
     languageCode: string = 'en'
 ) => {
     try {
-        // Fetch verses and all translations in parallel
-        const [versesData, ...translationsData] = await Promise.all([
+        // Fetch verses, translations, and tafseer in parallel
+        const [versesData, ...translationsAndTafseerData] = await Promise.all([
             getQuranVerses(surahId, languageCode),
-            ...translationIds.map(id => getVerseTranslations(surahId, id))
+            ...translationIds.map(id => getVerseTranslations(surahId, id)),
+            ...tafseerIds.map(id => getVerseTranslations(surahId, id)) // Using the same API endpoint for tafseer
         ]);
+
+        const translationsData = translationsAndTafseerData.slice(0, translationIds.length);
+        const tafseerData = translationsAndTafseerData.slice(translationIds.length);
 
         return {
             versesData,
-            translationsData
+            translationsData,
+            tafseerData,
         };
     } catch (error) {
         console.error('Error fetching surah data:', error);

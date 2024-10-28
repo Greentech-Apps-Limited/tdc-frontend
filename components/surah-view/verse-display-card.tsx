@@ -28,7 +28,7 @@ const VerseDisplayCard = ({ verse, surahId, isLastVerse }: VerseDisplayProps) =>
     >
       <div className="flex items-center justify-between">
         <p className="text-lg">{translateNumber(verse.no)}</p>
-        <VerseDisplayOptions surahId={surahId} verseKey={verse.verse_key} />
+        <VerseDisplayOptions surahId={surahId} verseKey={verse.verse_key} verse={verse} />
       </div>
       <div className="text-right font-lateef" dir="rtl">
         <div className={`inline ${showByWords ? 'leading-[100px]' : 'leading-[60px]'}`}>

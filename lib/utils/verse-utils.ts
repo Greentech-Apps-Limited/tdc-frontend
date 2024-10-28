@@ -49,3 +49,13 @@ export const calculateWbwFontSize = (arabicFontSize: number): number => {
 export const generateVerseKeys = (surahId: number, totalVerses: number): string[] => {
     return Array.from({ length: totalVerses }, (_, index) => `${surahId}:${index + 1}`);
 };
+
+export const formatVerseNumber = (verseNumber?: string): string => {
+    if (!verseNumber) return '';
+
+    const num = parseInt(verseNumber, 10);
+    if (isNaN(num)) return '';
+    if (num < 10) return `0${num}`;
+    if (num < 100) return `${num}`.padStart(2, '0');
+    return `${num}`;
+};

@@ -30,7 +30,7 @@ const SurahDetailsMain = ({
 }: SurahDetailsMainProps) => {
   const { translations, wbw_tr } = useGetQueryParamOrSettingsValue();
   const [apiPageToVersesMap, setApiPageToVersesMap] = useState<Record<number, MergedVerse[]>>({});
-
+  const tafseerIds = ['4', '1'];
   console.log('translations', translations);
   useEffect(() => {
     setApiPageToVersesMap({});
@@ -44,13 +44,16 @@ const SurahDetailsMain = ({
   const verses = useMemo(() => Object.values(apiPageToVersesMap).flat(), [apiPageToVersesMap]);
 
   const swrKey = useMemo(
-    () => (surah ? ['surah-data', surahId, translationIds.join(','), wbw_tr] : null),
-    [surah, surahId, translationIds, wbw_tr]
+    () =>
+      surah
+        ? ['surah-data', surahId, translationIds.join(','), tafseerIds.join(','), wbw_tr]
+        : null,
+    [surah, surahId, translationIds, tafseerIds, wbw_tr]
   );
 
   const { data, isLoading } = useSWR(
     swrKey,
-    () => (surah ? fetchSurahData(surahId, translationIds, wbw_tr || 'en') : null),
+    () => (surah ? fetchSurahData(surahId, translationIds, tafseerIds, wbw_tr || 'en') : null),
     {
       revalidateOnReconnect: false,
       revalidateOnMount: true,
@@ -61,33 +64,41 @@ const SurahDetailsMain = ({
 
   useEffect(() => {
     if (data && (!apiPageToVersesMap[1]?.length || translations !== translationIds)) {
-      const { versesData, translationsData } = data;
-
-      const versesWithTranslations = versesData.results.map(verse => {
+      const { versesData, translationsData, tafseerData } = data;
+      const versesWithTranslationsAndTafseer = versesData.results.map(verse => {
         const verseTranslations = translationIds.map((id, index) => {
           const translation = translationsData[index]?.results.find(
             t => t.verse_number === verse.no
           );
           const translationInfo = translationInfos.find(t => t.id === Number(id));
-
           return {
             info: translationInfo,
             text: translation?.text || '',
           };
         });
 
+        const verseTafseer = tafseerIds.map((id, index) => {
+          const tafseer = tafseerData[index]?.results.find(t => t.verse_number === verse.no);
+          const tafseerInfo = translationInfos.find(t => t.id === Number(id));
+          return {
+            info: tafseerInfo,
+            text: tafseer?.text || '',
+          };
+        });
+
         return {
           ...verse,
           combinedTranslations: verseTranslations,
+          combinedTafseer: verseTafseer,
         };
       });
 
       setApiPageToVersesMap(prev => ({
         ...prev,
-        1: versesWithTranslations,
+        1: versesWithTranslationsAndTafseer,
       }));
     }
-  }, [data, translationIds, translationInfos, apiPageToVersesMap, translations]);
+  }, [data, translationIds, tafseerIds, translationInfos, apiPageToVersesMap, translations]);
 
   if (!surah) {
     return <div className="p-4 text-center">Surah with id {surahId} not found</div>;
@@ -97,6 +108,7 @@ const SurahDetailsMain = ({
     return <QuranDetailsSkeleton />;
   }
 
+  console.log('verses', verses);
   return (
     <ReadingProgressTracker verses={verses}>
       <VirtualizedSurahView

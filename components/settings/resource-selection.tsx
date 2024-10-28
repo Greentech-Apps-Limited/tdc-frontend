@@ -67,7 +67,7 @@ const ResourceSelection = ({ translationsInfo }: { translationsInfo: Translation
         forceSelection={true}
       />
       <SelectableAccordion
-        title={t('Tafsirs')}
+        title={t('tafsirs')}
         items={tafsir}
         isMultiple={true}
         selectedItems={selectedTafseer.map(String)}

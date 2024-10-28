@@ -1,7 +1,7 @@
 import { TranslationItem } from "@/lib/types/surah-translation-type";
 import { MergedVerse, QuranVerse, QuranVerseDetail } from "@/lib/types/verses-type";
 import { API_BASE_URL } from "@/services/api";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import useSWRImmutable from 'swr/immutable';
 
 interface UseDedupedFetchVerseProps {
@@ -33,15 +33,21 @@ const useDedupedFetchVerse = ({
     const idxInPage = verseIdx % versesPerPage;
     const shouldUseInitialData = pageNumber === 1;
 
-    // Combine both API calls into a single key
+    const tafseerIds = useMemo(
+        () => translationInfos
+            .filter(t => t.has_tafseer)
+            .map(t => t.id.toString()),
+        [translationInfos]
+    );
+
     const fetchKey = shouldUseInitialData
         ? null
-        : `verses-${chapterId}-${pageNumber}-${translationIds.join(',')}`;
+        : `verses-${chapterId}-${pageNumber}-${translationIds.join(',')}-${tafseerIds.join(',')}`;
 
     const { data: fetchedData } = useSWRImmutable(
         fetchKey,
         async () => {
-            const [versesResponse, ...translationsResponses] = await Promise.all([
+            const [versesResponse, ...translationsAndTafseerResponses] = await Promise.all([
                 fetch(
                     `${API_BASE_URL}/quran/verses/?chapter_id=${chapterId}&language_code=${languageCode}&limit=${versesPerPage}&offset=${(pageNumber - 1) * versesPerPage}`,
                     {
@@ -51,7 +57,20 @@ const useDedupedFetchVerse = ({
                         },
                     }
                 ).then(res => res.json()),
+
                 ...translationIds.map(id =>
+                    fetch(
+                        `${API_BASE_URL}/quran/translations/${id}/?chapter=${chapterId}&limit=${versesPerPage}&offset=${(pageNumber - 1) * versesPerPage}`,
+                        {
+                            headers: {
+                                'x-api-token': 'KHY3His3lV89Rky6',
+                                'Content-Type': 'application/json',
+                            },
+                        }
+                    ).then(res => res.json())
+                ),
+
+                ...tafseerIds.map(id =>
                     fetch(
                         `${API_BASE_URL}/quran/translations/${id}/?chapter=${chapterId}&limit=${versesPerPage}&offset=${(pageNumber - 1) * versesPerPage}`,
                         {
@@ -64,7 +83,12 @@ const useDedupedFetchVerse = ({
                 ),
             ]);
 
+
+            const translationsResponses = translationsAndTafseerResponses.slice(0, translationIds.length);
+            const tafseerResponses = translationsAndTafseerResponses.slice(translationIds.length);
+
             const mergedVerses = versesResponse.results.map((verse: QuranVerse) => {
+                // Process translations
                 const verseTranslations = translationIds.map((id, index) => {
                     const translation = translationsResponses[index]?.results.find(
                         (t: QuranVerseDetail) => t.verse_number === verse.no
@@ -76,9 +100,22 @@ const useDedupedFetchVerse = ({
                     };
                 });
 
+                // Process tafseer
+                const verseTafseer = tafseerIds.map((id, index) => {
+                    const tafseer = tafseerResponses[index]?.results.find(
+                        (t: QuranVerseDetail) => t.verse_number === verse.no
+                    );
+                    const tafseerInfo = translationInfos.find(t => t.id === Number(id));
+                    return {
+                        info: tafseerInfo,
+                        text: tafseer?.text || '',
+                    };
+                });
+
                 return {
                     ...verse,
                     combinedTranslations: verseTranslations,
+                    combinedTafseer: verseTafseer,
                 };
             });
 
@@ -87,7 +124,6 @@ const useDedupedFetchVerse = ({
     );
 
     const verses = shouldUseInitialData ? initialVerses : fetchedData;
-
 
     useEffect(() => {
         if (verses) {

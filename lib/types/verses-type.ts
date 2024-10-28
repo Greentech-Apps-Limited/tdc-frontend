@@ -46,6 +46,10 @@ type MergedVerse = QuranVerse & {
         info?: TranslationItem;
         text: string;
     }[];
+    combinedTafseer?: {
+        info?: TranslationItem;
+        text: string;
+    }[];
 };
 
 export type { MergedVerse, QuranChapterVerses, QuranVerse, QuranWord, QuranVerseDetail };
