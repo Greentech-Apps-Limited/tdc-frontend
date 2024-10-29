@@ -3,18 +3,19 @@ import { VersesTranslationResponse } from "@/lib/types/surah-translation-type";
 import { QuranChapterVerses } from "@/lib/types/verses-type";
 import { createQueryString, createSegmentParams } from "@/lib/utils/api-utils";
 
-export const API_BASE_URL = "https://tdc-backend.greentechapps.com/api";
-
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+const API_TOKEN = process.env.NEXT_PUBLIC_API_TOKEN;
 export const fetcher = async <T>(url: string): Promise<T> => {
-    const response = await fetch(url, {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
         headers: {
-            'x-api-token': 'KHY3His3lV89Rky6',
+            'x-api-token': `${API_TOKEN}`,
             'Content-Type': 'application/json',
         },
         next: { revalidate: 24 * 60 * 60 },
     });
 
     if (!response.ok) {
+        console.log("Failed to fetch data from ", `${API_BASE_URL}${url}`);
         throw new Error(`Failed to fetch data from ${url}`);
     }
 
@@ -33,7 +34,7 @@ export const getQuranVerses = async (
     };
 
     return fetcher<QuranChapterVerses>(
-        `${API_BASE_URL}/quran/verses/?${createQueryString(params)}`
+        `/quran/verses/?${createQueryString(params)}`
     );
 };
 
@@ -48,7 +49,7 @@ export const getVerseTranslations = async (
     };
 
     return fetcher<VersesTranslationResponse>(
-        `${API_BASE_URL}/quran/translations/${translationId}/?${createQueryString(params)}`
+        `/quran/translations/${translationId}/?${createQueryString(params)}`
     );
 };
 

@@ -4,24 +4,22 @@ import { generateVerseKeys } from '@/lib/utils/verse-utils';
 import { Suspense } from 'react';
 import SurahDetailsMain from './surah-details-main';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
-import { QuranVerse, SegmentVerses, SurahPosition } from '@/lib/types/verses-type';
+import {
+  QuranChapterVerses,
+  QuranVerse,
+  SegmentVerses,
+  SurahPosition,
+} from '@/lib/types/verses-type';
+import { fetcher } from '@/services/api';
 
 export const fetchSegmentVerses = async (
   segmentType: 'juz' | 'page' | 'hizb' | 'ruku',
   segmentNumber: string | number,
   surahs: Surah[]
 ): Promise<SegmentVerses> => {
-  const response = await fetch(
-    `https://tdc-backend.greentechapps.com/api/quran/verses/?${segmentType}_number=${segmentNumber}&limit=999`,
-    {
-      headers: {
-        'x-api-token': 'KHY3His3lV89Rky6',
-        'Content-Type': 'application/json',
-      },
-    }
+  const data = await fetcher<QuranChapterVerses>(
+    `/quran/verses/?${segmentType}_number=${segmentNumber}&limit=999`
   );
-
-  const data = await response.json();
 
   const verses: string[] = [];
   const surahPositions: SurahPosition[] = [];

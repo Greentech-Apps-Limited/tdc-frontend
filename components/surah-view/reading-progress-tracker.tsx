@@ -1,7 +1,6 @@
 'use client';
 
 import useReadingTime from '@/hooks/use-reading-time';
-import { MergedVerse } from '@/lib/types/verses-type';
 import useLastReadStore from '@/stores/last-read-store';
 import useReadingProgressStore from '@/stores/reading-progress-store';
 import { useParams } from 'next/navigation';

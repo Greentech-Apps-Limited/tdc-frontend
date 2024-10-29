@@ -1,4 +1,3 @@
-// import QuranSegmentDetailsMain from '@/components/quran-segment-view/quran-segment-details-main';
 import QuranDetailsWrapper from '@/components/quran-view/quran-details-wrapper';
 import SurahContentProvider from '@/components/surah-view/surah-content-provider';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
@@ -9,9 +8,7 @@ import { fetcher } from '@/services/api';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
 const fetchTranslations = async (): Promise<TranslationItem[]> => {
-  const data = await fetcher<TranslationResponse>(
-    'https://tdc-backend.greentechapps.com/api/quran/translations/'
-  );
+  const data = await fetcher<TranslationResponse>('/quran/translations/');
   return data.results;
 };
 
@@ -41,7 +38,6 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
           <SurahContentProvider
             quranSegment={quranSegment}
             segmentId={segmentId}
-            surahId={segmentId}
             surahs={surahs}
             translationInfos={translationInfos}
           />

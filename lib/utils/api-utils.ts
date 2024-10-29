@@ -1,4 +1,3 @@
-import { API_BASE_URL } from "@/services/api";
 import { QuranSegment, SegmentParams } from "../types/quran-segment-type";
 
 
@@ -70,7 +69,7 @@ export const createApiUrl = (
         Object.entries(filteredParams).map(([key, value]) => [key, value.toString()])
     );
 
-    return `${API_BASE_URL}${normalizedEndpoint}?${searchParams.toString()}`;
+    return `${normalizedEndpoint}?${searchParams.toString()}`;
 };
 
 

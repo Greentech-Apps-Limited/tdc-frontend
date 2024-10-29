@@ -9,8 +9,8 @@ export const fetchWbwAndTranslations = async (): Promise<{
   translations: TranslationItem[];
 }> => {
   const [wbwResponse, translationsResponse] = await Promise.all([
-    fetcher<WbwResponse>('https://tdc-backend.greentechapps.com/api/quran/wbws/'),
-    fetcher<TranslationResponse>('https://tdc-backend.greentechapps.com/api/quran/translations/'),
+    fetcher<WbwResponse>('/quran/wbws/'),
+    fetcher<TranslationResponse>('/quran/translations/'),
   ]);
 
   return {
