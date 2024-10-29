@@ -3,7 +3,6 @@
 import { SidebarHideIcon, SidebarShowIcon } from '@/icons';
 import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
 import { Link, usePathname } from '@/i18n/routing';
-import { useSearchParams } from 'next/navigation';
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
@@ -18,7 +17,6 @@ const shouldSidebarBeMinimized = (pathname: string): boolean => {
 const Sidebar = () => {
   const t = useTranslations('sidebar');
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isMinimized, setIsMinimized] = useState(shouldSidebarBeMinimized(pathname));
 
   useEffect(() => {
@@ -42,20 +40,13 @@ const Sidebar = () => {
     [pathname]
   );
 
-  const getFilteredSearchParams = useCallback(() => {
-    const params = new URLSearchParams(searchParams);
-    params.delete('verse');
-    return params.toString();
-  }, [searchParams]);
-
   const navItems = useMemo(
     () =>
       SIDE_NAV_ITEMS.map(item => {
         const { icon, path, title, activeIcon } = item;
         const isActive = isPathActive(path);
-        const filteredParams = getFilteredSearchParams();
 
-        const href = filteredParams && path === '/' ? `${path}?${filteredParams}` : `${path}`;
+        const href = `${path}`;
 
         return (
           <Link key={path} href={href} aria-label={title}>
@@ -80,7 +71,7 @@ const Sidebar = () => {
           </Link>
         );
       }),
-    [isMinimized, isPathActive, getFilteredSearchParams, t]
+    [isMinimized, isPathActive, t]
   );
 
   const sidebarContent = (

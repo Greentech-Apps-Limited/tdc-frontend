@@ -1,8 +1,6 @@
-import QuranDetailsWrapper from '@/components/quran-view/quran-details-wrapper';
 import SurahContentProvider from '@/components/surah-view/surah-content-provider';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
-import { SearchParamsType } from '@/lib/types/search-params-type';
 import { TranslationItem, TranslationResponse } from '@/lib/types/surah-translation-type';
 import { fetcher } from '@/services/api';
 import { unstable_setRequestLocale } from 'next-intl/server';
@@ -18,10 +16,9 @@ type QuranSegmentDetailsProps = {
     segmentId: string;
     locale: string;
   };
-  searchParams: SearchParamsType;
 };
 
-const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetailsProps) => {
+const QuranSegmentDetails = async ({ params }: QuranSegmentDetailsProps) => {
   unstable_setRequestLocale(params.locale);
   const { quranSegment, segmentId } = params;
   const surahs = SURAH_EN;
@@ -34,14 +31,12 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
     case 'hizb':
     case 'ruku':
       return (
-        <QuranDetailsWrapper searchParams={searchParams}>
-          <SurahContentProvider
-            quranSegment={quranSegment}
-            segmentId={segmentId}
-            surahs={surahs}
-            translationInfos={translationInfos}
-          />
-        </QuranDetailsWrapper>
+        <SurahContentProvider
+          quranSegment={quranSegment}
+          segmentId={segmentId}
+          surahs={surahs}
+          translationInfos={translationInfos}
+        />
       );
     default:
       return <div>Invalid Quran Segment</div>;

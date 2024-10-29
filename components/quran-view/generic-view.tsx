@@ -3,7 +3,6 @@
 import { QuranMeta, Reference } from '@/lib/types/quran-meta-types';
 import { Link } from '@/i18n/routing';
 import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
-import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
 
@@ -18,27 +17,12 @@ const GenericView = ({ quranMeta, type }: GenericViewProps) => {
   const t = useTranslations('Views');
   const translateNumber = useNumberTranslation();
   const references = getReferences(quranMeta, type);
-  const searchParams = useSearchParams();
-
-  const getFilteredSearchParams = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete('verse');
-    return params.toString();
-  };
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {references.map((reference: Reference) => {
-        const filteredParams = getFilteredSearchParams();
         return (
-          <Link
-            key={reference.id}
-            href={
-              filteredParams
-                ? `/${type}/${reference.id}?${filteredParams}`
-                : `/${type}/${reference.id}`
-            }
-          >
+          <Link key={reference.id} href={`/${type}/${reference.id}`}>
             <ReferenceCard
               reference={reference}
               title={getTitle(type, reference.id, t, translateNumber)}

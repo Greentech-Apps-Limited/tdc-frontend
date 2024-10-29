@@ -20,18 +20,15 @@ type ContentDisplayProps = {
 
 const ContentDisplay: React.FC<ContentDisplayProps> = ({ content }) => {
   const processContent = (text: string) => {
-    // First preserve HTML tags
     const preservedTags: string[] = [];
     let processedContent = text.replace(/<[^>]+>/g, match => {
       preservedTags.push(match);
       return `###HTML${preservedTags.length - 1}###`;
     });
 
-    // Process double newlines to find text blocks
-    processedContent = processedContent.replace(/\n\n([^]*?)(?=\n\n|$)/g, (match, textBlock) => {
+    processedContent = processedContent.replace(/\n\n([^]*?)(?=\n\n|$)/g, (_, textBlock) => {
       if (!textBlock.trim()) return '';
 
-      // Improved Arabic text detection - requires substantial Arabic content
       const arabicCharCount = (textBlock.match(/[\u0600-\u06FF]/g) || []).length;
       const totalLength = textBlock.trim().length;
       const isArabic = arabicCharCount > 10 || arabicCharCount / totalLength > 0.3;
@@ -39,10 +36,8 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ content }) => {
       return `\n\n<span class="${isArabic ? 'arabic-text' : 'non-arabic-text'}">${textBlock}</span>\n\n`;
     });
 
-    // Replace single newlines not between blocks with br
     processedContent = processedContent.replace(/(?<!\n)\n(?!\n)/g, '<br />');
 
-    // Restore HTML tags
     processedContent = processedContent.replace(/###HTML(\d+)###/g, (_, index) => {
       return preservedTags[parseInt(index)] || '';
     });
@@ -84,12 +79,12 @@ const TafsirModal = ({ surahId, verseKey, verse }: TafsirModalProps) => {
               </p>
             )}
             <div>
-              {verse.combinedTafseer?.map((tafseer, index) => {
+              {verse.combinedTafseer?.map(tafseer => {
                 return (
-                  <>
+                  <div key={tafseer.info?.author_name}>
                     <p className="text-xs text-neutral-500">{tafseer.info?.author_name}</p>
-                    <ContentDisplay key={index} content={tafseer.text} />
-                  </>
+                    <ContentDisplay content={tafseer.text} />
+                  </div>
                 );
               })}
             </div>
