@@ -7,8 +7,15 @@ import ResourceSelection from './resource-selection';
 import ContentSettings from './content-settings';
 import FontSettings from './font-settings';
 import { TranslationItem } from '@/lib/types/surah-translation-type';
+import { WbwLanguage } from '@/lib/types/wbw-types';
 
-const Settings = ({ translationsInfo }: { translationsInfo: TranslationItem[] }) => {
+const Settings = ({
+  translationsInfo,
+  wbwLanguages,
+}: {
+  translationsInfo: TranslationItem[];
+  wbwLanguages: WbwLanguage[];
+}) => {
   const t = useTranslations('Settings');
 
   return (
@@ -22,7 +29,7 @@ const Settings = ({ translationsInfo }: { translationsInfo: TranslationItem[] })
         </SheetHeader>
         <div className="h-full w-full space-y-6 overflow-y-scroll py-6 pb-16">
           <ContentSettings />
-          <ResourceSelection translationsInfo={translationsInfo} />
+          <ResourceSelection translationsInfo={translationsInfo} wbwLanguages={wbwLanguages} />
           <FontSettings />
         </div>
       </SheetContent>

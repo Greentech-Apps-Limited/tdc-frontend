@@ -1,134 +1,144 @@
-import { TranslationItem } from "@/lib/types/surah-translation-type";
-import { MergedVerse, QuranVerse, QuranVerseDetail } from "@/lib/types/verses-type";
-import { API_BASE_URL } from "@/services/api";
-import { useEffect, useMemo } from "react";
+import { TranslationItem, VersesTranslationResponse } from "@/lib/types/surah-translation-type";
+import { MergedVerse, QuranVerse, QuranVerseDetail, QuranChapterVerses } from "@/lib/types/verses-type";
+import { API_BASE_URL, fetcher } from "@/services/api";
+import { useEffect, useMemo, useCallback, useRef } from "react";
 import useSWRImmutable from 'swr/immutable';
 
 interface UseDedupedFetchVerseProps {
     verseIdx: number;
     chapterId: string;
     translationIds: string[];
-    languageCode: string;
-    setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>
+    setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
     translationInfos: TranslationItem[];
     initialVerses: MergedVerse[];
-    versesPerPage: number;
+    versesPerPage?: number;
+    wbwTr: string
+    tafseerIds: string[]
 }
 
-const getPageNumberFromIndexAndPerPage = (index: number, perPage: number): number => {
-    return Math.ceil((index + 1) / perPage);
+const getPageNumberFromIndexAndPerPage = (index: number, perPage: number): number =>
+    Math.ceil((index + 1) / perPage);
+
+const createRequestKey = (
+    chapterId: string,
+    pageNumber: number,
+    translationIds: string[],
+    tafseerIds: string[],
+    wbwTr: string
+): string =>
+    `verses-${chapterId}-${pageNumber}-${translationIds.join(',')}-${tafseerIds.join(',')}-${wbwTr}`;
+
+const createApiUrl = (
+    endpoint: string,
+    params: Record<string, string | number>
+): string => {
+    const normalizedEndpoint = endpoint.endsWith('/')
+        ? endpoint
+        : `${endpoint}/`;
+
+    const searchParams = new URLSearchParams(
+        Object.entries(params).map(([key, value]) => [key, value.toString()])
+    );
+    return `${API_BASE_URL}${normalizedEndpoint}?${searchParams.toString()}`;
 };
 
 const useDedupedFetchVerse = ({
     verseIdx,
     chapterId,
     translationIds,
-    languageCode,
     setApiPageToVersesMap,
     translationInfos,
     initialVerses,
     versesPerPage = 20,
+    wbwTr,
+    tafseerIds,
 }: UseDedupedFetchVerseProps) => {
+    const prevPageRef = useRef<number>();
+
     const pageNumber = getPageNumberFromIndexAndPerPage(verseIdx, versesPerPage);
     const idxInPage = verseIdx % versesPerPage;
     const shouldUseInitialData = pageNumber === 1;
 
-    const tafseerIds = useMemo(
-        () => translationInfos
-            .filter(t => t.has_tafseer)
-            .map(t => t.id.toString()),
-        [translationInfos]
-    );
+    const mergeVerseWithTranslations = useCallback((
+        verse: QuranVerse,
+        translationsResponses: VersesTranslationResponse[],
+        tafseerResponses: VersesTranslationResponse[]
+    ): MergedVerse => {
+        const verseTranslations = translationIds.map((id, index) => ({
+            info: translationInfos.find(t => t.id === Number(id)),
+            text: translationsResponses[index]?.results.find(
+                (t: QuranVerseDetail) => t.verse_number === verse.no
+            )?.text || '',
+        }));
 
-    const fetchKey = shouldUseInitialData
-        ? null
-        : `verses-${chapterId}-${pageNumber}-${translationIds.join(',')}-${tafseerIds.join(',')}`;
+        const verseTafseer = tafseerIds.map((id, index) => ({
+            info: translationInfos.find(t => t.id === Number(id)),
+            text: tafseerResponses[index]?.results.find(
+                (t: QuranVerseDetail) => t.verse_number === verse.no
+            )?.text || '',
+        }));
 
-    const { data: fetchedData } = useSWRImmutable(
-        fetchKey,
-        async () => {
+        return {
+            ...verse,
+            combinedTranslations: verseTranslations,
+            combinedTafseer: verseTafseer,
+        };
+    }, [translationIds, tafseerIds, translationInfos]);
+
+    const fetchVerseData = useCallback(async (): Promise<MergedVerse[]> => {
+        // Skip fetch if we're already on this page
+        if (prevPageRef.current === pageNumber) {
+            return [];
+        }
+        prevPageRef.current = pageNumber;
+
+        const offset = (pageNumber - 1) * versesPerPage;
+        const baseParams = {
+            chapter_id: chapterId,
+            limit: versesPerPage,
+            offset,
+        };
+
+        try {
             const [versesResponse, ...translationsAndTafseerResponses] = await Promise.all([
-                fetch(
-                    `${API_BASE_URL}/quran/verses/?chapter_id=${chapterId}&language_code=${languageCode}&limit=${versesPerPage}&offset=${(pageNumber - 1) * versesPerPage}`,
-                    {
-                        headers: {
-                            'x-api-token': 'KHY3His3lV89Rky6',
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                ).then(res => res.json()),
-
-                ...translationIds.map(id =>
-                    fetch(
-                        `${API_BASE_URL}/quran/translations/${id}/?chapter=${chapterId}&limit=${versesPerPage}&offset=${(pageNumber - 1) * versesPerPage}`,
-                        {
-                            headers: {
-                                'x-api-token': 'KHY3His3lV89Rky6',
-                                'Content-Type': 'application/json',
-                            },
-                        }
-                    ).then(res => res.json())
-                ),
-
-                ...tafseerIds.map(id =>
-                    fetch(
-                        `${API_BASE_URL}/quran/translations/${id}/?chapter=${chapterId}&limit=${versesPerPage}&offset=${(pageNumber - 1) * versesPerPage}`,
-                        {
-                            headers: {
-                                'x-api-token': 'KHY3His3lV89Rky6',
-                                'Content-Type': 'application/json',
-                            },
-                        }
-                    ).then(res => res.json())
+                fetcher<QuranChapterVerses>(createApiUrl('/quran/verses/', {
+                    ...baseParams,
+                    wbw_language: wbwTr
+                })),
+                ...[...translationIds, ...tafseerIds].map(id =>
+                    fetcher<VersesTranslationResponse>(createApiUrl('/quran/translations/' + id, baseParams))
                 ),
             ]);
-
 
             const translationsResponses = translationsAndTafseerResponses.slice(0, translationIds.length);
             const tafseerResponses = translationsAndTafseerResponses.slice(translationIds.length);
 
-            const mergedVerses = versesResponse.results.map((verse: QuranVerse) => {
-                // Process translations
-                const verseTranslations = translationIds.map((id, index) => {
-                    const translation = translationsResponses[index]?.results.find(
-                        (t: QuranVerseDetail) => t.verse_number === verse.no
-                    );
-                    const translationInfo = translationInfos.find(t => t.id === Number(id));
-                    return {
-                        info: translationInfo,
-                        text: translation?.text || '',
-                    };
-                });
-
-                // Process tafseer
-                const verseTafseer = tafseerIds.map((id, index) => {
-                    const tafseer = tafseerResponses[index]?.results.find(
-                        (t: QuranVerseDetail) => t.verse_number === verse.no
-                    );
-                    const tafseerInfo = translationInfos.find(t => t.id === Number(id));
-                    return {
-                        info: tafseerInfo,
-                        text: tafseer?.text || '',
-                    };
-                });
-
-                return {
-                    ...verse,
-                    combinedTranslations: verseTranslations,
-                    combinedTafseer: verseTafseer,
-                };
-            });
-
-            return mergedVerses;
+            return versesResponse.results.map(verse =>
+                mergeVerseWithTranslations(verse, translationsResponses, tafseerResponses)
+            );
+        } catch (error) {
+            console.error('Error fetching verse data:', error);
+            throw error;
         }
+    }, [pageNumber, versesPerPage, chapterId, wbwTr, translationIds, tafseerIds, mergeVerseWithTranslations]);
+
+    const fetchKey = shouldUseInitialData
+        ? null
+        : createRequestKey(chapterId, pageNumber, translationIds, tafseerIds, wbwTr);
+
+    const { data: fetchedData, error } = useSWRImmutable(
+        fetchKey,
+        fetchVerseData
     );
 
     const verses = shouldUseInitialData ? initialVerses : fetchedData;
 
     useEffect(() => {
         if (verses) {
-            setApiPageToVersesMap((prev) => {
-                if (prev[pageNumber]) return prev;
+            setApiPageToVersesMap(prev => {
+                if (prev[pageNumber] && prev[pageNumber].length > 0) {
+                    return prev;
+                }
                 return {
                     ...prev,
                     [pageNumber]: verses,
@@ -137,11 +147,13 @@ const useDedupedFetchVerse = ({
         }
     }, [verses, pageNumber, setApiPageToVersesMap]);
 
-    const verse = verses?.[idxInPage];
+    const currentVerse = useMemo(() => verses?.[idxInPage], [verses, idxInPage]);
 
     return {
-        verse,
+        verse: currentVerse,
         isLoading: fetchKey !== null && !verses,
+        error,
+        pageNumber,
     };
 };
 

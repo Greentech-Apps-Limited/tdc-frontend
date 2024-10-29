@@ -25,7 +25,7 @@ export const getQuranVerses = async (
     languageCode: string = 'en'
 ) => {
     return fetcher<QuranChapterVerses>(
-        `${API_BASE_URL}/quran/verses/?chapter_id=${chapterId}&language_code=${languageCode}`
+        `${API_BASE_URL}/quran/verses/?chapter_id=${chapterId}&wbw_language=${languageCode}`
     );
 };
 
@@ -34,7 +34,7 @@ export const getVerseTranslations = async (
     translationId: string
 ) => {
     return fetcher<VersesTranslationResponse>(
-        `${API_BASE_URL}/quran/translations/${translationId}/?chapter=${chapterId}`
+        `${API_BASE_URL}/quran/translations/${translationId}/?chapter_id=${chapterId}`
     );
 };
 

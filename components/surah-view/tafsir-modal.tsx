@@ -1,13 +1,8 @@
+import React from 'react';
+import DOMPurify from 'dompurify';
 import { GraduationHatIcon } from '@/icons';
 import { Button } from '../ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { MergedVerse } from '@/lib/types/verses-type';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { formatVerseNumber } from '@/lib/utils/verse-utils';
@@ -18,11 +13,56 @@ type TafsirModalProps = {
   verseKey: string;
   verse: MergedVerse;
 };
+
+type ContentDisplayProps = {
+  content: string;
+};
+
+const ContentDisplay: React.FC<ContentDisplayProps> = ({ content }) => {
+  const processContent = (text: string) => {
+    // First preserve HTML tags
+    const preservedTags: string[] = [];
+    let processedContent = text.replace(/<[^>]+>/g, match => {
+      preservedTags.push(match);
+      return `###HTML${preservedTags.length - 1}###`;
+    });
+
+    // Process double newlines to find text blocks
+    processedContent = processedContent.replace(/\n\n([^]*?)(?=\n\n|$)/g, (match, textBlock) => {
+      if (!textBlock.trim()) return '';
+
+      // Improved Arabic text detection - requires substantial Arabic content
+      const arabicCharCount = (textBlock.match(/[\u0600-\u06FF]/g) || []).length;
+      const totalLength = textBlock.trim().length;
+      const isArabic = arabicCharCount > 10 || arabicCharCount / totalLength > 0.3;
+
+      return `\n\n<span class="${isArabic ? 'arabic-text' : 'non-arabic-text'}">${textBlock}</span>\n\n`;
+    });
+
+    // Replace single newlines not between blocks with br
+    processedContent = processedContent.replace(/(?<!\n)\n(?!\n)/g, '<br />');
+
+    // Restore HTML tags
+    processedContent = processedContent.replace(/###HTML(\d+)###/g, (_, index) => {
+      return preservedTags[parseInt(index)] || '';
+    });
+
+    return processedContent.trim();
+  };
+
+  const formattedContent = processContent(content);
+
+  const sanitizedContent = DOMPurify.sanitize(formattedContent, {
+    ALLOWED_TAGS: ['span', 'br', 'h2', 'h3', 'b'],
+    ALLOWED_ATTR: ['class'],
+  });
+
+  return <div className="content-display" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
+};
 const TafsirModal = ({ surahId, verseKey, verse }: TafsirModalProps) => {
   const surah = SURAH_EN.find(s => s.id === Number(surahId));
   const surahName = surah ? surah.transliteration : 'Unknown Surah';
   const verseNumber = formatVerseNumber(verseKey.split(':')[1]);
-
   const title = `${surahName}${verseNumber ? ` : ${verseNumber}` : ''}`;
 
   return (
@@ -37,40 +77,22 @@ const TafsirModal = ({ surahId, verseKey, verse }: TafsirModalProps) => {
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="h-[calc(90vh-100px)] w-full rounded-md border p-4 sm:p-6">
-          <div className="space-y-6 text-base sm:text-lg">
-            <p className="font-arabic text-right text-4xl sm:text-5xl lg:text-6xl" dir="rtl">
-              مَالِكِ يَوْمِ الدِّينِ
-            </p>
-            <p className="text-muted-foreground text-xl sm:text-2xl">Maaliki yawmid deen</p>
-            <h3 className="text-xl font-semibold sm:text-2xl">English - Saheeh International</h3>
-            <p className="text-lg sm:text-xl">Sovereign of the Day of Recompense.</p>
-            <h3 className="text-xl font-semibold sm:text-2xl">English - Tafsir Ibn Kathir</h3>
-            <p className="text-lg sm:text-xl">Indicating Sovereignty on the Day of Judgment</p>
-            <p>
-              Allah mentioned His sovereignty of the Day of Resurrection, but this does not negate
-              His sovereignty over all other things. For Allah mentioned that He is the Lord of
-              existence, including this earthly life and the Hereafter. Allah only mentioned the Day
-              of Recompense here because on that Day, no one except Him will be able to claim
-              ownership of anything whatsoever. On that Day, no one will be allowed to speak without
-              His permission. Similarly, Allah said,
-            </p>
-            <p>
-              (The Day that Ar-Ruh [Jibril (Gabriel) or another angel] and the angels will stand
-              forth in rows, they will not speak except him whom the Most Gracious (Allah) allows,
-              and he will speak what is right.) (78:38),
-            </p>
-            <p>
-              (And all voices will be humbled for the Most Gracious (Allah), and nothing shall you
-              hear but the low voice of their footsteps.)(20:108), and,
-            </p>
-            <p>
-              (On the Day when it comes, no person shall speak except by His (Allah's) leave. Some
-              among them will be wretched and (others) blessed) (11:105).
-            </p>
-            <p>
-              Ad-Dahhak said that Ibn `Abbas commented, "Allah says, `On that Day, no one owns
-              anything that they used to own in the world.'"
-            </p>
+          <div className="space-y-6">
+            {verse.text_uthmani && (
+              <p className="font-arabic text-right text-xl sm:text-5xl lg:text-2xl" dir="rtl">
+                {verse.text_uthmani}
+              </p>
+            )}
+            <div>
+              {verse.combinedTafseer?.map((tafseer, index) => {
+                return (
+                  <>
+                    <p className="text-xs text-neutral-500">{tafseer.info?.author_name}</p>
+                    <ContentDisplay key={index} content={tafseer.text} />
+                  </>
+                );
+              })}
+            </div>
           </div>
         </ScrollArea>
       </DialogContent>

@@ -2,13 +2,15 @@ import SelectableAccordion from '../ui/selectable-accordion';
 import { TranslationItem } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import { useTranslations } from 'next-intl';
+import { WbwLanguage } from '@/lib/types/wbw-types';
 
-interface WBWTranslationLang {
-  id: string;
-  label: string;
-}
-
-const ResourceSelection = ({ translationsInfo }: { translationsInfo: TranslationItem[] }) => {
+const ResourceSelection = ({
+  translationsInfo,
+  wbwLanguages,
+}: {
+  translationsInfo: TranslationItem[];
+  wbwLanguages: WbwLanguage[];
+}) => {
   const tafsir = translationsInfo.filter(item => item.has_tafseer);
   const translationItems = translationsInfo.filter(item => !item.has_tafseer);
 
@@ -29,12 +31,6 @@ const ResourceSelection = ({ translationsInfo }: { translationsInfo: Translation
     updateSelectedTafseer: state.updateSelectedTafseer,
   }));
 
-  // FIXME: Hardcoded for now needs to be refactored
-  const wbwTranslationItems: WBWTranslationLang[] = [
-    { id: 'en', label: 'English' },
-    { id: 'id', label: 'Indonesia' },
-  ];
-
   const handleTranslationChange = (newSelection: string[]) => {
     const newTranslations = newSelection.map(Number);
     updateSelectedTranslation(newTranslations);
@@ -46,13 +42,9 @@ const ResourceSelection = ({ translationsInfo }: { translationsInfo: Translation
   };
 
   const handleWBWChange = (newSelection: string[]) => {
-    const newWbwTr = newSelection[0] || wbwTranslationItems[0]?.id || 'en';
+    const newWbwTr = newSelection[0] || wbwLanguages[0]?.code || 'en';
     updateWbwTr(newWbwTr);
   };
-
-  if (wbwTranslationItems.length === 0) {
-    wbwTranslationItems.push({ id: 'en', label: 'English' });
-  }
 
   return (
     <div className="space-y-2">
@@ -78,12 +70,12 @@ const ResourceSelection = ({ translationsInfo }: { translationsInfo: Translation
       />
       <SelectableAccordion
         title={t('wordByWord')}
-        items={wbwTranslationItems}
+        items={wbwLanguages}
         isMultiple={false}
         selectedItems={[wbwTr]}
         onSelectionChange={handleWBWChange}
-        idKey="id"
-        labelKey="label"
+        idKey="code"
+        labelKey="name"
         forceSelection={true}
       />
     </div>

@@ -13,6 +13,8 @@ type TranslationViewProps = {
   initialVerses: MergedVerse[];
   translationIds: string[];
   translationInfos: TranslationItem[];
+  wbwTr: string;
+  tafseerIds: string[];
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
 const TranslationView = ({
@@ -24,16 +26,19 @@ const TranslationView = ({
   translationIds,
   translationInfos,
   setApiPageToVersesMap,
+  wbwTr,
+  tafseerIds,
 }: TranslationViewProps) => {
   const { verse, isLoading } = useDedupedFetchVerse({
     verseIdx,
     chapterId: surahId,
     translationIds,
-    languageCode: 'en',
     translationInfos,
     initialVerses,
     versesPerPage: 20,
     setApiPageToVersesMap,
+    wbwTr,
+    tafseerIds,
   });
 
   if (isLoading || !verse) {

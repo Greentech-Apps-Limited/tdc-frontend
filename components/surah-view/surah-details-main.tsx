@@ -11,7 +11,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { MergedVerse } from '@/lib/types/verses-type';
 import { useGetQueryParamOrSettingsValue } from '@/hooks/use-get-query-param-or-settings-value';
 
-const ReadingProgressTracker = dynamic(() => import('./reading-progress-tracker'), { ssr: false });
+const ReadingProgressTracker = dynamic(() => import('./reading-progress-tracker'), {
+  ssr: false,
+  loading: () => <QuranDetailsSkeleton />,
+});
 
 type SurahDetailsMainProps = {
   surahs: Surah[];
@@ -28,15 +31,16 @@ const SurahDetailsMain = ({
   verseLookup,
   totalVerseCount,
 }: SurahDetailsMainProps) => {
-  const { translations, wbw_tr } = useGetQueryParamOrSettingsValue();
+  const { translations, wbw_tr, tafseer } = useGetQueryParamOrSettingsValue();
   const [apiPageToVersesMap, setApiPageToVersesMap] = useState<Record<number, MergedVerse[]>>({});
-  const tafseerIds = ['4', '1'];
-  console.log('translations', translations);
+
   useEffect(() => {
     setApiPageToVersesMap({});
   }, [translations]);
 
   const translationIds = useMemo(() => translations, [translations]);
+  const tafseerIds = useMemo(() => tafseer, [tafseer]);
+
   const surah = useMemo(
     () => surahs.find(surah => surah.id === parseInt(surahId)),
     [surahs, surahId]
@@ -108,7 +112,6 @@ const SurahDetailsMain = ({
     return <QuranDetailsSkeleton />;
   }
 
-  console.log('verses', verses);
   return (
     <ReadingProgressTracker verses={verses}>
       <VirtualizedSurahView
@@ -117,6 +120,8 @@ const SurahDetailsMain = ({
         surah={surah}
         totalVerseCount={totalVerseCount}
         translationIds={translationIds}
+        wbwTr={wbw_tr}
+        tafseerIds={tafseerIds}
         translationInfos={translationInfos}
         setApiPageToVersesMap={setApiPageToVersesMap}
         verseLookup={verseLookup}

@@ -28,6 +28,8 @@ type VirtualizedSurahViewProps = {
   translationIds: string[];
   translationInfos: TranslationItem[];
   verseLookup: string[];
+  wbwTr: string;
+  tafseerIds: string[];
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
 const VirtualizedSurahView = ({
@@ -38,6 +40,8 @@ const VirtualizedSurahView = ({
   translationIds,
   translationInfos,
   setApiPageToVersesMap,
+  wbwTr,
+  tafseerIds,
 }: VirtualizedSurahViewProps) => {
   return (
     <div>
@@ -49,6 +53,8 @@ const VirtualizedSurahView = ({
         itemContent={index => {
           return (
             <TranslationView
+              wbwTr={wbwTr}
+              tafseerIds={tafseerIds}
               verseIdx={index}
               totalVerseCount={totalVerseCount}
               surah={surah}
