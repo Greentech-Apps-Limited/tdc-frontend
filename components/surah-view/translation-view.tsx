@@ -1,37 +1,41 @@
-import { MergedVerse } from '@/lib/types/verses-type';
+import { MergedVerse, SurahPosition } from '@/lib/types/verses-type';
 import VerseDisplayCardSkeleton from '../skeleton-loaders/verse-display-card-skeleton';
-import { Surah } from '@/lib/types/quran-meta-types';
 import VerseDisplayCard from './verse-display-card';
 import useDedupedFetchVerse from '@/hooks/use-deduped-fetch-verse';
 import { TranslationItem } from '@/lib/types/surah-translation-type';
+import { useParams } from 'next/navigation';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { Separator } from '../ui/separator';
 
 type TranslationViewProps = {
-  totalVerseCount: number;
   verseIdx: number;
-  surahId: string;
-  surah: Surah;
   initialVerses: MergedVerse[];
-  translationIds: string[];
-  translationInfos: TranslationItem[];
+  totalVerseCount: number;
+  surahInfos: SurahPosition[];
   wbwTr: string;
   tafseerIds: string[];
+  translationIds: string[];
+  translationInfos: TranslationItem[];
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
+
 const TranslationView = ({
   totalVerseCount,
   verseIdx,
-  surah,
-  surahId,
   initialVerses,
   translationIds,
   translationInfos,
   setApiPageToVersesMap,
   wbwTr,
   tafseerIds,
+  surahInfos,
 }: TranslationViewProps) => {
+  const { quranSegment, segmentId } = useParams<{ quranSegment: string; segmentId: string }>();
+
   const { verse, isLoading } = useDedupedFetchVerse({
     verseIdx,
-    chapterId: surahId,
+    segmentType: quranSegment as QuranSegment,
+    segmentNumber: segmentId,
     translationIds,
     translationInfos,
     initialVerses,
@@ -45,23 +49,25 @@ const TranslationView = ({
     return <VerseDisplayCardSkeleton />;
   }
 
+  const matchingSurah = surahInfos.find(info => info.startIndex === verseIdx);
+
   return (
     <>
-      {verseIdx === 0 ? (
+      {matchingSurah ? (
         <div>
-          <h1 className="mt-6 font-hidayatullah_demo text-3xl font-bold">
-            {surah.transliteration}
-          </h1>
-          <VerseDisplayCard verse={verse} surahId={surahId} />
+          {verseIdx !== 0 && <Separator className="my-6" />}
+          <div>
+            <h1 className="mt-6 font-hidayatullah_demo text-3xl font-bold">
+              {matchingSurah.surah.transliteration}
+            </h1>
+            <VerseDisplayCard verse={verse} />
+          </div>
         </div>
       ) : (
-        <VerseDisplayCard
-          verse={verse}
-          surahId={surahId}
-          isLastVerse={totalVerseCount - 1 === verseIdx}
-        />
+        <VerseDisplayCard verse={verse} isLastVerse={totalVerseCount - 1 === verseIdx} />
       )}
     </>
   );
 };
+
 export default TranslationView;

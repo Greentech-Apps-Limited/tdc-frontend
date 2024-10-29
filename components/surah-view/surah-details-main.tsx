@@ -3,13 +3,15 @@
 import useSWR from 'swr';
 import { fetchSurahData } from '@/services/api';
 import VirtualizedSurahView from './virtualized-surah-view';
-import { Surah } from '@/lib/types/quran-meta-types';
 import { TranslationItem } from '@/lib/types/surah-translation-type';
 import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
 import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useState } from 'react';
-import { MergedVerse } from '@/lib/types/verses-type';
+import { MergedVerse, SurahPosition } from '@/lib/types/verses-type';
 import { useGetQueryParamOrSettingsValue } from '@/hooks/use-get-query-param-or-settings-value';
+import { createSegment } from '@/lib/utils/api-utils';
+import { useParams } from 'next/navigation';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
 
 const ReadingProgressTracker = dynamic(() => import('./reading-progress-tracker'), {
   ssr: false,
@@ -17,20 +19,22 @@ const ReadingProgressTracker = dynamic(() => import('./reading-progress-tracker'
 });
 
 type SurahDetailsMainProps = {
-  surahs: Surah[];
   translationInfos: TranslationItem[];
-  surahId: string;
   totalVerseCount: number;
   verseLookup: string[];
+  surahInfos: SurahPosition[];
 };
 
 const SurahDetailsMain = ({
-  surahs,
-  surahId,
   translationInfos,
   verseLookup,
   totalVerseCount,
+  surahInfos,
 }: SurahDetailsMainProps) => {
+  const { quranSegment, segmentId } = useParams<{
+    quranSegment: QuranSegment;
+    segmentId: string;
+  }>();
   const { translations, wbw_tr, tafseer } = useGetQueryParamOrSettingsValue();
   const [apiPageToVersesMap, setApiPageToVersesMap] = useState<Record<number, MergedVerse[]>>({});
 
@@ -41,23 +45,31 @@ const SurahDetailsMain = ({
   const translationIds = useMemo(() => translations, [translations]);
   const tafseerIds = useMemo(() => tafseer, [tafseer]);
 
-  const surah = useMemo(
-    () => surahs.find(surah => surah.id === parseInt(surahId)),
-    [surahs, surahId]
-  );
   const verses = useMemo(() => Object.values(apiPageToVersesMap).flat(), [apiPageToVersesMap]);
+
+  const segment = useMemo(() => createSegment(segmentId, quranSegment), [segmentId]);
 
   const swrKey = useMemo(
     () =>
-      surah
-        ? ['surah-data', surahId, translationIds.join(','), tafseerIds.join(','), wbw_tr]
+      surahInfos.length > 0
+        ? [
+            `${quranSegment}-data`,
+            segment.segmentType,
+            segment.segmentNumber,
+            translationIds.join(','),
+            tafseerIds.join(','),
+            wbw_tr,
+          ]
         : null,
-    [surah, surahId, translationIds, tafseerIds, wbw_tr]
+    [surahInfos, segment, translationIds, tafseerIds, wbw_tr]
   );
 
   const { data, isLoading } = useSWR(
     swrKey,
-    () => (surah ? fetchSurahData(surahId, translationIds, tafseerIds, wbw_tr || 'en') : null),
+    () =>
+      surahInfos.length > 0
+        ? fetchSurahData(segment, translationIds, tafseerIds, wbw_tr || 'en')
+        : null,
     {
       revalidateOnReconnect: false,
       revalidateOnMount: true,
@@ -104,20 +116,15 @@ const SurahDetailsMain = ({
     }
   }, [data, translationIds, tafseerIds, translationInfos, apiPageToVersesMap, translations]);
 
-  if (!surah) {
-    return <div className="p-4 text-center">Surah with id {surahId} not found</div>;
-  }
-
   if (isLoading || !data) {
     return <QuranDetailsSkeleton />;
   }
 
   return (
-    <ReadingProgressTracker verses={verses}>
+    <ReadingProgressTracker verses={verseLookup}>
       <VirtualizedSurahView
+        surahInfos={surahInfos}
         initialVerses={verses}
-        surahId={surahId}
-        surah={surah}
         totalVerseCount={totalVerseCount}
         translationIds={translationIds}
         wbwTr={wbw_tr}

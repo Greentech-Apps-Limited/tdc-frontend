@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 interface ReadingProgressTrackerProps {
-  verses: MergedVerse[];
+  verses: string[];
   children: React.ReactNode;
 }
 
@@ -107,8 +107,8 @@ const ReadingProgressTracker = ({ verses, children }: ReadingProgressTrackerProp
         { threshold: 0.85 }
       );
 
-      verses.forEach(verse => {
-        const element = document.querySelector(`[data-verse="${verse.verse_key}"]`);
+      verses.forEach(verseKey => {
+        const element = document.querySelector(`[data-verse="${verseKey}"]`);
         if (element) {
           observerRef.current?.observe(element);
         }

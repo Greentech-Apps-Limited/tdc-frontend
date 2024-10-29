@@ -8,16 +8,16 @@ import Word from './word';
 import { MergedVerse } from '@/lib/types/verses-type';
 
 type VerseDisplayProps = {
-  surahId: string;
   verse: MergedVerse;
   isLastVerse?: boolean;
 };
 
-const VerseDisplayCard = ({ verse, surahId, isLastVerse }: VerseDisplayProps) => {
+const VerseDisplayCard = ({ verse, isLastVerse }: VerseDisplayProps) => {
   const { showTranslation, showByWords, translationFontSize } = useSettings();
   const { highlightedVerse, showAudioPlayer } = useQuranReader();
   const translateNumber = useNumberTranslation();
 
+  const surahId = verse.verse_key.split(':')[0];
   return (
     <div
       className={`rounded-2xl border border-neutral-200 p-6 ${

@@ -1,50 +1,26 @@
+import { SegmentParams } from "@/lib/types/quran-segment-type";
 import { TranslationItem, VersesTranslationResponse } from "@/lib/types/surah-translation-type";
 import { MergedVerse, QuranVerse, QuranVerseDetail, QuranChapterVerses } from "@/lib/types/verses-type";
-import { API_BASE_URL, fetcher } from "@/services/api";
+import { createApiUrl, createRequestKey, createSegmentParams, getPageNumberFromIndexAndPerPage } from "@/lib/utils/api-utils";
+import { fetcher } from "@/services/api";
 import { useEffect, useMemo, useCallback, useRef } from "react";
 import useSWRImmutable from 'swr/immutable';
 
-interface UseDedupedFetchVerseProps {
+interface UseDedupedFetchVerseProps extends SegmentParams {
     verseIdx: number;
-    chapterId: string;
     translationIds: string[];
     setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
     translationInfos: TranslationItem[];
     initialVerses: MergedVerse[];
     versesPerPage?: number;
-    wbwTr: string
-    tafseerIds: string[]
+    wbwTr: string;
+    tafseerIds: string[];
 }
-
-const getPageNumberFromIndexAndPerPage = (index: number, perPage: number): number =>
-    Math.ceil((index + 1) / perPage);
-
-const createRequestKey = (
-    chapterId: string,
-    pageNumber: number,
-    translationIds: string[],
-    tafseerIds: string[],
-    wbwTr: string
-): string =>
-    `verses-${chapterId}-${pageNumber}-${translationIds.join(',')}-${tafseerIds.join(',')}-${wbwTr}`;
-
-const createApiUrl = (
-    endpoint: string,
-    params: Record<string, string | number>
-): string => {
-    const normalizedEndpoint = endpoint.endsWith('/')
-        ? endpoint
-        : `${endpoint}/`;
-
-    const searchParams = new URLSearchParams(
-        Object.entries(params).map(([key, value]) => [key, value.toString()])
-    );
-    return `${API_BASE_URL}${normalizedEndpoint}?${searchParams.toString()}`;
-};
 
 const useDedupedFetchVerse = ({
     verseIdx,
-    chapterId,
+    segmentType,
+    segmentNumber,
     translationIds,
     setApiPageToVersesMap,
     translationInfos,
@@ -86,27 +62,29 @@ const useDedupedFetchVerse = ({
     }, [translationIds, tafseerIds, translationInfos]);
 
     const fetchVerseData = useCallback(async (): Promise<MergedVerse[]> => {
-        // Skip fetch if we're already on this page
         if (prevPageRef.current === pageNumber) {
             return [];
         }
         prevPageRef.current = pageNumber;
 
         const offset = (pageNumber - 1) * versesPerPage;
-        const baseParams = {
-            chapter_id: chapterId,
+        const segmentParams = createSegmentParams(segmentType, segmentNumber);
+
+        const commonParams = {
             limit: versesPerPage,
             offset,
         };
 
         try {
             const [versesResponse, ...translationsAndTafseerResponses] = await Promise.all([
-                fetcher<QuranChapterVerses>(createApiUrl('/quran/verses/', {
-                    ...baseParams,
+                fetcher<QuranChapterVerses>(createApiUrl('/quran/verses/', segmentParams, {
+                    ...commonParams,
                     wbw_language: wbwTr
                 })),
                 ...[...translationIds, ...tafseerIds].map(id =>
-                    fetcher<VersesTranslationResponse>(createApiUrl('/quran/translations/' + id, baseParams))
+                    fetcher<VersesTranslationResponse>(
+                        createApiUrl('/quran/translations/' + id, segmentParams, commonParams)
+                    )
                 ),
             ]);
 
@@ -120,11 +98,11 @@ const useDedupedFetchVerse = ({
             console.error('Error fetching verse data:', error);
             throw error;
         }
-    }, [pageNumber, versesPerPage, chapterId, wbwTr, translationIds, tafseerIds, mergeVerseWithTranslations]);
+    }, [pageNumber, versesPerPage, segmentType, segmentNumber, wbwTr, translationIds, tafseerIds, mergeVerseWithTranslations]);
 
     const fetchKey = shouldUseInitialData
         ? null
-        : createRequestKey(chapterId, pageNumber, translationIds, tafseerIds, wbwTr);
+        : createRequestKey(segmentType, segmentNumber, pageNumber, translationIds, tafseerIds, wbwTr);
 
     const { data: fetchedData, error } = useSWRImmutable(
         fetchKey,

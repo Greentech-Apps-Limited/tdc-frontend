@@ -48,7 +48,6 @@ const Sidebar = () => {
     return params.toString();
   }, [searchParams]);
 
-  console.log(searchParams);
   const navItems = useMemo(
     () =>
       SIDE_NAV_ITEMS.map(item => {

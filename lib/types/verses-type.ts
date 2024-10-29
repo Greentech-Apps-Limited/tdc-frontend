@@ -1,3 +1,4 @@
+import { Surah } from "./quran-meta-types";
 import { TranslationItem } from "./surah-translation-type";
 
 
@@ -52,4 +53,13 @@ type MergedVerse = QuranVerse & {
     }[];
 };
 
-export type { MergedVerse, QuranChapterVerses, QuranVerse, QuranWord, QuranVerseDetail };
+interface SurahPosition {
+    surah: Surah;
+    startIndex: number;
+}
+
+interface SegmentVerses {
+    verses: string[];
+    surahPositions: SurahPosition[];
+}
+export type { MergedVerse, QuranChapterVerses, QuranVerse, QuranWord, QuranVerseDetail, SurahPosition, SegmentVerses };

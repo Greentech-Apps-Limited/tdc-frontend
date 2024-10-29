@@ -32,29 +32,20 @@ const QuranSegmentDetails = async ({ params, searchParams }: QuranSegmentDetails
 
   switch (quranSegment) {
     case 'surah':
-      return (
-        <QuranDetailsWrapper searchParams={searchParams}>
-          <SurahContentProvider
-            surahId={segmentId}
-            surahs={surahs}
-            translationInfos={translationInfos}
-          />
-        </QuranDetailsWrapper>
-      );
     case 'page':
     case 'juz':
     case 'hizb':
     case 'ruku':
       return (
-        // <QuranDetailsWrapper searchParams={searchParams}>
-        //   <QuranSegmentDetailsMain
-        //     params={{ quranSegment, segmentId }}
-        //     surahs={surahs}
-        //     searchParams={searchParams}
-        //     translationInfos={translationInfos}
-        //   />
-        // </QuranDetailsWrapper>
-        <div>Coming soon..</div>
+        <QuranDetailsWrapper searchParams={searchParams}>
+          <SurahContentProvider
+            quranSegment={quranSegment}
+            segmentId={segmentId}
+            surahId={segmentId}
+            surahs={surahs}
+            translationInfos={translationInfos}
+          />
+        </QuranDetailsWrapper>
       );
     default:
       return <div>Invalid Quran Segment</div>;

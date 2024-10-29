@@ -1,8 +1,7 @@
 'use client';
-import { MergedVerse } from '@/lib/types/verses-type';
+import { MergedVerse, SurahPosition } from '@/lib/types/verses-type';
 import { Components, Virtuoso } from 'react-virtuoso';
 import { forwardRef } from 'react';
-import { Surah } from '@/lib/types/quran-meta-types';
 import TranslationView from './translation-view';
 import { TranslationItem } from '@/lib/types/surah-translation-type';
 
@@ -22,26 +21,24 @@ List.displayName = 'List';
 
 type VirtualizedSurahViewProps = {
   initialVerses: MergedVerse[];
-  surahId: string;
-  surah: Surah;
   totalVerseCount: number;
   translationIds: string[];
   translationInfos: TranslationItem[];
   verseLookup: string[];
   wbwTr: string;
   tafseerIds: string[];
+  surahInfos: SurahPosition[];
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
 const VirtualizedSurahView = ({
   initialVerses,
-  surahId,
-  surah,
   totalVerseCount,
   translationIds,
   translationInfos,
   setApiPageToVersesMap,
   wbwTr,
   tafseerIds,
+  surahInfos,
 }: VirtualizedSurahViewProps) => {
   return (
     <div>
@@ -53,13 +50,12 @@ const VirtualizedSurahView = ({
         itemContent={index => {
           return (
             <TranslationView
-              wbwTr={wbwTr}
-              tafseerIds={tafseerIds}
               verseIdx={index}
               totalVerseCount={totalVerseCount}
-              surah={surah}
-              surahId={surahId}
               initialVerses={initialVerses}
+              surahInfos={surahInfos}
+              wbwTr={wbwTr}
+              tafseerIds={tafseerIds}
               translationIds={translationIds}
               translationInfos={translationInfos}
               setApiPageToVersesMap={setApiPageToVersesMap}

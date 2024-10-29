@@ -1,7 +1,8 @@
+import { SegmentParams } from "@/lib/types/quran-segment-type";
 import { VersesTranslationResponse } from "@/lib/types/surah-translation-type";
 import { QuranChapterVerses } from "@/lib/types/verses-type";
+import { createQueryString, createSegmentParams } from "@/lib/utils/api-utils";
 
-// services/api.ts
 export const API_BASE_URL = "https://tdc-backend.greentechapps.com/api";
 
 export const fetcher = async <T>(url: string): Promise<T> => {
@@ -21,25 +22,38 @@ export const fetcher = async <T>(url: string): Promise<T> => {
 };
 
 export const getQuranVerses = async (
-    chapterId: string,
-    languageCode: string = 'en'
+    segmentParams: SegmentParams,
+    languageCode: string = 'en',
+    additionalParams: Record<string, string | number> = {}
 ) => {
+    const params = {
+        ...createSegmentParams(segmentParams.segmentType, segmentParams.segmentNumber),
+        ...additionalParams,
+        wbw_language: languageCode
+    };
+
     return fetcher<QuranChapterVerses>(
-        `${API_BASE_URL}/quran/verses/?chapter_id=${chapterId}&wbw_language=${languageCode}`
+        `${API_BASE_URL}/quran/verses/?${createQueryString(params)}`
     );
 };
 
 export const getVerseTranslations = async (
-    chapterId: string,
-    translationId: string
+    segmentParams: SegmentParams,
+    translationId: string,
+    additionalParams: Record<string, string | number> = {}
 ) => {
+    const params = {
+        ...createSegmentParams(segmentParams.segmentType, segmentParams.segmentNumber),
+        ...additionalParams
+    };
+
     return fetcher<VersesTranslationResponse>(
-        `${API_BASE_URL}/quran/translations/${translationId}/?chapter_id=${chapterId}`
+        `${API_BASE_URL}/quran/translations/${translationId}/?${createQueryString(params)}`
     );
 };
 
 export const fetchSurahData = async (
-    surahId: string,
+    segmentParams: SegmentParams,
     translationIds: string[],
     tafseerIds: string[],
     languageCode: string = 'en'
@@ -47,9 +61,9 @@ export const fetchSurahData = async (
     try {
         // Fetch verses, translations, and tafseer in parallel
         const [versesData, ...translationsAndTafseerData] = await Promise.all([
-            getQuranVerses(surahId, languageCode),
-            ...translationIds.map(id => getVerseTranslations(surahId, id)),
-            ...tafseerIds.map(id => getVerseTranslations(surahId, id)) // Using the same API endpoint for tafseer
+            getQuranVerses(segmentParams, languageCode),
+            ...translationIds.map(id => getVerseTranslations(segmentParams, id)),
+            ...tafseerIds.map(id => getVerseTranslations(segmentParams, id)) // Using the same API endpoint for tafseer
         ]);
 
         const translationsData = translationsAndTafseerData.slice(0, translationIds.length);
@@ -67,29 +81,3 @@ export const fetchSurahData = async (
 };
 
 
-export const getTranslationViewRequestKey = ({
-    chapterId,
-    pageNumber,
-    translationIds,
-    languageCode,
-    limit = 20,
-}: {
-    chapterId: string;
-    pageNumber: number;
-    translationIds: string[];
-    languageCode: string;
-    limit?: number;
-}) => {
-    const offset = (pageNumber - 1) * limit;
-
-    return {
-        versesKey: `verses-${chapterId}-${offset}-${languageCode}`,
-        translationsKeys: translationIds.map(id =>
-            `translation-${id}-${chapterId}-${offset}`
-        ),
-        params: {
-            offset,
-            limit,
-        }
-    };
-};
