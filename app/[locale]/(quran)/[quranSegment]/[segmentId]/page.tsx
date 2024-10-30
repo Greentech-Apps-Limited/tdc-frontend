@@ -4,6 +4,23 @@ import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { TranslationItem, TranslationResponse } from '@/lib/types/surah-translation-type';
 import { fetcher } from '@/services/api';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { generateQuranSegmentMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    locale: string;
+    quranSegment: string;
+    segmentId: string;
+  };
+}) {
+  return generateQuranSegmentMetadata({
+    params,
+    segment: params.quranSegment,
+    segmentId: params.segmentId,
+  });
+}
 
 const fetchTranslations = async (): Promise<TranslationItem[]> => {
   const data = await fetcher<TranslationResponse>('/quran/translations/');

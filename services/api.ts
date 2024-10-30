@@ -3,7 +3,9 @@ import { VersesTranslationResponse } from "@/lib/types/surah-translation-type";
 import { QuranChapterVerses } from "@/lib/types/verses-type";
 import { createQueryString, createSegmentParams } from "@/lib/utils/api-utils";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+export const APP_BASE_URL = process.env.NEXT_PUBLIC_APP_URL || '';
+
 const API_TOKEN = process.env.NEXT_PUBLIC_API_TOKEN;
 export const fetcher = async <T>(url: string): Promise<T> => {
     const response = await fetch(`${API_BASE_URL}${url}`, {

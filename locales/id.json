@@ -1,4 +1,26 @@
 {
+  "QuranMeta": {
+    "surahTitle": "Surah {surahId}",
+    "surahDescription": "Baca Surah {surahId} dengan terjemahan dan audio di TDC Quran",
+    "juzTitle": "Juz {juzId}",
+    "juzDescription": "Baca Juz {juzId} Al-Quran di TDC Quran",
+    "pageTitle": "Halaman {pageId}",
+    "pageDescription": "Baca halaman {pageId} Al-Quran di TDC Quran",
+    "hizbTitle": "Hizb {hizbId}",
+    "hizbDescription": "Baca Hizb {hizbId} Al-Quran di TDC Quran",
+    "rukuTitle": "Ruku {rukuId}",
+    "rukuDescription": "Baca Ruku {rukuId} Al-Quran di TDC Quran"
+  },
+  "Metadata": {
+    "homeTitle": "Platform Al-Quran Digital",
+    "homeDescription": "Baca, pelajari, dan hubungkan diri dengan Al-Quran di platform digital TDC",
+    "profileTitle": "Profil Saya",
+    "profileDescription": "Kelola profil bacaan Al-Quran Anda dan pantau perkembangan Anda",
+    "quizTitle": "Kuis Al-Quran",
+    "quizDescription": "Uji pengetahuan Al-Quran Anda dengan kuis interaktif",
+    "leaderboardTitle": "Papan Peringkat Kuis",
+    "leaderboardDescription": "Lihat peserta terbaik dalam Kuis TDC Quran"
+  },
   "HomePage": {
     "title": "Selamat datang!"
   },
