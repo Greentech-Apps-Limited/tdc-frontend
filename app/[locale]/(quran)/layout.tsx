@@ -23,7 +23,7 @@ const HomeLayout = ({
             <Header />
             <div className="relative h-full w-full flex-1 overflow-hidden">
               {children}
-              <div className="fixed bottom-0 right-0 z-10 m-6">
+              <div className="fixed bottom-0 right-0 z-10">
                 <AudioPlayerWrapper />
               </div>
             </div>
