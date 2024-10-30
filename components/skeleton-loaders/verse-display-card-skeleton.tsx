@@ -13,7 +13,7 @@ const WordSkeleton = () => {
 
 const VerseDisplayCardSkeleton = () => {
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-neutral p-6">
+    <div className="mt-6 rounded-2xl border border-neutral-200 bg-neutral p-6">
       <div className="mb-4 flex items-center justify-between">
         <Skeleton className="h-6 w-8" />
         <div className="flex items-center space-x-4">

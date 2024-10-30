@@ -8,3 +8,19 @@ body {
   background: url('/images/tdc-background-img.webp') no-repeat center center fixed;
   background-size: cover;
 }
+
+.content-display {
+  @apply space-y-3 text-sm;
+}
+.content-display h2 {
+  @apply mt-3 text-lg font-semibold;
+}
+.content-display span {
+  @apply block;
+}
+.content-display .arabic-text {
+  @apply font-lateef text-2xl;
+}
+.content-display .non-arabic-text {
+  @apply text-left;
+}

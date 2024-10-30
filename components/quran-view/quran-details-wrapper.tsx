@@ -30,6 +30,7 @@ const QuranDetailsWrapper = ({ children, searchParams }: QuranDetailsWrapperProp
         ) as HTMLElement;
 
         if (scrollContainer && highlightedElement) {
+          document.body.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
           scrollToElement({
             container: scrollContainer,
             element: highlightedElement,

@@ -4,7 +4,6 @@ import useQuranReader from '@/stores/quran-reader-state';
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import AudioPlayerSkeleton from '../skeleton-loaders/audio-player-skeleton';
-import { scrollToElement } from '@/lib/utils/common-utils';
 import useReciterStore from '@/stores/reciter-store';
 
 const AudioPlayer = dynamic(() => import('./audio-player'), {
@@ -22,9 +21,8 @@ const AudioPlayerWrapper = () => {
     audioId,
     setAudioData,
     setAudioUrl,
-    highlightedVerse,
-    autoScroll,
     setHighlightedVerse,
+    setAudioPlaying,
   } = useQuranReader();
 
   useEffect(() => {
@@ -63,24 +61,8 @@ const AudioPlayerWrapper = () => {
     setAudioUrl('');
     setAudioData(null);
     setHighlightedVerse(null);
+    setAudioPlaying(false);
   };
-
-  useEffect(() => {
-    if (highlightedVerse && showAudioPlayer && autoScroll === 'verse') {
-      const scrollContainer = document.getElementById('scroll-container');
-      const highlightedElement = document.querySelector(
-        `[data-verse="${highlightedVerse}"]`
-      ) as HTMLElement;
-
-      if (scrollContainer && highlightedElement) {
-        scrollToElement({
-          container: scrollContainer,
-          element: highlightedElement,
-          offset: 0.01,
-        });
-      }
-    }
-  }, [highlightedVerse, showAudioPlayer, autoScroll]);
 
   if (!showAudioPlayer) {
     return null;

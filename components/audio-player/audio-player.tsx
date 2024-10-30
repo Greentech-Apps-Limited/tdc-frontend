@@ -7,6 +7,7 @@ import AudioControls from './audio-controls';
 import useQuranReader from '@/stores/quran-reader-state';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import AudioRecitersSelection from './audio-reciters-selection';
+import { formatVerseNumber } from '@/lib/utils/verse-utils';
 
 type AudioPlayerProps = {
   onClose: () => void;
@@ -26,16 +27,6 @@ const AudioPlayer = ({ onClose }: AudioPlayerProps) => {
     skipTime,
     stopAudio,
   } = useAudioPlayer();
-
-  const formatVerseNumber = (verseNumber?: string): string => {
-    if (!verseNumber) return '';
-
-    const num = parseInt(verseNumber, 10);
-    if (isNaN(num)) return '';
-    if (num < 10) return `0${num}`;
-    if (num < 100) return `${num}`.padStart(2, '0');
-    return `${num}`;
-  };
 
   const surah = SURAH_EN.find(s => s.id === audioId);
   const surahName = surah ? surah.transliteration : 'Unknown Surah';

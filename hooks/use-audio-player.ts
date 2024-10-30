@@ -44,6 +44,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
         setHighlightedVerse,
         currentVerse,
         setCurrentVerse,
+        setAudioPlaying,
     } = useQuranReader();
 
     const play = useCallback(() => {
@@ -52,10 +53,12 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
 
         audio.play().then(() => {
             setState(prev => ({ ...prev, isPlaying: true }));
+            setAudioPlaying(true);
             isUserPaused.current = false;
         }).catch((error) => {
             console.error('Playback failed', error);
             setState(prev => ({ ...prev, isPlaying: false }));
+            setAudioPlaying(false);
         });
     }, []);
 
@@ -65,6 +68,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
 
         audio.pause();
         setState(prev => ({ ...prev, isPlaying: false }));
+        setAudioPlaying(false);
         isUserPaused.current = true;
     }, []);
 
@@ -83,6 +87,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
         audio.pause();
         audio.currentTime = 0;
         setState(prev => ({ ...prev, isPlaying: false, currentTime: 0 }));
+        setAudioPlaying(false);
         isUserPaused.current = true;
         setCurrentVerse(null);
     }, [setCurrentVerse]);
@@ -161,6 +166,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
 
         const onEnded = () => {
             setState(prev => ({ ...prev, isPlaying: false }));
+            setAudioPlaying(false);
             setCurrentVerse(null);
         };
 

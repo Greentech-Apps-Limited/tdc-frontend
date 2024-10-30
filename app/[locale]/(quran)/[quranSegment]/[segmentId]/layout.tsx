@@ -12,7 +12,7 @@ type Reference = { id: number | string };
 
 const QuranSegmentDetailsLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <section>
+    <section className="py-6">
       <Suspense fallback={<QuranDetailsSkeleton />}>{children}</Suspense>
     </section>
   );

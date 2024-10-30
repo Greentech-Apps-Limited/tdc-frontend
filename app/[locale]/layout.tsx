@@ -6,6 +6,7 @@ import { SettingsProvider } from '@/contexts/settings-provider';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
+import { SWRConfigProviders } from '@/providers/swr-provider';
 
 export const metadata: Metadata = {
   title: 'Quran',
@@ -33,10 +34,12 @@ export default async function RootLayout({
       <body
         className={`${source_sans_3.variable} ${hidayatullahFont.variable} ${lateef.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <LoadingProgressBar />
-          <SettingsProvider>{children}</SettingsProvider>
-        </NextIntlClientProvider>
+        <SWRConfigProviders>
+          <NextIntlClientProvider messages={messages}>
+            <LoadingProgressBar />
+            <SettingsProvider>{children}</SettingsProvider>
+          </NextIntlClientProvider>
+        </SWRConfigProviders>
       </body>
     </html>
   );

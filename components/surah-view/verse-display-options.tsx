@@ -1,4 +1,4 @@
-import { DetailsHorizontalIcon, GraduationHatIcon } from '@/icons';
+import { DetailsHorizontalIcon } from '@/icons';
 import React from 'react';
 import {
   DropdownMenu,
@@ -8,12 +8,23 @@ import {
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import VerseAudioPlayButton from './verse-audio-play-button';
+import TafsirModal from './tafsir-modal';
+import { MergedVerse } from '@/lib/types/verses-type';
 
-const VerseDisplayOptions = ({ surahId, verseKey }: { surahId?: string; verseKey?: string }) => {
+const VerseDisplayOptions = ({
+  surahId,
+  verseKey,
+  verse,
+}: {
+  surahId?: string;
+  verseKey: string;
+  verse: MergedVerse;
+}) => {
   return (
     <div className="flex items-center space-x-4 text-2xl text-neutral-600">
       <VerseAudioPlayButton surahId={surahId} verseKey={verseKey} />
-      <GraduationHatIcon className="hover:cursor-pointer" />
+      <TafsirModal verse={verse} surahId={surahId} verseKey={verseKey} />
+
       <VerseDisplayMoreOptions />
     </div>
   );

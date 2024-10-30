@@ -1,71 +1,50 @@
 import SelectableAccordion from '../ui/selectable-accordion';
-import { TranslationInfo } from '@/lib/types/surah-translation-type';
+import { TranslationItem } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
-import { useUpdateSearchParams } from '@/hooks/use-update-search-params';
 import { useTranslations } from 'next-intl';
+import { WbwLanguage } from '@/lib/types/wbw-types';
 
-interface WBWTranslationLang {
-  id: string;
-  label: string;
-}
+const ResourceSelection = ({
+  translationsInfo,
+  wbwLanguages,
+}: {
+  translationsInfo: TranslationItem[];
+  wbwLanguages: WbwLanguage[];
+}) => {
+  const tafsir = translationsInfo.filter(item => item.has_tafseer);
+  const translationItems = translationsInfo.filter(item => !item.has_tafseer);
 
-const ResourceSelection = () => {
   const t = useTranslations('Settings');
-  const { selectedTranslation, wbwTr, updateWbwTr, updateSelectedTranslation } = useSettings(
-    state => ({
-      selectedTranslation: state.selectedTranslation,
-      wbwTr: state.wbwTr,
-      updateWbwTr: state.updateWbwTr,
-      updateSelectedTranslation: state.updateSelectedTranslation,
-    })
-  );
-  const updateSearchParams = useUpdateSearchParams();
-
-  // FIXME: Hardcoded for now needs to be refactored
-  const wbwTranslationItems: WBWTranslationLang[] = [
-    { id: 'en', label: 'English' },
-    { id: 'id', label: 'Indonesia' },
-  ];
-  const translationItems: TranslationInfo[] = [
-    {
-      id: 19,
-      name: 'M. Pickthall',
-      author_name: 'Mohammed Marmaduke William Pickthall',
-      slug: 'quran.en.pickthall',
-      language_name: 'english',
-      translated_name: {
-        name: 'M. Pickthall',
-        language_name: 'english',
-      },
-    },
-    {
-      id: 20,
-      name: 'Saheeh International',
-      author_name: 'Saheeh International',
-      slug: 'en-sahih-international',
-      language_name: 'english',
-      translated_name: {
-        name: 'Saheeh International',
-        language_name: 'english',
-      },
-    },
-  ];
+  const {
+    selectedTranslation,
+    selectedTafseer,
+    updateSelectedTafseer,
+    wbwTr,
+    updateWbwTr,
+    updateSelectedTranslation,
+  } = useSettings(state => ({
+    selectedTranslation: state.selectedTranslation,
+    selectedTafseer: state.selectedTafseer,
+    wbwTr: state.wbwTr,
+    updateWbwTr: state.updateWbwTr,
+    updateSelectedTranslation: state.updateSelectedTranslation,
+    updateSelectedTafseer: state.updateSelectedTafseer,
+  }));
 
   const handleTranslationChange = (newSelection: string[]) => {
     const newTranslations = newSelection.map(Number);
     updateSelectedTranslation(newTranslations);
-    updateSearchParams(wbwTr, newTranslations);
+  };
+
+  const handleTafseerChange = (newSelection: string[]) => {
+    const newTafseer = newSelection.map(Number);
+    updateSelectedTafseer(newTafseer);
   };
 
   const handleWBWChange = (newSelection: string[]) => {
-    const newWbwTr = newSelection[0] || wbwTranslationItems[0]?.id || 'en';
+    const newWbwTr = newSelection[0] || wbwLanguages[0]?.code || 'en';
     updateWbwTr(newWbwTr);
-    updateSearchParams(newWbwTr, selectedTranslation);
   };
-
-  if (wbwTranslationItems.length === 0) {
-    wbwTranslationItems.push({ id: 'en', label: 'English' });
-  }
 
   return (
     <div className="space-y-2">
@@ -80,13 +59,23 @@ const ResourceSelection = () => {
         forceSelection={true}
       />
       <SelectableAccordion
+        title={t('tafsirs')}
+        items={tafsir}
+        isMultiple={true}
+        selectedItems={selectedTafseer.map(String)}
+        onSelectionChange={handleTafseerChange}
+        idKey="id"
+        labelKey="name"
+        forceSelection={true}
+      />
+      <SelectableAccordion
         title={t('wordByWord')}
-        items={wbwTranslationItems}
+        items={wbwLanguages}
         isMultiple={false}
         selectedItems={[wbwTr]}
         onSelectionChange={handleWBWChange}
-        idKey="id"
-        labelKey="label"
+        idKey="code"
+        labelKey="name"
         forceSelection={true}
       />
     </div>
