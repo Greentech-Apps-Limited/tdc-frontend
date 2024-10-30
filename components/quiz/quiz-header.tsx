@@ -3,15 +3,14 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { ExitIcon, HeartReactIconFill, TimerIcon } from '@/icons';
 import { formatTime } from '@/lib/utils/audio-utils';
+import useQuizStore from '@/stores/quiz-store';
 
 type QuizHeaderProps = {
-  life: number;
-  timeRemaining: number;
-  isTimerCritical: boolean;
   onExit: () => void;
 };
 
-const QuizHeader = ({ life, timeRemaining, isTimerCritical, onExit }: QuizHeaderProps) => {
+const QuizHeader = ({ onExit }: QuizHeaderProps) => {
+  const { timeRemaining, life, isTimerCritical } = useQuizStore();
   const t = useTranslations('ExitConfirmationModal');
   const [showFallingHeart, setShowFallingHeart] = useState(false);
   const [prevLife, setPrevLife] = useState(life);

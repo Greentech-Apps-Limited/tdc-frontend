@@ -5,7 +5,7 @@ import { useCheckSettingsDiff } from '@/hooks/use-check-settings-diff';
 import { useUpdateSearchParams } from '@/hooks/use-update-search-params';
 import useSettingsStore from '@/stores/settings-store';
 
-export function SettingsChecker({ children }: { children: React.ReactNode }) {
+export function SettingsChecker() {
   const { wbwTr, selectedTranslation } = useSettingsStore();
   const checkSettingsDiff = useCheckSettingsDiff();
   const updateSearchParams = useUpdateSearchParams();
@@ -19,5 +19,5 @@ export function SettingsChecker({ children }: { children: React.ReactNode }) {
     }
   }, [wbwTr, selectedTranslation, memoizedCheckSettingsDiff, updateSearchParams]);
 
-  return <>{children}</>;
+  return null;
 }

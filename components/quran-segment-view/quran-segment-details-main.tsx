@@ -13,19 +13,10 @@ import { addTranslationsToVerses, parseTranslationIds } from '@/lib/utils/transl
 import { RUB_EL_HIZB_TO_SURAH_MAPPINGS } from '@/data/quran-meta/rub-el-hizb-to-surah-mappings';
 import { PAGE_TO_SURAH_MAPPINGS } from '@/data/quran-meta/page-to-surah-mappings';
 import { JUZ_TO_SURAH_MAPPINGS } from '@/data/quran-meta/juz-to-surah-mappings';
-import dynamic from 'next/dynamic';
-import QuranDetailsSkeleton from '../skeleton-loaders/quran-details-skeleton';
-import ReadingProgressTracker from '../surah-view/reading-progress-tracker';
 import { RUKU_SURAH_MAPPING } from '@/data/quran-meta/ruku-surah-mapping';
-
-const SurahDisplayCard = dynamic(() => import('../surah-view/surah-display-card'), {
-  ssr: false,
-  loading: () => <QuranDetailsSkeleton />,
-});
-const VerseDisplayCard = dynamic(() => import('../surah-view/verse-display-card'), {
-  ssr: false,
-  loading: () => <QuranDetailsSkeleton />,
-});
+import ReadingProgressTracker from '../surah-view/reading-progress-tracker';
+import SurahDisplayCard from '../surah-view/surah-display-card';
+import VerseDisplayCard from '../surah-view/verse-display-card';
 
 type QuranSegmentDetailsMainProps = {
   params: {

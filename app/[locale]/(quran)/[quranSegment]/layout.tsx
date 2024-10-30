@@ -1,4 +1,5 @@
 import QuranDetailsSidebar from '@/components/quran-view/quran-details-sidebar';
+import { QuranDetailsSidebarSkeleton } from '@/components/skeleton-loaders/sidebar-skeleton';
 import { HIZBS } from '@/data/quran-meta/hizbs';
 import { JUZS } from '@/data/quran-meta/juzs';
 import { PAGES } from '@/data/quran-meta/pages';
@@ -7,6 +8,7 @@ import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { QuranMeta } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
 type QuranSegmentLayoutProps = {
   children: React.ReactNode;
@@ -29,7 +31,9 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
   return (
     <section className="flex h-full w-full">
       <aside className="h-full overflow-hidden">
-        <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
+        <Suspense fallback={<QuranDetailsSidebarSkeleton />}>
+          <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
+        </Suspense>
       </aside>
       <aside id="scroll-container" className="h-full w-full flex-1 overflow-y-scroll ">
         {children}

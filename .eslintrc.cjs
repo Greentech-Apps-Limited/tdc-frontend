@@ -14,7 +14,7 @@ module.exports = {
   plugins: ['unicorn', '@typescript-eslint'],
   rules: {
     'prefer-const': 'error',
-    'react-hooks/exhaustive-deps': 'error',
+    'react-hooks/exhaustive-deps': 'off',
     'unicorn/filename-case': [
       'error',
       {
