@@ -24,7 +24,7 @@ const ResourceSelection = () => {
   // FIXME: Hardcoded for now needs to be refactored
   const wbwTranslationItems: WBWTranslationLang[] = [
     { id: 'en', label: 'English' },
-    { id: 'bn', label: 'Bangla' },
+    { id: 'id', label: 'Indonesia' },
   ];
   const translationItems: TranslationInfo[] = [
     {

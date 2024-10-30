@@ -2,8 +2,8 @@
 
 import { SidebarHideIcon, SidebarShowIcon } from '@/icons';
 import { SIDE_NAV_ITEMS } from '@/lib/constants/sidebar-constants';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/routing';
+import { useSearchParams } from 'next/navigation';
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import IconComponent from './ui/icon-component';
 import SidebarBrandLogo from './sidebar-brand-logo';
@@ -34,10 +34,9 @@ const Sidebar = () => {
       const pathSegments = pathname.split('/').filter(Boolean);
       const itemPathSegments = path.split('/').filter(Boolean);
 
-      // Ignore the language prefix (first segment) when comparing
       return (
-        pathSegments.slice(1).join('/') === itemPathSegments.join('/') ||
-        pathSegments[1] === itemPathSegments[0]
+        pathSegments.slice(0).join('/') === itemPathSegments.join('/') ||
+        pathSegments[0] === itemPathSegments[0]
       );
     },
     [pathname]
@@ -55,12 +54,8 @@ const Sidebar = () => {
         const { icon, path, title, activeIcon } = item;
         const isActive = isPathActive(path);
         const filteredParams = getFilteredSearchParams();
-        const langPrefix = pathname.split('/')[1]; // Get the language prefix
 
-        const href =
-          filteredParams && path === '/'
-            ? `/${langPrefix}${path}?${filteredParams}`
-            : `/${langPrefix}${path}`;
+        const href = filteredParams && path === '/' ? `${path}?${filteredParams}` : `${path}`;
 
         return (
           <Link key={path} href={href} aria-label={title}>
@@ -85,7 +80,7 @@ const Sidebar = () => {
           </Link>
         );
       }),
-    [isMinimized, isPathActive, getFilteredSearchParams, pathname, t]
+    [isMinimized, isPathActive, getFilteredSearchParams, t]
   );
 
   return (

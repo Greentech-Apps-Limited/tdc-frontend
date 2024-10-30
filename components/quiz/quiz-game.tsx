@@ -6,7 +6,7 @@ import AnswerOptions from './answer-options';
 import NavigationControls from './navigation-controls';
 import ExitConfirmationModal from './exit-confirmation-modal';
 import QuizContainer from './quiz-container';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 
 const QuizGame = () => {
   const {

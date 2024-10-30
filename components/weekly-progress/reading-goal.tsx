@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { HomeIconFill } from '@/icons';
 import { Button } from '../ui/button';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { LastReadEntry } from '@/stores/last-read-store';
 import { useSearchParams } from 'next/navigation';
 import { useNumberTranslation } from '@/hooks/use-number-translation';

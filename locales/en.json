@@ -214,5 +214,26 @@
     "description": "Are you sure you want to exit the game? Progress so far will be updated to your profile and leaderboard.",
     "cancel": "Cancel",
     "exit": "Exit"
+  },
+  "Statistics": {
+    "totalAyahRead": {
+      "title": "Total ayah read",
+      "description": "Progress through the Holy Quran"
+    },
+    "timeSpent": {
+      "title": "Minutes spent",
+      "description": "Time dedicated today"
+    },
+    "quizScore": {
+      "title": "Quiz score",
+      "description": "Average comprehension rate"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Current weekly ranking"
+    }
+  },
+  "Profile": {
+    "title": "Profile"
   }
 }
