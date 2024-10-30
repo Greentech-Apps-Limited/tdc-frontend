@@ -5,7 +5,7 @@ const SEGMENT_PARAM_MAP: Record<QuranSegment, string> = {
     surah: 'chapter_id',
     page: 'page_number',
     juz: 'juz_number',
-    hizb: 'hizb_number',
+    hizb: 'rub_number',
     ruku: 'ruku_number'
 };
 
@@ -16,7 +16,7 @@ export const createSegmentParams = (
     const baseParams: Record<string, string | number> = {
         chapter_id: '',
         juz_number: '',
-        hizb_number: '',
+        rub_number: '',
         ruku_number: '',
         page_number: ''
     };

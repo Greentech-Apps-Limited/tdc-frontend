@@ -18,7 +18,7 @@ export const fetchSegmentVerses = async (
   surahs: Surah[]
 ): Promise<SegmentVerses> => {
   const data = await fetcher<QuranChapterVerses>(
-    `/quran/verses/?${segmentType}_number=${segmentNumber}&limit=999`
+    `/quran/verses/?${segmentType === 'hizb' ? 'rub' : segmentType}_number=${segmentNumber}&limit=999`
   );
 
   const verses: string[] = [];

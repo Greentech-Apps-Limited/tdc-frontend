@@ -3,6 +3,7 @@ import { create } from 'zustand';
 
 interface QuranReaderState {
     audioId: number | null;
+    isAudioPlaying: boolean;
     showAudioPlayer: boolean;
     highlightedWord: string | null;
     highlightedVerse: string | null;
@@ -14,10 +15,12 @@ interface QuranReaderState {
     setHighlightedVerse: (highlightedVerse: QuranReaderState['highlightedVerse']) => void;
     setAudioId: (audioId: QuranReaderState['audioId']) => void;
     setShowAudioPlayer: (show: boolean) => void;
+    setAudioPlaying: (playingState: boolean) => void;
     setAudioData: (data: AudioFile | null) => void;
     setAudioUrl: (url: string) => void;
     setAutoScroll: (mode: QuranReaderState['autoScroll']) => void;
     setCurrentVerse: (verse: string | null) => void;
+
 }
 
 const useQuranReader = create<QuranReaderState>()((set) => ({
@@ -26,6 +29,7 @@ const useQuranReader = create<QuranReaderState>()((set) => ({
     audioData: null,
     audioId: null,
     audioUrl: '',
+    isAudioPlaying: false,
     showAudioPlayer: false,
     autoScroll: 'verse',
     currentVerse: null,
@@ -40,6 +44,7 @@ const useQuranReader = create<QuranReaderState>()((set) => ({
     setAudioUrl: (url) => set({ audioUrl: url }),
     setAutoScroll: (mode) => set({ autoScroll: mode }),
     setCurrentVerse: (verse) => set({ currentVerse: verse }),
+    setAudioPlaying: (playingState) => set({ isAudioPlaying: playingState }),
 }));
 
 export default useQuranReader;
