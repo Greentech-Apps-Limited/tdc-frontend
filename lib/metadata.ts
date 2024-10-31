@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 
 const siteConfig = {
     siteName: 'TDC Quran',
@@ -116,7 +117,7 @@ export async function generateQuranSegmentMetadata({
 
     switch (segment) {
         case 'surah':
-            title = t('surahTitle', { surahId: segmentId })
+            title = t('surahTitle', { surahId: SURAH_EN.find(s => s.id === Number(segmentId))?.transliteration })
             description = t('surahDescription', { surahId: segmentId })
             break
         case 'juz':

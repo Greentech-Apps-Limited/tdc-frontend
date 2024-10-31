@@ -17,7 +17,6 @@ export const fetcher = async <T>(url: string): Promise<T> => {
     });
 
     if (!response.ok) {
-        console.log("Failed to fetch data from ", `${API_BASE_URL}${url}`);
         throw new Error(`Failed to fetch data from ${url}`);
     }
 
