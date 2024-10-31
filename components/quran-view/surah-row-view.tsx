@@ -44,7 +44,7 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
                 fill
                 sizes="60px"
                 style={{ objectFit: 'contain' }}
-                priority={true}
+                priority={id <= 15}
               />
             </div>
           </div>
