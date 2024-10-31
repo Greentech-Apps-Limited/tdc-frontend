@@ -13,6 +13,7 @@ import { MergedVerse } from '@/lib/types/verses-type';
 import useSettingsStore from '@/stores/settings-store';
 import { useToast } from '@/hooks/use-toast';
 import { APP_BASE_URL } from '@/services/api';
+import ShareMenu from './share-menu-props';
 
 interface VerseDisplayOptionsProps {
   surahId?: string;
@@ -52,9 +53,10 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
   };
 
   const formatVerseLink = (verseKey: string) => {
-    const [surahId, verseNumber] = verseKey.split(':');
+    const [surahId] = verseKey.split(':');
+    const verseParam = verseKey.split(':').join('-');
     const translationsQuery = selectedTranslation.join('-');
-    return `${APP_BASE_URL}/${surahId}/${verseNumber}?translations=${translationsQuery}`;
+    return `${APP_BASE_URL}/surah/${surahId}?translations=${translationsQuery}&verse=${verseParam}`;
   };
 
   const handleCopyText = async () => {
@@ -107,7 +109,12 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem onClick={handleCopyText}>Copy Text</DropdownMenuItem>
         <DropdownMenuItem onClick={handleCopyLink}>Copy Link</DropdownMenuItem>
-        <DropdownMenuItem>Share</DropdownMenuItem>
+        <ShareMenu
+          verseKey={verseKey}
+          verse={verse}
+          formatVerseLink={formatVerseLink}
+          formatVerseText={formatVerseText}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );
