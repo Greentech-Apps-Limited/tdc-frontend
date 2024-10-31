@@ -1,0 +1,240 @@
+{
+  "HomePage": {
+    "title": "Selamat datang!"
+  },
+  "sidebar": {
+    "Homepage": "Beranda",
+    "Quiz": "Kuis",
+    "Profile": "Profil",
+    "Minimize": "Minimalkan"
+  },
+  "Settings": {
+    "title": "Pengaturan",
+    "content": "Konten",
+    "wordByWord": "Kata per Kata",
+    "translation": "Terjemahan",
+    "translations": "Terjemahan",
+    "tafsirs": "Tafsirs",
+    "selected": "Terpilih",
+    "wordByWordLang": "Kata per Kata",
+    "font": "Font",
+    "arabicFont": "Font Arab",
+    "arabicFontSize": "Ukuran Font Arab: {size}px",
+    "translationTafsirFontSize": "Ukuran Font Terjemahan/Tafsir: {size}px"
+  },
+  "QuickLinks": {
+    "title": "Tautan Cepat"
+  },
+  "LastRead": {
+    "title": "Terakhir Dibaca",
+    "noRecentReadings": "Tidak ada bacaan terbaru",
+    "noRecentReadingsDescription": "Ayat terakhir yang Anda baca akan muncul di sini",
+    "timeAgo": {
+      "second": "{count}d yang lalu",
+      "minute": "{count}m yang lalu",
+      "hour": "{count}j yang lalu",
+      "yesterday": "kemarin",
+      "day": "{count} hari yang lalu",
+      "week": "{count} minggu yang lalu",
+      "month": "{count} bulan yang lalu",
+      "year": "{count} tahun yang lalu"
+    }
+  },
+  "WeeklyProgress": {
+    "thisWeek": "Minggu Ini",
+    "readingGoal": "dari {goal}m target bacaan",
+    "continue": "Lanjutkan",
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}j {minutes}m"
+    }
+  },
+  "Numbers": {
+    "digit": {
+      "0": "٠",
+      "1": "١",
+      "2": "٢",
+      "3": "٣",
+      "4": "٤",
+      "5": "٥",
+      "6": "٦",
+      "7": "٧",
+      "8": "٨",
+      "9": "٩"
+    }
+  },
+  "Views": {
+    "surah": "Surah",
+    "page": "Halaman",
+    "juz": "Juz",
+    "hizb": "Hizb",
+    "ruku": "Ruku"
+  },
+  "SurahTranslation": {
+    "sura_1": "Pembukaan",
+    "sura_2": "Sapi Betina",
+    "sura_3": "Keluarga Imran",
+    "sura_4": "Wanita",
+    "sura_5": "Hidangan",
+    "sura_6": "Binatang Ternak",
+    "sura_7": "Tempat Tertinggi",
+    "sura_8": "Rampasan Perang",
+    "sura_9": "Pengampunan",
+    "sura_10": "Nabi Yunus",
+    "sura_11": "Nabi Hud",
+    "sura_12": "Nabi Yusuf",
+    "sura_13": "Guruh",
+    "sura_14": "Nabi Ibrahim",
+    "sura_15": "Pegunungan Hijr",
+    "sura_16": "Lebah",
+    "sura_17": "Perjalanan Di Malam Hari",
+    "sura_18": "Gua",
+    "sura_19": "Maryam",
+    "sura_20": "Thaaha",
+    "sura_21": "Nabi-nabi",
+    "sura_22": "Haji",
+    "sura_23": "Orang-orang Beriman",
+    "sura_24": "Cahaya",
+    "sura_25": "Pembeda",
+    "sura_26": "Penyair-penyair",
+    "sura_27": "Semut",
+    "sura_28": "Kisah-kisah",
+    "sura_29": "Laba-laba",
+    "sura_30": "Bangsa Rum",
+    "sura_31": "Luqman",
+    "sura_32": "Sujud",
+    "sura_33": "Golongan Yang Bersekutu",
+    "sura_34": "Negeri Saba",
+    "sura_35": "Maha Pencipta",
+    "sura_36": "Yasiin",
+    "sura_37": "Yang Berbaris",
+    "sura_38": "Shaad",
+    "sura_39": "Rombongan-rombongan",
+    "sura_40": "Yang Maha Mengampuni",
+    "sura_41": "Yang Dijelaskan",
+    "sura_42": "Musyawarah",
+    "sura_43": "Perhiasan",
+    "sura_44": "Kabut",
+    "sura_45": "Yang Berlutut",
+    "sura_46": "Bukit-bukit Pasir",
+    "sura_47": "Nabi Muhammad",
+    "sura_48": "Kemenangan",
+    "sura_49": "Kamar-kamar",
+    "sura_50": "Qaaf",
+    "sura_51": "Angin Yang Menerbangkan",
+    "sura_52": "Bukit Thur",
+    "sura_53": "Bintang",
+    "sura_54": "Bulan",
+    "sura_55": "Maha Pengasih",
+    "sura_56": "Hari Kiamat, Hari Yang Pasti Terjadi",
+    "sura_57": "Besi",
+    "sura_58": "Wanita Yang Mengajukan Gugatan",
+    "sura_59": "Pengusiran",
+    "sura_60": "Wanita Yang Diuji",
+    "sura_61": "Barisan",
+    "sura_62": "Hari Jum'at",
+    "sura_63": "Orang-orang Munafik",
+    "sura_64": "Hari Ditampakkan Kesalahan-kesalahan",
+    "sura_65": "Talak",
+    "sura_66": "Pengharaman",
+    "sura_67": "Kerajaan",
+    "sura_68": "Pena",
+    "sura_69": "Hari Kiamat, Hari Yang Benar Pasti Terjadi",
+    "sura_70": "Tempat-tempat Naik",
+    "sura_71": "Nabi Nuh",
+    "sura_72": "Jin",
+    "sura_73": "Orang Yang Berselimut",
+    "sura_74": "Orang Yang Berkemul",
+    "sura_75": "Hari Kiamat",
+    "sura_76": "Manusia",
+    "sura_77": "Malaikat Yang Diutus",
+    "sura_78": "Berita",
+    "sura_79": "Malaikat Yang Mencabut",
+    "sura_80": "Bermuka Masam",
+    "sura_81": "Penggulungan",
+    "sura_82": "Terbelah",
+    "sura_83": "Orang-orang Yang Curang",
+    "sura_84": "Terbelah Dua",
+    "sura_85": "Gugusan Bintang",
+    "sura_86": "Yang Datang Di Malam Hari",
+    "sura_87": "Yang Maha Tinggi",
+    "sura_88": "Hari Pembalasan",
+    "sura_89": "Fajar",
+    "sura_90": "Negeri",
+    "sura_91": "Matahari",
+    "sura_92": "Malam",
+    "sura_93": "Waktu Dhuha",
+    "sura_94": "Kelapangan",
+    "sura_95": "Buah Tin",
+    "sura_96": "Segumpal Darah",
+    "sura_97": "Kemuliaan, Takdir",
+    "sura_98": "Bukti",
+    "sura_99": "Keguncangan",
+    "sura_100": "Kuda Perang Yang Berlari Kencang",
+    "sura_101": "Hari Kiamat, Yang Mengguncang Keras",
+    "sura_102": "Bermegah-megahan",
+    "sura_103": "Masa, Waktu Petang",
+    "sura_104": "Pengumpat",
+    "sura_105": "Gajah",
+    "sura_106": "Suku Quraisy",
+    "sura_107": "Bantuan Yang Berguna",
+    "sura_108": "Nikmat Yang Banyak",
+    "sura_109": "Orang-orang Kafir",
+    "sura_110": "Pertolongan",
+    "sura_111": "Tali Sabut Yang Dipintal",
+    "sura_112": "Pemurnian Keesaan Allah",
+    "sura_113": "Waktu Shubuh",
+    "sura_114": "Manusia"
+  },
+  "QuizIntroCard": {
+    "title": "Kuis Al-Quran",
+    "description": "Mulailah perjalanan penemuan Al-Quran! Uji pengetahuan Anda dengan kuis kami dan perkaya pemahaman Anda tentang kata kerja ilahi yang terdapat dalam Al-Quran.",
+    "playNow": "Main Sekarang",
+    "viewLeaderBoard": "Lihat Papan Peringkat"
+  },
+  "Scoreboard": {
+    "title": "Papan Skor",
+    "quizzesAttempted": "Kuis Dicoba",
+    "scoreOnQuizzes": "Skor pada kuis",
+    "onLeaderboard": "pada Papan Peringkat",
+    "leaderboardSuffix": "ke"
+  },
+  "QuizLevelSelectionModal": {
+    "title": "Mulai Kuis",
+    "description": "Pilih tingkat kesulitan dan mari lihat berapa banyak pertanyaan yang bisa Anda taklukkan! Pilih 'Sulit' untuk menambah skor yang lebih tinggi.",
+    "levels": {
+      "easy": "Mudah",
+      "medium": "Sedang",
+      "hard": "Sulit"
+    },
+    "cancel": "Batal",
+    "startQuiz": "Mulai Kuis"
+  },
+  "ExitConfirmationModal": {
+    "title": "Keluar Kuis",
+    "description": "Apakah Anda yakin ingin keluar dari permainan? Kemajuan sejauh ini akan diperbarui ke profil dan papan peringkat Anda.",
+    "cancel": "Batal",
+    "exit": "Keluar"
+  },
+  "Statistics": {
+    "totalAyahRead": {
+      "title": "Total ayat dibaca",
+      "description": "Kemajuan dalam Al-Quran"
+    },
+    "timeSpent": {
+      "title": "Waktu terpakai",
+      "description": "Waktu yang dihabiskan hari ini"
+    },
+    "quizScore": {
+      "title": "Skor kuis",
+      "description": "Rata-rata tingkat pemahaman"
+    },
+    "leaderboard": {
+      "title": "Papan peringkat",
+      "description": "Peringkat mingguan saat ini"
+    }
+  },
+  "Profile": {
+    "title": "Profil"
+  }
+}

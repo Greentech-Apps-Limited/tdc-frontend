@@ -23,6 +23,7 @@ const config = {
       fontFamily: {
         source_sans_3: ['var(--font-source_sans_3)', ...fontFamily.sans],
         hidayatullah_demo: ['var(--font-hidayatullah-demo)', ...fontFamily.mono],
+        lateef: ['var(--font-lateef)'],
       },
       keyframes: {
         "accordion-down": {
@@ -33,15 +34,31 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "announce-hide": {
-          from: { height: "40px" },
-          to: { height: "0" },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%': { transform: 'translateX(-2px)' },
+          '15%, 25%, 35%, 45%, 55%, 65%, 75%, 85%, 95%': { transform: 'translateX(2px)' },
         },
+        heartFall: {
+          '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+          '100%': { transform: 'translateY(35vh) scale(0.5)', opacity: '0' },
+        },
+        slideInStaggered: {
+          '0%': { transform: 'translateY(1rem)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "announce-hide": "announce-hide 0.2s ease-out",
+        shake: 'shake 0.3s cubic-bezier(.36,.07,.19,.97) both',
+        'heart-fall': 'heartFall 1s ease-in forwards',
+        slideInStaggered: 'slideInStaggered 0.5s ease-out forwards',
+        fadeIn: 'fadeIn 1s ease-in-out',
       },
       colors: {
         neutral: {
@@ -70,15 +87,26 @@ const config = {
         },
         red: {
           500: "#BD544C"
+        },
+        teal: {
+          500: "#1B8885",
+          700: '#026E68'
+        },
+        purple: {
+          500: "#736CCD"
         }
       },
       dropShadow: {
         DEFAULT: '0px 1px 3px 0px #0000001A',
+        "sm": " 0px 3px 10px 0px rgba(0, 0, 0, 0.06)"
       },
       maxWidth: {
         '4xl': '54.5rem',
         '8xl': '82.5rem',
         '9xl': '97.5rem',
+      },
+      borderRadius: {
+        '4xl': '32px',
       }
     },
   },

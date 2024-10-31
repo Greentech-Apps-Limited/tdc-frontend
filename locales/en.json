@@ -1,0 +1,240 @@
+{
+  "HomePage": {
+    "title": "Selamat datang!"
+  },
+  "sidebar": {
+    "Homepage": "Homepage",
+    "Quiz": "Quiz",
+    "Profile": "Profile",
+    "Minimize": "Minimize"
+  },
+  "Settings": {
+    "title": "Settings",
+    "content": "Content",
+    "wordByWord": "Word by Word",
+    "translation": "Translation",
+    "translations": "Translations",
+    "tafsirs": "Tafsirs",
+    "selected": "Selected",
+    "wordByWordLang": "Word By Word",
+    "font": "Font",
+    "arabicFont": "Arabic Font",
+    "arabicFontSize": "Arabic Font Size: {size}px",
+    "translationTafsirFontSize": "Translation/Tafsir Font Size: {size}px"
+  },
+  "QuickLinks": {
+    "title": "Quick Links"
+  },
+  "LastRead": {
+    "title": "Last Read",
+    "noRecentReadings": "No recent readings",
+    "noRecentReadingsDescription": "Your last read verses will appear here",
+    "timeAgo": {
+      "second": "{count}s ago",
+      "minute": "{count}m ago",
+      "hour": "{count}h ago",
+      "yesterday": "yesterday",
+      "day": "{count}d ago",
+      "week": "{count}w ago",
+      "month": "{count}mo ago",
+      "year": "{count}y ago"
+    }
+  },
+  "WeeklyProgress": {
+    "thisWeek": "This Week",
+    "readingGoal": "out of {goal}m reading goal",
+    "continue": "Continue",
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}h {minutes}m"
+    }
+  },
+  "Numbers": {
+    "digit": {
+      "0": "0",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9"
+    }
+  },
+  "Views": {
+    "surah": "Surah",
+    "page": "Page",
+    "juz": "Juz",
+    "hizb": "Hizb",
+    "ruku": "Ruku"
+  },
+  "SurahTranslation": {
+    "sura_1": "The Opening",
+    "sura_2": "The Cow",
+    "sura_3": "The Family of Imraan",
+    "sura_4": "The Women",
+    "sura_5": "The Table",
+    "sura_6": "The Cattle",
+    "sura_7": "The Heights",
+    "sura_8": "The Spoils of War",
+    "sura_9": "The Repentance",
+    "sura_10": "Jonas",
+    "sura_11": "Hud",
+    "sura_12": "Joseph",
+    "sura_13": "The Thunder",
+    "sura_14": "Abraham",
+    "sura_15": "The Rock",
+    "sura_16": "The Bee",
+    "sura_17": "The Night Journey",
+    "sura_18": "The Cave",
+    "sura_19": "Mary",
+    "sura_20": "Taa-Haa",
+    "sura_21": "The Prophets",
+    "sura_22": "The Pilgrimage",
+    "sura_23": "The Believers",
+    "sura_24": "The Light",
+    "sura_25": "The Criterion",
+    "sura_26": "The Poets",
+    "sura_27": "The Ant",
+    "sura_28": "The Stories",
+    "sura_29": "The Spider",
+    "sura_30": "The Romans",
+    "sura_31": "Luqman",
+    "sura_32": "The Prostration",
+    "sura_33": "The Clans",
+    "sura_34": "Sheba",
+    "sura_35": "The Originator",
+    "sura_36": "Yaseen",
+    "sura_37": "Those drawn up in Ranks",
+    "sura_38": "The letter Saad",
+    "sura_39": "The Groups",
+    "sura_40": "The Forgiver",
+    "sura_41": "Explained in detail",
+    "sura_42": "Consultation",
+    "sura_43": "Ornaments of gold",
+    "sura_44": "The Smoke",
+    "sura_45": "Crouching",
+    "sura_46": "The Dunes",
+    "sura_47": "Muhammad",
+    "sura_48": "The Victory",
+    "sura_49": "The Inner Apartments",
+    "sura_50": "The letter Qaaf",
+    "sura_51": "The Winnowing Winds",
+    "sura_52": "The Mount",
+    "sura_53": "The Star",
+    "sura_54": "The Moon",
+    "sura_55": "The Beneficent",
+    "sura_56": "The Inevitable",
+    "sura_57": "The Iron",
+    "sura_58": "The Pleading Woman",
+    "sura_59": "The Exile",
+    "sura_60": "She that is to be examined",
+    "sura_61": "The Ranks",
+    "sura_62": "Friday",
+    "sura_63": "The Hypocrites",
+    "sura_64": "Mutual Disillusion",
+    "sura_65": "Divorce",
+    "sura_66": "The Prohibition",
+    "sura_67": "The Sovereignty",
+    "sura_68": "The Pen",
+    "sura_69": "The Reality",
+    "sura_70": "The Ascending Stairways",
+    "sura_71": "Noah",
+    "sura_72": "The Jinn",
+    "sura_73": "The Enshrouded One",
+    "sura_74": "The Cloaked One",
+    "sura_75": "The Resurrection",
+    "sura_76": "Man",
+    "sura_77": "The Emissaries",
+    "sura_78": "The Announcement",
+    "sura_79": "Those who drag forth",
+    "sura_80": "He frowned",
+    "sura_81": "The Overthrowing",
+    "sura_82": "The Cleaving",
+    "sura_83": "Defrauding",
+    "sura_84": "The Splitting Open",
+    "sura_85": "The Constellations",
+    "sura_86": "The Morning Star",
+    "sura_87": "The Most High",
+    "sura_88": "The Overwhelming",
+    "sura_89": "The Dawn",
+    "sura_90": "The City",
+    "sura_91": "The Sun",
+    "sura_92": "The Night",
+    "sura_93": "The Morning Hours",
+    "sura_94": "The Consolation",
+    "sura_95": "The Fig",
+    "sura_96": "The Clot",
+    "sura_97": "The Power, Fate",
+    "sura_98": "The Evidence",
+    "sura_99": "The Earthquake",
+    "sura_100": "The Chargers",
+    "sura_101": "The Calamity",
+    "sura_102": "Competition",
+    "sura_103": "The Declining Day, Epoch",
+    "sura_104": "The Traducer",
+    "sura_105": "The Elephant",
+    "sura_106": "Quraish",
+    "sura_107": "Almsgiving",
+    "sura_108": "Abundance",
+    "sura_109": "The Disbelievers",
+    "sura_110": "Divine Support",
+    "sura_111": "The Palm Fibre",
+    "sura_112": "Sincerity",
+    "sura_113": "The Dawn",
+    "sura_114": "Mankind"
+  },
+  "QuizIntroCard": {
+    "title": "Quranic Quiz",
+    "description": "Embark on a journey of Quranic discovery! Test your knowledge with our quiz and deepen your understanding of the divine verbs found in the Quran.",
+    "playNow": "Play Now",
+    "viewLeaderBoard": "View Leader Board"
+  },
+  "Scoreboard": {
+    "title": "Scoreboard",
+    "quizzesAttempted": "Quizzes Attempted",
+    "scoreOnQuizzes": "Score on quizzes",
+    "onLeaderboard": "on Leaderboard",
+    "leaderboardSuffix": "rd"
+  },
+  "QuizLevelSelectionModal": {
+    "title": "Start Quiz",
+    "description": "Select a difficulty level and let's see how many questions you can conquer! Choose 'Hard' to add a higher score.",
+    "levels": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "cancel": "Cancel",
+    "startQuiz": "Start Quiz"
+  },
+  "ExitConfirmationModal": {
+    "title": "Exit Quiz",
+    "description": "Are you sure you want to exit the game? Progress so far will be updated to your profile and leaderboard.",
+    "cancel": "Cancel",
+    "exit": "Exit"
+  },
+  "Statistics": {
+    "totalAyahRead": {
+      "title": "Total ayah read",
+      "description": "Progress through the Holy Quran"
+    },
+    "timeSpent": {
+      "title": "Minutes spent",
+      "description": "Time dedicated today"
+    },
+    "quizScore": {
+      "title": "Quiz score",
+      "description": "Average comprehension rate"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "description": "Current weekly ranking"
+    }
+  },
+  "Profile": {
+    "title": "Profile"
+  }
+}
