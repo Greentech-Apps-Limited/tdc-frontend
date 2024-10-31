@@ -16,12 +16,29 @@ export default function robots(): MetadataRoute.Robots {
                     '/api/*',
                     '/private/*',
                     '/*?*', // Disallow URLs with query parameters
+                    '/*.json$',
+                    '/quiz/play-mode/*'
                 ]
             },
             {
                 userAgent: 'Googlebot',
                 allow: '/',
                 disallow: ['/api/*', '/private/*'],
+            },
+            {
+                userAgent: 'Bingbot',
+                allow: '/',
+                disallow: ['/api/*', '/private/*']
+            },
+            {
+                userAgent: 'DuckDuckBot',
+                allow: '/',
+                disallow: ['/api/*', '/private/*']
+            },
+            {
+                userAgent: 'Baiduspider',
+                allow: '/',
+                disallow: ['/api/*', '/private/*']
             }
         ],
         sitemap: `${baseUrl}/sitemap.xml`,
