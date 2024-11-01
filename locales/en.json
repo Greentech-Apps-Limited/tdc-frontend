@@ -1,4 +1,26 @@
 {
+  "QuranMeta": {
+    "surahTitle": "Surah {surahId}",
+    "surahDescription": "Read Surah {surahId} with translation and audio on TDC Quran",
+    "juzTitle": "Juz {juzId}",
+    "juzDescription": "Read Juz {juzId} of the Holy Quran on TDC Quran",
+    "pageTitle": "Page {pageId}",
+    "pageDescription": "Read page {pageId} of the Holy Quran on TDC Quran",
+    "hizbTitle": "Hizb {hizbId}",
+    "hizbDescription": "Read Hizb {hizbId} of the Holy Quran on TDC Quran",
+    "rukuTitle": "Ruku {rukuId}",
+    "rukuDescription": "Read Ruku {rukuId} of the Holy Quran on TDC Quran"
+  },
+  "Metadata": {
+    "homeTitle": "Digital Quran Platform",
+    "homeDescription": "Read, learn, and connect with the Holy Quran on TDC's digital platform",
+    "profileTitle": "My Profile",
+    "profileDescription": "Manage your Quran reading profile and track your progress",
+    "quizTitle": "Quran Quiz",
+    "quizDescription": "Test your Quranic knowledge with interactive quizzes",
+    "leaderboardTitle": "Quiz Leaderboard",
+    "leaderboardDescription": "See top performers in TDC Quran Quiz"
+  },
   "HomePage": {
     "title": "Selamat datang!"
   },
