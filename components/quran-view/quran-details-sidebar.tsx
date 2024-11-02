@@ -27,9 +27,10 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
   };
 
   const isActive = (id: number): boolean => params.segmentId === String(id);
+  useEffect(() => {
+    const scrollToActiveIndex = () => {
+      if (!virtuosoRef.current || !params.segmentId) return;
 
-  const scrollToActiveIndex = () => {
-    if (virtuosoRef.current && params.segmentId) {
       const activeIndex = references.findIndex(ref => String(ref.id) === params.segmentId);
 
       if (activeIndex !== -1) {
@@ -43,18 +44,10 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
           setInitialScrollDone(true);
         }
       }
-    }
-  };
+    };
 
-  useEffect(() => {
     scrollToActiveIndex();
-  }, []);
-
-  useEffect(() => {
-    if (initialScrollDone) {
-      scrollToActiveIndex();
-    }
-  }, [params.segmentId]);
+  }, [params.segmentId, references, initialScrollDone]);
 
   const renderReference = (index: number) => {
     const reference = references[index];

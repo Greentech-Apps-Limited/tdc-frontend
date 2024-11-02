@@ -9,7 +9,7 @@ interface ReciterState {
 const useReciterStore = create<ReciterState>()(
     persist(
         (set) => ({
-            reciterId: '7',
+            reciterId: '3',
             setReciterId: (id) => set({ reciterId: id }),
         }),
         {
