@@ -1,7 +1,7 @@
-import React from 'react';
+'use client';
+
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';
-import { RECITERS_LIST } from '@/data/reciters-info';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import {
   Command,
@@ -13,10 +13,31 @@ import {
 } from '../ui/command';
 import { cn } from '@/lib/utils/common-utils';
 import useReciterStore from '@/stores/reciter-store';
+import { useState } from 'react';
+import useSWRImmutable from 'swr/immutable';
+import { fetcher } from '@/services/api';
+import { Skeleton } from '../ui/skeleton';
+import { RecitersResponse } from '@/lib/types/audio';
 
 const AudioRecitersSelection = () => {
   const { reciterId, setReciterId } = useReciterStore();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const { data, error, isLoading } = useSWRImmutable<RecitersResponse>('/quran/audios/', fetcher);
+
+  if (error) {
+    return (
+      <Button variant="outline" className="h-max rounded-full px-3 py-1 text-xs">
+        Failed to load reciters
+      </Button>
+    );
+  }
+
+  if (isLoading) {
+    return <Skeleton className="h-8 w-52 rounded-full" />;
+  }
+
+  const selectedReciter = data?.results.find(reciter => reciter.id.toString() === reciterId);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -27,10 +48,7 @@ const AudioRecitersSelection = () => {
           aria-expanded={open}
           className="h-max min-w-52 justify-between rounded-full px-3 py-1 text-xs"
         >
-          {reciterId
-            ? RECITERS_LIST.find(reciter => reciter.id.toString() === reciterId)?.translated_name
-                .name
-            : 'Select Reciter...'}
+          {selectedReciter ? selectedReciter.qari_name : 'Select Reciter...'}
           <ChevronsUpDown className="ml-1 h-3 w-3 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -40,10 +58,10 @@ const AudioRecitersSelection = () => {
           <CommandList>
             <CommandEmpty>No Reciter found.</CommandEmpty>
             <CommandGroup>
-              {RECITERS_LIST.map(reciter => (
+              {data?.results.map(reciter => (
                 <CommandItem
                   key={reciter.id}
-                  value={reciter.translated_name.name}
+                  value={reciter.qari_name}
                   onSelect={() => {
                     setReciterId(reciter.id.toString());
                     setOpen(false);
@@ -55,7 +73,7 @@ const AudioRecitersSelection = () => {
                       reciterId === reciter.id.toString() ? 'opacity-100' : 'opacity-0'
                     )}
                   />
-                  {reciter.translated_name.name}
+                  {reciter.qari_name}
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -65,4 +83,5 @@ const AudioRecitersSelection = () => {
     </Popover>
   );
 };
+
 export default AudioRecitersSelection;
