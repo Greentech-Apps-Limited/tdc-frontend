@@ -1,4 +1,4 @@
-import { DetailsHorizontalIcon } from '@/icons';
+import { CopyTextIcon, DetailsHorizontalIcon, LinkIcon3 } from '@/icons';
 import React from 'react';
 import {
   DropdownMenu,
@@ -37,7 +37,7 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
   const { toast } = useToast();
   const { selectedTranslation } = useSettingsStore();
 
-  const formatVerseText = (verse: MergedVerse) => {
+  const formatVerseText = (verse: MergedVerse, includeSource: boolean = true) => {
     const lines = [
       verse.text_uthmani,
       '',
@@ -46,8 +46,11 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
       ) || []),
       '',
       `Al-Quran: ${verseKey}`,
-      `Source: ${formatVerseLink(verseKey)}`,
     ];
+
+    if (includeSource) {
+      lines.push(`Source: ${formatVerseLink(verseKey)}`);
+    }
 
     return lines.join('\n');
   };
@@ -107,8 +110,14 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={handleCopyText}>Copy Text</DropdownMenuItem>
-        <DropdownMenuItem onClick={handleCopyLink}>Copy Link</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleCopyText}>
+          <CopyTextIcon className="mr-2 h-6 w-6" />
+          Copy Text
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleCopyLink}>
+          <LinkIcon3 className="mr-2 h-6 w-6" />
+          Copy Link
+        </DropdownMenuItem>
         <ShareMenu
           verseKey={verseKey}
           verse={verse}
