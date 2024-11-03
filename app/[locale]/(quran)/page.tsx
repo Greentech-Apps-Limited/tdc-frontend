@@ -16,6 +16,12 @@ import {
   QuickAccessSectionSkeleton,
   SurahRowSkeleton,
 } from '@/components/skeleton-loaders/home-page-skeleton';
+import { getStaticMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  return getStaticMetadata('home', locale);
+}
+
 export default async function Home({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
   const surahs = SURAH_EN;

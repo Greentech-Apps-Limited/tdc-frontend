@@ -11,7 +11,7 @@ const BannerSkeleton = () => {
 const SurahRowSkeleton = () => {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {[...Array(9)].map((_, index) => (
+      {[...Array(15)].map((_, index) => (
         <div
           key={index}
           className="flex items-center justify-between rounded-full border border-neutral-200 bg-neutral p-2 pr-6"
