@@ -25,7 +25,13 @@ const ViewLeaderBoardButton = () => {
   );
 };
 
-const QuizIntroCard = ({ setShowLevelModal }: { setShowLevelModal: (value: boolean) => void }) => {
+const QuizIntroCard = ({
+  setShowLevelModal,
+  unauthenticated,
+}: {
+  setShowLevelModal: (value: boolean) => void;
+  unauthenticated: boolean;
+}) => {
   const t = useTranslations('QuizIntroCard');
   return (
     <section className="flex h-full flex-col justify-between rounded-4xl border border-neutral-300 bg-neutral p-6 shadow">
@@ -34,7 +40,16 @@ const QuizIntroCard = ({ setShowLevelModal }: { setShowLevelModal: (value: boole
         <p className="text-base">{t('description')}</p>
       </div>
       <div className="mt-auto flex max-w-96 gap-4 pt-4">
-        <StartQuizButton onClick={() => setShowLevelModal(true)} />
+        {unauthenticated ? (
+          <Link href="/signin">
+            <Button className="w-full rounded-full bg-brown-600 text-white hover:bg-brown-500">
+              Sign in to Start Quiz
+            </Button>
+          </Link>
+        ) : (
+          <StartQuizButton onClick={() => setShowLevelModal(true)} />
+        )}
+
         <ViewLeaderBoardButton />
       </div>
     </section>

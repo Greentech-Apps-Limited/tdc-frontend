@@ -23,6 +23,23 @@ export const fetcher = async <T>(url: string): Promise<T> => {
     return response.json();
 };
 
+export const authorizedFetcher = async <T>(url: string, accessToken: string): Promise<T> => {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
+        headers: {
+            'x-api-token': `${API_TOKEN}`,
+            'Content-Type': 'application/json',
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` })
+        },
+        next: { revalidate: 24 * 60 * 60 },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${url}`);
+    }
+    return response.json();
+};
+
+
 export const getQuranVerses = async (
     segmentParams: SegmentParams,
     languageCode: string = 'en',
