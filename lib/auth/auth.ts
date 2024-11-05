@@ -132,4 +132,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             console.log("User signed out");
         },
     },
+    pages: {
+        signIn: "/signin",
+    },
 });
