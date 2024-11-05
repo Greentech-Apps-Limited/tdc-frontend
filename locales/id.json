@@ -219,7 +219,8 @@
     "quizzesAttempted": "Kuis Dicoba",
     "scoreOnQuizzes": "Skor pada kuis",
     "onLeaderboard": "pada Papan Peringkat",
-    "leaderboardSuffix": "ke"
+    "leaderboardSuffix": "ke",
+    "authPrompt": "Silakan masuk untuk melihat posisi Anda di papan peringkat dan melacak kemajuan Anda."
   },
   "QuizLevelSelectionModal": {
     "title": "Mulai Kuis",

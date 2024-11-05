@@ -219,7 +219,8 @@
     "quizzesAttempted": "Kuiz Dicuba",
     "scoreOnQuizzes": "Skor pada kuiz",
     "onLeaderboard": "pada Papan Pendahulu",
-    "leaderboardSuffix": "ke"
+    "leaderboardSuffix": "ke",
+    "authPrompt": "Sila log masuk untuk melihat kedudukan anda dalam papan pendahulu dan mengesan kemajuan anda."
   },
   "QuizLevelSelectionModal": {
     "title": "Mulakan Kuiz",

@@ -219,7 +219,8 @@
     "quizzesAttempted": "Quizzes Attempted",
     "scoreOnQuizzes": "Score on quizzes",
     "onLeaderboard": "on Leaderboard",
-    "leaderboardSuffix": "rd"
+    "leaderboardSuffix": "rd",
+    "authPrompt": "Please log in to view your position on the leaderboard and track your progress."
   },
   "QuizLevelSelectionModal": {
     "title": "Start Quiz",
