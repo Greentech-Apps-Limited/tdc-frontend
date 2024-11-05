@@ -36,7 +36,7 @@ const constructMetadata = ({
         description: description || siteConfig.description,
         icons: {
             icon: '/favicon.ico',
-            apple: '/apple-icon.png'
+            apple: '/logos/apple-icon.png'
         },
         manifest: `${siteConfig.url}/manifest.json`,
         robots: {
