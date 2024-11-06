@@ -1,14 +1,8 @@
 import QuranDetailsSkeleton from '@/components/skeleton-loaders/quran-details-skeleton';
-import { HIZBS } from '@/data/quran-meta/hizbs';
-import { JUZS } from '@/data/quran-meta/juzs';
-import { PAGES } from '@/data/quran-meta/pages';
-import { RUKUS } from '@/data/quran-meta/rukus';
-import { SURAH_EN } from '@/data/quran-meta/surahs/en';
-import { Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { Reference, Surah } from '@/lib/types/quran-meta-types';
 import { Suspense } from 'react';
-
-type Reference = { id: number | string };
+import { loadQuranMetadata } from '@/lib/utils/quran-meta';
 
 const QuranSegmentDetailsLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
@@ -21,20 +15,20 @@ const QuranSegmentDetailsLayout = ({ children }: Readonly<{ children: React.Reac
 export default QuranSegmentDetailsLayout;
 
 export async function generateStaticParams() {
-  const segmentMap: Record<Exclude<QuranSegment, 'surah'>, Reference[]> & { surah: Surah[] } = {
-    surah: SURAH_EN,
-    page: PAGES,
-    juz: JUZS,
-    hizb: HIZBS,
-    ruku: RUKUS,
-  };
+  const segments: QuranSegment[] = ['surah', 'page', 'juz', 'hizb', 'ruku'];
 
-  const staticParams = Object.entries(segmentMap).flatMap(([quranSegment, references]) => {
-    return references.map(reference => ({
-      quranSegment,
-      segmentId: reference.id.toString(),
-    }));
-  });
+  const staticParams = await Promise.all(
+    segments.map(async segment => {
+      const references = await loadQuranMetadata(segment);
+      if (!references) return [];
 
-  return staticParams;
+      // Type guard to handle both Reference and Surah types
+      return (references as (Reference | Surah)[]).map((reference: Reference | Surah) => ({
+        quranSegment: segment,
+        segmentId: reference.id.toString(),
+      }));
+    })
+  );
+
+  return staticParams.flat();
 }
