@@ -128,8 +128,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     events: {
         async signOut() {
-            // Clear any stored tokens or session data
-            console.log("User signed out");
+            // TODO: Handle signout Backend functionality
         },
     },
     pages: {

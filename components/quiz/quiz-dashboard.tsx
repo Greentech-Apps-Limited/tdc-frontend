@@ -56,7 +56,6 @@ const QuizDashboard = () => {
       {showLevelModal && (
         <QuizLevelSelectionModal
           onConfirm={() => {
-            // TODO: Handle exit confirmation
             push('/quiz/play-mode');
           }}
           onCancel={() => setShowLevelModal(false)}
