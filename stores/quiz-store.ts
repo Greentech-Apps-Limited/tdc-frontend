@@ -23,6 +23,7 @@ export const create = (<T>() => {
 interface QuizState {
     life: number;
     isPlaying: boolean;
+    isGameOver: boolean;
     timeRemaining: number;
     correctAnswers: number;
     currentQuestionIndex: number;
@@ -44,6 +45,7 @@ interface QuizState {
 
 interface QuizActions {
     startQuiz: (questions: Question[]) => void;
+    setIsGameOver: (isGameOver: boolean) => void;
     endQuiz: () => void;
     decreaseLife: () => void;
     answerQuestion: (answer: string) => void;
@@ -64,6 +66,7 @@ interface QuizActions {
 const INITIAL_STATE: QuizState = {
     life: 5,
     isPlaying: false,
+    isGameOver: false,
     timeRemaining: 30,
     correctAnswers: 0,
     currentQuestionIndex: 0,
@@ -206,6 +209,7 @@ const useQuizStore = create<QuizState & QuizActions>()((set, get) => ({
     updateTotalTimeSpent: () => set(state => ({
         totalTimeSpent: state.totalTimeSpent + 1
     })),
+    setIsGameOver: (isGameOver) => set({ isGameOver }),
 
     reset: () => set(INITIAL_STATE),
 }));

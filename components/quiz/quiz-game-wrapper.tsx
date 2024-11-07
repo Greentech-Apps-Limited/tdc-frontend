@@ -7,7 +7,8 @@ import { Question } from '@/lib/types/quiz-types';
 import { useRouter } from '@/i18n/routing';
 import QuizGameSkeleton from '../skeleton-loaders/quiz-gam-skeleton';
 import { useSession } from 'next-auth/react';
-import { authorizedFetcher } from '@/services/api';
+import { authorizedFetcher, submitQuiz } from '@/services/api';
+import useSWRMutation from 'swr/mutation';
 
 type QuizApiResponse = {
   count: number;
@@ -29,10 +30,46 @@ const getDifficultyLevelQuery = (level: number) => {
 
 const QuizGameWrapper = () => {
   const { data: session } = useSession();
-  const { startQuiz, isPlaying, showResults, selectedLevel } = useQuizStore();
+  const {
+    startQuiz,
+    isPlaying,
+    showResults,
+    selectedLevel,
+    isGameOver,
+    correctAnswers,
+    totalTimeSpent,
+    questions,
+  } = useQuizStore();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  const { trigger: submitQuizTrigger, isMutating } = useSWRMutation(
+    '/quiz/game-results/submit/',
+    url =>
+      submitQuiz(
+        url,
+        {
+          arg: {
+            correct_answers_count: correctAnswers,
+            time_in_seconds: totalTimeSpent,
+            total_questions: questions.length,
+            time_per_question: 30,
+          },
+        },
+        session?.accessToken as string
+      )
+  );
+
+  useEffect(() => {
+    const handleGameOver = async () => {
+      if (isGameOver && !isMutating && session?.accessToken) {
+        await submitQuizTrigger();
+      }
+    };
+
+    handleGameOver();
+  }, [isGameOver]);
 
   useEffect(() => {
     const init = async () => {
@@ -66,6 +103,7 @@ const QuizGameWrapper = () => {
     init();
   }, []);
 
+  // console.log('isGameOver', isGameOver);
   if (isLoading) return <QuizGameSkeleton />;
   if (error) return <div>{error}</div>;
   return <QuizGame />;

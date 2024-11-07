@@ -10,3 +10,11 @@ export type Question = {
     categories: number[];
 };
 
+
+export type QuizSubmission = {
+    correct_answers_count: number,
+    time_in_seconds: number,
+    total_questions: number,
+    time_per_question: number
+
+}

@@ -19,11 +19,12 @@ const QuizDashboard = () => {
 
   const { data: playerData, isLoading } = useSWR<PlayerData>(
     status === 'authenticated' ? ['/quiz/players/me/', session?.accessToken] : null,
-    ([url, token]) => authorizedFetcher<PlayerData>(url, token as string)
+    ([url, token]) => authorizedFetcher<PlayerData>(url, token as string),
+    { revalidateOnMount: true }
   );
 
   const userScoreboard = {
-    quizzesAttempted: playerData?.ranking_group ?? 0,
+    quizzesAttempted: playerData?.quiz_attempted ?? 0,
     score: playerData?.points ?? 0,
     leaderBoardPosition: playerData?.rank ?? 0,
   };

@@ -8,10 +8,11 @@ import GameEndAlert from './game-end-alert';
 import GameResultModal from './game-result-modal';
 import ExitConfirmationModal from './exit-confirmation-modal';
 import useQuizGame from '@/hooks/use-guiz-game';
-import { resetAllStores } from '@/stores/quiz-store';
+import useQuizStore, { resetAllStores } from '@/stores/quiz-store';
 
 const QuizGame = () => {
   const router = useRouter();
+  const { isGameOver } = useQuizStore();
   const {
     showEndAlert,
     showResultModal,
@@ -22,9 +23,10 @@ const QuizGame = () => {
   } = useQuizGame();
 
   const handleFinishGame = () => {
-    resetAllStores();
     router.push('/quiz');
+    resetAllStores();
   };
+  console.log('isGameOver', isGameOver);
   return (
     <div>
       <QuizHeader onExit={handleExit} />
