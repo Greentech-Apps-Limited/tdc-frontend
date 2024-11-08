@@ -103,7 +103,6 @@ const QuizGameWrapper = () => {
     init();
   }, []);
 
-  // console.log('isGameOver', isGameOver);
   if (isLoading) return <QuizGameSkeleton />;
   if (error) return <div>{error}</div>;
   return <QuizGame />;
