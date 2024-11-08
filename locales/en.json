@@ -263,5 +263,25 @@
   },
   "Profile": {
     "title": "Profile"
+  },
+  "Leaderboard": {
+    "quiz": "Quiz",
+    "title": "Leaderboard",
+    "anonymous": "Anonymous",
+    "noResults": "No results.",
+    "loading": "Loading...",
+    "columns": {
+      "rank": "Rank",
+      "name": "Name",
+      "points": "Points",
+      "pointsSuffix": "pts."
+    }
+  },
+  "Pagination": {
+    "itemsPerPage": "{count} items per page",
+    "showing": "Showing {start} to {end} of {total} entries",
+    "pageInfo": "Page {current} of {total}",
+    "previousPage": "Go to previous page",
+    "nextPage": "Go to next page"
   }
 }
