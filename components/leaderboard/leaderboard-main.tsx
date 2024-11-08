@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
+import { useTranslations } from 'next-intl';
 import { DataTable } from './data-table';
-import { leaderboardTableColumns } from './leaderboard-table-columns';
+import { useLeaderboardColumns } from './leaderboard-table-columns';
 import { PaginationState } from '@tanstack/react-table';
 import { authorizedFetcher, fetcher } from '@/services/api';
 import { LeaderboardEntry, PlayerResponse, UserRankData } from '@/lib/types/leaderboard';
@@ -21,6 +22,8 @@ const createPaginatedFetcher = (baseUrl: string) => {
 };
 
 export default function EnhancedLeaderboard() {
+  const t = useTranslations('Leaderboard');
+  const leaderboardTableColumns = useLeaderboardColumns();
   const { data: session, status } = useSession();
   const isAuthenticated = status === 'authenticated';
 
@@ -65,11 +68,11 @@ export default function EnhancedLeaderboard() {
 
     return leaderboardData.results.map(player => ({
       rank: player.rank,
-      name: player.account.name || 'Anonymous',
+      name: player.account.name || t('anonymous'),
       points: player.points,
       isCurrentUser: isAuthenticated && userRankData?.account.url === player.account.url,
     }));
-  }, [leaderboardData?.results, isAuthenticated, userRankData]);
+  }, [leaderboardData?.results, isAuthenticated, userRankData, t]);
 
   const pageCount = useMemo(() => {
     return leaderboardData ? Math.ceil(leaderboardData.count / pageSize) : 0;
@@ -77,8 +80,8 @@ export default function EnhancedLeaderboard() {
 
   return (
     <section className="h-full w-full space-y-2 rounded-4xl border border-neutral-300 bg-neutral p-6">
-      <p>Quiz</p>
-      <h1 className="font-hidayatullah_demo text-3xl font-bold">Leaderboard</h1>
+      <p>{t('quiz')}</p>
+      <h1 className="font-hidayatullah_demo text-3xl font-bold">{t('title')}</h1>
       <div className="mt-6">
         <DataTable
           data={transformedData}
@@ -94,6 +97,9 @@ export default function EnhancedLeaderboard() {
           manualPagination={true}
           getTotalRowCount={() => leaderboardData?.count || 0}
           isLoading={status === 'loading' || isLoading}
+          translations={{
+            noResults: t('noResults'),
+          }}
         />
       </div>
     </section>

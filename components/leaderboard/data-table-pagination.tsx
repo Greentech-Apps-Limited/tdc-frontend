@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -10,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/icons';
 import { Table } from '@tanstack/react-table';
+import { useNumberTranslation } from '@/hooks/use-number-translation';
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -17,6 +19,9 @@ interface DataTablePaginationProps<TData> {
 }
 
 export function DataTablePagination<TData>({ table, totalRows }: DataTablePaginationProps<TData>) {
+  const t = useTranslations('Pagination');
+  const translateNumber = useNumberTranslation();
+
   const { pageSize, pageIndex } = table.getState().pagination;
 
   const start = pageIndex * pageSize + 1;
@@ -38,7 +43,7 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
             <SelectContent side="top" data-test="page-size-list">
               {[10, 20, 30, 40, 50].map(size => (
                 <SelectItem key={size} value={`${size}`}>
-                  {`${size} items per page`}
+                  {t('itemsPerPage', { count: translateNumber(size) })}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -46,7 +51,11 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
         </div>
 
         <div className="text-muted-foreground text-sm">
-          Showing {start} to {end} of {totalRows} entries
+          {t('showing', {
+            start: translateNumber(start),
+            end: translateNumber(end),
+            total: translateNumber(totalRows),
+          })}
         </div>
       </div>
 
@@ -55,7 +64,10 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
           className="flex w-max items-center justify-center rounded-full border border-neutral-300 px-3 py-2 text-sm font-medium"
           data-test="page-info"
         >
-          Page {pageIndex + 1} of {Math.ceil(totalRows / pageSize)}
+          {t('pageInfo', {
+            current: translateNumber(pageIndex + 1),
+            total: translateNumber(Math.ceil(totalRows / pageSize)),
+          })}
         </div>
 
         <div className="flex items-center space-x-2">
@@ -66,7 +78,7 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
             disabled={!table.getCanPreviousPage()}
             data-test="previous-page-button"
           >
-            <span className="sr-only">Go to previous page</span>
+            <span className="sr-only">{t('previousPage')}</span>
             <ArrowLeftIcon className="h-4 w-4" />
           </Button>
           <Button
@@ -76,7 +88,7 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
             disabled={!table.getCanNextPage()}
             data-test="next-page-button"
           >
-            <span className="sr-only">Go to next page</span>
+            <span className="sr-only">{t('nextPage')}</span>
             <ArrowRightIcon className="h-4 w-4" />
           </Button>
         </div>

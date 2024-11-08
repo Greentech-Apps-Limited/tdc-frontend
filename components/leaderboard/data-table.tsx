@@ -38,6 +38,9 @@ interface DataTableProps<TData, TValue> {
   manualPagination?: boolean;
   getTotalRowCount?: () => number;
   isLoading?: boolean;
+  translations: {
+    noResults: string;
+  };
 }
 
 const TableRowSkeleton = ({ cellCount }: { cellCount: number }) => (
@@ -59,6 +62,7 @@ export function DataTable<TData extends { isCurrentUser?: boolean }, TValue>({
   manualPagination = false,
   getTotalRowCount,
   isLoading,
+  translations,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = React.useState('');
@@ -151,7 +155,7 @@ export function DataTable<TData extends { isCurrentUser?: boolean }, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  {translations.noResults}
                 </TableCell>
               </TableRow>
             )}
