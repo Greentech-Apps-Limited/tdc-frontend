@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -11,37 +13,51 @@ import { Table } from '@tanstack/react-table';
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
+  totalRows: number;
 }
 
-export function DataTablePagination<TData>({ table }: DataTablePaginationProps<TData>) {
+export function DataTablePagination<TData>({ table, totalRows }: DataTablePaginationProps<TData>) {
+  const { pageSize, pageIndex } = table.getState().pagination;
+
+  const start = pageIndex * pageSize + 1;
+  const end = Math.min((pageIndex + 1) * pageSize, totalRows);
+
   return (
     <div className="flex items-center justify-between" data-test="table-pagination">
-      <div className="flex items-center space-x-2">
-        <Select
-          value={`${table.getState().pagination.pageSize}`}
-          onValueChange={value => {
-            table.setPageSize(Number(value));
-          }}
-        >
-          <SelectTrigger data-test="page-size-select">
-            <SelectValue placeholder={table.getState().pagination.pageSize} />
-          </SelectTrigger>
-          <SelectContent side="top" data-test="page-size-list">
-            {[10, 20, 30, 40, 50].map(pageSize => (
-              <SelectItem key={pageSize} value={`${pageSize}`}>
-                {`${pageSize} items per page`}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center space-x-2">
+          <Select
+            value={`${pageSize}`}
+            onValueChange={value => {
+              table.setPageSize(Number(value));
+            }}
+          >
+            <SelectTrigger data-test="page-size-select">
+              <SelectValue placeholder={pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top" data-test="page-size-list">
+              {[10, 20, 30, 40, 50].map(size => (
+                <SelectItem key={size} value={`${size}`}>
+                  {`${size} items per page`}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="text-muted-foreground text-sm">
+          Showing {start} to {end} of {totalRows} entries
+        </div>
       </div>
+
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div
           className="flex w-max items-center justify-center rounded-full border border-neutral-300 px-3 py-2 text-sm font-medium"
           data-test="page-info"
         >
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Page {pageIndex + 1} of {Math.ceil(totalRows / pageSize)}
         </div>
+
         <div className="flex items-center space-x-2">
           <Button
             variant="outline"

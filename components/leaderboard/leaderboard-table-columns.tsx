@@ -2,8 +2,14 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 import { DataTableColumnHeader } from './data-table-column-header';
-import { LeaderboardEntry } from '@/lib/types/leaderboard';
 import { formatRank } from '@/lib/utils/common-utils';
+
+interface LeaderboardEntry {
+  rank: number;
+  name: string;
+  points: number;
+  isCurrentUser: boolean;
+}
 
 export const leaderboardTableColumns: ColumnDef<LeaderboardEntry>[] = [
   {
@@ -17,7 +23,13 @@ export const leaderboardTableColumns: ColumnDef<LeaderboardEntry>[] = [
     accessorKey: 'name',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
     cell: ({ row }) => (
-      <div className="w-full min-w-96 text-sm font-semibold">{row.getValue('name')}</div>
+      <div
+        className={`w-full min-w-96 text-sm font-semibold ${
+          row.original.isCurrentUser ? 'text-blue-600' : ''
+        }`}
+      >
+        {row.getValue('name')}
+      </div>
     ),
   },
   {

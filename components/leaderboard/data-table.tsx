@@ -5,7 +5,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
-  Table as TableType,
+  PaginationState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
@@ -14,6 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  OnChangeFn,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -29,17 +30,59 @@ import { DataTablePagination } from './data-table-pagination';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  FilterTab?: React.ComponentType<{
-    table: TableType<TData>;
-    value: string | number;
-    onChange: (value: string | number) => void;
-  }>;
+  pageCount?: number;
+  state?: {
+    pagination: PaginationState;
+  };
+  onPaginationChange?: OnChangeFn<PaginationState>;
+  manualPagination?: boolean;
+  getTotalRowCount?: () => number;
+  isLoading?: boolean;
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+const TableRowSkeleton = ({ cellCount }: { cellCount: number }) => (
+  <TableRow className="animate-pulse">
+    {Array.from({ length: cellCount }).map((_, index) => (
+      <TableCell key={index}>
+        <div className="h-6 w-full rounded-full bg-neutral-200" />
+      </TableCell>
+    ))}
+  </TableRow>
+);
+
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  pageCount,
+  state,
+  onPaginationChange,
+  manualPagination = false,
+  getTotalRowCount,
+  isLoading,
+}: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  const handlePaginationChange: OnChangeFn<PaginationState> = React.useCallback(
+    updaterOrValue => {
+      const newValue =
+        typeof updaterOrValue === 'function'
+          ? updaterOrValue(state?.pagination || pagination)
+          : updaterOrValue;
+
+      if (onPaginationChange) {
+        onPaginationChange(newValue);
+      } else {
+        setPagination(newValue);
+      }
+    },
+    [onPaginationChange, pagination, state?.pagination]
+  );
 
   const table = useReactTable({
     data,
@@ -48,7 +91,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       sorting,
       columnFilters,
       globalFilter,
+      pagination: state?.pagination || pagination,
     },
+    pageCount: pageCount,
+    onPaginationChange: handlePaginationChange,
+    manualPagination,
     enableRowSelection: true,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -61,6 +108,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const currentPageSize = state?.pagination.pageSize || pagination.pageSize;
+
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} />
@@ -69,20 +118,23 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => {
-                  return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map(header => (
+                  <TableHead key={header.id} colSpan={header.colSpan}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              // Render skeleton rows based on current page size
+              Array.from({ length: currentPageSize }).map((_, index) => (
+                <TableRowSkeleton key={`skeleton-${index}`} cellCount={columns.length} />
+              ))
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map(cell => (
@@ -102,7 +154,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} totalRows={getTotalRowCount?.() || 0} />
     </div>
   );
 }
