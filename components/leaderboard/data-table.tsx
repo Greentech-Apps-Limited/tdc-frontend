@@ -50,7 +50,7 @@ const TableRowSkeleton = ({ cellCount }: { cellCount: number }) => (
   </TableRow>
 );
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { isCurrentUser?: boolean }, TValue>({
   columns,
   data,
   pageCount,
@@ -136,7 +136,11 @@ export function DataTable<TData, TValue>({
               ))
             ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className={`${row.original.isCurrentUser ? 'bg-neutral-50 hover:bg-neutral-100' : ''}`}
+                >
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

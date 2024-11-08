@@ -1,37 +1,15 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
 import { DataTable } from './data-table';
 import { leaderboardTableColumns } from './leaderboard-table-columns';
 import { PaginationState } from '@tanstack/react-table';
-import { fetcher } from '@/services/api';
+import { authorizedFetcher, fetcher } from '@/services/api';
+import { LeaderboardEntry, PlayerResponse, UserRankData } from '@/lib/types/leaderboard';
 
-interface PlayerData {
-  account: {
-    name: string;
-    url: string;
-  };
-  points: number;
-  quiz_attempted: number;
-  rank: number;
-  ranking_group: number;
-}
-
-interface PlayerResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PlayerData[];
-}
-
-interface LeaderboardEntry {
-  rank: number;
-  name: string;
-  points: number;
-  isCurrentUser: boolean;
-}
+const ITEMS_PER_PAGE = 10;
 
 const createPaginatedFetcher = (baseUrl: string) => {
   return async (pageSize: number, pageIndex: number): Promise<PlayerResponse> => {
@@ -42,15 +20,31 @@ const createPaginatedFetcher = (baseUrl: string) => {
   };
 };
 
-const LeaderboardMain = () => {
-  const { status } = useSession();
+export default function EnhancedLeaderboard() {
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === 'authenticated';
 
-  const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: ITEMS_PER_PAGE,
   });
 
-  const paginationKey = React.useMemo(
+  const { data: userRankData } = useSWR<UserRankData>(
+    isAuthenticated && session?.accessToken ? '/quiz/players/me' : null,
+    (url: string) => authorizedFetcher<UserRankData>(url, session?.accessToken as string)
+  );
+
+  useEffect(() => {
+    if (userRankData?.rank) {
+      const userPageIndex = Math.floor((userRankData.rank - 1) / pageSize);
+      setPagination(prev => ({
+        ...prev,
+        pageIndex: userPageIndex,
+      }));
+    }
+  }, [userRankData?.rank, pageSize]);
+
+  const paginationKey = useMemo(
     () => ({
       pageIndex,
       pageSize,
@@ -66,18 +60,18 @@ const LeaderboardMain = () => {
     }
   );
 
-  const transformedData: LeaderboardEntry[] = React.useMemo(
-    () =>
-      leaderboardData?.results.map(player => ({
-        rank: player.rank,
-        name: player.account.name || 'Anonymous',
-        points: player.points,
-        isCurrentUser: false,
-      })) || [],
-    [leaderboardData]
-  );
+  const transformedData: LeaderboardEntry[] = useMemo(() => {
+    if (!leaderboardData?.results) return [];
 
-  const pageCount = React.useMemo(() => {
+    return leaderboardData.results.map(player => ({
+      rank: player.rank,
+      name: player.account.name || 'Anonymous',
+      points: player.points,
+      isCurrentUser: isAuthenticated && userRankData?.account.url === player.account.url,
+    }));
+  }, [leaderboardData?.results, isAuthenticated, userRankData]);
+
+  const pageCount = useMemo(() => {
     return leaderboardData ? Math.ceil(leaderboardData.count / pageSize) : 0;
   }, [leaderboardData, pageSize]);
 
@@ -104,6 +98,4 @@ const LeaderboardMain = () => {
       </div>
     </section>
   );
-};
-
-export default LeaderboardMain;
+}
