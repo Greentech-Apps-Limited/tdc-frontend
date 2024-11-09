@@ -23,7 +23,7 @@ const QuizGame = () => {
 
   const handleFinishGame = () => {
     router.push('/quiz');
-    resetAllStores();
+    setTimeout(() => resetAllStores(), 200);
   };
 
   return (

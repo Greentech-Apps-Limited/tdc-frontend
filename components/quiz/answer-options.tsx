@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useQuizStore from '@/stores/quiz-store';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 const AnswerOptions = () => {
   const {
@@ -23,6 +23,7 @@ const AnswerOptions = () => {
         currentQuestion.option_3,
         currentQuestion.option_4,
       ].filter((option): option is string => typeof option === 'string');
+
       const shuffledOptions = [...options].sort(() => Math.random() - 0.5);
       setCurrentOptions(shuffledOptions);
     }
@@ -53,11 +54,11 @@ const AnswerOptions = () => {
         {currentOptions.map((option, index) => (
           <Button
             key={`${currentQuestion.id}-${index}`}
-            className={`w-full justify-start text-left ${getButtonClass(option)}`}
+            className={`h-auto min-h-[48px] w-full whitespace-normal break-words px-4 py-3 text-left ${getButtonClass(option)}`}
             variant="outline"
             onClick={() => handleAnswer(option)}
           >
-            {option}
+            <span className="block w-full">{option}</span>
           </Button>
         ))}
       </div>
