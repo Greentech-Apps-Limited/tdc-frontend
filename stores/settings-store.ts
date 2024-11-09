@@ -20,11 +20,6 @@ export interface SettingsState {
     arabicFontSize: number;
     wbwTr: string;
     audioSpeed: string;
-    selectedQari: {
-        id: number;
-        reciter_name: string;
-        style: string | null;
-    };
     currentPlayingSurahInfo: Record<string, unknown>;
     audioAutoScroll: boolean;
     audioWordClick: boolean;
@@ -59,11 +54,6 @@ const useSettingsStore = create(
             arabicFontSize: 26,
             wbwTr: 'en',
             audioSpeed: '1',
-            selectedQari: {
-                id: 7,
-                reciter_name: "Mishari Rashid al-`Afasy",
-                style: null
-            },
             currentPlayingSurahInfo: {},
             audioAutoScroll: false,
             audioWordClick: false,

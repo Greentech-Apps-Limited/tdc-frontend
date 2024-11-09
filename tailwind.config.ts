@@ -24,6 +24,9 @@ const config = {
         source_sans_3: ['var(--font-source_sans_3)', ...fontFamily.sans],
         hidayatullah_demo: ['var(--font-hidayatullah-demo)', ...fontFamily.mono],
         lateef: ['var(--font-lateef)'],
+        amiri: ['var(--font-amiri)', ...fontFamily.mono],
+        qalam: ['var(--font-qalam)', ...fontFamily.mono],
+        meQuran: ['var(--font-meQuran)', ...fontFamily.mono],
       },
       keyframes: {
         "accordion-down": {

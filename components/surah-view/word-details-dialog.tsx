@@ -21,7 +21,12 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
         </DialogHeader>
 
         <div className="flex flex-col items-center gap-4">
-          <div className={`font-${arabicFont} text-center text-5xl`}>{text_uthmani}</div>
+          <div
+            style={{ fontFamily: `var(--font-${arabicFont})` }}
+            className={`text-center text-5xl`}
+          >
+            {text_uthmani}
+          </div>
 
           <div className="text-2xl font-bold">{translation}</div>
 
@@ -29,13 +34,17 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
             {lemma && (
               <div className="w-full rounded-lg bg-neutral-50 p-2">
                 <div className="text-xs text-neutral-500">Lemma</div>
-                <div className={`font-${arabicFont} text-2xl`}>{lemma}</div>
+                <div style={{ fontFamily: `var(--font-${arabicFont})` }} className={`text-2xl`}>
+                  {lemma}
+                </div>
               </div>
             )}
             {root && (
               <div className="w-full rounded-lg bg-neutral-50 p-2">
                 <div className="text-xs text-neutral-500">Root</div>
-                <div className={`font-${arabicFont} text-2xl`}>{root}</div>
+                <div style={{ fontFamily: `var(--font-${arabicFont})` }} className={`text-2xl`}>
+                  {root}
+                </div>
               </div>
             )}
           </div>

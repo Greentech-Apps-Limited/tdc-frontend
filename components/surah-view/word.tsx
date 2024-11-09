@@ -18,7 +18,7 @@ const Word = ({ word }: WordProps) => {
         className={`space-y-1 text-3xl ${showByWords ? 'px-3' : 'px-0'}`}
         style={{ fontSize: `${arabicFontSize}px`, lineHeight: '1.25em' }}
       >
-        <p className={`font-${arabicFont}`}>{word.text_uthmani}</p>
+        <p style={{ fontFamily: `var(--font-${arabicFont})` }}>{word.text_uthmani}</p>
         {showByWords && word.translation && (
           <p
             dir="ltr"
