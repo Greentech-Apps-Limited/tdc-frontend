@@ -21,7 +21,7 @@ const ResponsiveSidebar = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
-        <MenuIcon class="h-6 w-6" />
+        <MenuIcon className="h-6 w-6" />
       </SheetTrigger>
       <SheetContent side="left" className="w-[272px]">
         <SheetHeader>
