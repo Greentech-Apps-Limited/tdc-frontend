@@ -105,7 +105,7 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
         className="focus-visible:ring-offset-10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-400"
       >
         <Button variant="ghost" className="data-[state=open]:bg-muted flex h-8 w-8 p-0">
-          <DetailsHorizontalIcon className="h-6 w-6" />
+          <DetailsHorizontalIcon className="text-lg md:text-2xl" />
           <span className="sr-only">Open menu</span>
         </Button>
       </DropdownMenuTrigger>

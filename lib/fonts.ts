@@ -50,3 +50,9 @@ export const kitab = localFont({
     display: 'swap',
     variable: '--font-kitab',
 })
+
+export const bismillah = localFont({
+    src: '../public/fonts/bismillah/QCF_Bismillah_COLOR-Regular.woff2',
+    display: 'swap',
+    variable: '--font-bismillah',
+})
