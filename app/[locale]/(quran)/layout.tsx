@@ -19,7 +19,7 @@ const HomeLayout = ({
         </Suspense>
         <div className=" min-h-full flex-1">
           <div className="flex h-svh flex-col">
-            <div className="z-0 mx-auto flex w-full flex-1 flex-col overflow-auto sm:overflow-visible">
+            <div className="z-0 mx-auto flex w-full flex-1 flex-col overflow-visible">
               <div className="sticky top-0 z-20 flex shrink-0 flex-col">
                 <Suspense fallback={<HeaderSkeleton />}>
                   <Header />

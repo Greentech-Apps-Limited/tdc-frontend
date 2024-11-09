@@ -19,6 +19,7 @@ export { default as LevelStartIcon3 } from './level-start-icon-3.svg';
 export { default as LinkIcon3 } from './link-icon-3.svg';
 export { default as LinkedinIcon } from './linkedin-icon.svg';
 export { default as LoadinSpinner } from './loadin-spinner.svg';
+export { default as MenuIcon } from './menu-icon.svg';
 export { default as MessageEmailIcon } from './message-email-icon.svg';
 export { default as PauseIcon } from './pause-icon.svg';
 export { default as PdfNoteIcon } from './pdf-note-icon.svg';
