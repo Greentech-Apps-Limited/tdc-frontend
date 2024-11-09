@@ -12,7 +12,7 @@ export const Scoreboard = ({ quizzesAttempted, score, leaderBoardPosition }: Sco
   const translateNumber = useNumberTranslation();
 
   return (
-    <section className="h-full space-y-6 rounded-4xl border border-neutral-300 bg-neutral p-4 shadow">
+    <section className="h-full space-y-4 rounded-2xl border border-neutral-300 bg-neutral p-4 shadow md:space-y-6 md:rounded-4xl">
       <div>
         <h1 className="text-xl font-semibold">{t('title')}</h1>
       </div>
