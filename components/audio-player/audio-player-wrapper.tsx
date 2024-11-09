@@ -73,7 +73,7 @@ const AudioPlayerWrapper = () => {
 
   return (
     <div className="m-4 md:m-6">
-      <AudioPlayerSkeleton />
+      {isLoading ? <AudioPlayerSkeleton /> : <AudioPlayer onClose={handleClose} />}
     </div>
   );
 };
