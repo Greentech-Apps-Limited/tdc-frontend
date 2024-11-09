@@ -25,15 +25,21 @@ const Header = async () => {
   const { wbwLanguages, translations } = await fetchWbwAndTranslations();
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-neutral-200 bg-neutral px-6 py-4 shadow sm:justify-end">
-      <section className="block sm:hidden">
+    <header className=" flex h-16 items-center justify-between border-b border-neutral-200 bg-white px-4 dark:bg-neutral-900 md:px-6">
+      <div className="flex items-center lg:hidden">
         <ResponsiveSidebar />
-      </section>
-      <section className="flex items-center gap-4">
-        <LanguageSelector />
-        <Settings translationsInfo={translations} wbwLanguages={wbwLanguages} />
-        <UserProfileDropdown />
-      </section>
+      </div>
+      <div className="ml-auto flex items-center gap-3 md:gap-4">
+        <div className="flex items-center">
+          <LanguageSelector />
+        </div>
+        <div className="flex items-center">
+          <Settings translationsInfo={translations} wbwLanguages={wbwLanguages} />
+        </div>
+        <div className="flex items-center">
+          <UserProfileDropdown />
+        </div>
+      </div>
     </header>
   );
 };

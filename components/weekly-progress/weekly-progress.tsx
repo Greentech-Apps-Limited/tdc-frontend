@@ -44,7 +44,7 @@ const WeeklyProgress = () => {
 
   return (
     <div
-      className="w-full animate-slideInStaggered rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
+      className=" animate-slideInStaggered rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
       style={{ animationFillMode: 'forwards' }}
     >
       <div className="flex h-full flex-col gap-6">

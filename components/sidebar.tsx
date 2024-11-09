@@ -25,7 +25,7 @@ const Sidebar = () => {
   return (
     <>
       <aside
-        className="group/sidebar relative hidden sm:flex"
+        className="group/sidebar relative hidden lg:flex"
         data-state={isMinimized ? 'collapsed' : 'expanded'}
       >
         <div
