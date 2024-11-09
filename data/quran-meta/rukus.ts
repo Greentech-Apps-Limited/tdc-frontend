@@ -63,7 +63,7 @@ export const RUKUS: Reference[] = [
     ayah: 60,
     verse_key: "2:60",
     surah_name: "Al-Baqarah",
-    starting_line: "۞وَإِذِ ٱسۡتَسۡقَىٰ مُوسَىٰ"
+    starting_line: "وَإِذِ ٱسۡتَسۡقَىٰ مُوسَىٰ"
   },
   {
     id: 9,
@@ -143,7 +143,7 @@ export const RUKUS: Reference[] = [
     ayah: 142,
     verse_key: "2:142",
     surah_name: "Al-Baqarah",
-    starting_line: "۞سَيَقُولُ ٱلسُّفَهَآءُ"
+    starting_line: "سَيَقُولُ ٱلسُّفَهَآءُ"
   },
   {
     id: 19,
@@ -183,7 +183,7 @@ export const RUKUS: Reference[] = [
     ayah: 177,
     verse_key: "2:177",
     surah_name: "Al-Baqarah",
-    starting_line: "۞لَّيۡسَ ٱلۡبِرَّ أَن"
+    starting_line: "لَّيۡسَ ٱلۡبِرَّ أَن"
   },
   {
     id: 24,
@@ -199,7 +199,7 @@ export const RUKUS: Reference[] = [
     ayah: 189,
     verse_key: "2:189",
     surah_name: "Al-Baqarah",
-    starting_line: "۞يَسۡـَٔلُونَكَ عَنِ"
+    starting_line: "يَسۡـَٔلُونَكَ عَنِ"
   },
   {
     id: 26,
@@ -263,7 +263,7 @@ export const RUKUS: Reference[] = [
     ayah: 243,
     verse_key: "2:243",
     surah_name: "Al-Baqarah",
-    starting_line: "۞أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
+    starting_line: "أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
   },
   {
     id: 34,
@@ -583,7 +583,7 @@ export const RUKUS: Reference[] = [
     ayah: 88,
     verse_key: "4:88",
     surah_name: "An-Nisa",
-    starting_line: "۞فَمَا لَكُمۡ فِي"
+    starting_line: "فَمَا لَكُمۡ فِي"
   },
   {
     id: 74,
@@ -647,7 +647,7 @@ export const RUKUS: Reference[] = [
     ayah: 135,
     verse_key: "4:135",
     surah_name: "An-Nisa",
-    starting_line: "۞يَٰٓأَيُّهَا ٱلَّذِينَ"
+    starting_line: "يَٰٓأَيُّهَا ٱلَّذِينَ"
   },
   {
     id: 82,
@@ -671,7 +671,7 @@ export const RUKUS: Reference[] = [
     ayah: 163,
     verse_key: "4:163",
     surah_name: "An-Nisa",
-    starting_line: "۞إِنَّآ أَوۡحَيۡنَآ"
+    starting_line: "إِنَّآ أَوۡحَيۡنَآ"
   },
   {
     id: 85,
@@ -703,7 +703,7 @@ export const RUKUS: Reference[] = [
     ayah: 12,
     verse_key: "5:12",
     surah_name: "Al-Ma'idah",
-    starting_line: "۞وَلَقَدۡ أَخَذَ ٱللَّهُ"
+    starting_line: "وَلَقَدۡ أَخَذَ ٱللَّهُ"
   },
   {
     id: 89,
@@ -719,7 +719,7 @@ export const RUKUS: Reference[] = [
     ayah: 27,
     verse_key: "5:27",
     surah_name: "Al-Ma'idah",
-    starting_line: "۞وَٱتۡلُ عَلَيۡهِمۡ نَبَأَ"
+    starting_line: "وَٱتۡلُ عَلَيۡهِمۡ نَبَأَ"
   },
   {
     id: 91,
@@ -743,7 +743,7 @@ export const RUKUS: Reference[] = [
     ayah: 51,
     verse_key: "5:51",
     surah_name: "Al-Ma'idah",
-    starting_line: "۞يَٰٓأَيُّهَا ٱلَّذِينَ"
+    starting_line: "يَٰٓأَيُّهَا ٱلَّذِينَ"
   },
   {
     id: 94,
@@ -759,7 +759,7 @@ export const RUKUS: Reference[] = [
     ayah: 67,
     verse_key: "5:67",
     surah_name: "Al-Ma'idah",
-    starting_line: "۞يَٰٓأَيُّهَا ٱلرَّسُولُ"
+    starting_line: "يَٰٓأَيُّهَا ٱلرَّسُولُ"
   },
   {
     id: 96,
@@ -799,7 +799,7 @@ export const RUKUS: Reference[] = [
     ayah: 109,
     verse_key: "5:109",
     surah_name: "Al-Ma'idah",
-    starting_line: "۞يَوۡمَ يَجۡمَعُ ٱللَّهُ"
+    starting_line: "يَوۡمَ يَجۡمَعُ ٱللَّهُ"
   },
   {
     id: 101,
@@ -903,7 +903,7 @@ export const RUKUS: Reference[] = [
     ayah: 95,
     verse_key: "6:95",
     surah_name: "Al-An'am",
-    starting_line: "۞إِنَّ ٱللَّهَ فَالِقُ"
+    starting_line: "إِنَّ ٱللَّهَ فَالِقُ"
   },
   {
     id: 114,
@@ -919,7 +919,7 @@ export const RUKUS: Reference[] = [
     ayah: 111,
     verse_key: "6:111",
     surah_name: "Al-An'am",
-    starting_line: "۞وَلَوۡ أَنَّنَا نَزَّلۡنَآ"
+    starting_line: "وَلَوۡ أَنَّنَا نَزَّلۡنَآ"
   },
   {
     id: 116,
@@ -943,7 +943,7 @@ export const RUKUS: Reference[] = [
     ayah: 141,
     verse_key: "6:141",
     surah_name: "Al-An'am",
-    starting_line: "۞وَهُوَ ٱلَّذِيٓ أَنشَأَ"
+    starting_line: "وَهُوَ ٱلَّذِيٓ أَنشَأَ"
   },
   {
     id: 119,
@@ -959,7 +959,7 @@ export const RUKUS: Reference[] = [
     ayah: 151,
     verse_key: "6:151",
     surah_name: "Al-An'am",
-    starting_line: "۞قُلۡ تَعَالَوۡاْ أَتۡلُ مَا"
+    starting_line: "قُلۡ تَعَالَوۡاْ أَتۡلُ مَا"
   },
   {
     id: 121,
@@ -1039,7 +1039,7 @@ export const RUKUS: Reference[] = [
     ayah: 65,
     verse_key: "7:65",
     surah_name: "Al-A'raf",
-    starting_line: "۞وَإِلَىٰ عَادٍ أَخَاهُمۡ"
+    starting_line: "وَإِلَىٰ عَادٍ أَخَاهُمۡ"
   },
   {
     id: 131,
@@ -1103,7 +1103,7 @@ export const RUKUS: Reference[] = [
     ayah: 142,
     verse_key: "7:142",
     surah_name: "Al-A'raf",
-    starting_line: "۞وَوَٰعَدۡنَا مُوسَىٰ"
+    starting_line: "وَوَٰعَدۡنَا مُوسَىٰ"
   },
   {
     id: 139,
@@ -1159,7 +1159,7 @@ export const RUKUS: Reference[] = [
     ayah: 189,
     verse_key: "7:189",
     surah_name: "Al-A'raf",
-    starting_line: "۞هُوَ ٱلَّذِي خَلَقَكُم مِّن"
+    starting_line: "هُوَ ٱلَّذِي خَلَقَكُم مِّن"
   },
   {
     id: 146,
@@ -1303,7 +1303,7 @@ export const RUKUS: Reference[] = [
     ayah: 60,
     verse_key: "9:60",
     surah_name: "At-Tawbah",
-    starting_line: "۞إِنَّمَا ٱلصَّدَقَٰتُ"
+    starting_line: "إِنَّمَا ٱلصَّدَقَٰتُ"
   },
   {
     id: 164,
@@ -1351,7 +1351,7 @@ export const RUKUS: Reference[] = [
     ayah: 111,
     verse_key: "9:111",
     surah_name: "At-Tawbah",
-    starting_line: "۞إِنَّ ٱللَّهَ ٱشۡتَرَىٰ"
+    starting_line: "إِنَّ ٱللَّهَ ٱشۡتَرَىٰ"
   },
   {
     id: 170,
@@ -1383,7 +1383,7 @@ export const RUKUS: Reference[] = [
     ayah: 11,
     verse_key: "10:11",
     surah_name: "Yunus",
-    starting_line: "۞وَلَوۡ يُعَجِّلُ ٱللَّهُ"
+    starting_line: "وَلَوۡ يُعَجِّلُ ٱللَّهُ"
   },
   {
     id: 174,
@@ -1431,7 +1431,7 @@ export const RUKUS: Reference[] = [
     ayah: 71,
     verse_key: "10:71",
     surah_name: "Yunus",
-    starting_line: "۞وَٱتۡلُ عَلَيۡهِمۡ نَبَأَ"
+    starting_line: "وَٱتۡلُ عَلَيۡهِمۡ نَبَأَ"
   },
   {
     id: 180,
@@ -1503,7 +1503,7 @@ export const RUKUS: Reference[] = [
     ayah: 61,
     verse_key: "11:61",
     surah_name: "Hud",
-    starting_line: "۞وَإِلَىٰ ثَمُودَ أَخَاهُمۡ"
+    starting_line: "وَإِلَىٰ ثَمُودَ أَخَاهُمۡ"
   },
   {
     id: 189,
@@ -1519,7 +1519,7 @@ export const RUKUS: Reference[] = [
     ayah: 84,
     verse_key: "11:84",
     surah_name: "Hud",
-    starting_line: "۞وَإِلَىٰ مَدۡيَنَ أَخَاهُمۡ"
+    starting_line: "وَإِلَىٰ مَدۡيَنَ أَخَاهُمۡ"
   },
   {
     id: 191,
@@ -1551,7 +1551,7 @@ export const RUKUS: Reference[] = [
     ayah: 7,
     verse_key: "12:7",
     surah_name: "Yusuf",
-    starting_line: "۞لَّقَدۡ كَانَ فِي يُوسُفَ"
+    starting_line: "لَّقَدۡ كَانَ فِي يُوسُفَ"
   },
   {
     id: 195,
@@ -1567,7 +1567,7 @@ export const RUKUS: Reference[] = [
     ayah: 30,
     verse_key: "12:30",
     surah_name: "Yusuf",
-    starting_line: "۞وَقَالَ نِسۡوَةٞ فِي"
+    starting_line: "وَقَالَ نِسۡوَةٞ فِي"
   },
   {
     id: 197,
@@ -1655,7 +1655,7 @@ export const RUKUS: Reference[] = [
     ayah: 19,
     verse_key: "13:19",
     surah_name: "Ar-Ra'd",
-    starting_line: "۞أَفَمَن يَعۡلَمُ أَنَّمَآ"
+    starting_line: "أَفَمَن يَعۡلَمُ أَنَّمَآ"
   },
   {
     id: 208,
@@ -1719,7 +1719,7 @@ export const RUKUS: Reference[] = [
     ayah: 28,
     verse_key: "14:28",
     surah_name: "Ibrahim",
-    starting_line: "۞أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
+    starting_line: "أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
   },
   {
     id: 216,
@@ -1839,7 +1839,7 @@ export const RUKUS: Reference[] = [
     ayah: 51,
     verse_key: "16:51",
     surah_name: "An-Nahl",
-    starting_line: "۞وَقَالَ ٱللَّهُ لَا"
+    starting_line: "وَقَالَ ٱللَّهُ لَا"
   },
   {
     id: 231,
@@ -1887,7 +1887,7 @@ export const RUKUS: Reference[] = [
     ayah: 90,
     verse_key: "16:90",
     surah_name: "An-Nahl",
-    starting_line: "۞إِنَّ ٱللَّهَ يَأۡمُرُ"
+    starting_line: "إِنَّ ٱللَّهَ يَأۡمُرُ"
   },
   {
     id: 237,
@@ -1903,7 +1903,7 @@ export const RUKUS: Reference[] = [
     ayah: 111,
     verse_key: "16:111",
     surah_name: "An-Nahl",
-    starting_line: "۞يَوۡمَ تَأۡتِي كُلُّ نَفۡسٖ"
+    starting_line: "يَوۡمَ تَأۡتِي كُلُّ نَفۡسٖ"
   },
   {
     id: 239,
@@ -1935,7 +1935,7 @@ export const RUKUS: Reference[] = [
     ayah: 23,
     verse_key: "17:23",
     surah_name: "Al-Isra",
-    starting_line: "۞وَقَضَىٰ رَبُّكَ أَلَّا"
+    starting_line: "وَقَضَىٰ رَبُّكَ أَلَّا"
   },
   {
     id: 243,
@@ -2047,7 +2047,7 @@ export const RUKUS: Reference[] = [
     ayah: 32,
     verse_key: "18:32",
     surah_name: "Al-Kahf",
-    starting_line: "۞وَٱضۡرِبۡ لَهُم مَّثَلٗا"
+    starting_line: "وَٱضۡرِبۡ لَهُم مَّثَلٗا"
   },
   {
     id: 257,
@@ -2175,7 +2175,7 @@ export const RUKUS: Reference[] = [
     ayah: 55,
     verse_key: "20:55",
     surah_name: "Taha",
-    starting_line: "۞مِنۡهَا خَلَقۡنَٰكُمۡ"
+    starting_line: "مِنۡهَا خَلَقۡنَٰكُمۡ"
   },
   {
     id: 273,
@@ -2255,7 +2255,7 @@ export const RUKUS: Reference[] = [
     ayah: 51,
     verse_key: "21:51",
     surah_name: "Al-Anbya",
-    starting_line: "۞وَلَقَدۡ ءَاتَيۡنَآ"
+    starting_line: "وَلَقَدۡ ءَاتَيۡنَآ"
   },
   {
     id: 283,
@@ -2423,7 +2423,7 @@ export const RUKUS: Reference[] = [
     ayah: 21,
     verse_key: "24:21",
     surah_name: "An-Nur",
-    starting_line: "۞يَٰٓأَيُّهَا ٱلَّذِينَ"
+    starting_line: "يَٰٓأَيُّهَا ٱلَّذِينَ"
   },
   {
     id: 304,
@@ -2439,7 +2439,7 @@ export const RUKUS: Reference[] = [
     ayah: 35,
     verse_key: "24:35",
     surah_name: "An-Nur",
-    starting_line: "۞ٱللَّهُ نُورُ ٱلسَّمَٰوَٰتِ"
+    starting_line: "ٱللَّهُ نُورُ ٱلسَّمَٰوَٰتِ"
   },
   {
     id: 306,
@@ -2495,7 +2495,7 @@ export const RUKUS: Reference[] = [
     ayah: 21,
     verse_key: "25:21",
     surah_name: "Al-Furqan",
-    starting_line: "۞وَقَالَ ٱلَّذِينَ لَا"
+    starting_line: "وَقَالَ ٱلَّذِينَ لَا"
   },
   {
     id: 313,
@@ -2551,7 +2551,7 @@ export const RUKUS: Reference[] = [
     ayah: 52,
     verse_key: "26:52",
     surah_name: "Ash-Shu'ara",
-    starting_line: "۞وَأَوۡحَيۡنَآ إِلَىٰ"
+    starting_line: "وَأَوۡحَيۡنَآ إِلَىٰ"
   },
   {
     id: 320,
@@ -2695,7 +2695,7 @@ export const RUKUS: Reference[] = [
     ayah: 29,
     verse_key: "28:29",
     surah_name: "Al-Qasas",
-    starting_line: "۞فَلَمَّا قَضَىٰ مُوسَى"
+    starting_line: "فَلَمَّا قَضَىٰ مُوسَى"
   },
   {
     id: 338,
@@ -2711,7 +2711,7 @@ export const RUKUS: Reference[] = [
     ayah: 51,
     verse_key: "28:51",
     surah_name: "Al-Qasas",
-    starting_line: "۞وَلَقَدۡ وَصَّلۡنَا لَهُمُ"
+    starting_line: "وَلَقَدۡ وَصَّلۡنَا لَهُمُ"
   },
   {
     id: 340,
@@ -2727,7 +2727,7 @@ export const RUKUS: Reference[] = [
     ayah: 76,
     verse_key: "28:76",
     surah_name: "Al-Qasas",
-    starting_line: "۞إِنَّ قَٰرُونَ كَانَ مِن"
+    starting_line: "إِنَّ قَٰرُونَ كَانَ مِن"
   },
   {
     id: 342,
@@ -2839,7 +2839,7 @@ export const RUKUS: Reference[] = [
     ayah: 54,
     verse_key: "30:54",
     surah_name: "Ar-Rum",
-    starting_line: "۞ٱللَّهُ ٱلَّذِي خَلَقَكُم"
+    starting_line: "ٱللَّهُ ٱلَّذِي خَلَقَكُم"
   },
   {
     id: 356,
@@ -2983,7 +2983,7 @@ export const RUKUS: Reference[] = [
     ayah: 10,
     verse_key: "34:10",
     surah_name: "Saba",
-    starting_line: "۞وَلَقَدۡ ءَاتَيۡنَا"
+    starting_line: "وَلَقَدۡ ءَاتَيۡنَا"
   },
   {
     id: 374,
@@ -3015,7 +3015,7 @@ export const RUKUS: Reference[] = [
     ayah: 46,
     verse_key: "34:46",
     surah_name: "Saba",
-    starting_line: "۞قُلۡ إِنَّمَآ أَعِظُكُم"
+    starting_line: "قُلۡ إِنَّمَآ أَعِظُكُم"
   },
   {
     id: 378,
@@ -3039,7 +3039,7 @@ export const RUKUS: Reference[] = [
     ayah: 15,
     verse_key: "35:15",
     surah_name: "Fatir",
-    starting_line: "۞يَٰٓأَيُّهَا ٱلنَّاسُ"
+    starting_line: "يَٰٓأَيُّهَا ٱلنَّاسُ"
   },
   {
     id: 381,
@@ -3111,7 +3111,7 @@ export const RUKUS: Reference[] = [
     ayah: 22,
     verse_key: "37:22",
     surah_name: "As-Saffat",
-    starting_line: "۞ٱحۡشُرُواْ ٱلَّذِينَ"
+    starting_line: "ٱحۡشُرُواْ ٱلَّذِينَ"
   },
   {
     id: 390,
@@ -3207,7 +3207,7 @@ export const RUKUS: Reference[] = [
     ayah: 32,
     verse_key: "39:32",
     surah_name: "Az-Zumar",
-    starting_line: "۞فَمَنۡ أَظۡلَمُ مِمَّن"
+    starting_line: "فَمَنۡ أَظۡلَمُ مِمَّن"
   },
   {
     id: 402,
@@ -3223,7 +3223,7 @@ export const RUKUS: Reference[] = [
     ayah: 53,
     verse_key: "39:53",
     surah_name: "Az-Zumar",
-    starting_line: "۞قُلۡ يَٰعِبَادِيَ ٱلَّذِينَ"
+    starting_line: "قُلۡ يَٰعِبَادِيَ ٱلَّذِينَ"
   },
   {
     id: 404,
@@ -3263,7 +3263,7 @@ export const RUKUS: Reference[] = [
     ayah: 21,
     verse_key: "40:21",
     surah_name: "Ghafir",
-    starting_line: "۞أَوَلَمۡ يَسِيرُواْ فِي"
+    starting_line: "أَوَلَمۡ يَسِيرُواْ فِي"
   },
   {
     id: 409,
@@ -3327,7 +3327,7 @@ export const RUKUS: Reference[] = [
     ayah: 9,
     verse_key: "41:9",
     surah_name: "Fussilat",
-    starting_line: "۞قُلۡ أَئِنَّكُمۡ"
+    starting_line: "قُلۡ أَئِنَّكُمۡ"
   },
   {
     id: 417,
@@ -3447,7 +3447,7 @@ export const RUKUS: Reference[] = [
     ayah: 57,
     verse_key: "43:57",
     surah_name: "Az-Zukhruf",
-    starting_line: "۞وَلَمَّا ضُرِبَ ٱبۡنُ"
+    starting_line: "وَلَمَّا ضُرِبَ ٱبۡنُ"
   },
   {
     id: 432,
@@ -3495,7 +3495,7 @@ export const RUKUS: Reference[] = [
     ayah: 12,
     verse_key: "45:12",
     surah_name: "Al-Jathiyah",
-    starting_line: "۞ٱللَّهُ ٱلَّذِي سَخَّرَ"
+    starting_line: "ٱللَّهُ ٱلَّذِي سَخَّرَ"
   },
   {
     id: 438,
@@ -3535,7 +3535,7 @@ export const RUKUS: Reference[] = [
     ayah: 21,
     verse_key: "46:21",
     surah_name: "Al-Ahqaf",
-    starting_line: "۞وَٱذۡكُرۡ أَخَا عَادٍ إِذۡ"
+    starting_line: "وَٱذۡكُرۡ أَخَا عَادٍ إِذۡ"
   },
   {
     id: 443,
@@ -3599,7 +3599,7 @@ export const RUKUS: Reference[] = [
     ayah: 18,
     verse_key: "48:18",
     surah_name: "Al-Fath",
-    starting_line: "۞لَّقَدۡ رَضِيَ ٱللَّهُ عَنِ"
+    starting_line: "لَّقَدۡ رَضِيَ ٱللَّهُ عَنِ"
   },
   {
     id: 451,
@@ -3703,7 +3703,7 @@ export const RUKUS: Reference[] = [
     ayah: 26,
     verse_key: "53:26",
     surah_name: "An-Najm",
-    starting_line: "۞وَكَم مِّن مَّلَكٖ فِي"
+    starting_line: "وَكَم مِّن مَّلَكٖ فِي"
   },
   {
     id: 464,
@@ -3783,7 +3783,7 @@ export const RUKUS: Reference[] = [
     ayah: 75,
     verse_key: "56:75",
     surah_name: "Al-Waqi'ah",
-    starting_line: "۞فَلَآ أُقۡسِمُ بِمَوَٰقِعِ"
+    starting_line: "فَلَآ أُقۡسِمُ بِمَوَٰقِعِ"
   },
   {
     id: 474,
@@ -3839,7 +3839,7 @@ export const RUKUS: Reference[] = [
     ayah: 14,
     verse_key: "58:14",
     surah_name: "Al-Mujadila",
-    starting_line: "۞أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
+    starting_line: "أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
   },
   {
     id: 481,
@@ -3855,7 +3855,7 @@ export const RUKUS: Reference[] = [
     ayah: 11,
     verse_key: "59:11",
     surah_name: "Al-Hashr",
-    starting_line: "۞أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
+    starting_line: "أَلَمۡ تَرَ إِلَى ٱلَّذِينَ"
   },
   {
     id: 483,
@@ -3879,7 +3879,7 @@ export const RUKUS: Reference[] = [
     ayah: 7,
     verse_key: "60:7",
     surah_name: "Al-Mumtahanah",
-    starting_line: "۞عَسَى ٱللَّهُ أَن يَجۡعَلَ"
+    starting_line: "عَسَى ٱللَّهُ أَن يَجۡعَلَ"
   },
   {
     id: 486,
@@ -4087,7 +4087,7 @@ export const RUKUS: Reference[] = [
     ayah: 20,
     verse_key: "73:20",
     surah_name: "Al-Muzzammil",
-    starting_line: "۞إِنَّ رَبَّكَ يَعۡلَمُ"
+    starting_line: "إِنَّ رَبَّكَ يَعۡلَمُ"
   },
   {
     id: 512,
