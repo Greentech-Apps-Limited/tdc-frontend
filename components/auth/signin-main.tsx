@@ -67,7 +67,7 @@ export default function SignInMain() {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="mx-4 space-y-3">
       <Card className="w-full overflow-hidden">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Login</CardTitle>

@@ -79,7 +79,7 @@ export default function EnhancedLeaderboard() {
   }, [leaderboardData, pageSize]);
 
   return (
-    <section className="h-full w-full space-y-2 rounded-4xl border border-neutral-300 bg-neutral p-6">
+    <section className="h-full w-full space-y-2 rounded-3xl border border-neutral-300 bg-neutral p-6 md:rounded-4xl">
       <p>{t('quiz')}</p>
       <h1 className="font-hidayatullah_demo text-3xl font-bold">{t('title')}</h1>
       <div className="mt-6">
