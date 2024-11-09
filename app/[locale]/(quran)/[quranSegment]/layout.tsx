@@ -30,12 +30,12 @@ const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutPro
   unstable_setRequestLocale(params.locale);
   return (
     <section>
-      <aside className="fixed right-auto top-16 z-10 overflow-y-auto">
+      <aside className="fixed right-auto top-16 z-10 hidden overflow-y-auto md:block">
         <Suspense fallback={<QuranDetailsSidebarSkeleton />}>
           <QuranDetailsSidebar quranMeta={quranMeta} listType={params.quranSegment} />
         </Suspense>
       </aside>
-      <aside id="scroll-container" className="pl-[206px]">
+      <aside id="scroll-container" className="md:pl-[206px]">
         {children}
       </aside>
     </section>

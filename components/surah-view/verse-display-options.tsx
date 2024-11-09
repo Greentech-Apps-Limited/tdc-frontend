@@ -109,13 +109,13 @@ const VerseDisplayMoreOptions = ({ verse, verseKey }: { verse: MergedVerse; vers
           <span className="sr-only">Open menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
+      <DropdownMenuContent align="end" className="md:w-[160px]">
         <DropdownMenuItem onClick={handleCopyText}>
-          <CopyTextIcon className="mr-2 h-6 w-6" />
+          <CopyTextIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           Copy Text
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleCopyLink}>
-          <LinkIcon3 className="mr-2 h-6 w-6" />
+          <LinkIcon3 className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           Copy Link
         </DropdownMenuItem>
         <ShareMenu

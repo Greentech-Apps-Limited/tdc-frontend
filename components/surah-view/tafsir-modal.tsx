@@ -67,8 +67,8 @@ const TafsirModal = ({ surahId, verseKey, verse }: TafsirModalProps) => {
           <GraduationHatIcon className="text-2xl hover:cursor-pointer" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="h-full max-h-[90vh] w-full max-w-[95vw] sm:max-w-[80vw] lg:max-w-[1000px]">
-        <DialogHeader className="space-y-6">
+      <DialogContent className="h-full max-h-[90vh] w-full max-w-[95vw] rounded-lg p-3 sm:max-w-[80vw] md:rounded-3xl md:p-6 lg:max-w-[1000px]">
+        <DialogHeader className="space-y-4 md:space-y-6">
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
         <ScrollArea className="h-[calc(90vh-100px)] w-full rounded-md border p-4 sm:p-6">

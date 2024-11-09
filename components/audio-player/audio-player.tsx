@@ -35,18 +35,22 @@ const AudioPlayer = ({ onClose }: AudioPlayerProps) => {
   const audioTitle = `${surahName}${verseNumber ? ` : ${verseNumber}` : ''}`;
 
   return (
-    <div className="w-96 space-y-6 rounded-xl border border-neutral-300 bg-neutral p-4 shadow">
+    <div className="relative w-full space-y-4 rounded-xl border border-neutral-300 bg-neutral p-4 shadow md:w-96 md:space-y-6">
       <div className="flex justify-between">
         <div>
           <h1 id="audio-title" className="font-semibold">
             {audioTitle}
           </h1>
-          <div className="flex items-center justify-start gap-1">
+          <div className="flex w-full items-center justify-start gap-1">
             <p className="text-xs text-neutral-600">Audio Playing :</p>
             <AudioRecitersSelection />
           </div>
         </div>
-        <Button variant="ghost" className="h-max w-max p-0" onClick={onClose}>
+        <Button
+          variant="ghost"
+          className="absolute right-2 top-2 h-max w-max p-0"
+          onClick={onClose}
+        >
           <CrossIcon className="text-2xl" />
         </Button>
       </div>

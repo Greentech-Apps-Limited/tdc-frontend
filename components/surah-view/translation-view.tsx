@@ -55,9 +55,9 @@ const TranslationView = ({
     <>
       {matchingSurah ? (
         <div>
-          {verseIdx !== 0 && <Separator className="my-6" />}
+          {verseIdx !== 0 && <Separator className="my-4 md:my-6" />}
           <div>
-            <h1 className="mt-6 font-hidayatullah_demo text-3xl font-bold">
+            <h1 className="mt-4 font-hidayatullah_demo text-xl font-bold md:mt-6 md:text-3xl">
               {matchingSurah.surah.transliteration}
             </h1>
             <VerseDisplayCard verse={verse} />
