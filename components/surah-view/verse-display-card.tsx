@@ -4,8 +4,8 @@ import { useSettings } from '@/contexts/settings-provider';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
 import useQuranReader from '@/stores/quran-reader-state';
 import VerseDisplayOptions from './verse-display-options';
-import Word from './word';
 import { MergedVerse } from '@/lib/types/verses-type';
+import WordDetailsDialog from './word-details-dialog';
 
 type VerseDisplayProps = {
   verse: MergedVerse;
@@ -33,7 +33,7 @@ const VerseDisplayCard = ({ verse, isLastVerse }: VerseDisplayProps) => {
       <div className="text-right font-lateef" dir="rtl">
         <div className={`inline ${showByWords ? 'leading-[100px]' : 'leading-[60px]'}`}>
           {verse.words.map(word => (
-            <Word key={word.id} word={word} />
+            <WordDetailsDialog key={word.id} word={word} />
           ))}
         </div>
       </div>

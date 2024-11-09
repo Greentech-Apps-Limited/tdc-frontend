@@ -9,6 +9,8 @@ type QuranWord = {
     text_indopak: string;
     translation?: string | null;
     transliteration?: string | null;
+    root: string;
+    lemma: string;
 };
 
 type QuranVerse = {

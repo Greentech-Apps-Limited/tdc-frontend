@@ -15,12 +15,13 @@ const Word = ({ word }: WordProps) => {
   return (
     <div className="inline-block text-center align-middle">
       <div
-        className={`space-y-1 text-3xl ${showByWords ? 'px-4' : 'px-1'}`}
+        className={`space-y-1 text-3xl ${showByWords ? 'px-3' : 'px-0'}`}
         style={{ fontSize: `${arabicFontSize}px`, lineHeight: '1.25em' }}
       >
         <p className={`font-${arabicFont}`}>{word.text_uthmani}</p>
         {showByWords && word.translation && (
           <p
+            dir="ltr"
             className="font-source_sans_3 text-xs text-neutral-600"
             style={{ fontSize: `${wbwFontSize}px`, lineHeight: '1.25em' }}
           >
