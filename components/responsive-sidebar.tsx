@@ -27,8 +27,7 @@ const ResponsiveSidebar = () => {
         <SheetHeader>
           <SheetTitle className="px-6 text-start">Menu</SheetTitle>
           <SheetDescription className="sr-only">
-            This action cannot be undone. This will permanently delete your account and remove your
-            data from our servers.
+            Main Navigation responsive sidebar
           </SheetDescription>
         </SheetHeader>
         <div className="mt-4 space-y-4">

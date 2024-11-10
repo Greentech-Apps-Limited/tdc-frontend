@@ -17,6 +17,7 @@ import {
   SurahRowSkeleton,
 } from '@/components/skeleton-loaders/home-page-skeleton';
 import { getStaticMetadata } from '@/lib/metadata';
+import Footer from '@/components/footer';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   return getStaticMetadata('home', locale);
@@ -46,11 +47,12 @@ export default async function Home({ params: { locale } }: { params: { locale: s
           <WeeklyProgress />
         </section>
       </Suspense>
-      <div className="pb-48">
+      <div className="pb-20">
         <Suspense fallback={<SurahRowSkeleton />}>
           <QuranTabView quranMeta={quranMeta} />
         </Suspense>
       </div>
+      <Footer />
     </main>
   );
 }

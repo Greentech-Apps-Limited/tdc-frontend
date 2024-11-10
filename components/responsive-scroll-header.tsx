@@ -1,7 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from './ui/sheet';
 import QuranDetailsSidebar from './quran-view/quran-details-sidebar';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { useParams, usePathname } from 'next/navigation';
@@ -90,6 +97,10 @@ const ScrollHeaderWrapper = ({ children }: { children: React.ReactNode }) => {
               </div>
             </SheetTrigger>
             <SheetContent side="left" className="flex h-full w-[206px] flex-col p-0">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Sidebar</SheetTitle>
+                <SheetDescription className="sr-only">Quran details page sidebar</SheetDescription>
+              </SheetHeader>
               <div className="h-16">
                 <SidebarBrandLogo isMinimized={false} />
               </div>

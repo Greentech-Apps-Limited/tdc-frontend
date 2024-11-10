@@ -16,6 +16,7 @@ export { default as HomeIcon } from './home-icon.svg';
 export { default as LevelStartIcon1 } from './level-start-icon-1.svg';
 export { default as LevelStartIcon2 } from './level-start-icon-2.svg';
 export { default as LevelStartIcon3 } from './level-start-icon-3.svg';
+export { default as LinkIcon2 } from './link-icon-2.svg';
 export { default as LinkIcon3 } from './link-icon-3.svg';
 export { default as LinkedinIcon } from './linkedin-icon.svg';
 export { default as LoadinSpinner } from './loadin-spinner.svg';
