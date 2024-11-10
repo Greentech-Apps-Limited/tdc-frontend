@@ -96,7 +96,7 @@ const QuranDetailsSidebar = ({ listType }: QuranDetailsSidebarProps) => {
   }
 
   return (
-    <section className="h-[calc(100vh-4rem)] w-[206px] border-r border-neutral-200 bg-neutral">
+    <section className="h-[calc(100vh-4rem)] w-64 border-r border-neutral-200 bg-neutral md:w-[206px]">
       <Virtuoso
         ref={virtuosoRef}
         style={{ height: '100%' }}

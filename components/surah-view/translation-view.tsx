@@ -6,6 +6,7 @@ import { TranslationItem } from '@/lib/types/surah-translation-type';
 import { useParams } from 'next/navigation';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { Separator } from '../ui/separator';
+import { useNumberTranslation } from '@/hooks/use-number-translation';
 
 type TranslationViewProps = {
   verseIdx: number;
@@ -31,6 +32,7 @@ const TranslationView = ({
   surahInfos,
 }: TranslationViewProps) => {
   const { quranSegment, segmentId } = useParams<{ quranSegment: string; segmentId: string }>();
+  const translateNumber = useNumberTranslation();
 
   const { verse, isLoading } = useDedupedFetchVerse({
     verseIdx,
@@ -52,6 +54,9 @@ const TranslationView = ({
 
   const matchingSurah = surahInfos.find(info => info.startIndex === verseIdx);
 
+  const getRevealedLocation = (revelationNumber: number) => {
+    return revelationNumber === 1 ? 'Makkah' : 'Madinah';
+  };
   return (
     <>
       {matchingSurah ? (
@@ -59,9 +64,15 @@ const TranslationView = ({
           {verseIdx !== 0 && <Separator className="my-4 md:my-6" />}
           <div>
             <div className="mt-4 flex items-center justify-between md:mt-6">
-              <h1 className="font-hidayatullah_demo text-xl font-bold md:text-3xl">
-                {matchingSurah.surah.transliteration}
-              </h1>
+              <div>
+                <h1 className="font-hidayatullah_demo text-xl font-bold md:text-3xl">
+                  {matchingSurah.surah.transliteration}
+                </h1>
+                <p className="m-1 text-sm font-semibold text-neutral-600">
+                  Ayah - {translateNumber(matchingSurah.surah.verses)},{' '}
+                  {getRevealedLocation(matchingSurah.surah.revelation)}
+                </p>
+              </div>
               {!CHAPTERS_WITHOUT_BISMILLAH.includes(matchingSurah.surah.id) && (
                 <p
                   className="theme-palette-normal bismillah text-sm font-semibold text-neutral-500 md:text-2xl"

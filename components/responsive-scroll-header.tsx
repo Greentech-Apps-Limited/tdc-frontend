@@ -96,7 +96,7 @@ const ScrollHeaderWrapper = ({ children }: { children: React.ReactNode }) => {
                 <ArrowRightIcon className="text-2xl" />
               </div>
             </SheetTrigger>
-            <SheetContent side="left" className="flex h-full w-[206px] flex-col p-0">
+            <SheetContent side="left" className="flex h-full w-64 flex-col p-0">
               <SheetHeader>
                 <SheetTitle className="sr-only">Sidebar</SheetTitle>
                 <SheetDescription className="sr-only">Quran details page sidebar</SheetDescription>
