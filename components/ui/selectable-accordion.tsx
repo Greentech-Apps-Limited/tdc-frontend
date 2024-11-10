@@ -62,7 +62,7 @@ function SelectableAccordion<T>({
             <p className="text-xs text-neutral-600">{selectionText}</p>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="rounded border border-neutral-200">
+        <AccordionContent>
           {items.map(item => {
             const id = String(item[idKey]);
             const label = String(item[labelKey]);
@@ -90,7 +90,7 @@ interface CheckboxItemProps {
 }
 
 const CheckboxItem: React.FC<CheckboxItemProps> = React.memo(({ id, label, checked, onChange }) => (
-  <div className="flex items-center space-x-2 rounded-md p-2 hover:bg-neutral-50">
+  <div className="flex items-center space-x-2 rounded-md p-1 hover:bg-neutral-50">
     <Checkbox id={id} checked={checked} onCheckedChange={e => onChange(e, id)} />
     <label
       htmlFor={id}
