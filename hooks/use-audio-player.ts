@@ -40,7 +40,6 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
         audioId,
         showAudioPlayer,
         audioData,
-        setHighlightedWord,
         setHighlightedVerse,
         currentVerse,
         setCurrentVerse,
@@ -140,15 +139,6 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
             if (audioData?.timestamps) {
                 const activeVerse = findActiveVerse(audio.currentTime, audioData.timestamps);
                 if (activeVerse) {
-                    activeVerse.segments.forEach(([word, startTime, endTime]) => {
-                        if (startTime !== undefined && endTime !== undefined) {
-                            const segmentStartTime = startTime / 1000;
-                            const segmentEndTime = endTime / 1000;
-                            if (audio.currentTime >= segmentStartTime && audio.currentTime < segmentEndTime) {
-                                setHighlightedWord(`${activeVerse.verse_key}:${word}`);
-                            }
-                        }
-                    });
                     setHighlightedVerse(activeVerse.verse_key);
                 } else {
                     setHighlightedVerse(null);
@@ -190,7 +180,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
             audio.removeEventListener('waiting', onWaiting);
             audio.removeEventListener('canplay', onCanPlay);
         };
-    }, [audioUrl, audioData, setHighlightedWord, setHighlightedVerse, setCurrentVerse]);
+    }, [audioUrl, audioData, setHighlightedVerse, setCurrentVerse]);
 
     useEffect(() => {
         if (audioId && showAudioPlayer && audioUrl) {

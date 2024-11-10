@@ -3,6 +3,7 @@ import LanguageSelector from './language-selector';
 import { TranslationItem, TranslationResponse } from '@/lib/types/surah-translation-type';
 import { fetcher } from '@/services/api';
 import { WbwLanguage, WbwResponse } from '@/lib/types/wbw-types';
+import UserProfileDropdown from './user-profile-dropdown';
 
 export const fetchWbwAndTranslations = async (): Promise<{
   wbwLanguages: WbwLanguage[];
@@ -27,6 +28,7 @@ const Header = async () => {
       <section className="flex items-center gap-4">
         <LanguageSelector />
         <Settings translationsInfo={translations} wbwLanguages={wbwLanguages} />
+        <UserProfileDropdown />
       </section>
     </header>
   );

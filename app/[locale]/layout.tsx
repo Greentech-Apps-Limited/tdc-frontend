@@ -8,6 +8,7 @@ import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { SWRConfigProviders } from '@/providers/swr-provider';
 import { Toaster } from '@/components/ui/toaster';
+import { SessionProvider } from 'next-auth/react';
 
 export const metadata = constructMetadata({
   title: 'TDC Quran',
@@ -35,15 +36,17 @@ export default async function RootLayout({
       <body
         className={`${source_sans_3.variable} ${hidayatullahFont.variable} ${lateef.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
       >
-        <SWRConfigProviders>
-          <NextIntlClientProvider messages={messages}>
-            <LoadingProgressBar />
-            <SettingsProvider>
-              {children}
-              <Toaster />
-            </SettingsProvider>
-          </NextIntlClientProvider>
-        </SWRConfigProviders>
+        <SessionProvider>
+          <SWRConfigProviders>
+            <NextIntlClientProvider messages={messages}>
+              <LoadingProgressBar />
+              <SettingsProvider>
+                {children}
+                <Toaster />
+              </SettingsProvider>
+            </NextIntlClientProvider>
+          </SWRConfigProviders>
+        </SessionProvider>
       </body>
     </html>
   );
