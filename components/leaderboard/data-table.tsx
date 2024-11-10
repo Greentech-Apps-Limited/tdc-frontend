@@ -117,7 +117,7 @@ export function DataTable<TData extends { isCurrentUser?: boolean }, TValue>({
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} />
-      <div className="overflow-hidden rounded-2xl border">
+      <div className=" rounded-2xl border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
@@ -162,6 +162,7 @@ export function DataTable<TData extends { isCurrentUser?: boolean }, TValue>({
           </TableBody>
         </Table>
       </div>
+
       <DataTablePagination table={table} totalRows={getTotalRowCount?.() || 0} />
     </div>
   );

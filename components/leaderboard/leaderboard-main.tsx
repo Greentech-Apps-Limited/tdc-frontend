@@ -79,9 +79,9 @@ export default function EnhancedLeaderboard() {
   }, [leaderboardData, pageSize]);
 
   return (
-    <section className="h-full w-full space-y-2 rounded-3xl border border-neutral-300 bg-neutral p-6 md:rounded-4xl">
-      <p>{t('quiz')}</p>
-      <h1 className="font-hidayatullah_demo text-3xl font-bold">{t('title')}</h1>
+    <section className="h-full w-full space-y-2 rounded-3xl border border-neutral-300 bg-neutral p-4 md:rounded-4xl md:p-6">
+      <p className="text-sm md:text-base">{t('quiz')}</p>
+      <h1 className="font-hidayatullah_demo text-xl font-bold md:text-3xl">{t('title')}</h1>
       <div className="mt-6">
         <DataTable
           data={transformedData}
