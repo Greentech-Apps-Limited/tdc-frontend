@@ -219,7 +219,8 @@
     "quizzesAttempted": "Kuis Dicoba",
     "scoreOnQuizzes": "Skor pada kuis",
     "onLeaderboard": "pada Papan Peringkat",
-    "leaderboardSuffix": "ke"
+    "leaderboardSuffix": "ke",
+    "authPrompt": "Silakan masuk untuk melihat posisi Anda di papan peringkat dan melacak kemajuan Anda."
   },
   "QuizLevelSelectionModal": {
     "title": "Mulai Kuis",
@@ -258,5 +259,25 @@
   },
   "Profile": {
     "title": "Profil"
+  },
+  "Leaderboard": {
+    "quiz": "Kuis",
+    "title": "Papan Peringkat",
+    "anonymous": "Anonim",
+    "noResults": "Tidak ada hasil.",
+    "loading": "Memuat...",
+    "columns": {
+      "rank": "Peringkat",
+      "name": "Nama",
+      "points": "Poin",
+      "pointsSuffix": "poin"
+    }
+  },
+  "Pagination": {
+    "itemsPerPage": "{count} item per halaman",
+    "showing": "Menampilkan {start} sampai {end} dari {total} entri",
+    "pageInfo": "Halaman {current} dari {total}",
+    "previousPage": "Ke halaman sebelumnya",
+    "nextPage": "Ke halaman berikutnya"
   }
 }

@@ -219,7 +219,8 @@
     "quizzesAttempted": "Kuiz Dicuba",
     "scoreOnQuizzes": "Skor pada kuiz",
     "onLeaderboard": "pada Papan Pendahulu",
-    "leaderboardSuffix": "ke"
+    "leaderboardSuffix": "ke",
+    "authPrompt": "Sila log masuk untuk melihat kedudukan anda dalam papan pendahulu dan mengesan kemajuan anda."
   },
   "QuizLevelSelectionModal": {
     "title": "Mulakan Kuiz",
@@ -258,5 +259,25 @@
   },
   "Profile": {
     "title": "Profil"
+  },
+  "Leaderboard": {
+    "quiz": "Kuiz",
+    "title": "Papan Pendahulu",
+    "anonymous": "Tanpa Nama",
+    "noResults": "Tiada keputusan.",
+    "loading": "Memuatkan...",
+    "columns": {
+      "rank": "Kedudukan",
+      "name": "Nama",
+      "points": "Mata",
+      "pointsSuffix": "mata"
+    }
+  },
+  "Pagination": {
+    "itemsPerPage": "{count} item setiap halaman",
+    "showing": "Menunjukkan {start} hingga {end} daripada {total} entri",
+    "pageInfo": "Halaman {current} daripada {total}",
+    "previousPage": "Pergi ke halaman sebelumnya",
+    "nextPage": "Pergi ke halaman seterusnya"
   }
 }

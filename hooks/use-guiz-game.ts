@@ -14,6 +14,7 @@ const useQuizGame = () => {
         updateTotalTimeSpent,
         showExitConfirmation,
         nextQuestion,
+        setIsGameOver
     } = useQuizStore();
 
     const [showEndAlert, setShowEndAlert] = useState(false);
@@ -27,6 +28,7 @@ const useQuizGame = () => {
         let timer: NodeJS.Timeout;
 
         if (life === 0 || isLastQuestionAnswered) {
+            setIsGameOver(true);
             timer = setTimeout(() => setShowEndAlert(true), 1000);
             return () => clearTimeout(timer);
         }

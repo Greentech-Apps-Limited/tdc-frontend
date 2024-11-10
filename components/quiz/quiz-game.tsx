@@ -22,9 +22,10 @@ const QuizGame = () => {
   } = useQuizGame();
 
   const handleFinishGame = () => {
-    resetAllStores();
     router.push('/quiz');
+    setTimeout(() => resetAllStores(), 200);
   };
+
   return (
     <div>
       <QuizHeader onExit={handleExit} />

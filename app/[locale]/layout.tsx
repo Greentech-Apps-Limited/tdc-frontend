@@ -6,7 +6,6 @@ import { SettingsProvider } from '@/contexts/settings-provider';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { SWRConfigProviders } from '@/providers/swr-provider';
 import { Toaster } from '@/components/ui/toaster';
 import { SessionProvider } from 'next-auth/react';
 
@@ -37,15 +36,13 @@ export default async function RootLayout({
         className={`${source_sans_3.variable} ${hidayatullahFont.variable} ${lateef.variable} h-screen w-full font-source_sans_3 text-neutral-900`}
       >
         <SessionProvider>
-          <SWRConfigProviders>
-            <NextIntlClientProvider messages={messages}>
-              <LoadingProgressBar />
-              <SettingsProvider>
-                {children}
-                <Toaster />
-              </SettingsProvider>
-            </NextIntlClientProvider>
-          </SWRConfigProviders>
+          <NextIntlClientProvider messages={messages}>
+            <LoadingProgressBar />
+            <SettingsProvider>
+              {children}
+              <Toaster />
+            </SettingsProvider>
+          </NextIntlClientProvider>
         </SessionProvider>
       </body>
     </html>

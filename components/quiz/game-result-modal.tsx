@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { AlertDialogDescription } from '@radix-ui/react-alert-dialog';
 
 const GameResultModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const { questions, selectedAnswers = [] } = useQuizStore();
@@ -30,11 +31,11 @@ const GameResultModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
             <Progress value={score} className="h-4 w-1/2" />
           </div>
 
-          <p className="text-muted-foreground text-center text-sm sm:text-base">
+          <AlertDialogDescription className="text-muted-foreground text-center text-sm sm:text-base">
             You answered {correctAnswers} out of {questions.length} questions correctly.
-          </p>
+          </AlertDialogDescription>
 
-          <ScrollArea className="flex-1 rounded-md border px-3 py-2">
+          <ScrollArea className="flex-1 rounded-md border p-4">
             {questions.map((question, index) => {
               const userAnswer = selectedAnswers[index] || 'No answer';
               const isCorrect = userAnswer === question.right_answer;

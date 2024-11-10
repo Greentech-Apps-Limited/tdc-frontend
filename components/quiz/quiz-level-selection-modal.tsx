@@ -52,9 +52,9 @@ const LevelSelection = ({
 }) => {
   const t = useTranslations('QuizLevelSelectionModal');
   const levels: LevelData[] = [
-    { id: 0, name: t('levels.easy'), Icon: LevelStartIcon1 },
-    { id: 1, name: t('levels.medium'), Icon: LevelStartIcon2 },
-    { id: 2, name: t('levels.hard'), Icon: LevelStartIcon3 },
+    { id: 1, name: t('levels.easy'), Icon: LevelStartIcon1 },
+    { id: 2, name: t('levels.medium'), Icon: LevelStartIcon2 },
+    { id: 3, name: t('levels.hard'), Icon: LevelStartIcon3 },
   ];
 
   return (
@@ -72,7 +72,7 @@ const LevelSelection = ({
 };
 
 interface QuizLevelSelectionModalProps {
-  onConfirm: (level: number) => void;
+  onConfirm: () => void;
   onCancel: () => void;
 }
 
@@ -80,17 +80,17 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
   const t = useTranslations('QuizLevelSelectionModal');
   const { selectedLevel, setSelectedLevel } = useQuizStore();
 
-  const handleConfirm = () => {
-    const level = selectedLevel ?? 1;
-    setSelectedLevel(level);
-    onConfirm(level);
-  };
-
   useEffect(() => {
     if (selectedLevel === null) {
-      setSelectedLevel(1);
+      setSelectedLevel(2); // Default to medium (2)
     }
-  }, []);
+  }, [selectedLevel, setSelectedLevel]);
+
+  const handleConfirm = () => {
+    if (selectedLevel !== null) {
+      onConfirm(); // No need to pass selectedLevel
+    }
+  };
 
   return (
     <Dialog open={true} onOpenChange={onCancel}>

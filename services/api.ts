@@ -1,3 +1,4 @@
+import { QuizSubmission } from "@/lib/types/quiz-types";
 import { SegmentParams } from "@/lib/types/quran-segment-type";
 import { VersesTranslationResponse } from "@/lib/types/surah-translation-type";
 import { QuranChapterVerses } from "@/lib/types/verses-type";
@@ -18,6 +19,44 @@ export const fetcher = async <T>(url: string): Promise<T> => {
 
     if (!response.ok) {
         throw new Error(`Failed to fetch data from ${url}`);
+    }
+
+    return response.json();
+};
+
+export const authorizedFetcher = async <T>(url: string, accessToken: string): Promise<T> => {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
+        headers: {
+            'x-api-token': `${API_TOKEN}`,
+            'Content-Type': 'application/json',
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` })
+        },
+        next: { revalidate: 24 * 60 * 60 },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data from ${url}`);
+    }
+    return response.json();
+};
+
+export const submitQuiz = async (
+    url: string,
+    { arg }: { arg: QuizSubmission },
+    accessToken: string
+) => {
+    const response = await fetch(`${API_BASE_URL}${url}`, {
+        method: 'POST',
+        headers: {
+            'x-api-token': `${API_TOKEN}`,
+            'Content-Type': 'application/json',
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` })
+        },
+        body: JSON.stringify(arg)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to submit quiz`);
     }
 
     return response.json();
