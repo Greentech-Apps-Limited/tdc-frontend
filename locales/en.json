@@ -254,7 +254,11 @@
     },
     "leaderboard": {
       "title": "Leaderboard",
-      "description": "Current weekly ranking"
+      "description": "Current ranking"
+    },
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}h {minutes}m"
     }
   },
   "Profile": {

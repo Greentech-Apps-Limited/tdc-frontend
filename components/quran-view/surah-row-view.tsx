@@ -1,4 +1,5 @@
 'use client';
+
 import { useNumberTranslation } from '@/hooks/use-number-translation';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { useTranslations } from 'next-intl';
@@ -39,12 +40,14 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
             </div>
             <div className="relative h-[30px] w-[80px]">
               <Image
+                decoding="sync"
+                loading={id <= 15 ? 'eager' : 'lazy'}
                 src={`/images/surah/sname_${id}.webp`}
                 alt={`Surah ${id}`}
                 fill
                 sizes="60px"
                 style={{ objectFit: 'contain' }}
-                priority={id <= 15}
+                quality={65}
               />
             </div>
           </div>

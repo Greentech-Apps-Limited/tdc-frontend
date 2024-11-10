@@ -9,6 +9,10 @@ type ReadingProgress = {
 
 type ReadingProgressState = {
     weeklyProgress: ReadingProgress[];
+    lifetimeTotals: {
+        totalTimeSpent: number;
+        totalVersesRead: number;
+    };
     updateProgress: (newProgress: Partial<ReadingProgress>) => void;
 };
 
@@ -45,11 +49,22 @@ const useReadingProgressStore = create(
     persist<ReadingProgressState>(
         (set) => ({
             weeklyProgress: [],
+            lifetimeTotals: {
+                totalTimeSpent: 0,
+                totalVersesRead: 0,
+            },
             updateProgress: (newProgress) =>
                 set((state) => {
                     const updatedProgress = updateWeeklyProgress(state.weeklyProgress, newProgress);
+
                     if (JSON.stringify(state.weeklyProgress) !== JSON.stringify(updatedProgress)) {
-                        return { weeklyProgress: updatedProgress };
+                        return {
+                            weeklyProgress: updatedProgress,
+                            lifetimeTotals: {
+                                totalTimeSpent: state.lifetimeTotals.totalTimeSpent + (newProgress.timeSpent || 0),
+                                totalVersesRead: state.lifetimeTotals.totalVersesRead + (newProgress.versesRead || 0),
+                            },
+                        };
                     }
                     return state;
                 }),

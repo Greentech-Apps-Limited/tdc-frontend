@@ -253,8 +253,12 @@
       "description": "Kadar pemahaman purata"
     },
     "leaderboard": {
-      "title": "Papan pendahulu",
-      "description": "Kedudukan mingguan semasa"
+      "title": "Papan Kedudukan",
+      "description": "Kedudukan semasa"
+    },
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}j {minutes}m"
     }
   },
   "Profile": {

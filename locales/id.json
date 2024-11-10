@@ -253,8 +253,12 @@
       "description": "Rata-rata tingkat pemahaman"
     },
     "leaderboard": {
-      "title": "Papan peringkat",
-      "description": "Peringkat mingguan saat ini"
+      "title": "Papan Peringkat",
+      "description": "Peringkat saat ini"
+    },
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}j {minutes}m"
     }
   },
   "Profile": {
