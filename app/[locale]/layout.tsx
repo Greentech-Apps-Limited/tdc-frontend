@@ -1,4 +1,4 @@
-import './globals.css';
+import '../globals.css';
 import constructMetadata from '@/lib/metadata';
 import {
   amiri,

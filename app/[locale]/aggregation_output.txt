@@ -1,0 +1,474 @@
+| start >>> ./(quran)/quiz/leaderboard/layout.tsx >>>
+import { getStaticMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  return getStaticMetadata('leaderboard', locale);
+}
+
+const LeaderBoardLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  return <section className="h-full w-full">{children}</section>;
+};
+
+export default LeaderBoardLayout;
+<<< ./(quran)/quiz/leaderboard/layout.tsx <<< end |
+
+| start >>> ./(quran)/quiz/leaderboard/page.tsx >>>
+import LeaderboardMain from '@/components/leaderboard/leaderboard-main';
+import { unstable_setRequestLocale } from 'next-intl/server';
+
+const Leaderboard = ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  return <LeaderboardMain />;
+};
+
+export default Leaderboard;
+<<< ./(quran)/quiz/leaderboard/page.tsx <<< end |
+
+| start >>> ./(quran)/quiz/layout.tsx >>>
+const QuranicQuizLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  return (
+    <section className="h-full w-full overflow-y-scroll">
+      <div className="m-4 max-w-8xl md:m-6">{children}</div>
+    </section>
+  );
+};
+
+export default QuranicQuizLayout;
+<<< ./(quran)/quiz/layout.tsx <<< end |
+
+| start >>> ./(quran)/quiz/page.tsx >>>
+import QuizDashboard from '@/components/quiz/quiz-dashboard';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { getStaticMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  return getStaticMetadata('quiz', locale);
+}
+
+const QuizPage = ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  return (
+    <section>
+      <QuizDashboard />
+    </section>
+  );
+};
+
+export default QuizPage;
+<<< ./(quran)/quiz/page.tsx <<< end |
+
+| start >>> ./(quran)/profile/layout.tsx >>>
+import { getStaticMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  return getStaticMetadata('profile', locale);
+}
+const UserProfileLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  return (
+    <section className="h-full w-full overflow-y-scroll">
+      <div className="m-4 max-w-8xl md:m-6">{children}</div>
+    </section>
+  );
+};
+
+export default UserProfileLayout;
+<<< ./(quran)/profile/layout.tsx <<< end |
+
+| start >>> ./(quran)/profile/page.tsx >>>
+import StatisticsPanel from '@/components/profile/statistics-panel';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+
+const ProfilePage = ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  const t = useTranslations('Profile');
+  return (
+    <section className="h-full w-full space-y-6 rounded-3xl border border-neutral-300 bg-neutral p-4 md:rounded-4xl md:p-6">
+      <h1 className="font-hidayatullah_demo text-xl font-bold md:text-3xl">{t('title')}</h1>
+      <StatisticsPanel />
+    </section>
+  );
+};
+
+export default ProfilePage;
+<<< ./(quran)/profile/page.tsx <<< end |
+
+| start >>> ./(quran)/layout.tsx >>>
+import AudioPlayerWrapper from '@/components/audio-player/audio-player-wrapper';
+import Header from '@/components/header';
+import ScrollHeaderWrapper from '@/components/responsive-scroll-header';
+import Sidebar from '@/components/sidebar';
+import HeaderSkeleton from '@/components/skeleton-loaders/header-skeleton';
+import { SidebarSkeleton } from '@/components/skeleton-loaders/sidebar-skeleton';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
+
+const HomeLayout = ({
+  children,
+  params: { locale, quranSegment, segmentId },
+}: Readonly<{
+  children: React.ReactNode;
+  params: { locale: string; quranSegment: QuranSegment; segmentId: string };
+}>) => {
+  unstable_setRequestLocale(locale);
+  return (
+    <>
+      <section className="relative flex h-full w-full flex-row">
+        <Suspense fallback={<SidebarSkeleton />}>
+          <Sidebar />
+        </Suspense>
+        <div className=" min-h-full flex-1">
+          <div className="flex h-svh flex-col">
+            <div className="z-0 mx-auto flex w-full flex-1 flex-col overflow-visible">
+              <Suspense fallback={<HeaderSkeleton />}>
+                <ScrollHeaderWrapper quranSegment={quranSegment} segmentId={segmentId}>
+                  <Header />
+                </ScrollHeaderWrapper>
+              </Suspense>
+              {children}
+              <div className="fixed bottom-0 right-0 z-10">
+                <AudioPlayerWrapper />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default HomeLayout;
+<<< ./(quran)/layout.tsx <<< end |
+
+| start >>> ./(quran)/[quranSegment]/[segmentId]/layout.tsx >>>
+import QuranDetailsSkeleton from '@/components/skeleton-loaders/quran-details-skeleton';
+import { HIZBS } from '@/data/quran-meta/hizbs';
+import { JUZS } from '@/data/quran-meta/juzs';
+import { PAGES } from '@/data/quran-meta/pages';
+import { RUKUS } from '@/data/quran-meta/rukus';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
+import { Surah } from '@/lib/types/quran-meta-types';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { Suspense } from 'react';
+
+type Reference = { id: number | string };
+
+const QuranSegmentDetailsLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  return (
+    <section className="py-4 md:py-6">
+      <Suspense fallback={<QuranDetailsSkeleton />}>{children}</Suspense>
+    </section>
+  );
+};
+
+export default QuranSegmentDetailsLayout;
+
+export async function generateStaticParams() {
+  const segmentMap: Record<Exclude<QuranSegment, 'surah'>, Reference[]> & { surah: Surah[] } = {
+    surah: SURAH_EN,
+    page: PAGES,
+    juz: JUZS,
+    hizb: HIZBS,
+    ruku: RUKUS,
+  };
+
+  const staticParams = Object.entries(segmentMap).flatMap(([quranSegment, references]) => {
+    return references.map(reference => ({
+      quranSegment,
+      segmentId: reference.id.toString(),
+    }));
+  });
+
+  return staticParams;
+}
+<<< ./(quran)/[quranSegment]/[segmentId]/layout.tsx <<< end |
+
+| start >>> ./(quran)/[quranSegment]/[segmentId]/page.tsx >>>
+import SurahContentProvider from '@/components/surah-view/surah-content-provider';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { TranslationItem, TranslationResponse } from '@/lib/types/surah-translation-type';
+import { fetcher } from '@/services/api';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { generateQuranSegmentMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: {
+    locale: string;
+    quranSegment: string;
+    segmentId: string;
+  };
+}) {
+  return generateQuranSegmentMetadata({
+    params,
+    segment: params.quranSegment,
+    segmentId: params.segmentId,
+  });
+}
+
+const fetchTranslations = async (): Promise<TranslationItem[]> => {
+  const data = await fetcher<TranslationResponse>('/quran/translations/');
+  return data.results;
+};
+
+type QuranSegmentDetailsProps = {
+  params: {
+    quranSegment: QuranSegment;
+    segmentId: string;
+    locale: string;
+  };
+};
+
+const QuranSegmentDetails = async ({ params }: QuranSegmentDetailsProps) => {
+  unstable_setRequestLocale(params.locale);
+  const { quranSegment, segmentId } = params;
+  const surahs = SURAH_EN;
+  const translationInfos = await fetchTranslations();
+
+  switch (quranSegment) {
+    case 'surah':
+    case 'page':
+    case 'juz':
+    case 'hizb':
+    case 'ruku':
+      return (
+        <SurahContentProvider
+          quranSegment={quranSegment}
+          segmentId={segmentId}
+          surahs={surahs}
+          translationInfos={translationInfos}
+        />
+      );
+    default:
+      return <div>Invalid Quran Segment</div>;
+  }
+};
+
+export default QuranSegmentDetails;
+<<< ./(quran)/[quranSegment]/[segmentId]/page.tsx <<< end |
+
+| start >>> ./(quran)/[quranSegment]/layout.tsx >>>
+import QuranDetailsSidebar from '@/components/quran-view/quran-details-sidebar';
+import { QuranDetailsSidebarSkeleton } from '@/components/skeleton-loaders/sidebar-skeleton';
+import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
+
+type QuranSegmentLayoutProps = {
+  children: React.ReactNode;
+  params: {
+    quranSegment: QuranSegment;
+    segmentId: string;
+    locale: string;
+  };
+};
+
+const QuranSegmentLayout = ({ children, params }: Readonly<QuranSegmentLayoutProps>) => {
+  unstable_setRequestLocale(params.locale);
+
+  return (
+    <section>
+      <aside className="fixed right-auto top-16 z-10 hidden overflow-y-auto md:block">
+        <Suspense fallback={<QuranDetailsSidebarSkeleton />}>
+          <QuranDetailsSidebar listType={params.quranSegment} />
+        </Suspense>
+      </aside>
+      <aside id="scroll-container" className="md:pl-[206px]">
+        {children}
+      </aside>
+    </section>
+  );
+};
+
+export default QuranSegmentLayout;
+
+export function generateStaticParams() {
+  const quranSegments: QuranSegment[] = ['surah', 'page', 'juz', 'hizb', 'ruku'];
+
+  const staticParams = quranSegments.map(quranSegment => ({
+    quranSegment,
+  }));
+
+  return staticParams;
+}
+<<< ./(quran)/[quranSegment]/layout.tsx <<< end |
+
+| start >>> ./(quran)/page.tsx >>>
+import Banner from '@/components/banner';
+import LastRead from '@/components/last-read';
+import QuickLinks from '@/components/quick-links';
+import { QuranMeta } from '@/lib/types/quran-meta-types';
+import QuranTabView from '@/components/quran-view/quran-tab-view';
+import { SURAH_EN } from '@/data/quran-meta/surahs/en';
+import { PAGES } from '@/data/quran-meta/pages';
+import { JUZS } from '@/data/quran-meta/juzs';
+import { HIZBS } from '@/data/quran-meta/hizbs';
+import { RUKUS } from '@/data/quran-meta/rukus';
+import WeeklyProgress from '@/components/weekly-progress/weekly-progress';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
+import {
+  BannerSkeleton,
+  QuickAccessSectionSkeleton,
+  SurahRowSkeleton,
+} from '@/components/skeleton-loaders/home-page-skeleton';
+import { getStaticMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  return getStaticMetadata('home', locale);
+}
+
+export default async function Home({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
+  const surahs = SURAH_EN;
+  const pages = PAGES;
+  const juzs = JUZS;
+  const hizbs = HIZBS;
+  const rukus = RUKUS;
+  const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
+
+  return (
+    <main className="mx-auto h-full w-full max-w-8xl space-y-6 overflow-y-scroll p-4 sm:p-6">
+      <Suspense fallback={<BannerSkeleton />}>
+        <Banner />
+      </Suspense>
+
+      <Suspense fallback={<QuickAccessSectionSkeleton />}>
+        <section className="flex animate-slideInStaggered flex-col justify-between gap-4 rounded-3xl border border-neutral-300 bg-neutral p-4  md:flex-row md:rounded-4xl md:p-6">
+          <div className="max-w-[504px] space-y-4 md:space-y-6">
+            <QuickLinks />
+            <LastRead />
+          </div>
+          <WeeklyProgress />
+        </section>
+      </Suspense>
+      <div className="pb-48">
+        <Suspense fallback={<SurahRowSkeleton />}>
+          <QuranTabView quranMeta={quranMeta} />
+        </Suspense>
+      </div>
+    </main>
+  );
+}
+<<< ./(quran)/page.tsx <<< end |
+
+| start >>> ./quiz/play-mode/layout.tsx >>>
+const QuranicQuizPlayModeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  return <section className="h-screen w-screen">{children}</section>;
+};
+
+export default QuranicQuizPlayModeLayout;
+<<< ./quiz/play-mode/layout.tsx <<< end |
+
+| start >>> ./quiz/play-mode/page.tsx >>>
+import QuizGameWrapper from '@/components/quiz/quiz-game-wrapper';
+import { unstable_setRequestLocale } from 'next-intl/server';
+
+const QuizPlayModePage = ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  return (
+    <section>
+      <QuizGameWrapper />
+    </section>
+  );
+};
+
+export default QuizPlayModePage;
+<<< ./quiz/play-mode/page.tsx <<< end |
+
+| start >>> ./signin/page.tsx >>>
+import SignInMain from '@/components/auth/signin-main';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import React, { Suspense } from 'react';
+
+const SignIn = ({ params: { locale } }: { params: { locale: string } }) => {
+  unstable_setRequestLocale(locale);
+  return (
+    <div className="m-auto my-16 w-full md:max-w-md">
+      <Suspense>
+        <SignInMain />
+      </Suspense>
+    </div>
+  );
+};
+
+export default SignIn;
+<<< ./signin/page.tsx <<< end |
+
+| start >>> ./layout.tsx >>>
+import '../globals.css';
+import constructMetadata from '@/lib/metadata';
+import {
+  amiri,
+  bismillah,
+  hidayatullahFont,
+  kfgqpc_hafs,
+  kitab,
+  lateef,
+  me_quran,
+  qalam,
+  source_sans_3,
+} from '@/lib/fonts';
+import LoadingProgressBar from '@/components/loading-progress-bar';
+import { SettingsProvider } from '@/contexts/settings-provider';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
+import { Toaster } from '@/components/ui/toaster';
+import { SessionProvider } from 'next-auth/react';
+
+export const metadata = constructMetadata({
+  title: 'TDC Quran',
+  description: 'Digital Quran platform by TDC Holdings',
+});
+
+export function generateStaticParams() {
+  return routing.locales.map(locale => ({ locale }));
+}
+
+export default async function RootLayout({
+  children,
+  params: { locale },
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
+  const messages = await getMessages();
+  unstable_setRequestLocale(locale);
+
+  const fontClasses = [
+    source_sans_3.variable,
+    hidayatullahFont.variable,
+    lateef.variable,
+    qalam.variable,
+    me_quran.variable,
+    amiri.variable,
+    kfgqpc_hafs.variable,
+    kitab.variable,
+    bismillah.variable,
+  ].join(' ');
+
+  return (
+    <html lang={locale}>
+      <head>
+        <link rel="preload" href="/images/tdc-background-img.webp" as="image" />
+      </head>
+      <body className={`${fontClasses} h-screen w-full font-source_sans_3 text-neutral-900`}>
+        <SessionProvider>
+          <NextIntlClientProvider messages={messages}>
+            <LoadingProgressBar />
+            <SettingsProvider>
+              {children}
+              <Toaster />
+            </SettingsProvider>
+          </NextIntlClientProvider>
+        </SessionProvider>
+      </body>
+    </html>
+  );
+}
+<<< ./layout.tsx <<< end |
+
