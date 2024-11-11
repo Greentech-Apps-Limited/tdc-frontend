@@ -219,7 +219,7 @@
     "quizzesAttempted": "Kuiz Dicuba",
     "scoreOnQuizzes": "Skor pada kuiz",
     "onLeaderboard": "pada Papan Pendahulu",
-    "leaderboardSuffix": "ke",
+    "leaderboardPosition": "ke-{position}",
     "authPrompt": "Sila log masuk untuk melihat kedudukan anda dalam papan pendahulu dan mengesan kemajuan anda."
   },
   "QuizLevelSelectionModal": {
@@ -242,7 +242,7 @@
   "Statistics": {
     "totalAyahRead": {
       "title": "Jumlah ayat dibaca",
-      "description": "Kemajuan melalui Al-Quran"
+      "description": "Kemajuan pembacaan Quran"
     },
     "timeSpent": {
       "title": "Masa digunakan",
@@ -250,11 +250,11 @@
     },
     "quizScore": {
       "title": "Skor kuiz",
-      "description": "Kadar pemahaman purata"
+      "description": "Purata kadar pemahaman"
     },
     "leaderboard": {
       "title": "Papan Kedudukan",
-      "description": "Kedudukan semasa"
+      "description": "Kedudukan semasa mingguan"
     },
     "timeFormat": {
       "minutes": "{minutes}m",

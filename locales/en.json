@@ -219,7 +219,7 @@
     "quizzesAttempted": "Quizzes Attempted",
     "scoreOnQuizzes": "Score on quizzes",
     "onLeaderboard": "on Leaderboard",
-    "leaderboardSuffix": "rd",
+    "leaderboardPosition": "{position}{suffix}",
     "authPrompt": "Please log in to view your position on the leaderboard and track your progress."
   },
   "QuizLevelSelectionModal": {
