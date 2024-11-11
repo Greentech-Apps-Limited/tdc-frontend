@@ -283,5 +283,8 @@
     "pageInfo": "Page {current} of {total}",
     "previousPage": "Go to previous page",
     "nextPage": "Go to next page"
+  },
+  "Footer": {
+    "description": "This website is designed and developed by Greentech Apps Limited."
   }
 }

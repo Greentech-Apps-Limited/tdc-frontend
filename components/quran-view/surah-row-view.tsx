@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { GridComponents } from './virtualized-grid';
 import { SurahRowSkeleton } from '../skeleton-loaders/home-page-skeleton';
+import { KabaIcon, MadinaIcon } from '@/icons';
 
 const SurahRowView = ({ references }: { references: Surah[] }) => {
   const t = useTranslations('SurahTranslation');
@@ -24,7 +25,7 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
       const surah = references[index];
       if (!surah) return null;
 
-      const { id, transliteration } = surah;
+      const { id, transliteration, revelation } = surah;
 
       return (
         <Link key={id} href={`/surah/${id}`} className="block">
@@ -35,7 +36,10 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
               </div>
               <div>
                 <p className="text-lg font-semibold text-brown-600">{transliteration}</p>
-                <p className="text-sm text-neutral-700">{t(`sura_${id}`)}</p>
+                <div className="flex items-center gap-1">
+                  <p className="text-sm text-neutral-700">{t(`sura_${id}`)}</p>
+                  {revelation === 1 ? <KabaIcon /> : <MadinaIcon />}
+                </div>
               </div>
             </div>
             <div className="relative h-[30px] w-[80px]">

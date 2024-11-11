@@ -31,10 +31,10 @@ const QuranTabView = ({ quranMeta }: SurahViewProps) => {
     }
   };
   return (
-    <section className="space-y-6">
+    <section className="space-y-4 md:space-y-6">
       <Tabs
         defaultValue="surah"
-        className="w-[400px]"
+        className="w-full md:w-[400px]"
         onValueChange={(value: string): void => {
           setSelectedTab(value as TabsValue);
         }}

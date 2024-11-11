@@ -49,7 +49,7 @@ const QuizHeader = ({ onExit }: QuizHeaderProps) => {
         <div className="relative">
           <HeartReactIconFill className="text-2xl text-red-500" />
           {showFallingHeart && (
-            <HeartReactIconFill className="absolute top-0 animate-heart-fall text-2xl text-red-500" />
+            <HeartReactIconFill className="absolute top-0 z-10 animate-heart-fall text-2xl text-red-500" />
           )}
         </div>
       </div>

@@ -28,8 +28,11 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
   const end = Math.min((pageIndex + 1) * pageSize, totalRows);
 
   return (
-    <div className="flex items-center justify-between" data-test="table-pagination">
-      <div className="flex items-center gap-4">
+    <div
+      className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0"
+      data-test="table-pagination"
+    >
+      <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
         <div className="flex items-center space-x-2">
           <Select
             value={`${pageSize}`}
@@ -37,7 +40,7 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
               table.setPageSize(Number(value));
             }}
           >
-            <SelectTrigger data-test="page-size-select">
+            <SelectTrigger className="md:w-[140px]" data-test="page-size-select">
               <SelectValue placeholder={pageSize} />
             </SelectTrigger>
             <SelectContent side="top" data-test="page-size-list">
@@ -50,7 +53,7 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
           </Select>
         </div>
 
-        <div className="text-muted-foreground text-sm">
+        <div className="text-muted-foreground hidden text-sm md:block">
           {t('showing', {
             start: translateNumber(start),
             end: translateNumber(end),
@@ -59,9 +62,9 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
         </div>
       </div>
 
-      <div className="flex items-center space-x-6 lg:space-x-8">
+      <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
         <div
-          className="flex w-max items-center justify-center rounded-full border border-neutral-300 px-3 py-2 text-sm font-medium"
+          className="flex w-full items-center justify-center rounded-full border border-neutral-300 px-3 py-1 text-sm font-medium sm:w-auto"
           data-test="page-info"
         >
           {t('pageInfo', {
@@ -70,7 +73,7 @@ export function DataTablePagination<TData>({ table, totalRows }: DataTablePagina
           })}
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center justify-center space-x-2">
           <Button
             variant="outline"
             className="h-8 w-10 rounded-full px-3 py-2"

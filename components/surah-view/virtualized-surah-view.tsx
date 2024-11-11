@@ -9,7 +9,7 @@ import useScrollToVerse from '@/hooks/use-scroll-to-verse';
 const List: Components['List'] = forwardRef(({ style, children }, ref) => {
   return (
     <div
-      className="m-6 space-y-6 rounded-4xl border border-neutral-300 bg-neutral p-6 shadow"
+      className="m-4 space-y-4 rounded-3xl border border-neutral-300 bg-neutral p-4 shadow md:m-6 md:space-y-6 md:rounded-4xl md:p-6"
       ref={ref}
       style={style}
     >

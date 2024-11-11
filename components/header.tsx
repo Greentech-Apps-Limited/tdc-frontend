@@ -4,6 +4,7 @@ import { TranslationItem, TranslationResponse } from '@/lib/types/surah-translat
 import { fetcher } from '@/services/api';
 import { WbwLanguage, WbwResponse } from '@/lib/types/wbw-types';
 import UserProfileDropdown from './user-profile-dropdown';
+import ResponsiveSidebar from './responsive-sidebar';
 
 export const fetchWbwAndTranslations = async (): Promise<{
   wbwLanguages: WbwLanguage[];
@@ -24,12 +25,21 @@ const Header = async () => {
   const { wbwLanguages, translations } = await fetchWbwAndTranslations();
 
   return (
-    <header className="flex h-16 items-center justify-end border-b border-neutral-200 bg-neutral px-6 py-4 shadow">
-      <section className="flex items-center gap-4">
-        <LanguageSelector />
-        <Settings translationsInfo={translations} wbwLanguages={wbwLanguages} />
-        <UserProfileDropdown />
-      </section>
+    <header className=" flex h-16 items-center justify-between border-b border-neutral-200 bg-white px-4 dark:bg-neutral-900 md:px-6">
+      <div className="flex items-center lg:hidden">
+        <ResponsiveSidebar />
+      </div>
+      <div className="ml-auto flex items-center gap-3 md:gap-4">
+        <div className="flex items-center">
+          <LanguageSelector />
+        </div>
+        <div className="flex items-center">
+          <Settings translationsInfo={translations} wbwLanguages={wbwLanguages} />
+        </div>
+        <div className="flex items-center">
+          <UserProfileDropdown />
+        </div>
+      </div>
     </header>
   );
 };

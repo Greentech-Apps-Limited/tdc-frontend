@@ -1,7 +1,8 @@
-import './globals.css';
+import '../globals.css';
 import constructMetadata from '@/lib/metadata';
 import {
   amiri,
+  bismillah,
   hidayatullahFont,
   kfgqpc_hafs,
   kitab,
@@ -46,6 +47,7 @@ export default async function RootLayout({
     amiri.variable,
     kfgqpc_hafs.variable,
     kitab.variable,
+    bismillah.variable,
   ].join(' ');
 
   return (

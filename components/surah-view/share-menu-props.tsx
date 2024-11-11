@@ -44,32 +44,32 @@ const ShareMenu = ({ verseKey, verse, formatVerseLink, formatVerseText }: ShareM
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger className="flex items-center font-semibold text-neutral-700">
-        <ShareIcon className="mr-2 h-6 w-6" />
+        <ShareIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
         Share
       </DropdownMenuSubTrigger>
-      <DropdownMenuSubContent className="w-48">
+      <DropdownMenuSubContent className="md:w-48">
         <DropdownMenuItem onClick={() => shareViaMedia('facebook')} className="flex items-center">
-          <FacebookIcon className="mr-2 h-6 w-6" />
+          <FacebookIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           Facebook
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => shareViaMedia('twitter')} className="flex items-center">
-          <XIcon className="mr-2 h-6 w-6" />
+          <XIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           Twitter
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => shareViaMedia('telegram')} className="flex items-center">
-          <TelegramIcon className="mr-2 h-6 w-6" />
+          <TelegramIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           Telegram
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => shareViaMedia('whatsapp')} className="flex items-center">
-          <WhatsappIcon className="mr-2 h-6 w-6" />
+          <WhatsappIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           WhatsApp
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => shareViaMedia('linkedin')} className="flex items-center">
-          <LinkedinIcon className="mr-2 h-6 w-6" />
+          <LinkedinIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           LinkedIn
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => shareViaMedia('email')} className="flex items-center">
-          <MessageEmailIcon className="mr-2 h-6 w-6" />
+          <MessageEmailIcon className="mr-1 h-4 w-4 md:mr-2 md:h-6 md:w-6" />
           Email
         </DropdownMenuItem>
       </DropdownMenuSubContent>

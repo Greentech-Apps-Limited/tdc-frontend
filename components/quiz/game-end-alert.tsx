@@ -42,7 +42,7 @@ const GameEndAlert = ({ isOpen, onClose, onShowResults }: GameEndAlertProps) => 
 
   return (
     <AlertDialog open={isOpen}>
-      <AlertDialogContent className="max-w-md">
+      <AlertDialogContent className="max-w-[95vw] rounded-xl sm:max-w-md">
         <AlertDialogTitle className="sr-only">
           {isLifeEnded ? 'Quiz Ended' : 'Quiz Completed'}
         </AlertDialogTitle>

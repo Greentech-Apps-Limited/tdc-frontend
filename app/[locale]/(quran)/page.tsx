@@ -17,6 +17,7 @@ import {
   SurahRowSkeleton,
 } from '@/components/skeleton-loaders/home-page-skeleton';
 import { getStaticMetadata } from '@/lib/metadata';
+import Footer from '@/components/footer';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   return getStaticMetadata('home', locale);
@@ -32,25 +33,26 @@ export default async function Home({ params: { locale } }: { params: { locale: s
   const quranMeta: QuranMeta = { surahs, pages, juzs, hizbs: hizbs, rukus };
 
   return (
-    <main className="mx-auto h-full w-full max-w-8xl space-y-6 overflow-y-scroll p-6">
+    <main className="mx-auto h-full w-full max-w-8xl space-y-6 overflow-y-scroll p-4 sm:p-6">
       <Suspense fallback={<BannerSkeleton />}>
         <Banner />
       </Suspense>
 
       <Suspense fallback={<QuickAccessSectionSkeleton />}>
-        <section className="flex animate-slideInStaggered justify-between rounded-4xl border border-neutral-300 bg-neutral p-6">
-          <div className="max-w-[504px] space-y-6">
+        <section className="flex animate-slideInStaggered flex-col justify-between gap-4 rounded-3xl border border-neutral-300 bg-neutral p-4  md:flex-row md:rounded-4xl md:p-6">
+          <div className="max-w-[504px] space-y-4 md:space-y-6">
             <QuickLinks />
             <LastRead />
           </div>
           <WeeklyProgress />
         </section>
       </Suspense>
-      <div className="pb-48">
+      <div className="pb-20">
         <Suspense fallback={<SurahRowSkeleton />}>
           <QuranTabView quranMeta={quranMeta} />
         </Suspense>
       </div>
+      <Footer />
     </main>
   );
 }

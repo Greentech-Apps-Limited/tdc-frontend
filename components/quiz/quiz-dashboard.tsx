@@ -11,6 +11,7 @@ import ScoreboardAuthPrompt from './scoreboard-auth-prompt';
 import QuizIntroCard from './quiz-intro-card';
 import QuizLevelSelectionModal from './quiz-level-selection-modal';
 import { PlayerData } from '@/lib/types/user-profile-types';
+import QuizIntroCardSkeleton from '../skeleton-loaders/quiz-intro-card-skeleton';
 
 const QuizDashboard = () => {
   const { data: session, status } = useSession();
@@ -46,14 +47,18 @@ const QuizDashboard = () => {
   };
 
   return (
-    <section className="grid grid-cols-3 gap-6">
-      <div className="col-span-2">
-        <QuizIntroCard
-          setShowLevelModal={setShowLevelModal}
-          unauthenticated={status === 'unauthenticated'}
-        />
+    <section className="grid grid-cols-1 flex-wrap gap-4 lg:grid-cols-3 lg:gap-6">
+      <div className="lg:col-span-2">
+        {status === 'loading' ? (
+          <QuizIntroCardSkeleton />
+        ) : (
+          <QuizIntroCard
+            setShowLevelModal={setShowLevelModal}
+            unauthenticated={status === 'unauthenticated'}
+          />
+        )}
       </div>
-      <div className="col-span-1">{renderScoreboard()}</div>
+      <div className="lg:col-span-1">{renderScoreboard()}</div>
       {showLevelModal && (
         <QuizLevelSelectionModal
           onConfirm={() => {

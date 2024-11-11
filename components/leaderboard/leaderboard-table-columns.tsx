@@ -25,7 +25,7 @@ export function useLeaderboardColumns(): ColumnDef<LeaderboardEntry>[] {
       accessorKey: 'name',
       header: ({ column }) => <DataTableColumnHeader column={column} title={t('name')} />,
       cell: ({ row }) => (
-        <div className={`w-full min-w-96 text-sm font-semibold`}>{row.getValue('name')}</div>
+        <div className={`w-full text-sm font-semibold md:min-w-96`}>{row.getValue('name')}</div>
       ),
     },
     {

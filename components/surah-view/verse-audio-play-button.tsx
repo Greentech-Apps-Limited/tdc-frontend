@@ -33,7 +33,7 @@ const VerseAudioPlayButton = ({ surahId, verseKey }: VerseAudioPlayButtonProps) 
       className="h-max w-max rounded-lg p-0.5"
       aria-label="verse audio play"
     >
-      <PlayCircleIcon className="text-2xl hover:cursor-pointer" />
+      <PlayCircleIcon className="text-lg hover:cursor-pointer md:text-2xl" />
     </Button>
   );
 };

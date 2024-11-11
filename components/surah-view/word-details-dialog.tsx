@@ -11,24 +11,24 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="h-max w-max px-2 py-2.5">
+        <Button variant="ghost" className="h-max w-max px-0.5 py-1 md:px-2 md:py-2.5">
           <Word word={word} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-96 gap-6 p-6 sm:rounded-4xl">
+      <DialogContent className="max-w-[90vw] gap-4 rounded-3xl p-4 sm:rounded-4xl md:w-96 md:gap-6 md:p-6">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">Word Details</DialogTitle>
+          <DialogTitle className="font-semibold md:text-lg">Word Details</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col items-center gap-4">
           <div
             style={{ fontFamily: `var(--font-${arabicFont})` }}
-            className={`text-center text-5xl`}
+            className={`text-center text-3xl md:text-5xl`}
           >
             {text_uthmani}
           </div>
 
-          <div className="text-2xl font-bold">{translation}</div>
+          <div className="text-lg font-bold md:text-2xl">{translation}</div>
 
           <div className="mt-2 flex w-full  gap-6">
             {lemma && (

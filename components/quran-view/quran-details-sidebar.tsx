@@ -1,32 +1,45 @@
 'use client';
-import { QuranMeta, Reference, Surah } from '@/lib/types/quran-meta-types';
+import { Reference, Surah } from '@/lib/types/quran-meta-types';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
-import { getReferences, getTitle } from '@/lib/utils/quran-segment-utils';
+import { getTitle } from '@/lib/utils/quran-segment-utils';
 import { Link } from '@/i18n/routing';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
+import { QuranDetailsSidebarSkeleton } from '../skeleton-loaders/sidebar-skeleton';
+import { loadQuranMetadata } from '@/lib/utils/quran-meta';
 
 type QuranDetailsSidebarProps = {
-  quranMeta: QuranMeta;
   listType: QuranSegment;
 };
 
-const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) => {
+const QuranDetailsSidebar = ({ listType }: QuranDetailsSidebarProps) => {
   const virtuosoRef = useRef<VirtuosoHandle>(null);
   const params = useParams();
-  const references = getReferences(quranMeta, listType);
   const t = useTranslations('Views');
   const translateNumber = useNumberTranslation();
   const [initialScrollDone, setInitialScrollDone] = useState(false);
+  const [references, setReferences] = useState<(Reference | Surah)[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    loadQuranMetadata(listType).then(data => {
+      if (data) {
+        setReferences(data);
+      }
+      setIsLoading(false);
+    });
+  }, [listType]);
 
   const isSurah = (reference: Reference | Surah): reference is Surah => {
     return (reference as Surah).transliteration !== undefined;
   };
 
   const isActive = (id: number): boolean => params.segmentId === String(id);
+
   useEffect(() => {
     const scrollToActiveIndex = () => {
       if (!virtuosoRef.current || !params.segmentId) return;
@@ -78,8 +91,12 @@ const QuranDetailsSidebar = ({ quranMeta, listType }: QuranDetailsSidebarProps) 
     );
   };
 
+  if (isLoading) {
+    return <QuranDetailsSidebarSkeleton />;
+  }
+
   return (
-    <section className="h-[calc(100vh-4rem)] w-[206px] border-r border-neutral-200 bg-neutral">
+    <section className="h-[calc(100vh-4rem)] w-64 border-r border-neutral-200 bg-neutral md:w-[206px]">
       <Virtuoso
         ref={virtuosoRef}
         style={{ height: '100%' }}

@@ -283,5 +283,8 @@
     "pageInfo": "Halaman {current} dari {total}",
     "previousPage": "Ke halaman sebelumnya",
     "nextPage": "Ke halaman berikutnya"
+  },
+  "Footer": {
+    "description": "Situs web ini dirancang dan dikembangkan oleh Greentech Apps Limited."
   }
 }

@@ -32,7 +32,7 @@ function StatCard({
   if (isLoading) {
     return (
       <div
-        className={`rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm ${className}`}
+        className={`rounded-xl border border-neutral-200 bg-white p-4 md:rounded-2xl md:p-6 ${className}`}
         style={style}
       >
         <div className="mb-2 flex items-start justify-between">
@@ -46,7 +46,7 @@ function StatCard({
   }
   return (
     <div
-      className={`rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm ${className}`}
+      className={`rounded-xl border border-neutral-200 bg-white p-4 md:rounded-2xl md:p-6 ${className}`}
       style={style}
     >
       <div className="mb-2 flex items-start justify-between">

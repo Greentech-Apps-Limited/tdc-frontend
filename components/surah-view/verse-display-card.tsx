@@ -20,18 +20,20 @@ const VerseDisplayCard = ({ verse, isLastVerse }: VerseDisplayProps) => {
   const surahId = verse.verse_key.split(':')[0];
   return (
     <div
-      className={`rounded-2xl border border-neutral-200 p-6 ${
+      className={`rounded-2xl border border-neutral-200 p-4 md:p-6 ${
         highlightedVerse === verse.verse_key && showAudioPlayer ? 'bg-neutral-100' : 'bg-neutral'
-      } ${isLastVerse ? 'my-6' : 'mt-6'}`}
+      } ${isLastVerse ? 'my-4 md:my-6' : 'mt-4 md:mt-6'}`}
       data-verse={verse.verse_key}
       data-words={verse.words.length}
     >
-      <div className="flex items-center justify-between">
-        <p className="text-lg">{translateNumber(verse.no)}</p>
+      <div className="mb-2 flex items-center justify-between">
+        <p className="text-sm md:text-lg">{translateNumber(verse.no)}</p>
         <VerseDisplayOptions surahId={surahId} verseKey={verse.verse_key} verse={verse} />
       </div>
       <div className="text-right font-lateef" dir="rtl">
-        <div className={`inline ${showByWords ? 'leading-[100px]' : 'leading-[60px]'}`}>
+        <div
+          className={`inline ${showByWords ? 'leading-[50px] md:leading-[100px]' : ' leading-[30px] md:leading-[60px]'}`}
+        >
           {verse.words.map(word => (
             <WordDetailsDialog key={word.id} word={word} />
           ))}

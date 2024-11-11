@@ -3,7 +3,7 @@ type QuizContainerProps = {
 };
 
 const QuizContainer = ({ children }: QuizContainerProps) => {
-  return <div className="m-6 mx-auto max-w-md space-y-8">{children}</div>;
+  return <div className="m-6 mx-auto space-y-8 md:max-w-md">{children}</div>;
 };
 
 export default QuizContainer;
