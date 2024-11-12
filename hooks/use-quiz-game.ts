@@ -69,6 +69,10 @@ const useQuizGame = () => {
         },
         handleExitModalClose: () => setShowExitModal(false),
         handleResultModalClose: () => setShowResultModal(false),
+        handleFinishGameModalClose: () => {
+            setShowExitModal(false);
+            setShowResultModal(false);
+        },
     };
 };
 

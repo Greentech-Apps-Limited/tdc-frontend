@@ -146,7 +146,7 @@ const TafsirModal = ({ surahId, verseKey, setApiPageToVersesMap }: TafsirModalPr
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="h-max w-max rounded-lg p-0.5">
+        <Button variant="ghost" className="h-8 w-8 rounded-lg p-0">
           <GraduationHatIcon className="text-lg hover:cursor-pointer md:text-2xl" />
         </Button>
       </DialogTrigger>

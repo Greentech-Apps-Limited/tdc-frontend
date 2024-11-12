@@ -30,7 +30,7 @@ const VerseAudioPlayButton = ({ surahId, verseKey }: VerseAudioPlayButtonProps) 
     <Button
       onClick={handleClick}
       variant="ghost"
-      className="h-max w-max rounded-lg p-0.5"
+      className="h-8 w-8 rounded-lg p-0"
       aria-label="verse audio play"
     >
       <PlayCircleIcon className="text-lg hover:cursor-pointer md:text-2xl" />

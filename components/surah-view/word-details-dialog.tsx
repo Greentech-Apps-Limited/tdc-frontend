@@ -17,7 +17,9 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
       </DialogTrigger>
       <DialogContent className="max-w-[90vw] gap-4 rounded-3xl p-4 sm:rounded-4xl md:w-96 md:gap-6 md:p-6">
         <DialogHeader>
-          <DialogTitle className="font-semibold md:text-lg">Word Details</DialogTitle>
+          <DialogTitle className="text-center text-xl font-semibold md:text-2xl">
+            Word Details
+          </DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col items-center gap-4">
@@ -28,7 +30,7 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
             {text_uthmani}
           </div>
 
-          <div className="text-lg font-bold md:text-2xl">{translation}</div>
+          <div className="text-lg font-bold md:text-xl">{translation}</div>
 
           <div className="mt-2 flex w-full  gap-6">
             {lemma && (

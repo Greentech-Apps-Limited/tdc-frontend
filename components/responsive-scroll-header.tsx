@@ -16,7 +16,7 @@ import SidebarBrandLogo from './sidebar-brand-logo';
 import { SURAH_EN } from '@/data/quran-meta/surahs/en';
 import { useTranslations } from 'next-intl';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
-import { ArrowRightIcon } from '@/icons';
+import { ArrowRightIcon, ArrowLeftIcon } from '@/icons';
 
 const ScrollHeaderWrapper = ({ children }: { children: React.ReactNode }) => {
   const params = useParams<{ quranSegment: QuranSegment; segmentId: string; locale: string }>();
@@ -89,14 +89,18 @@ const ScrollHeaderWrapper = ({ children }: { children: React.ReactNode }) => {
         >
           <Sheet>
             <SheetTrigger asChild>
-              <div className="m-2 flex w-64 items-center justify-between gap-2 rounded-full bg-neutral-100 px-3 py-2">
+              <div className="m-2 flex w-64 cursor-pointer items-center justify-between gap-2 rounded-full bg-neutral-100 px-3 py-2">
                 <h1 className="font-hidayatullah_demo text-lg font-semibold">
                   {getSegmentTitle(params.quranSegment, params.segmentId)}
                 </h1>
                 <ArrowRightIcon className="text-2xl" />
               </div>
             </SheetTrigger>
-            <SheetContent side="left" className="flex h-full w-64 flex-col p-0">
+            <SheetContent
+              side="left"
+              className="flex h-full w-64 flex-col p-0"
+              closeIcon={<ArrowLeftIcon className="text-2xl" />}
+            >
               <SheetHeader>
                 <SheetTitle className="sr-only">Sidebar</SheetTitle>
                 <SheetDescription className="sr-only">Quran details page sidebar</SheetDescription>

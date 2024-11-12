@@ -29,7 +29,7 @@ const VerseDisplayOptions = ({
   setApiPageToVersesMap,
 }: VerseDisplayOptionsProps) => {
   return (
-    <div className="flex items-center space-x-4 text-2xl text-neutral-600">
+    <div className="flex items-center space-x-2 text-2xl text-neutral-600">
       <VerseAudioPlayButton surahId={surahId} verseKey={verseKey} />
       <TafsirModal
         surahId={surahId}

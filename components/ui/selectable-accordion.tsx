@@ -90,12 +90,12 @@ interface CheckboxItemProps {
 }
 
 const CheckboxItem: React.FC<CheckboxItemProps> = React.memo(({ id, label, checked, onChange }) => (
-  <div className="flex items-center space-x-2 rounded-md p-1 hover:bg-neutral-50">
-    <Checkbox id={id} checked={checked} onCheckedChange={e => onChange(e, id)} />
+  <div>
     <label
       htmlFor={id}
-      className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      className="flex cursor-pointer items-center space-x-2 rounded-md p-1 text-sm font-medium leading-none hover:bg-neutral-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
     >
+      <Checkbox id={id} checked={checked} onCheckedChange={e => onChange(e, id)} />
       {label}
     </label>
   </div>

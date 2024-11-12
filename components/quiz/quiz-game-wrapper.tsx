@@ -39,8 +39,9 @@ const QuizGameWrapper = () => {
     correctAnswers,
     totalTimeSpent,
     questions,
+    isLoading,
+    setIsLoading,
   } = useQuizStore();
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 

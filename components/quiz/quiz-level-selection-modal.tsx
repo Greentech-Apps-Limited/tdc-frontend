@@ -92,7 +92,7 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
 
   const handleConfirm = () => {
     if (selectedLevel !== null) {
-      onConfirm(); // No need to pass selectedLevel
+      onConfirm();
     }
   };
 
@@ -106,7 +106,7 @@ const QuizLevelSelectionModal = ({ onConfirm, onCancel }: QuizLevelSelectionModa
         <div className="my-2 sm:my-4">
           <LevelSelection selectedLevel={selectedLevel} onLevelSelect={setSelectedLevel} />
         </div>
-        <DialogFooter className="flex-col gap-2 sm:flex-row sm:gap-4">
+        <DialogFooter className="flex-col space-x-2 sm:flex-row sm:space-x-4">
           <Button variant="outline" className="w-full rounded-full sm:w-auto" onClick={onCancel}>
             {t('cancel')}
           </Button>

@@ -19,11 +19,13 @@ const QuizGame = () => {
     handleExit,
     handleShowResults,
     handleExitModalClose,
+    handleFinishGameModalClose,
   } = useQuizGame();
 
   const handleFinishGame = () => {
     router.push('/quiz');
-    setTimeout(() => resetAllStores(), 200);
+    handleFinishGameModalClose();
+    setTimeout(() => resetAllStores(), 500);
   };
 
   return (

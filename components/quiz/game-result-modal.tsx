@@ -35,13 +35,13 @@ const GameResultModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
             You answered {correctAnswers} out of {questions.length} questions correctly.
           </AlertDialogDescription>
 
-          <ScrollArea className="flex-1 rounded-md border p-2 text-sm md:p-4 md:text-base">
+          <ScrollArea className="flex-1 rounded-md border px-2 text-sm md:px-4 md:pb-0 md:text-base">
             {questions.map((question, index) => {
               const userAnswer = selectedAnswers[index] || 'No answer';
               const isCorrect = userAnswer === question.right_answer;
 
               return (
-                <div key={question.id} className="mb-6 last:mb-0">
+                <div key={question.id} className="py-4 last:mb-0">
                   <div className="flex items-start space-x-2">
                     <div className={`mt-1 ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
                       {isCorrect ? (

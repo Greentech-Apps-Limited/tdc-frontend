@@ -19,10 +19,8 @@ export interface SettingsState {
     arabicFont: string;
     arabicFontSize: number;
     wbwTr: string;
-    audioSpeed: string;
     currentPlayingSurahInfo: Record<string, unknown>;
     audioAutoScroll: boolean;
-    audioWordClick: boolean;
     isAudioPlaying: boolean;
 }
 
@@ -50,13 +48,11 @@ const useSettingsStore = create(
             selectedTafseer: [4],
             tafseerTab: 'en-ibn-kathir',
             arabicScript: 'uthmani',
-            arabicFont: 'lateef',
-            arabicFontSize: 26,
+            arabicFont: 'kfgqpc_hafs',
+            arabicFontSize: 28,
             wbwTr: 'en',
-            audioSpeed: '1',
             currentPlayingSurahInfo: {},
             audioAutoScroll: false,
-            audioWordClick: false,
             isAudioPlaying: false,
             updateSettings: (newSettings) => set((state) => ({ ...state, ...newSettings })),
             updateWbwTr: (wbwTr) => set({ wbwTr }),
