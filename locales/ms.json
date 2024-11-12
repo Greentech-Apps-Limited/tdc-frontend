@@ -286,5 +286,8 @@
   },
   "Footer": {
     "description": "Laman web ini direka dan dibangunkan oleh Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Sila rujuk tafsir ayat ke-{ayah} surah {surah} untuk tafsir ayat ini."
   }
 }

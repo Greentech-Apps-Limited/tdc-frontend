@@ -1,37 +1,29 @@
-import { MergedVerse, SurahPosition } from '@/lib/types/verses-type';
+import { MergedVerse } from '@/lib/types/verses-type';
 import VerseDisplayCardSkeleton from '../skeleton-loaders/verse-display-card-skeleton';
 import VerseDisplayCard from './verse-display-card';
 import useDedupedFetchVerse from '@/hooks/use-deduped-fetch-verse';
-import { TranslationItem } from '@/lib/types/surah-translation-type';
 import { useParams } from 'next/navigation';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
 import { Separator } from '../ui/separator';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
+import { useVerseContext } from '@/contexts/verse-provider';
 
 type TranslationViewProps = {
   verseIdx: number;
-  initialVerses: MergedVerse[];
-  totalVerseCount: number;
-  surahInfos: SurahPosition[];
-  wbwTr: string;
-  tafseerIds: string[];
-  translationIds: string[];
-  translationInfos: TranslationItem[];
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
 
-const TranslationView = ({
-  totalVerseCount,
-  verseIdx,
-  initialVerses,
-  translationIds,
-  translationInfos,
-  setApiPageToVersesMap,
-  wbwTr,
-  tafseerIds,
-  surahInfos,
-}: TranslationViewProps) => {
+const TranslationView = ({ verseIdx, setApiPageToVersesMap }: TranslationViewProps) => {
   const { quranSegment, segmentId } = useParams<{ quranSegment: string; segmentId: string }>();
+  const {
+    initialVerses,
+    totalVerseCount,
+    translationIds,
+    translationInfos,
+    wbwTr,
+    tafseerIds,
+    surahInfos,
+  } = useVerseContext();
   const translateNumber = useNumberTranslation();
 
   const { verse, isLoading } = useDedupedFetchVerse({
@@ -87,11 +79,15 @@ const TranslationView = ({
               )}
             </div>
 
-            <VerseDisplayCard verse={verse} />
+            <VerseDisplayCard verse={verse} setApiPageToVersesMap={setApiPageToVersesMap} />
           </div>
         </div>
       ) : (
-        <VerseDisplayCard verse={verse} isLastVerse={totalVerseCount - 1 === verseIdx} />
+        <VerseDisplayCard
+          verse={verse}
+          isLastVerse={totalVerseCount - 1 === verseIdx}
+          setApiPageToVersesMap={setApiPageToVersesMap}
+        />
       )}
     </>
   );

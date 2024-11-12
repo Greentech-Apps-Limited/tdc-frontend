@@ -10,9 +10,10 @@ import WordDetailsDialog from './word-details-dialog';
 type VerseDisplayProps = {
   verse: MergedVerse;
   isLastVerse?: boolean;
+  setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
 
-const VerseDisplayCard = ({ verse, isLastVerse }: VerseDisplayProps) => {
+const VerseDisplayCard = ({ verse, isLastVerse, setApiPageToVersesMap }: VerseDisplayProps) => {
   const { showTranslation, showByWords, translationFontSize } = useSettings();
   const { highlightedVerse, showAudioPlayer } = useQuranReader();
   const translateNumber = useNumberTranslation();
@@ -28,7 +29,12 @@ const VerseDisplayCard = ({ verse, isLastVerse }: VerseDisplayProps) => {
     >
       <div className="mb-2 flex items-center justify-between">
         <p className="text-sm md:text-lg">{translateNumber(verse.no)}</p>
-        <VerseDisplayOptions surahId={surahId} verseKey={verse.verse_key} verse={verse} />
+        <VerseDisplayOptions
+          surahId={surahId}
+          verseKey={verse.verse_key}
+          verse={verse}
+          setApiPageToVersesMap={setApiPageToVersesMap}
+        />
       </div>
       <div className="text-right font-lateef" dir="rtl">
         <div

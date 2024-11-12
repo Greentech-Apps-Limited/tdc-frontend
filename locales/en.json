@@ -286,5 +286,8 @@
   },
   "Footer": {
     "description": "This website is designed and developed by Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Please check the tafseer of verse no {ayah} of sura {surah} for the tafseer of this verse."
   }
 }
