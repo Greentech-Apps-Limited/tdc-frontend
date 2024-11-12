@@ -79,8 +79,11 @@ const QuranDetailsSidebar = ({ listType }: QuranDetailsSidebarProps) => {
               isActive(reference.id) ? 'active bg-neutral-100 font-semibold' : ''
             }`}
           >
-            <p className="w-8 text-center text-neutral-600">{translateNumber(reference.id)}</p>
-            <p>
+            {isSurah(reference) && (
+              <p className="w-8 text-center text-neutral-600">{translateNumber(reference.id)}</p>
+            )}
+
+            <p className={`${isSurah(reference) ? '' : 'w-full text-center'} `}>
               {isSurah(reference)
                 ? reference.transliteration
                 : getTitle(listType, reference.id, t, translateNumber)}

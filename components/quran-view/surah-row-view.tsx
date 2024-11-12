@@ -45,13 +45,14 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
             <div className="relative h-[30px] w-[80px]">
               <Image
                 decoding="sync"
-                loading={id <= 15 ? 'eager' : 'lazy'}
+                loading="eager"
                 src={`/images/surah/sname_${id}.webp`}
                 alt={`Surah ${id}`}
                 fill
                 sizes="60px"
                 style={{ objectFit: 'contain' }}
                 quality={65}
+                priority
               />
             </div>
           </div>
