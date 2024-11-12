@@ -69,7 +69,8 @@
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}h {minutes}m"
-    }
+    },
+    "quizGoal": "out of {goal} quizzes"
   },
   "Numbers": {
     "digit": {

@@ -69,7 +69,8 @@
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}j {minutes}m"
-    }
+    },
+    "quizGoal": "daripada {goal} kuiz"
   },
   "Numbers": {
     "digit": {

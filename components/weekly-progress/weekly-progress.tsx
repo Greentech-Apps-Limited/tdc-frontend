@@ -4,10 +4,17 @@ import ReadingGoal from './reading-goal';
 import StaticWeekCalendar from './static-week-calendar';
 import useLastReadStore, { LastReadEntry } from '@/stores/last-read-store';
 import useReadingProgressStore from '@/stores/reading-progress-store';
+import useQuizProgressStore from '@/stores/quiz-progress-store';
+import QuizGoal from './quiz-goal';
 
 const WeeklyProgress = () => {
+  const { weeklyQuizzes, cleanOldQuizData } = useQuizProgressStore();
   const { weeklyProgress, updateProgress } = useReadingProgressStore();
   const lastReadStore = useLastReadStore();
+
+  useEffect(() => {
+    cleanOldQuizData();
+  }, []);
 
   useEffect(() => {
     const cleanupOldData = () => {
@@ -42,23 +49,35 @@ const WeeklyProgress = () => {
     .filter(entry => entry.timeSpent > 0 || entry.versesRead > 0)
     .map(entry => new Date(entry.date).getDay());
 
+  const totalParticipatedQuizzes = weeklyQuizzes.reduce(
+    (sum, day) => sum + day.quizParticipations,
+    0
+  );
   return (
     <div
-      className=" animate-slideInStaggered rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
+      className=" flex animate-slideInStaggered justify-between rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"
       style={{ animationFillMode: 'forwards' }}
     >
-      <div className="flex h-full flex-col gap-6">
+      <div className="flex h-full w-full flex-col gap-6">
         <div
           className="animate-slideInStaggered opacity-0"
           style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}
         >
           <StaticWeekCalendar visitedDays={visitedDays} />
         </div>
-        <div
-          className="animate-slideInStaggered opacity-0"
-          style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
-        >
-          <ReadingGoal timeSpentSeconds={totalTimeSpentSeconds} latestLastRead={latestLastRead} />
+        <div className="flex flex-col gap-4 md:flex-row">
+          <div
+            className="w-full animate-slideInStaggered opacity-0"
+            style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
+          >
+            <ReadingGoal timeSpentSeconds={totalTimeSpentSeconds} latestLastRead={latestLastRead} />
+          </div>
+          <div
+            className="w-full animate-slideInStaggered opacity-0"
+            style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}
+          >
+            <QuizGoal totalParticipatedQuizzes={totalParticipatedQuizzes} />
+          </div>
         </div>
       </div>
     </div>
