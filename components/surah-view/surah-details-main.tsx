@@ -39,7 +39,6 @@ const SurahDetailsMain = ({
   const { translations, wbw_tr, tafseer } = useGetQueryParamOrSettingsValue();
   const [apiPageToVersesMap, setApiPageToVersesMap] = useState<Record<number, MergedVerse[]>>({});
 
-  console.log(' translations, wbw_tr, tafseer', translations, wbw_tr, tafseer);
   useEffect(() => {
     setApiPageToVersesMap({});
   }, [translations]);
