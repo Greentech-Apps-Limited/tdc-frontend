@@ -69,7 +69,8 @@
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}j {minutes}m"
-    }
+    },
+    "quizGoal": "dari {goal} kuis"
   },
   "Numbers": {
     "digit": {
@@ -219,7 +220,7 @@
     "quizzesAttempted": "Kuis Dicoba",
     "scoreOnQuizzes": "Skor pada kuis",
     "onLeaderboard": "pada Papan Peringkat",
-    "leaderboardSuffix": "ke",
+    "leaderboardPosition": "ke-{position}",
     "authPrompt": "Silakan masuk untuk melihat posisi Anda di papan peringkat dan melacak kemajuan Anda."
   },
   "QuizLevelSelectionModal": {
@@ -286,5 +287,8 @@
   },
   "Footer": {
     "description": "Situs web ini dirancang dan dikembangkan oleh Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Silakan lihat tafsir ayat ke-{ayah} surah {surah} untuk tafsir ayat ini."
   }
 }

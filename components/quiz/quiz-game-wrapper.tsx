@@ -9,6 +9,7 @@ import QuizGameSkeleton from '../skeleton-loaders/quiz-gam-skeleton';
 import { useSession } from 'next-auth/react';
 import { authorizedFetcher, submitQuiz } from '@/services/api';
 import useSWRMutation from 'swr/mutation';
+import useQuizProgressStore from '@/stores/quiz-progress-store';
 
 type QuizApiResponse = {
   count: number;
@@ -29,6 +30,7 @@ const getDifficultyLevelQuery = (level: number) => {
 };
 
 const QuizGameWrapper = () => {
+  const { updateQuizProgress } = useQuizProgressStore();
   const { data: session } = useSession();
   const {
     startQuiz,
@@ -39,8 +41,9 @@ const QuizGameWrapper = () => {
     correctAnswers,
     totalTimeSpent,
     questions,
+    isLoading,
+    setIsLoading,
   } = useQuizStore();
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
@@ -65,6 +68,7 @@ const QuizGameWrapper = () => {
     const handleGameOver = async () => {
       if (isGameOver && !isMutating && session?.accessToken) {
         await submitQuizTrigger();
+        updateQuizProgress();
       }
     };
 

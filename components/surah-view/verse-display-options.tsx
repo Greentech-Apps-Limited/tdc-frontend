@@ -19,13 +19,23 @@ interface VerseDisplayOptionsProps {
   surahId?: string;
   verseKey: string;
   verse: MergedVerse;
+  setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 }
 
-const VerseDisplayOptions = ({ surahId, verseKey, verse }: VerseDisplayOptionsProps) => {
+const VerseDisplayOptions = ({
+  surahId,
+  verseKey,
+  verse,
+  setApiPageToVersesMap,
+}: VerseDisplayOptionsProps) => {
   return (
-    <div className="flex items-center space-x-4 text-2xl text-neutral-600">
+    <div className="flex items-center space-x-2 text-2xl text-neutral-600">
       <VerseAudioPlayButton surahId={surahId} verseKey={verseKey} />
-      <TafsirModal verse={verse} surahId={surahId} verseKey={verseKey} />
+      <TafsirModal
+        surahId={surahId}
+        verseKey={verseKey}
+        setApiPageToVersesMap={setApiPageToVersesMap}
+      />
       <VerseDisplayMoreOptions verse={verse} verseKey={verseKey} />
     </div>
   );

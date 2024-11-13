@@ -3,7 +3,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useTranslations } from 'next-intl';
 import { DataTableColumnHeader } from './data-table-column-header';
-import { formatRank } from '@/lib/utils/common-utils';
 import { LeaderboardEntry } from '@/lib/types/leaderboard';
 import { useNumberTranslation } from '@/hooks/use-number-translation';
 
@@ -16,9 +15,7 @@ export function useLeaderboardColumns(): ColumnDef<LeaderboardEntry>[] {
       accessorKey: 'rank',
       header: ({ column }) => <DataTableColumnHeader column={column} title={t('rank')} />,
       cell: ({ row }) => (
-        <div className="w-max text-sm font-semibold">
-          {translateNumber(formatRank(row.getValue('rank')))}
-        </div>
+        <div className="w-max text-sm font-semibold">{translateNumber(row.getValue('rank'))}</div>
       ),
     },
     {

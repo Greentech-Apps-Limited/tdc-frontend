@@ -25,7 +25,7 @@ const ExitConfirmationModal = ({ onConfirm, onCancel, isOpen }: ExitConfirmation
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>{t('description')}</DialogDescription>
         </DialogHeader>
-        <DialogFooter className="gap-4 ">
+        <DialogFooter className="flex-col space-x-2 sm:flex-row sm:space-x-4">
           <Button variant="outline" className="rounded-full" onClick={onCancel}>
             {t('cancel')}
           </Button>

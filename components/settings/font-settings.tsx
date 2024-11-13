@@ -22,12 +22,12 @@ const FontSettings = () => {
 
   const fonts = useMemo<FontType[]>(
     () => [
-      { id: 'lateef', name: 'Lateef' },
-      { id: 'qalam', name: 'Qalam' },
       { id: 'kfgqpc_hafs', name: 'KFGQPC Hafs' },
+      { id: 'qalam', name: 'Qalam' },
       { id: 'kitab', name: 'Kitab' },
       { id: 'amiri', name: 'Amiri' },
       { id: 'meQuran', name: 'Me Quran' },
+      { id: 'lateef', name: 'Lateef' },
     ],
     []
   );

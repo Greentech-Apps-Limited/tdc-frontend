@@ -69,7 +69,8 @@
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}h {minutes}m"
-    }
+    },
+    "quizGoal": "out of {goal} quizzes"
   },
   "Numbers": {
     "digit": {
@@ -219,7 +220,7 @@
     "quizzesAttempted": "Quizzes Attempted",
     "scoreOnQuizzes": "Score on quizzes",
     "onLeaderboard": "on Leaderboard",
-    "leaderboardSuffix": "rd",
+    "leaderboardPosition": "{position}{suffix}",
     "authPrompt": "Please log in to view your position on the leaderboard and track your progress."
   },
   "QuizLevelSelectionModal": {
@@ -286,5 +287,8 @@
   },
   "Footer": {
     "description": "This website is designed and developed by Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Please check the tafseer of verse no {ayah} of sura {surah} for the tafseer of this verse."
   }
 }

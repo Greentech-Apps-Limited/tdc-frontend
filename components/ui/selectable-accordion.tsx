@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
 import { Checkbox } from './checkbox';
+import { RadioGroup, RadioGroupItem } from './radio-group';
 import { CheckedState } from '@radix-ui/react-checkbox';
 
 interface SelectableAccordionProps<T> {
@@ -44,6 +45,13 @@ function SelectableAccordion<T>({
     [isMultiple, forceSelection, selectedItems, onSelectionChange]
   );
 
+  const handleRadioChange = useCallback(
+    (value: string) => {
+      onSelectionChange([value]);
+    },
+    [onSelectionChange]
+  );
+
   const selectionText = useMemo(() => {
     if (isMultiple) {
       return `${selectedItems.length} Selected`;
@@ -63,19 +71,43 @@ function SelectableAccordion<T>({
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          {items.map(item => {
-            const id = String(item[idKey]);
-            const label = String(item[labelKey]);
-            return (
-              <CheckboxItem
-                key={id}
-                id={id}
-                label={label}
-                checked={selectedItems.includes(id)}
-                onChange={handleCheckboxChange}
-              />
-            );
-          })}
+          {isMultiple ? (
+            items.map(item => {
+              const id = String(item[idKey]);
+              const label = String(item[labelKey]);
+              return (
+                <CheckboxItem
+                  key={id}
+                  id={id}
+                  label={label}
+                  checked={selectedItems.includes(id)}
+                  onChange={handleCheckboxChange}
+                />
+              );
+            })
+          ) : (
+            <RadioGroup
+              value={selectedItems[0] || ''}
+              onValueChange={handleRadioChange}
+              className="space-y-1"
+            >
+              {items.map(item => {
+                const id = String(item[idKey]);
+                const label = String(item[labelKey]);
+                return (
+                  <div key={id}>
+                    <label
+                      htmlFor={id}
+                      className="flex cursor-pointer items-center space-x-2 rounded-md p-1 text-sm font-medium leading-none hover:bg-neutral-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      <RadioGroupItem value={id} id={id} className="m-2 " />
+                      {label}
+                    </label>
+                  </div>
+                );
+              })}
+            </RadioGroup>
+          )}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
@@ -90,12 +122,12 @@ interface CheckboxItemProps {
 }
 
 const CheckboxItem: React.FC<CheckboxItemProps> = React.memo(({ id, label, checked, onChange }) => (
-  <div className="flex items-center space-x-2 rounded-md p-1 hover:bg-neutral-50">
-    <Checkbox id={id} checked={checked} onCheckedChange={e => onChange(e, id)} />
+  <div>
     <label
       htmlFor={id}
-      className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      className="flex cursor-pointer items-center space-x-2 rounded-md p-1 text-sm font-medium leading-none hover:bg-neutral-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
     >
+      <Checkbox id={id} checked={checked} onCheckedChange={e => onChange(e, id)} />
       {label}
     </label>
   </div>

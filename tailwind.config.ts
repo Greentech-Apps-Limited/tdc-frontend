@@ -27,6 +27,7 @@ const config = {
         amiri: ['var(--font-amiri)', ...fontFamily.mono],
         qalam: ['var(--font-qalam)', ...fontFamily.mono],
         meQuran: ['var(--font-meQuran)', ...fontFamily.mono],
+        kfgqpc_hafs: ['var(--font-kfgqpc_hafs)', ...fontFamily.mono],
       },
       keyframes: {
         "accordion-down": {

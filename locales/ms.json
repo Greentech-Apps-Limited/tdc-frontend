@@ -69,7 +69,8 @@
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}j {minutes}m"
-    }
+    },
+    "quizGoal": "daripada {goal} kuiz"
   },
   "Numbers": {
     "digit": {
@@ -219,7 +220,7 @@
     "quizzesAttempted": "Kuiz Dicuba",
     "scoreOnQuizzes": "Skor pada kuiz",
     "onLeaderboard": "pada Papan Pendahulu",
-    "leaderboardSuffix": "ke",
+    "leaderboardPosition": "ke-{position}",
     "authPrompt": "Sila log masuk untuk melihat kedudukan anda dalam papan pendahulu dan mengesan kemajuan anda."
   },
   "QuizLevelSelectionModal": {
@@ -242,7 +243,7 @@
   "Statistics": {
     "totalAyahRead": {
       "title": "Jumlah ayat dibaca",
-      "description": "Kemajuan melalui Al-Quran"
+      "description": "Kemajuan pembacaan Quran"
     },
     "timeSpent": {
       "title": "Masa digunakan",
@@ -250,11 +251,11 @@
     },
     "quizScore": {
       "title": "Skor kuiz",
-      "description": "Kadar pemahaman purata"
+      "description": "Purata kadar pemahaman"
     },
     "leaderboard": {
       "title": "Papan Kedudukan",
-      "description": "Kedudukan semasa"
+      "description": "Kedudukan semasa mingguan"
     },
     "timeFormat": {
       "minutes": "{minutes}m",
@@ -286,5 +287,8 @@
   },
   "Footer": {
     "description": "Laman web ini direka dan dibangunkan oleh Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Sila rujuk tafsir ayat ke-{ayah} surah {surah} untuk tafsir ayat ini."
   }
 }

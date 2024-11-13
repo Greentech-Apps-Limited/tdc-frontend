@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
 import { ChoiceIcon, PdfNoteIcon, TextRightIcon, TimeClockIcon } from '@/icons';
 import { useTranslations } from 'next-intl';
-import { formatRank } from '@/lib/utils/common-utils';
 import { PlayerData } from '@/lib/types/leaderboard';
 import { authorizedFetcher } from '@/services/api';
 import useReadingProgressStore from '@/stores/reading-progress-store';
@@ -109,7 +108,7 @@ export default function StatisticsPanel() {
     },
     {
       title: t('leaderboard.title'),
-      value: playerData ? translateNumber(formatRank(playerData.rank)) : '-',
+      value: playerData ? translateNumber(playerData.rank) : '-',
       description: t('leaderboard.description'),
       icon: <PdfNoteIcon className="h-6 w-6" />,
       isLoading: isLoading || status === 'loading',

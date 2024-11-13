@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from './ui/sheet';
 import { Separator } from './ui/separator';
-import { MenuIcon } from '@/icons';
+import { ArrowLeftIcon, MenuIcon } from '@/icons';
 
 const ResponsiveSidebar = () => {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +23,11 @@ const ResponsiveSidebar = () => {
       <SheetTrigger>
         <MenuIcon className="h-6 w-6" />
       </SheetTrigger>
-      <SheetContent side="left" className="w-[272px]">
+      <SheetContent
+        side="left"
+        className="w-[272px]"
+        closeIcon={<ArrowLeftIcon className="text-2xl" />}
+      >
         <SheetHeader>
           <SheetTitle className="px-6 text-start">Menu</SheetTitle>
           <SheetDescription className="sr-only">

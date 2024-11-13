@@ -12,6 +12,7 @@ import { useGetQueryParamOrSettingsValue } from '@/hooks/use-get-query-param-or-
 import { createSegment } from '@/lib/utils/api-utils';
 import { useParams } from 'next/navigation';
 import { QuranSegment } from '@/lib/types/quran-segment-type';
+import { VerseProvider } from '@/contexts/verse-provider';
 
 const ReadingProgressTracker = dynamic(() => import('./reading-progress-tracker'), {
   ssr: false,
@@ -120,20 +121,25 @@ const SurahDetailsMain = ({
     return <QuranDetailsSkeleton />;
   }
 
+  const initialData = {
+    initialVerses: data ? verses : [],
+    verseLookup,
+    totalVerseCount,
+    surahInfos,
+    translationIds: translations,
+    translationInfos,
+    tafseerIds: tafseer,
+    wbwTr: wbw_tr,
+    quranSegment,
+    segmentId,
+  };
+
   return (
-    <ReadingProgressTracker verses={verseLookup}>
-      <VirtualizedSurahView
-        surahInfos={surahInfos}
-        initialVerses={verses}
-        totalVerseCount={totalVerseCount}
-        translationIds={translationIds}
-        wbwTr={wbw_tr}
-        tafseerIds={tafseerIds}
-        translationInfos={translationInfos}
-        setApiPageToVersesMap={setApiPageToVersesMap}
-        verseLookup={verseLookup}
-      />
-    </ReadingProgressTracker>
+    <VerseProvider initialData={initialData}>
+      <ReadingProgressTracker verses={verseLookup}>
+        <VirtualizedSurahView setApiPageToVersesMap={setApiPageToVersesMap} />
+      </ReadingProgressTracker>
+    </VerseProvider>
   );
 };
 
