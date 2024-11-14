@@ -3,13 +3,13 @@
 import { useNumberTranslation } from '@/hooks/use-number-translation';
 import { Surah } from '@/lib/types/quran-meta-types';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import React, { useCallback, useEffect, useState } from 'react';
 import { VirtuosoGrid } from 'react-virtuoso';
 import { GridComponents } from './virtualized-grid';
 import { SurahRowSkeleton } from '../skeleton-loaders/home-page-skeleton';
 import { KabaIcon, MadinaIcon } from '@/icons';
+import SurahNameIconComponent from '../ui/surah-name-icon-component';
 
 const SurahRowView = ({ references }: { references: Surah[] }) => {
   const t = useTranslations('SurahTranslation');
@@ -29,7 +29,7 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
 
       return (
         <Link key={id} href={`/surah/${id}`} className="block">
-          <div className="flex items-center justify-between rounded-full border border-neutral-200 bg-neutral p-2 pr-6 transition-shadow duration-200 hover:shadow">
+          <div className="flex items-center justify-between rounded-full border border-neutral-200 bg-neutral p-2 transition-shadow duration-200 hover:shadow">
             <div className="flex gap-3">
               <div className="h-[52px] w-[52px] rounded-full bg-neutral-200 p-3 text-center text-xl font-bold">
                 {translateNumber(id)}
@@ -42,17 +42,10 @@ const SurahRowView = ({ references }: { references: Surah[] }) => {
                 </div>
               </div>
             </div>
-            <div className="relative h-[30px] w-[80px]">
-              <Image
-                decoding="sync"
-                loading="eager"
-                src={`/images/surah/sname_${id}.webp`}
-                alt={`Surah ${id}`}
-                fill
-                sizes="60px"
-                style={{ objectFit: 'contain' }}
-                quality={65}
-                priority
+            <div>
+              <SurahNameIconComponent
+                surahNumber={id}
+                className="h-[50px] w-[108px] text-neutral-900"
               />
             </div>
           </div>
