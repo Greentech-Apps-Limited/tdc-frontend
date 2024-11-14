@@ -1,3 +1,4 @@
+import { isBeforeLastSunday } from '@/lib/utils/common-utils';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
@@ -44,21 +45,11 @@ const useQuizProgressStore = create(
                 }),
 
             cleanOldQuizData: () =>
-                set((state) => {
-                    const today = new Date();
-                    const lastSunday = new Date(today);
-                    lastSunday.setDate(today.getDate() - today.getDay());
-                    lastSunday.setHours(0, 0, 0, 0);
-                    const lastSundayStr = lastSunday.toISOString().split('T')[0] || '';
-
-                    const updatedQuizzes = state.weeklyQuizzes.filter(
-                        (quiz) => quiz.date >= lastSundayStr
-                    );
-
-                    return {
-                        weeklyQuizzes: updatedQuizzes
-                    };
-                })
+                set((state) => ({
+                    weeklyQuizzes: state.weeklyQuizzes.filter(
+                        (quiz) => !isBeforeLastSunday(quiz.date)
+                    )
+                }))
         }),
         {
             name: 'quiz-storage',

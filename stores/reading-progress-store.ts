@@ -1,3 +1,4 @@
+import { isBeforeLastSunday } from '@/lib/utils/common-utils';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
@@ -14,6 +15,7 @@ type ReadingProgressState = {
         totalVersesRead: number;
     };
     updateProgress: (newProgress: Partial<ReadingProgress>) => void;
+    removeOldData: () => void;
 };
 
 const updateWeeklyProgress = (
@@ -23,6 +25,7 @@ const updateWeeklyProgress = (
     const today = new Date().toISOString().split('T')[0] || '';
     const existingEntryIndex = currentProgress.findIndex((entry) => entry.date === today);
 
+    // If we find today's entry, update it
     if (existingEntryIndex !== -1) {
         return currentProgress.map((entry, index) =>
             index === existingEntryIndex
@@ -33,16 +36,16 @@ const updateWeeklyProgress = (
                 }
                 : entry
         );
-    } else {
-        return [
-            ...currentProgress,
-            {
-                date: today,
-                timeSpent: newProgress.timeSpent || 0,
-                versesRead: newProgress.versesRead || 0,
-            },
-        ];
     }
+
+    return [
+        ...currentProgress,
+        {
+            date: today,
+            timeSpent: newProgress.timeSpent || 0,
+            versesRead: newProgress.versesRead || 0,
+        },
+    ];
 };
 
 const useReadingProgressStore = create(
@@ -68,6 +71,11 @@ const useReadingProgressStore = create(
                     }
                     return state;
                 }),
+
+            removeOldData: () =>
+                set((state) => ({
+                    weeklyProgress: state.weeklyProgress.filter((entry) => !isBeforeLastSunday(entry.date)),
+                })),
         }),
         {
             name: 'reading-progress-storage',
