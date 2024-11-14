@@ -24,6 +24,10 @@ const config = {
         source_sans_3: ['var(--font-source_sans_3)', ...fontFamily.sans],
         hidayatullah_demo: ['var(--font-hidayatullah-demo)', ...fontFamily.mono],
         lateef: ['var(--font-lateef)'],
+        amiri: ['var(--font-amiri)', ...fontFamily.mono],
+        qalam: ['var(--font-qalam)', ...fontFamily.mono],
+        meQuran: ['var(--font-meQuran)', ...fontFamily.mono],
+        kfgqpc_hafs: ['var(--font-kfgqpc_hafs)', ...fontFamily.mono],
       },
       keyframes: {
         "accordion-down": {
@@ -83,7 +87,12 @@ const config = {
           600: '#6E4302',
         },
         green: {
-          500: '#479E64'
+          DEFAULT: '#F0FDF4',
+          100: '#DCFCE7',
+          300: '#86EFAC',
+          400: '#4ADE80',
+          500: '#479E64',
+          700: "#15803D"
         },
         red: {
           500: "#BD544C"

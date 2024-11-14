@@ -1,15 +1,15 @@
 'use client';
-import { MergedVerse, SurahPosition } from '@/lib/types/verses-type';
+import { MergedVerse } from '@/lib/types/verses-type';
 import { Components, Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import { forwardRef, useRef } from 'react';
 import TranslationView from './translation-view';
-import { TranslationItem } from '@/lib/types/surah-translation-type';
 import useScrollToVerse from '@/hooks/use-scroll-to-verse';
+import { useVerseContext } from '@/contexts/verse-provider';
 
 const List: Components['List'] = forwardRef(({ style, children }, ref) => {
   return (
     <div
-      className="m-6 space-y-6 rounded-4xl border border-neutral-300 bg-neutral p-6 shadow"
+      className="m-4 space-y-4 rounded-3xl border border-neutral-300 bg-neutral p-4 shadow md:m-6 md:space-y-6 md:rounded-4xl md:p-6"
       ref={ref}
       style={style}
     >
@@ -21,27 +21,10 @@ const List: Components['List'] = forwardRef(({ style, children }, ref) => {
 List.displayName = 'List';
 
 type VirtualizedSurahViewProps = {
-  initialVerses: MergedVerse[];
-  totalVerseCount: number;
-  translationIds: string[];
-  translationInfos: TranslationItem[];
-  verseLookup: string[];
-  wbwTr: string;
-  tafseerIds: string[];
-  surahInfos: SurahPosition[];
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
-const VirtualizedSurahView = ({
-  initialVerses,
-  totalVerseCount,
-  translationIds,
-  translationInfos,
-  setApiPageToVersesMap,
-  wbwTr,
-  tafseerIds,
-  surahInfos,
-  verseLookup,
-}: VirtualizedSurahViewProps) => {
+const VirtualizedSurahView = ({ setApiPageToVersesMap }: VirtualizedSurahViewProps) => {
+  const { initialVerses, totalVerseCount, verseLookup } = useVerseContext();
   const virtuosoRef = useRef<VirtuosoHandle>(null);
 
   // Pass initialVerses to the hook
@@ -56,19 +39,7 @@ const VirtualizedSurahView = ({
         increaseViewportBy={1000}
         initialItemCount={1}
         itemContent={index => {
-          return (
-            <TranslationView
-              verseIdx={index}
-              totalVerseCount={totalVerseCount}
-              initialVerses={initialVerses}
-              surahInfos={surahInfos}
-              wbwTr={wbwTr}
-              tafseerIds={tafseerIds}
-              translationIds={translationIds}
-              translationInfos={translationInfos}
-              setApiPageToVersesMap={setApiPageToVersesMap}
-            />
-          );
+          return <TranslationView verseIdx={index} setApiPageToVersesMap={setApiPageToVersesMap} />;
         }}
         components={{
           List,

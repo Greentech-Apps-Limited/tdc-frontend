@@ -1,22 +1,26 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const ICON_DIRECTORY = './icons';
-const INDEX_FILE_PATH = './icons/index.ts';
+const ICON_DIRECTORY = './icons/surah-names';
+const INDEX_FILE_PATH = './icons/surah-names/index.ts';
 
 const generateIconIndex = async () => {
   try {
     const svgFiles = await fs.readdir(ICON_DIRECTORY);
-    const iconExports = await Promise.all(
-      svgFiles
-        .filter(file => file.endsWith('.svg'))
-        .map(async file => {
-          await updateSvgColors(file);
-          return createExportStatement(file);
-        })
-    );
+    const iconImports = [];
+    const iconExports = [];
 
-    const indexFileContent = iconExports.join('\n') + '\n';
+    for (const file of svgFiles) {
+      if (file.endsWith('.svg')) {
+        await updateSvgColors(file);
+        const newFileName = await renameSvgFile(file);
+        const { importStatement, exportName } = createImportExportStatements(newFileName);
+        iconImports.push(importStatement);
+        iconExports.push(exportName);
+      }
+    }
+
+    const indexFileContent = `${iconImports.join('\n')}\n\nexport { ${iconExports.join(', ')} };\n`;
     await fs.writeFile(INDEX_FILE_PATH, indexFileContent, 'utf8');
 
     console.log(`Icon index file generated successfully at ${INDEX_FILE_PATH}`);
@@ -28,8 +32,9 @@ const generateIconIndex = async () => {
 const updateSvgColors = async fileName => {
   const filePath = path.join(ICON_DIRECTORY, fileName);
   let content = await fs.readFile(filePath, 'utf8');
-  content = content.replace(/(stroke|fill)="(?!none|white)([^"]+)"/gi, (match, attr, value) => {
-    if (value.toLowerCase() !== 'none' && value.toLowerCase() !== 'white') {
+
+  content = content.replace(/(stroke|fill)="(?!none)([^"]+)"/gi, (match, attr, value) => {
+    if (value.toLowerCase() !== 'none') {
       return `${attr}="currentColor"`;
     }
     return match;
@@ -38,10 +43,21 @@ const updateSvgColors = async fileName => {
   await fs.writeFile(filePath, content, 'utf8');
 };
 
-const createExportStatement = fileName => {
-  const baseName = path.basename(fileName, '.svg');
+const renameSvgFile = async fileName => {
+  const oldFilePath = path.join(ICON_DIRECTORY, fileName);
+  const baseName = path.basename(fileName, '.svg').replace(/\.inline/g, '');
+  const newFileName = `${baseName}.inline.svg`;
+  const newFilePath = path.join(ICON_DIRECTORY, newFileName);
+
+  await fs.rename(oldFilePath, newFilePath);
+  return newFileName;
+};
+
+const createImportExportStatements = fileName => {
+  const baseName = path.basename(fileName, '.inline.svg');
   const componentName = convertToComponentName(baseName);
-  return `export { default as ${componentName} } from './${baseName}.svg';`;
+  const importStatement = `import ${componentName} from './${baseName}.inline.svg';`;
+  return { importStatement, exportName: componentName };
 };
 
 const convertToComponentName = baseName => baseName.split('-').map(capitalizeFirstLetter).join('');

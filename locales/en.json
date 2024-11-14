@@ -1,4 +1,26 @@
 {
+  "QuranMeta": {
+    "surahTitle": "Surah {surahId}",
+    "surahDescription": "Read Surah {surahId} with translation and audio on TDC Quran",
+    "juzTitle": "Juz {juzId}",
+    "juzDescription": "Read Juz {juzId} of the Holy Quran on TDC Quran",
+    "pageTitle": "Page {pageId}",
+    "pageDescription": "Read page {pageId} of the Holy Quran on TDC Quran",
+    "hizbTitle": "Hizb {hizbId}",
+    "hizbDescription": "Read Hizb {hizbId} of the Holy Quran on TDC Quran",
+    "rukuTitle": "Ruku {rukuId}",
+    "rukuDescription": "Read Ruku {rukuId} of the Holy Quran on TDC Quran"
+  },
+  "Metadata": {
+    "homeTitle": "Digital Quran Platform",
+    "homeDescription": "Read, learn, and connect with the Holy Quran on TDC's digital platform",
+    "profileTitle": "My Profile",
+    "profileDescription": "Manage your Quran reading profile and track your progress",
+    "quizTitle": "Quran Quiz",
+    "quizDescription": "Test your Quranic knowledge with interactive quizzes",
+    "leaderboardTitle": "Quiz Leaderboard",
+    "leaderboardDescription": "See top performers in TDC Quran Quiz"
+  },
   "HomePage": {
     "title": "Selamat datang!"
   },
@@ -47,7 +69,8 @@
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}h {minutes}m"
-    }
+    },
+    "quizGoal": "out of {goal} quizzes"
   },
   "Numbers": {
     "digit": {
@@ -197,7 +220,8 @@
     "quizzesAttempted": "Quizzes Attempted",
     "scoreOnQuizzes": "Score on quizzes",
     "onLeaderboard": "on Leaderboard",
-    "leaderboardSuffix": "rd"
+    "leaderboardPosition": "{position}{suffix}",
+    "authPrompt": "Please log in to view your position on the leaderboard and track your progress."
   },
   "QuizLevelSelectionModal": {
     "title": "Start Quiz",
@@ -231,10 +255,40 @@
     },
     "leaderboard": {
       "title": "Leaderboard",
-      "description": "Current weekly ranking"
+      "description": "Current ranking"
+    },
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}h {minutes}m"
     }
   },
   "Profile": {
     "title": "Profile"
+  },
+  "Leaderboard": {
+    "quiz": "Quiz",
+    "title": "Leaderboard",
+    "anonymous": "Anonymous",
+    "noResults": "No results.",
+    "loading": "Loading...",
+    "columns": {
+      "rank": "Rank",
+      "name": "Name",
+      "points": "Points",
+      "pointsSuffix": "pts."
+    }
+  },
+  "Pagination": {
+    "itemsPerPage": "{count} items per page",
+    "showing": "Showing {start} to {end} of {total} entries",
+    "pageInfo": "Page {current} of {total}",
+    "previousPage": "Go to previous page",
+    "nextPage": "Go to next page"
+  },
+  "Footer": {
+    "description": "This website is designed and developed by Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Please check the tafseer of verse no {ayah} of sura {surah} for the tafseer of this verse."
   }
 }

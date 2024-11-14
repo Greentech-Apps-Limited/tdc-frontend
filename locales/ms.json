@@ -1,4 +1,26 @@
 {
+  "QuranMeta": {
+    "surahTitle": "Surah {surahId}",
+    "surahDescription": "Baca Surah {surahId} dengan terjemahan dan audio di TDC Quran",
+    "juzTitle": "Juz {juzId}",
+    "juzDescription": "Baca Juz {juzId} Al-Quran di TDC Quran",
+    "pageTitle": "Halaman {pageId}",
+    "pageDescription": "Baca halaman {pageId} Al-Quran di TDC Quran",
+    "hizbTitle": "Hizb {hizbId}",
+    "hizbDescription": "Baca Hizb {hizbId} Al-Quran di TDC Quran",
+    "rukuTitle": "Ruku {rukuId}",
+    "rukuDescription": "Baca Ruku {rukuId} Al-Quran di TDC Quran"
+  },
+  "Metadata": {
+    "homeTitle": "Platform Al-Quran Digital",
+    "homeDescription": "Baca, pelajari, dan hubungkan diri dengan Al-Quran di platform digital TDC",
+    "profileTitle": "Profil Saya",
+    "profileDescription": "Urus profil bacaan Al-Quran anda dan jejaki kemajuan anda",
+    "quizTitle": "Kuiz Al-Quran",
+    "quizDescription": "Uji pengetahuan Al-Quran anda dengan kuiz interaktif",
+    "leaderboardTitle": "Papan Pendahulu Kuiz",
+    "leaderboardDescription": "Lihat peserta terbaik dalam Kuiz TDC Quran"
+  },
   "HomePage": {
     "title": "Selamat datang!"
   },
@@ -14,7 +36,7 @@
     "wordByWord": "Perkataan demi Perkataan",
     "translation": "Terjemahan",
     "translations": "Terjemahan",
-    "tafsirs": "Tafsirs",
+    "tafsirs": "Tafsir",
     "selected": "Dipilih",
     "wordByWordLang": "Perkataan demi Perkataan",
     "font": "Fon",
@@ -42,12 +64,13 @@
   },
   "WeeklyProgress": {
     "thisWeek": "Minggu Ini",
-    "readingGoal": "daripada {goal}m matlamat bacaan",
+    "readingGoal": "target {goal}m bacaan",
     "continue": "Teruskan",
     "timeFormat": {
       "minutes": "{minutes}m",
       "hoursAndMinutes": "{hours}j {minutes}m"
-    }
+    },
+    "quizGoal": "daripada {goal} kuiz"
   },
   "Numbers": {
     "digit": {
@@ -65,8 +88,8 @@
   },
   "Views": {
     "surah": "Surah",
-    "page": "Muka Surat",
-    "juz": "Juzuk",
+    "page": "M.Surat",
+    "juz": "Juzu",
     "hizb": "Hizb",
     "ruku": "Ruku"
   },
@@ -93,24 +116,24 @@
     "sura_20": "Thaaha",
     "sura_21": "Nabi-nabi",
     "sura_22": "Haji",
-    "sura_23": "Orang-orang Beriman",
+    "sura_23": "Golongan yang Beriman",
     "sura_24": "Cahaya",
-    "sura_25": "Pembeda",
-    "sura_26": "Penyair-penyair",
+    "sura_25": "Pembeza",
+    "sura_26": "Para penyair",
     "sura_27": "Semut",
     "sura_28": "Kisah-kisah",
-    "sura_29": "Laba-laba",
-    "sura_30": "Bangsa Rum",
-    "sura_31": "Sujud",
+    "sura_29": "Labah-labah",
+    "sura_30": "Bangsa Rom",
+    "sura_31": "Luqman",
     "sura_32": "Sujud",
     "sura_33": "Golongan Yang Bersekutu",
-    "sura_34": "Negeri Saba",
-    "sura_35": "Maha Pencipta",
+    "sura_34": "Kaum Saba",
+    "sura_35": "Pencipta",
     "sura_36": "Yasiin",
     "sura_37": "Yang Berbaris",
-    "sura_38": "Shaad",
+    "sura_38": "Sad",
     "sura_39": "Rombongan-rombongan",
-    "sura_40": "Yang Maha Mengampuni",
+    "sura_40": "Pengampun",
     "sura_41": "Yang Dijelaskan",
     "sura_42": "Musyawarah",
     "sura_43": "Perhiasan",
@@ -119,44 +142,44 @@
     "sura_46": "Bukit-bukit Pasir",
     "sura_47": "Nabi Muhammad",
     "sura_48": "Kemenangan",
-    "sura_49": "Kamar-kamar",
+    "sura_49": "Bilik-bilik",
     "sura_50": "Qaaf",
     "sura_51": "Angin Yang Menerbangkan",
     "sura_52": "Bukit Thur",
     "sura_53": "Bintang",
     "sura_54": "Bulan",
-    "sura_55": "Maha Pengasih",
+    "sura_55": "Maha Pemurah",
     "sura_56": "Hari Kiamat, Hari Yang Pasti Terjadi",
     "sura_57": "Besi",
-    "sura_58": "Wanita Yang Mengajukan Gugatan",
+    "sura_58": "Wanita Yang Merayu",
     "sura_59": "Pengusiran",
     "sura_60": "Wanita Yang Diuji",
     "sura_61": "Barisan",
     "sura_62": "Hari Jum'at",
-    "sura_63": "Orang-orang Munafik",
-    "sura_64": "Hari Ditampakkan Kesalahan-kesalahan",
+    "sura_63": "Golongan yang Munafik",
+    "sura_64": "Hari Dinampakkan Kesalahan ",
     "sura_65": "Talak",
     "sura_66": "Pengharaman",
     "sura_67": "Kerajaan",
-    "sura_68": "Pena",
-    "sura_69": "Hari Kiamat, Hari Yang Benar Pasti Terjadi",
+    "sura_68": "Kalam",
+    "sura_69": "Hari Kiamat",
     "sura_70": "Tempat-tempat Naik",
     "sura_71": "Nabi Nuh",
     "sura_72": "Jin",
     "sura_73": "Orang Yang Berselimut",
-    "sura_74": "Orang Yang Berkemul",
+    "sura_74": "Orang Yang Berselubung",
     "sura_75": "Hari Kiamat",
     "sura_76": "Manusia",
     "sura_77": "Malaikat Yang Diutus",
-    "sura_78": "Berita",
+    "sura_78": "Berita Besar",
     "sura_79": "Malaikat Yang Mencabut",
-    "sura_80": "Bermuka Masam",
+    "sura_80": "Bermasam Muka",
     "sura_81": "Penggulungan",
     "sura_82": "Terbelah",
-    "sura_83": "Orang-orang Yang Curang",
+    "sura_83": "Golongan Yang Curang",
     "sura_84": "Terbelah Dua",
     "sura_85": "Gugusan Bintang",
-    "sura_86": "Yang Datang Di Malam Hari",
+    "sura_86": "Pengunjung Malam",
     "sura_87": "Yang Maha Tinggi",
     "sura_88": "Hari Pembalasan",
     "sura_89": "Fajar",
@@ -167,23 +190,23 @@
     "sura_94": "Kelapangan",
     "sura_95": "Buah Tin",
     "sura_96": "Segumpal Darah",
-    "sura_97": "Kemuliaan, Takdir",
-    "sura_98": "Bukti",
-    "sura_99": "Keguncangan",
+    "sura_97": "Kemuliaan",
+    "sura_98": "Bukti yang nyata",
+    "sura_99": "Kegoncangan",
     "sura_100": "Kuda Perang Yang Berlari Kencang",
-    "sura_101": "Hari Kiamat, Yang Mengguncang Keras",
+    "sura_101": "Hari Kiamat, Hari yang hingar bingar",
     "sura_102": "Bermegah-megahan",
     "sura_103": "Masa, Waktu Petang",
     "sura_104": "Pengumpat",
     "sura_105": "Gajah",
     "sura_106": "Suku Quraisy",
-    "sura_107": "Bantuan Yang Berguna",
+    "sura_107": "Barangan Berguna",
     "sura_108": "Nikmat Yang Banyak",
-    "sura_109": "Orang-orang Kafir",
+    "sura_109": "Golongan Kafir",
     "sura_110": "Pertolongan",
     "sura_111": "Tali Sabut Yang Dipintal",
-    "sura_112": "Pemurnian Keesaan Allah",
-    "sura_113": "Waktu Shubuh",
+    "sura_112": "Kemurnian Keesaan Allah",
+    "sura_113": "Waktu Subuh",
     "sura_114": "Manusia"
   },
   "QuizIntroCard": {
@@ -195,31 +218,32 @@
   "Scoreboard": {
     "title": "Papan Skor",
     "quizzesAttempted": "Kuiz Dicuba",
-    "scoreOnQuizzes": "Skor pada kuiz",
+    "scoreOnQuizzes": "Skor kuiz",
     "onLeaderboard": "pada Papan Pendahulu",
-    "leaderboardSuffix": "ke"
+    "leaderboardPosition": "ke-{position}",
+    "authPrompt": "Sila log masuk untuk melihat kedudukan anda dalam papan pendahulu dan mengetahui kemajuan anda."
   },
   "QuizLevelSelectionModal": {
     "title": "Mulakan Kuiz",
-    "description": "Pilih tahap kesukaran dan mari lihat berapa banyak soalan yang anda boleh takluki! Pilih 'Sukar' untuk menambah skor yang lebih tinggi.",
+    "description": "Pilih tahap kesukaran dan lihat berapa banyak soalan yang anda boleh jawab! Pilih 'Sukar' untuk mendapatkan skor yang lebih tinggi.",
     "levels": {
       "easy": "Mudah",
       "medium": "Sederhana",
       "hard": "Sukar"
     },
     "cancel": "Batal",
-    "startQuiz": "Mulakan Kuiz"
+    "startQuiz": "Mula Kuiz"
   },
   "ExitConfirmationModal": {
     "title": "Keluar Kuiz",
-    "description": "Adakah anda pasti mahu keluar dari permainan? Kemajuan setakat ini akan dikemas kini ke profil dan papan pendahulu anda.",
+    "description": "Adakah anda pasti mahu keluar dari permainan? Kemajuan semasa anda akan dikemas kini ke profil dan papan pendahulu.",
     "cancel": "Batal",
     "exit": "Keluar"
   },
   "Statistics": {
     "totalAyahRead": {
       "title": "Jumlah ayat dibaca",
-      "description": "Kemajuan melalui Al-Quran"
+      "description": "Kemajuan pembacaan Quran"
     },
     "timeSpent": {
       "title": "Masa digunakan",
@@ -227,14 +251,44 @@
     },
     "quizScore": {
       "title": "Skor kuiz",
-      "description": "Kadar pemahaman purata"
+      "description": "Purata kadar pemahaman"
     },
     "leaderboard": {
-      "title": "Papan pendahulu",
-      "description": "Kedudukan mingguan semasa"
+      "title": "Papan Kedudukan",
+      "description": "Kedudukan semasa mingguan"
+    },
+    "timeFormat": {
+      "minutes": "{minutes}m",
+      "hoursAndMinutes": "{hours}j {minutes}m"
     }
   },
   "Profile": {
     "title": "Profil"
+  },
+  "Leaderboard": {
+    "quiz": "Kuiz",
+    "title": "Papan Pendahulu",
+    "anonymous": "Tanpa Nama",
+    "noResults": "Tiada keputusan.",
+    "loading": "Memuatkan...",
+    "columns": {
+      "rank": "Kedudukan",
+      "name": "Nama",
+      "points": "Mata",
+      "pointsSuffix": "mata"
+    }
+  },
+  "Pagination": {
+    "itemsPerPage": "{count} item setiap halaman",
+    "showing": "Menunjukkan {start} hingga {end} daripada {total} entri",
+    "pageInfo": "Halaman {current} daripada {total}",
+    "previousPage": "Pergi ke halaman sebelumnya",
+    "nextPage": "Pergi ke halaman seterusnya"
+  },
+  "Footer": {
+    "description": "Laman web ini direka dan dibangunkan oleh Greentech Apps Limited."
+  },
+  "tafseer": {
+    "reference": "Sila rujuk tafsir ayat ke-{ayah} surah {surah} untuk tafsir ayat ini."
   }
 }

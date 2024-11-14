@@ -1,4 +1,5 @@
 export type AudioSegment = [number, number?, number?];
+
 export type Timestamp = {
     verse_key: string;
     timestamp_from: number;
@@ -6,17 +7,31 @@ export type Timestamp = {
     duration: number;
     segments: AudioSegment[];
 }
+
 export type AudioFile = {
     id: number;
-    chapter_id: number;
-    file_size: number;
-    format: string;
-    audio_url: string;
+    qari_name: string;
+    path: string;
     timestamps: Timestamp[];
 }
-export type AudioResponse = {
-    audio_file: AudioFile;
+
+
+export interface Reciter {
+    id: number;
+    qari_name: string;
+    path: string;
+    language: string;
+    style: string;
+    speed: string;
 }
+
+export interface RecitersResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Reciter[];
+}
+
 
 export type BufferedRange = { start: number; end: number };
 

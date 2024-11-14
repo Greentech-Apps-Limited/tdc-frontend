@@ -13,7 +13,7 @@ const QuizHeaderSkeleton = () => {
 const QuestionCardSkeleton = () => {
   return (
     <div className="relative">
-      <div className="rounded-3xl border border-neutral-300 bg-neutral p-6 shadow">
+      <div className="rounded-3xl border border-neutral-300 bg-neutral p-4 shadow md:p-6">
         <Skeleton className="mb-4 h-6 w-3/4" />
         <div className="space-y-2">
           {[...Array(4)].map((_, index) => (

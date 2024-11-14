@@ -76,3 +76,17 @@ export function convertToTitleCase(input: string): string {
 export const formatRank = (rank: number): string => {
   return rank.toString().padStart(3, '0');
 };
+
+const getLastSunday = () => {
+  const today = new Date();
+  const lastSunday = new Date(today);
+  lastSunday.setDate(today.getDate() - today.getDay());
+  lastSunday.setHours(0, 0, 0, 0);
+  return lastSunday;
+};
+
+export const isBeforeLastSunday = (dateStr: string) => {
+  const date = new Date(dateStr);
+  date.setHours(0, 0, 0, 0);
+  return date < getLastSunday();
+};

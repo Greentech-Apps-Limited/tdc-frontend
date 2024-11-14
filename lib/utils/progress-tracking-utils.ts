@@ -24,3 +24,4 @@ export const updateWeeklyProgress = (
 
     return updatedProgress.slice(-7);
 };
+

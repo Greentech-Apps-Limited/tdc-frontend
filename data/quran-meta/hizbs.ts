@@ -7,7 +7,7 @@ export const HIZBS: Reference[] = [
     ayah: 1,
     verse_key: "1:1",
     surah_name: "Al-Fatihah",
-    starting_line: "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ"
+    starting_line: "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ"
   },
   {
     id: 2,

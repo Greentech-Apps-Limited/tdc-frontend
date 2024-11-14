@@ -1,52 +1,107 @@
-import { LeaderboardData } from '@/lib/types/leaderboard';
-import { DataTable } from './data-table';
-import { leaderboardTableColumns } from './leaderboard-table-columns';
+'use client';
 
-const LeaderboardMain = () => {
-  // Dummy leaderboard data
-  const leaderboardData: LeaderboardData = [
-    { rank: 1, name: 'Alex Johnson', points: 1200, change: 'up' },
-    { rank: 2, name: 'Sam Lee', points: 1180 },
-    { rank: 3, name: 'Taylor Swift', points: 1150, change: 'down' },
-    { rank: 4, name: 'Chris Evans', points: 1120 },
-    { rank: 5, name: 'Emma Watson', points: 1100, change: 'up' },
-    { rank: 10, name: 'Robert Downey Jr.', points: 1000 },
-    { rank: 15, name: 'Scarlett Johansson', points: 950, change: 'down' },
-    { rank: 20, name: 'Tom Holland', points: 900 },
-    { rank: 25, name: 'Elizabeth Olsen', points: 880, change: 'up' },
-    { rank: 30, name: 'Chris Hemsworth', points: 860 },
-    { rank: 35, name: 'Mark Ruffalo', points: 840, change: 'down' },
-    { rank: 40, name: 'Jeremy Renner', points: 820 },
-    { rank: 45, name: 'Paul Rudd', points: 800, change: 'up' },
-    { rank: 50, name: 'Benedict Cumberbatch', points: 790 },
-    { rank: 51, name: 'Michael Knight', points: 780 },
-    { rank: 52, name: 'Murdock', points: 780 },
-    { rank: 53, name: 'Mike Torello', points: 779 },
-    { rank: 54, name: 'Kate Tanner', points: 778, change: 'up' },
-    { rank: 55, name: 'Jonathan Higgins', points: 775 },
-    { rank: 56, name: 'Murdock', points: 771 },
-    { rank: 57, name: 'April Curtis', points: 770 },
-    { rank: 58, name: 'Michael Knight', points: 770 },
-    { rank: 59, name: 'Willie Tanner', points: 768 },
-    { rank: 60, name: 'Tony Danza', points: 764 },
-    { rank: 65, name: 'Don Johnson', points: 750, change: 'down' },
-    { rank: 70, name: 'Tom Selleck', points: 740 },
-    { rank: 75, name: 'Angela Lansbury', points: 730, change: 'up' },
-    { rank: 80, name: 'David Hasselhoff', points: 720 },
-    { rank: 85, name: 'Telly Savalas', points: 710, change: 'down' },
-    { rank: 90, name: 'Erik Estrada', points: 700 },
-    { rank: 95, name: 'Linda Evans', points: 690, change: 'up' },
-    { rank: 100, name: 'Larry Hagman', points: 680 },
-  ];
+import { useEffect, useMemo, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import useSWR from 'swr';
+import { useTranslations } from 'next-intl';
+import { DataTable } from './data-table';
+import { useLeaderboardColumns } from './leaderboard-table-columns';
+import { PaginationState } from '@tanstack/react-table';
+import { authorizedFetcher, fetcher } from '@/services/api';
+import { LeaderboardEntry, PlayerResponse, UserRankData } from '@/lib/types/leaderboard';
+
+const ITEMS_PER_PAGE = 10;
+
+const createPaginatedFetcher = (baseUrl: string) => {
+  return async (pageSize: number, pageIndex: number): Promise<PlayerResponse> => {
+    const offset = pageIndex * pageSize;
+    const url = `${baseUrl}?limit=${pageSize}&offset=${offset}`;
+    const response = await fetcher<PlayerResponse>(url);
+    return response;
+  };
+};
+
+export default function EnhancedLeaderboard() {
+  const t = useTranslations('Leaderboard');
+  const leaderboardTableColumns = useLeaderboardColumns();
+  const { data: session, status } = useSession();
+  const isAuthenticated = status === 'authenticated';
+
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: ITEMS_PER_PAGE,
+  });
+
+  const { data: userRankData } = useSWR<UserRankData>(
+    isAuthenticated && session?.accessToken ? '/quiz/players/me' : null,
+    (url: string) => authorizedFetcher<UserRankData>(url, session?.accessToken as string)
+  );
+
+  useEffect(() => {
+    if (userRankData?.rank) {
+      const userPageIndex = Math.floor((userRankData.rank - 1) / pageSize);
+      setPagination(prev => ({
+        ...prev,
+        pageIndex: userPageIndex,
+      }));
+    }
+  }, [userRankData?.rank, pageSize]);
+
+  const paginationKey = useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize]
+  );
+
+  const { data: leaderboardData, isLoading } = useSWR(
+    ['/quiz/players/', paginationKey],
+    () => createPaginatedFetcher('/quiz/players/')(pageSize, pageIndex),
+    {
+      keepPreviousData: true,
+    }
+  );
+
+  const transformedData: LeaderboardEntry[] = useMemo(() => {
+    if (!leaderboardData?.results) return [];
+
+    return leaderboardData.results.map(player => ({
+      rank: player.rank,
+      name: player.account.name || t('anonymous'),
+      points: player.points,
+      isCurrentUser: isAuthenticated && userRankData?.account.url === player.account.url,
+    }));
+  }, [leaderboardData?.results, isAuthenticated, userRankData, t]);
+
+  const pageCount = useMemo(() => {
+    return leaderboardData ? Math.ceil(leaderboardData.count / pageSize) : 0;
+  }, [leaderboardData, pageSize]);
+
   return (
-    <section className="h-full w-full space-y-2 rounded-4xl border border-neutral-300 bg-neutral p-6">
-      <p>Quiz</p>
-      <h1 className="font-hidayatullah_demo text-3xl font-bold">Leaderboard</h1>
+    <section className="h-full w-full space-y-2 rounded-3xl border border-neutral-300 bg-neutral p-4 md:rounded-4xl md:p-6">
+      <p className="text-sm md:text-base">{t('quiz')}</p>
+      <h1 className="font-hidayatullah_demo text-xl font-bold md:text-3xl">{t('title')}</h1>
       <div className="mt-6">
-        <DataTable data={leaderboardData} columns={leaderboardTableColumns} />
+        <DataTable
+          data={transformedData}
+          columns={leaderboardTableColumns}
+          pageCount={pageCount}
+          state={{
+            pagination: {
+              pageIndex,
+              pageSize,
+            },
+          }}
+          onPaginationChange={setPagination}
+          manualPagination={true}
+          getTotalRowCount={() => leaderboardData?.count || 0}
+          isLoading={status === 'loading' || isLoading}
+          translations={{
+            noResults: t('noResults'),
+          }}
+        />
       </div>
     </section>
   );
-};
-
-export default LeaderboardMain;
+}

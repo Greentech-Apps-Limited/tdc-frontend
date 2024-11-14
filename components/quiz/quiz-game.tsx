@@ -7,7 +7,7 @@ import QuizContainer from './quiz-container';
 import GameEndAlert from './game-end-alert';
 import GameResultModal from './game-result-modal';
 import ExitConfirmationModal from './exit-confirmation-modal';
-import useQuizGame from '@/hooks/use-guiz-game';
+import useQuizGame from '@/hooks/use-quiz-game';
 import { resetAllStores } from '@/stores/quiz-store';
 
 const QuizGame = () => {
@@ -19,12 +19,15 @@ const QuizGame = () => {
     handleExit,
     handleShowResults,
     handleExitModalClose,
+    handleFinishGameModalClose,
   } = useQuizGame();
 
   const handleFinishGame = () => {
-    resetAllStores();
     router.push('/quiz');
+    handleFinishGameModalClose();
+    setTimeout(() => resetAllStores(), 500);
   };
+
   return (
     <div>
       <QuizHeader onExit={handleExit} />

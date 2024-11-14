@@ -23,11 +23,11 @@ const Settings = ({
       <SheetTrigger>
         <SettingsIcon className="text-2xl hover:cursor-pointer" />
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
+      <SheetContent className="p-0 pb-10">
+        <SheetHeader className="p-4">
           <SheetTitle>{t('title')}</SheetTitle>
         </SheetHeader>
-        <div className="h-full w-full space-y-6 overflow-y-scroll py-6 pb-16">
+        <div className="h-full w-full space-y-6 overflow-y-scroll px-4 py-6 pb-16">
           <ContentSettings />
           <ResourceSelection translationsInfo={translationsInfo} wbwLanguages={wbwLanguages} />
           <FontSettings />
