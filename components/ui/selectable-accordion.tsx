@@ -86,11 +86,7 @@ function SelectableAccordion<T>({
               );
             })
           ) : (
-            <RadioGroup
-              value={selectedItems[0] || ''}
-              onValueChange={handleRadioChange}
-              className="space-y-1"
-            >
+            <RadioGroup value={selectedItems[0] || ''} onValueChange={handleRadioChange}>
               {items.map(item => {
                 const id = String(item[idKey]);
                 const label = String(item[labelKey]);
