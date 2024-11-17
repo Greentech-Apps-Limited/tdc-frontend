@@ -40,7 +40,9 @@ const AudioPlayerWrapper = () => {
   useEffect(() => {
     if (data && audioId) {
       setAudioData(data);
-      setAudioUrl(`${data.path}/${audioId.toString().padStart(3, '0')}.mp3`);
+      setAudioUrl(
+        `${process.env.NEXT_PUBLIC_AUDIO_URL}/${data.path}/${audioId.toString().padStart(3, '0')}.mp3`
+      );
     }
   }, [data, setAudioData, setAudioUrl]);
 
