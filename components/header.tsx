@@ -12,7 +12,7 @@ export const fetchWbwAndTranslations = async (): Promise<{
 }> => {
   const [wbwResponse, translationsResponse] = await Promise.all([
     fetcher<WbwResponse>('/quran/wbws/'),
-    fetcher<TranslationResponse>('/quran/translations/?limit=100'),
+    fetcher<TranslationResponse>('/quran/translations/?limit=500'),
   ]);
 
   return {

@@ -3,6 +3,7 @@ import { TranslationItem } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import { useTranslations } from 'next-intl';
 import { WbwLanguage } from '@/lib/types/wbw-types';
+import { LANGUAGE_NAMES } from '@/data/language-names';
 
 const ResourceSelection = ({
   translationsInfo,
@@ -56,6 +57,9 @@ const ResourceSelection = ({
         onSelectionChange={handleTranslationChange}
         idKey="id"
         labelKey="name"
+        isGrouped={true}
+        groupBy="language"
+        renderGroupTitle={lang => LANGUAGE_NAMES[lang as keyof typeof LANGUAGE_NAMES] || lang}
         forceSelection={true}
       />
       <SelectableAccordion
@@ -66,6 +70,9 @@ const ResourceSelection = ({
         onSelectionChange={handleTafseerChange}
         idKey="id"
         labelKey="name"
+        isGrouped={true}
+        groupBy="language"
+        renderGroupTitle={lang => LANGUAGE_NAMES[lang as keyof typeof LANGUAGE_NAMES] || lang}
         forceSelection={true}
       />
       <SelectableAccordion
