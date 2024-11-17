@@ -1,16 +1,16 @@
 'use client';
 
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { LinkIcon2 } from '@/icons';
+import GtalLogo from '@/public/logos/gtal.svg';
 
 const Footer = () => {
   const t = useTranslations('Footer');
 
   return (
     <div className="m-auto my-10 flex w-72 flex-col items-center justify-center gap-4 text-center">
-      <Image src="/logos/gtal.svg" width={118} height={30} alt="Brand logo" />
+      <GtalLogo className="h-[30px] w-[118px]" aria-label="Greentech Apps Limited" />
       <p>{t('description')}</p>
       <Button asChild variant="outline" className="gap-2 rounded-full">
         <a
