@@ -9,7 +9,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { CheckedState } from '@radix-ui/react-checkbox';
 
-// Base props without grouping
 interface BaseSelectableAccordionProps<T> {
   title: string;
   items: T[];
@@ -21,19 +20,16 @@ interface BaseSelectableAccordionProps<T> {
   forceSelection?: boolean;
 }
 
-// Props for grouped items
 interface GroupedProps<T> extends BaseSelectableAccordionProps<T> {
   groupBy: keyof T;
   renderGroupTitle?: (groupKey: string) => string;
   isGrouped: true;
 }
 
-// Props for non-grouped items
 interface NonGroupedProps<T> extends BaseSelectableAccordionProps<T> {
   isGrouped?: false;
 }
 
-// Combined props type
 type SelectableAccordionProps<T> = GroupedProps<T> | NonGroupedProps<T>;
 
 function SelectableAccordion<T>({
