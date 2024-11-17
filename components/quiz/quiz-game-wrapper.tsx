@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 import { authorizedFetcher, submitQuiz } from '@/services/api';
 import useSWRMutation from 'swr/mutation';
 import useQuizProgressStore from '@/stores/quiz-progress-store';
+import { useParams } from 'next/navigation';
 
 type QuizApiResponse = {
   count: number;
@@ -32,6 +33,7 @@ const getDifficultyLevelQuery = (level: number) => {
 const QuizGameWrapper = () => {
   const { updateQuizProgress } = useQuizProgressStore();
   const { data: session } = useSession();
+  const { locale } = useParams<{ locale: string }>();
   const {
     startQuiz,
     isPlaying,
@@ -87,7 +89,7 @@ const QuizGameWrapper = () => {
         setIsLoading(true);
         try {
           const res = await authorizedFetcher<QuizApiResponse>(
-            `/quiz/questions/random/?${getDifficultyLevelQuery(selectedLevel)}`,
+            `/quiz/questions/random/?${getDifficultyLevelQuery(selectedLevel)}&language=${locale}`,
             session?.accessToken as string
           );
           const { results: questions } = res;

@@ -3,6 +3,10 @@ import { TranslationItem } from '@/lib/types/surah-translation-type';
 import { useSettings } from '@/contexts/settings-provider';
 import { useTranslations } from 'next-intl';
 import { WbwLanguage } from '@/lib/types/wbw-types';
+import { LANGUAGE_NAMES } from '@/data/language-names';
+import { useToast } from '@/hooks/use-toast';
+
+const MAX_SELECTIONS = 5;
 
 const ResourceSelection = ({
   translationsInfo,
@@ -11,10 +15,11 @@ const ResourceSelection = ({
   translationsInfo: TranslationItem[];
   wbwLanguages: WbwLanguage[];
 }) => {
+  const { toast } = useToast();
   const tafsir = translationsInfo.filter(item => item.has_tafseer);
   const translationItems = translationsInfo.filter(item => !item.has_tafseer);
-
   const t = useTranslations('Settings');
+
   const {
     selectedTranslation,
     selectedTafseer,
@@ -33,11 +38,27 @@ const ResourceSelection = ({
 
   const handleTranslationChange = (newSelection: string[]) => {
     const newTranslations = newSelection.map(Number);
+    if (newTranslations.length > MAX_SELECTIONS) {
+      toast({
+        variant: 'destructive',
+        title: 'Selection Limit Reached',
+        description: `You can only select up to ${MAX_SELECTIONS} translations at a time.`,
+      });
+      return;
+    }
     updateSelectedTranslation(newTranslations);
   };
 
   const handleTafseerChange = (newSelection: string[]) => {
     const newTafseer = newSelection.map(Number);
+    if (newTafseer.length > MAX_SELECTIONS) {
+      toast({
+        variant: 'destructive',
+        title: 'Selection Limit Reached',
+        description: `You can only select up to ${MAX_SELECTIONS} tafsirs at a time.`,
+      });
+      return;
+    }
     updateSelectedTafseer(newTafseer);
   };
 
@@ -56,6 +77,9 @@ const ResourceSelection = ({
         onSelectionChange={handleTranslationChange}
         idKey="id"
         labelKey="name"
+        isGrouped={true}
+        groupBy="language"
+        renderGroupTitle={lang => LANGUAGE_NAMES[lang as keyof typeof LANGUAGE_NAMES] || lang}
         forceSelection={true}
       />
       <SelectableAccordion
@@ -66,6 +90,9 @@ const ResourceSelection = ({
         onSelectionChange={handleTafseerChange}
         idKey="id"
         labelKey="name"
+        isGrouped={true}
+        groupBy="language"
+        renderGroupTitle={lang => LANGUAGE_NAMES[lang as keyof typeof LANGUAGE_NAMES] || lang}
         forceSelection={true}
       />
       <SelectableAccordion
