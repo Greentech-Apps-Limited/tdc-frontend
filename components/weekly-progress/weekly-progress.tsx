@@ -36,7 +36,6 @@ const WeeklyProgress = () => {
     0
   );
 
-  console.log('visitedDays', visitedDays);
   return (
     <div
       className=" flex animate-slideInStaggered justify-between rounded-2xl border border-neutral-200 p-4 opacity-0 lg:min-w-[500px]"

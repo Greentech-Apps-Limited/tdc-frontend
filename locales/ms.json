@@ -213,7 +213,8 @@
     "title": "Kuiz Al-Quran",
     "description": "Mulakan perjalanan penemuan Al-Quran! Uji pengetahuan anda dengan kuiz kami dan dalami pemahaman anda tentang kata kerja ilahi yang terdapat dalam Al-Quran.",
     "playNow": "Main Sekarang",
-    "viewLeaderBoard": "Lihat Papan Pendahulu"
+    "viewLeaderBoard": "Lihat Papan Pendahulu",
+    "signInToStartQuiz": "Log Masuk untuk Mulakan Kuiz"
   },
   "Scoreboard": {
     "title": "Papan Skor",

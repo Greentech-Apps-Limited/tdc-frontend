@@ -20,6 +20,12 @@ const List: Components['List'] = forwardRef(({ style, children }, ref) => {
 
 List.displayName = 'List';
 
+const Footer: Components['Footer'] = forwardRef(() => {
+  return <div className="h-48 md:h-52" />;
+});
+
+Footer.displayName = 'Footer';
+
 type VirtualizedSurahViewProps = {
   setApiPageToVersesMap: React.Dispatch<React.SetStateAction<Record<number, MergedVerse[]>>>;
 };
@@ -43,6 +49,7 @@ const VirtualizedSurahView = ({ setApiPageToVersesMap }: VirtualizedSurahViewPro
         }}
         components={{
           List,
+          Footer,
         }}
       />
     </div>

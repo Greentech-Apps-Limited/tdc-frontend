@@ -16,7 +16,7 @@ const LanguageSelector = () => {
     const pathSegments = pathname.split('/');
     if (pathSegments.length > 1) {
       const lang = pathSegments[1];
-      if (lang === 'en' || lang === 'ms' || lang === 'id') {
+      if (lang === 'en' || lang === 'ms' || lang === 'ind') {
         setCurrentLang(lang);
       }
     }
@@ -47,7 +47,7 @@ const LanguageSelector = () => {
       <SelectContent>
         <SelectItem value="en">English</SelectItem>
         <SelectItem value="ms">Malay</SelectItem>
-        <SelectItem value="id">Indonesia</SelectItem>
+        <SelectItem value="ind">Indonesia</SelectItem>
       </SelectContent>
     </Select>
   );
