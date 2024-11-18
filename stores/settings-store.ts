@@ -14,12 +14,10 @@ export interface SettingsState {
     translationFontSize: number;
     selectedTranslation: number[];
     selectedTafseer: number[];
-    tafseerTab: string;
     arabicScript: string;
     arabicFont: string;
     arabicFontSize: number;
     wbwTr: string;
-    currentPlayingSurahInfo: Record<string, unknown>;
     audioAutoScroll: boolean;
     isAudioPlaying: boolean;
 }
@@ -44,14 +42,12 @@ const useSettingsStore = create(
             showTranslation: true,
             readingMode: false,
             translationFontSize: 16,
-            selectedTranslation: [3],
-            selectedTafseer: [4],
-            tafseerTab: 'en-ibn-kathir',
+            selectedTranslation: [107],
+            selectedTafseer: [131],
             arabicScript: 'uthmani',
             arabicFont: 'kfgqpc_hafs',
             arabicFontSize: 28,
             wbwTr: 'en',
-            currentPlayingSurahInfo: {},
             audioAutoScroll: false,
             isAudioPlaying: false,
             updateSettings: (newSettings) => set((state) => ({ ...state, ...newSettings })),

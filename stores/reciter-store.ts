@@ -10,9 +10,9 @@ interface ReciterState {
 const useReciterStore = create<ReciterState>()(
     persist(
         (set) => ({
-            reciterId: '3',
+            reciterId: '28',
             setReciterId: (id) => set({ reciterId: id }),
-            resetReciter: () => set({ reciterId: '3' }),
+            resetReciter: () => set({ reciterId: '28' }),
         }),
         {
             name: 'reciter-storage',

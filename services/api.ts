@@ -14,7 +14,7 @@ export const fetcher = async <T>(url: string): Promise<T> => {
             'x-api-token': `${API_TOKEN}`,
             'Content-Type': 'application/json',
         },
-        next: { revalidate: 24 * 60 * 60 },
+        next: { revalidate: 0 },
     });
 
     if (!response.ok) {
@@ -31,7 +31,7 @@ export const authorizedFetcher = async <T>(url: string, accessToken: string): Pr
             'Content-Type': 'application/json',
             ...(accessToken && { Authorization: `Bearer ${accessToken}` })
         },
-        next: { revalidate: 24 * 60 * 60 },
+        next: { revalidate: 0 },
     });
 
     if (!response.ok) {

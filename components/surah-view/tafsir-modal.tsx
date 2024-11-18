@@ -37,8 +37,39 @@ const FormattedText = ({ text }: { text: string }) => {
   const { arabicFont } = useSettings();
 
   const sanitizedContent = DOMPurify.sanitize(text, {
-    ALLOWED_TAGS: ['span', 'br', 'h2', 'h3', 'b'],
-    ALLOWED_ATTR: ['class'],
+    ALLOWED_TAGS: [
+      'span',
+      'br',
+      'h2',
+      'h3',
+      'b',
+      'p',
+      'div',
+      'strong',
+      'em',
+      'i',
+      'u',
+      'ul',
+      'ol',
+      'li',
+      'table',
+      'tr',
+      'td',
+      'th',
+      'thead',
+      'tbody',
+      'img',
+      'a',
+      'code',
+      'pre',
+      'blockquote',
+      'hr',
+      'h1',
+      'h4',
+      'h5',
+      'h6',
+    ],
+    ALLOWED_ATTR: ['class', 'alt', 'rel', 'style'],
   });
 
   const formattedContent = sanitizedContent.split('\n').map((line, index) => {
@@ -154,7 +185,7 @@ const TafsirModal = ({ surahId, verseKey, setApiPageToVersesMap }: TafsirModalPr
         <DialogHeader className="space-y-4 md:space-y-6">
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
-        <ScrollArea className="h-[calc(85vh-100px)] w-full rounded-md border p-4 pb-0 sm:p-6 sm:pb-0">
+        <ScrollArea className="h-[calc(85vh-100px)] w-full rounded-md  p-4 pb-0 sm:p-6 sm:pb-0">
           {isLoading ? (
             <TafsirSkeleton />
           ) : (
@@ -172,7 +203,7 @@ const TafsirModal = ({ surahId, verseKey, setApiPageToVersesMap }: TafsirModalPr
                 {currentVerse?.combinedTafseer?.map(tafseer => {
                   return (
                     <div key={tafseer.info?.author_name} className="space-y-3">
-                      <p className="text-xs text-neutral-500">{tafseer.info?.author_name}</p>
+                      <p className="text-xs text-neutral-500">{tafseer.info?.name}</p>
                       <div className="space-y-4">
                         {isNumericString(tafseer.text) ? (
                           (() => {

@@ -23,7 +23,7 @@ export async function generateMetadata({
 }
 
 const fetchTranslations = async (): Promise<TranslationItem[]> => {
-  const data = await fetcher<TranslationResponse>('/quran/translations/');
+  const data = await fetcher<TranslationResponse>('/quran/translations/?limit=500');
   return data.results;
 };
 
