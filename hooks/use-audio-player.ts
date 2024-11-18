@@ -34,6 +34,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
     const audioRef = useRef<HTMLAudioElement>(null);
     const timestampMap = useRef<Map<string, number>>(new Map());
     const isUserPaused = useRef<boolean>(false);
+    const hasInitialized = useRef<boolean>(false);
 
     const {
         audioUrl,
@@ -44,6 +45,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
         currentVerse,
         setCurrentVerse,
         setAudioPlaying,
+        highlightedVerse
     } = useQuranReader();
 
     const play = useCallback(() => {
@@ -125,7 +127,7 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
     }, [audioData]);
 
     useEffect(() => {
-        if (currentVerse) {
+        if (hasInitialized.current && currentVerse) {
             setTimeByVerse(currentVerse);
         }
     }, [currentVerse, setTimeByVerse]);
@@ -183,14 +185,38 @@ export const useAudioPlayer = (): AudioPlayerState & AudioPlayerActions & { audi
     }, [audioUrl, audioData, setHighlightedVerse, setCurrentVerse]);
 
     useEffect(() => {
-        if (audioId && showAudioPlayer && audioUrl) {
-            const audio = audioRef.current;
-            if (audio && !state.isLoading) {
+        if (!audioId || !showAudioPlayer || !audioUrl) return;
+
+        const audio = audioRef.current;
+        if (!audio || state.isLoading) return;
+
+        if (audio.src !== audioUrl) {
+            hasInitialized.current = false;
+        }
+
+        if (!hasInitialized.current) {
+            hasInitialized.current = true;
+
+            const targetVerse = currentVerse || highlightedVerse;
+            if (targetVerse && timestampMap.current.has(targetVerse)) {
+                const timestamp = timestampMap.current.get(targetVerse);
+                if (timestamp !== undefined) {
+                    audio.currentTime = timestamp;
+                    setState(prev => ({ ...prev, currentTime: timestamp }));
+                }
+            }
+
+            if (!isUserPaused.current) {
                 play();
             }
         }
     }, [audioId, play, showAudioPlayer, audioUrl, state.isLoading]);
 
+    useEffect(() => {
+        return () => {
+            hasInitialized.current = false;
+        };
+    }, [audioUrl]);
     return {
         ...state,
         audioRef,
