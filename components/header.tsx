@@ -11,7 +11,7 @@ export const fetchWbwAndTranslations = async (): Promise<{
   translations: TranslationItem[];
 }> => {
   const [wbwResponse, translationsResponse] = await Promise.all([
-    fetcher<WbwResponse>('/quran/wbws/'),
+    fetcher<WbwResponse>('/quran/wbws/?limit=500'),
     fetcher<TranslationResponse>('/quran/translations/?limit=500'),
   ]);
 

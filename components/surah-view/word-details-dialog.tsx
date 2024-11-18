@@ -30,7 +30,7 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
             {text_uthmani}
           </div>
 
-          <div className="text-lg font-bold md:text-xl">{translation}</div>
+          <div className="text-lg font-medium md:text-xl">{translation}</div>
 
           <div className="mt-2 flex w-full  gap-6">
             {lemma && (

@@ -23,7 +23,10 @@ const AudioRecitersSelection = () => {
   const { reciterId, setReciterId } = useReciterStore();
   const [open, setOpen] = useState(false);
 
-  const { data, error, isLoading } = useSWRImmutable<RecitersResponse>('/quran/audios/', fetcher);
+  const { data, error, isLoading } = useSWRImmutable<RecitersResponse>(
+    '/quran/audios/?limit=500',
+    fetcher
+  );
 
   if (error) {
     return (
