@@ -43,7 +43,7 @@ const QuizIntroCard = ({
         {unauthenticated ? (
           <Link href="/signin">
             <Button className="w-full rounded-full bg-brown-600 text-white hover:bg-brown-500">
-              Sign in to Start Quiz
+              {t('signInToStartQuiz')}
             </Button>
           </Link>
         ) : (

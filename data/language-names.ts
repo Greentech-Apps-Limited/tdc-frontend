@@ -10,6 +10,8 @@ export const LANGUAGE_NAMES = {
     hi: 'Hindi',
     hr: 'Croatian',
     id: 'Indonesian',
+    ind: 'Indonesian',
+    in: 'Indonesian',
     it: 'Italian',
     ms: 'Malay',
     pt: 'Portuguese',

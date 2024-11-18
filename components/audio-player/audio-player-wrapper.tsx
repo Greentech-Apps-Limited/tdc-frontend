@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import AudioPlayerSkeleton from '../skeleton-loaders/audio-player-skeleton';
 import useReciterStore from '@/stores/reciter-store';
-import useSWR from 'swr';
 import { AudioFile } from '@/lib/types/audio';
 import { fetcher } from '@/services/api';
 
@@ -25,35 +24,41 @@ const AudioPlayerWrapper = () => {
     setAudioUrl,
     setHighlightedVerse,
     setAudioPlaying,
+    setCurrentVerse,
   } = useQuranReader();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
-  const { data, error, isLoading } = useSWR<AudioFile>(
-    audioId ? `/quran/audios/${reciterId}/?chapter=${audioId}` : null,
-    fetcher,
-    {
-      shouldRetryOnError: false,
-      revalidateOnFocus: false,
-    }
-  );
-
-  // Handle data updates using useEffect instead of onSuccess
   useEffect(() => {
-    if (data && audioId) {
-      setAudioData(data);
-      setAudioUrl(
-        `${process.env.NEXT_PUBLIC_AUDIO_URL}/${data.path}/${audioId.toString().padStart(3, '0')}.mp3`
-      );
-    }
-  }, [data, setAudioData, setAudioUrl]);
+    const fetchAudioData = async () => {
+      if (!audioId) return;
 
-  // Handle errors using useEffect
-  useEffect(() => {
-    if (error) {
-      console.error('Error fetching audio data:', error);
-      setAudioData(null);
-      setAudioUrl('');
+      setIsLoading(true);
+
+      try {
+        const url = `/quran/audios/${reciterId}/?chapter=${audioId}`;
+        const response = await fetcher<AudioFile>(url);
+
+        if (response && audioId) {
+          setAudioData(response);
+          setAudioUrl(
+            `${process.env.NEXT_PUBLIC_AUDIO_URL}/${response.path}/${audioId.toString().padStart(3, '0')}.mp3`
+          );
+        }
+      } catch (err) {
+        console.error('Error fetching audio data:', err);
+        setError(true);
+        setAudioData(null);
+        setAudioUrl('');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (audioId) {
+      fetchAudioData();
     }
-  }, [error, setAudioData, setAudioUrl]);
+  }, [audioId, reciterId]);
 
   const handleClose = () => {
     setShowAudioPlayer(false);
@@ -62,6 +67,7 @@ const AudioPlayerWrapper = () => {
     setAudioData(null);
     setHighlightedVerse(null);
     setAudioPlaying(false);
+    setCurrentVerse(null);
   };
 
   if (!showAudioPlayer) {

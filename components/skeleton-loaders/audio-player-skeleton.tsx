@@ -35,21 +35,19 @@ const AudioProgressSkeleton = () => {
 
 const AudioPlayerSkeleton = () => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 mx-auto p-4 md:absolute md:bottom-auto md:left-auto md:right-auto md:p-6">
-      <div className="relative w-full space-y-4 rounded-xl border border-neutral-300 bg-neutral p-4 shadow md:w-96 md:space-y-6">
-        <div className="flex justify-between">
-          <div>
-            <Skeleton className="mb-2 h-6 w-32" />
-            <div className="flex w-full items-center justify-start gap-1">
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-8 w-52 rounded-full" />
-            </div>
+    <div className="relative w-full space-y-4 rounded-xl border border-neutral-300 bg-neutral p-4 shadow md:w-96 md:space-y-6">
+      <div className="flex justify-between">
+        <div>
+          <Skeleton className="mb-2 h-6 w-32" />
+          <div className="flex w-full items-center justify-start gap-1">
+            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-8 w-52 rounded-full" />
           </div>
-          <Skeleton className="absolute right-2 top-2 h-8 w-8" />
         </div>
-        <AudioProgressSkeleton />
-        <AudioControlsSkeleton />
+        <Skeleton className="absolute right-2 top-2 h-8 w-8" />
       </div>
+      <AudioProgressSkeleton />
+      <AudioControlsSkeleton />
     </div>
   );
 };

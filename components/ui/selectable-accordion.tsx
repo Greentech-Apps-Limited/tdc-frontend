@@ -75,7 +75,9 @@ function SelectableAccordion<T>({
 
     return items.reduce(
       (groups, item) => {
-        const groupKey = String(item[props.groupBy]);
+        const langCode = String(item[props.groupBy]);
+        const groupKey = props.renderGroupTitle?.(langCode) || langCode;
+
         if (!groups[groupKey]) {
           groups[groupKey] = [];
         }
@@ -90,12 +92,8 @@ function SelectableAccordion<T>({
   const sortedGroups = useMemo(() => {
     if (!props.isGrouped || !groupedItems) return null;
 
-    return Object.keys(groupedItems).sort((a, b) => {
-      const titleA = props.renderGroupTitle?.(a) || a;
-      const titleB = props.renderGroupTitle?.(b) || b;
-      return titleA.localeCompare(titleB);
-    });
-  }, [groupedItems, props]);
+    return Object.keys(groupedItems).sort((a, b) => a.localeCompare(b));
+  }, [groupedItems]);
 
   const selectionText = useMemo(() => {
     if (isMultiple) {
