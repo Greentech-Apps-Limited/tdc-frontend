@@ -213,7 +213,8 @@
     "title": "Quranic Quiz",
     "description": "Embark on a journey of Quranic discovery! Test your knowledge with our quiz and deepen your understanding of the divine verbs found in the Quran.",
     "playNow": "Play Now",
-    "viewLeaderBoard": "View Leader Board"
+    "viewLeaderBoard": "View Leader Board",
+    "signInToStartQuiz": "Sign in to Start Quiz"
   },
   "Scoreboard": {
     "title": "Scoreboard",
