@@ -1,5 +1,6 @@
 export type PlayerData = {
     account: {
+        email: string;
         name: string;
         url: string;
     };
@@ -18,6 +19,7 @@ export type PlayerResponse = {
 
 export type UserRankData = {
     account: {
+        email: string;
         name: string;
         url: string;
     };
