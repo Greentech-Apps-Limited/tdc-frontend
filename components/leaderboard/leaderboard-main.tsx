@@ -68,7 +68,7 @@ export default function EnhancedLeaderboard() {
 
     return leaderboardData.results.map(player => ({
       rank: player.rank,
-      name: player.account.name || t('anonymous'),
+      name: player.account.name || player.account.email.split('@')[0] || t('anonymous'),
       points: player.points,
       isCurrentUser: isAuthenticated && userRankData?.account.url === player.account.url,
     }));

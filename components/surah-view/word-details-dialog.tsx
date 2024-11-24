@@ -34,17 +34,23 @@ const WordDetailsDialog = ({ word }: { word: QuranWord }) => {
 
           <div className="mt-2 flex w-full  gap-6">
             {lemma && (
-              <div className="w-full rounded-lg bg-neutral-50 p-2">
+              <div className="w-full rounded-lg bg-neutral-50 p-2 text-center">
                 <div className="text-xs text-neutral-500">Lemma</div>
-                <div style={{ fontFamily: `var(--font-${arabicFont})` }} className={`text-2xl`}>
+                <div
+                  style={{ fontFamily: `var(--font-${arabicFont})`, lineHeight: '1.85em' }}
+                  className={`text-2xl`}
+                >
                   {lemma}
                 </div>
               </div>
             )}
             {root && (
-              <div className="w-full rounded-lg bg-neutral-50 p-2">
+              <div className="w-full rounded-lg bg-neutral-50 p-2 text-center">
                 <div className="text-xs text-neutral-500">Root</div>
-                <div style={{ fontFamily: `var(--font-${arabicFont})` }} className={`text-2xl`}>
+                <div
+                  style={{ fontFamily: `var(--font-${arabicFont})`, lineHeight: '1.85em' }}
+                  className={`text-2xl`}
+                >
                   {root}
                 </div>
               </div>
